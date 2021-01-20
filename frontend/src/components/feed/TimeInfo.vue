@@ -3,7 +3,7 @@
     class="mx-5"
     flat
   >
-    <v-card-subtitle 
+    <v-card-subtitle
       class="ma-0 pa-0 text-caption"
       style="text-align: right;"
       

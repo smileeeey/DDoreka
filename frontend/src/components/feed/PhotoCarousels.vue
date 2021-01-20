@@ -9,7 +9,7 @@
       v-if="items.length == 1"
       :src="items[0]"
       height="230"
-     />
+    />
     <v-carousel 
       v-else
       :show-arrows="false"
@@ -56,7 +56,6 @@ export default {
     }
   }
 }
-     
 </script>
 
 <style>
