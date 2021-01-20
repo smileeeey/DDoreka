@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h1>Main</h1>
+    <Feed />
+    <Feed />
+    <Feed />
   </div>
 </template>
 
 <script>
+import Feed from '../components/feed/Feed.vue'
 export default {
   name: 'Main',
   components: {
+    Feed
 
   }
 }
