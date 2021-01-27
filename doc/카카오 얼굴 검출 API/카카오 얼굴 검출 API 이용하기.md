@@ -1,4 +1,4 @@
-# 카카오 얼굴 검출 API 이용하기
+# 카카오 API 이용하기
 
 > developers.kakao.com의 API 를 이용하여 image를 전송하고 이에 따른 정보를 REST API 방식으로 정보를 얻는다.
 
@@ -69,7 +69,31 @@ example)
 
 #### Step 3. 이 정보들을 이용하여 image를 가공한다.
 
-* example) 얼굴모양 모자이크 처리
+* 얼굴모양 모자이크 처리
+
+  ![](mosaic.png)
+
+* 입술을 따라 point 찍기
+
+  ![](lips.png)
+
+
+
+
+
+#### Step 4. 응용
+
+> face detect api 이외에 Object Detect와 Multi Tag api를 사용해 본다.
+
+
+
+* Object detection api
+
+  ![](object.png)
+
+* multi tag api
+
+  ![](multitag.png)
 
 
 
