@@ -1,18 +1,16 @@
 <template>
   <div>
-    <Feed />
-    <Feed />
-    <Feed />
+    <h2>This is Main Page</h2>
   </div>
 </template>
 
 <script>
-import Feed from '../components/feed/Feed.vue'
+// @ is an alias to /src
+
 export default {
   name: 'Main',
   components: {
-    Feed
-
+    
   }
 }
 </script>
