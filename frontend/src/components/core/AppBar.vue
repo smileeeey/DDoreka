@@ -2,22 +2,15 @@
   <v-card
     class="mx-auto"
     width="100%"
+    style="display: flex; flex-direction:column; justify-content: center; align-items: center; min-width: 1300px;"
     flat
   >
     <!-- status bar -->
-    <v-card-text
-      style="text-align: right; color: black; background-color: #ECECEC"
-      class="pa-2"
-    >
-      <a href="#" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
-      <a href="#" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
-      <a href="#" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터</a>
-    </v-card-text>
-
+    <StatusBar />
     <!-- main appbar -->
     <v-card-text
       class="pa-0"
-      style="display: flex;"
+      style="display: flex; width: 75%;"
     >
       <!-- Categories -->
       <Categories />
@@ -40,12 +33,21 @@
 <script>
 import Categories from './AppBar/Categories.vue'
 import SearchBar from './AppBar/SearchBar.vue'
+import StatusBar from './AppBar/StatusBar.vue'
 export default {
   name: 'AppBar',
   components: {
     Categories,
     SearchBar,
+    StatusBar,
   },
+  data: () => ({
+    items: [
+      { title: 'Click Me' },
+      { title: 'Click Me2' },
+      { title: 'Click Me3' },
+    ],
+  }),
 }
 </script>
 

@@ -5,8 +5,7 @@
       :items="items"
       solo
       flat
-      
-      style="max-width: 130px"
+      style="width: 130px"
     ></v-select>
 
     <v-text-field
