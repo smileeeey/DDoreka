@@ -28,7 +28,7 @@
       <SearchBar class="my-auto" />
 
       <!-- icon -->
-      <AppBarIcons />
+      <AppBarIcons style="z-index: 0;" />
       
     </v-card-text>
   </v-card>
