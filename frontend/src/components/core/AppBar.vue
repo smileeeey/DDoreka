@@ -10,7 +10,7 @@
     <!-- main appbar -->
     <v-card-text
       class="pa-0"
-      style="display: flex; width: 75%;"
+      style="display: flex; justify-content: space-between; width: 75%;"
     >
       <!-- Categories -->
       <Categories />
@@ -18,7 +18,7 @@
       <!-- logo(temporary) -->
       <v-img
         src="@/assets/temporary_logo.png"
-        class="my-auto mx-5"
+        class="my-auto"
         max-height="80"
         max-width="187"
       >
@@ -26,11 +26,16 @@
 
       <!-- SearchBar -->
       <SearchBar class="my-auto" />
+
+      <!-- icon -->
+      <AppBarIcons />
+      
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import AppBarIcons from './AppBar/AppBarIcons.vue'
 import Categories from './AppBar/Categories.vue'
 import SearchBar from './AppBar/SearchBar.vue'
 import StatusBar from './AppBar/StatusBar.vue'
@@ -40,14 +45,9 @@ export default {
     Categories,
     SearchBar,
     StatusBar,
+    AppBarIcons,
   },
-  data: () => ({
-    items: [
-      { title: 'Click Me' },
-      { title: 'Click Me2' },
-      { title: 'Click Me3' },
-    ],
-  }),
+  
 }
 </script>
 
