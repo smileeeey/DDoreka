@@ -55,7 +55,7 @@ const routes = [
             name: 'UserModify',
             component: () => import('../views/mypage/UserModify.vue')
           },
-       ]
+        ]
       },
 
       {
