@@ -14,7 +14,7 @@
       clearable
       solo
       flat
-      style="width: 280px"
+      style="width: 580px"
     ></v-text-field>
     <v-icon large color="blue">
       mdi-magnify

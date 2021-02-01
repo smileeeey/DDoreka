@@ -2,16 +2,18 @@
   <v-card
     class="mx-auto"
     width="100%"
-    style="display: flex; flex-direction:column; align-items: center; min-width: 50%;"
+    style="display: flex; flex-direction:column; align-items: center; min-width: 75%;"
     flat
   >
     <!-- status bar -->
     <StatusBar />
     <!-- main appbar -->
+
     <v-card-text
       class="pa-0"
-      style="display: flex; justify-content: space-between; width: 50%;"
+      style="display: flex; justify-content: space-between; width: 75%;"
     >
+    <div style="display: flex">
       <!-- Categories -->
       <Categories />
 
@@ -21,14 +23,15 @@
         style="cursor: pointer"
         src="@/assets/eureka_logo(blank).png"
         class="my-auto"
-        height="100"
-        width="215"
-        
+        max-height="120"
+        max-width="400"
+
       >
       </v-img>
 
       <!-- SearchBar -->
       <SearchBar class="my-auto" />
+    </div>
 
       <!-- icon -->
       <AppBarIcons style="z-index: 0;" />

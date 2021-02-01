@@ -2,7 +2,7 @@
   <div style="width: 100%;" @mouseleave="CScenter=false">
     <div style="width: 100%; background-color: #ECECEC; display: flex; justify-content: center;">
       <v-card-text
-        style="text-align: right; color: black; width: 50%;"
+        style="text-align: right; color: black; width: 75%;"
         class="pa-2"
       >
         <div>
