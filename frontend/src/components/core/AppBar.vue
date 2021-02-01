@@ -2,7 +2,7 @@
   <v-card
     class="mx-auto"
     width="100%"
-    style="display: flex; flex-direction:column; justify-content: center; align-items: center; min-width: 1300px;"
+    style="display: flex; flex-direction:column; align-items: center; min-width: 50%;"
     flat
   >
     <!-- status bar -->
@@ -17,10 +17,11 @@
 
       <!-- logo(temporary) -->
       <v-img
-        src="@/assets/temporary_logo.png"
-        class="my-auto mx-2"
-        height="80"
-        width="187"
+        src="@/assets/eureka_logo(blank).png"
+        class="my-auto"
+        height="100"
+        width="215"
+        
       >
       </v-img>
 

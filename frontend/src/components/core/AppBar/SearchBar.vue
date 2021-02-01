@@ -5,7 +5,7 @@
       :items="items"
       solo
       flat
-      style="width: 170px"
+      style="width: 130px"
     ></v-select>
 
     <v-text-field
@@ -14,7 +14,7 @@
       clearable
       solo
       flat
-      style="min-width: 300px"
+      style="width: 280px"
     ></v-text-field>
     <v-icon large color="blue">
       mdi-magnify
