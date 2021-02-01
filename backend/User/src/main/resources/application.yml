@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: User
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/eurekauser?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: ssafy
+    password: ssafy
+    jpa:
+      hibernate:
+        ddl-auto: update #운영시에는 validate 추천s
+      show-sql: true
+    driver-class-name: com.mysql.jdbc.Driver
+  # JWT Secret Key
+  jwt:
+    secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
+  #Redis
+  cache:
+    type: redis
+  redis:
+    host: 127.0.0.1
+    timeout: 0
+
+
+
+
+
