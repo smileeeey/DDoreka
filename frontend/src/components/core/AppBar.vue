@@ -34,7 +34,7 @@
     </div>
 
       <!-- icon -->
-      <AppBarIcons style="z-index: 0;" />
+      <AppBarIcons style="z-index: 1;" />
       
     </v-card-text>
   </v-card>
