@@ -14,20 +14,38 @@ public class ProductService {
     private ProductRepository repository;
 
     //카테고리별로 상품 정보 가져오기
-    public List<Product> getProductsByCategory3(String id){
-        return repository.findByCategory3(id);
-    }
-    public List<Product> getProductsByCategory4(String id){
-        return repository.findByCategory4(id);
-    }
-    public List<Product> getProductsByCategory5(String id){
-        return repository.findByCategory5(id);
+    public List<Product> getProductsByCategory(String id, int depth){
+        switch(depth){
+            case 3:
+                return repository.findByCategory3(id);
+            case 4:
+                return repository.findByCategory4(id);
+            case 5:
+                return repository.findByCategory5(id);
+        }
+        return null;
     }
 
     //상품 상세정보 가져오기
     public Product getProductById(int id) {
         return repository.findById(id).orElse(null);
     }
+
+    // 키워드로 상품 검색
+    public List<Product> getProductsByName(String categoryId,String keyword){
+
+        //상품 전체에서 키워드로 상품 검색
+        if(categoryId.equals("ALL"))
+            return repository.findByName(keyword);
+
+        //depth=1인 카테고리 안에서 키워드로 상품 검색
+        else
+            return repository.findByCategory1AndNameLike(categoryId,keyword);
+    }
+
+    //상품 id로 상세정보 가져오기
+    public List<>
+
 
     //상품 정보 입력하기
     public Product saveProduct(Product product){

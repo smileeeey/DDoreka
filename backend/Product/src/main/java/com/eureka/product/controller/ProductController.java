@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,21 +20,19 @@ public class ProductController {
     }
 
     // 카테고리 선택 시 상품 list 가져오기
-    @GetMapping
+    @GetMapping("/findByCategory")
     public List<Product> findByCategory(String categoryId, int depth){
-        switch(depth){
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-        }
+        return service.getProductsByCategory(categoryId,depth);
     }
 
     // 상품 검색 시 상품 list 가져오기
+    @GetMapping("/search")
+    public List<Product> findBySearch(String categoryId, String keyword){
+        return service.getProductsByName(categoryId,keyword);
+    }
 
     // 상품 상세 정보 가져오기
+
 
     ////////// 추천 상품 가져오기
 
