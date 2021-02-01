@@ -17,6 +17,8 @@
 
       <!-- logo(temporary) -->
       <v-img
+        @click="$router.push({ name: 'Main' })"
+        style="cursor: pointer"
         src="@/assets/eureka_logo(blank).png"
         class="my-auto"
         height="100"

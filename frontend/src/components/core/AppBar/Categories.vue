@@ -30,12 +30,22 @@
           v-show="SubShow" @mouseleave="SubShow=false"
         >
           <div v-if="selectedItem > -1">
-            <div v-for="(subitem, idx) in items[selectedItem].subtext" :key="idx" @mouseover="selectedSubitem=idx">
+            <div v-for="(subitem, idx) in items[selectedItem].subtext" :key="idx" @mouseover="selectedSubitem=idx; ContentShow=true">
               <ul style="padding-left: 0px;" class="my-2">
                 <p style="font-size: 15px; color: black; margin-left: 10px;" :class="{ select: idx === selectedSubitem }">{{subitem.subtitle}}</p>
               </ul>
             </div>
+
+          <div v-if="selectedSubitem > -1" style="position: absolute; top: -1px; left: 148px; width: 251px; height: 400px; border: 1px solid gray;">
+            <div v-for="(content, idx) in items[selectedItem].subtext[selectedSubitem].contents" :key="idx" @mouseover="selectedContent=idx">
+              <ul style="padding-left: 0px;" class="my-2">
+                <!-- <p>{{content}}</p> -->
+                <p style="font-size: 15px; color: black; margin-left: 10px;" :class="{ select: idx === selectedContent }">{{content}}</p>
+              </ul>
+            </div>
           </div>
+          </div>
+
         </div>
           
       </div>
@@ -49,7 +59,9 @@ export default {
   data: () => ({
       selectedItem: -1,
       selectedSubitem: -1,
+      selectedContent: -1,
       SubShow: false,
+      ContentShow: false,
       CategoriesShow: false,
       selectedItemStatus: false,
       items: [
