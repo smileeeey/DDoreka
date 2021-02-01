@@ -10,7 +10,7 @@
     <!-- main appbar -->
     <v-card-text
       class="pa-0"
-      style="display: flex; justify-content: space-between; width: 75%;"
+      style="display: flex; justify-content: space-between; width: 50%;"
     >
       <!-- Categories -->
       <Categories />
@@ -18,9 +18,9 @@
       <!-- logo(temporary) -->
       <v-img
         src="@/assets/temporary_logo.png"
-        class="my-auto"
-        max-height="80"
-        max-width="187"
+        class="my-auto mx-2"
+        height="80"
+        width="187"
       >
       </v-img>
 

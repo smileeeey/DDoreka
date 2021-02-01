@@ -1,36 +1,38 @@
 <template>
-  <div style="width: 100%;">
+  <div style="width: 100%;" @mouseleave="CScenter=false">
     <div style="width: 100%; background-color: #ECECEC; display: flex; justify-content: center;">
       <v-card-text
-        style="text-align: right; color: black; width: 75%;"
+        style="text-align: right; color: black; width: 50%;"
         class="pa-2"
       >
         <div>
           <a href="/login" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
           <a href="/signup" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
           <a @mouseover="CScenter=true"
-            href="/mypage" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터</a>
+            href="/mypage" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터
+            <v-card
+              class="mx-auto"
+              width="150"
+              tile
+              style="position: absolute; right: 25%; z-index: 1;"
+              
+              v-show="CScenter"
+            >
+              <v-list-item v-for="(item, idx) in items" :key="idx">
+                <v-list-item-content>
+                  <v-list-item-title v-text="item"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+            </v-card>
+          </a>
           
         </div>
       </v-card-text>
     </div>
     <div>
 
-      <v-card
-        class="mx-auto"
-        width="150"
-        tile
-        style="position: absolute; right: 140px; z-index: 1;"
-        @mouseleave="CScenter=false"
-        v-show="CScenter"
-      >
-        <v-list-item v-for="(item, idx) in items" :key="idx">
-          <v-list-item-content>
-            <v-list-item-title v-text="item"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-      </v-card>
+      
     </div>
   </div>
 </template>

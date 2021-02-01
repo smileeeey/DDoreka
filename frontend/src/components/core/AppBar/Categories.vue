@@ -1,8 +1,8 @@
 <template>
   <v-sheet
     color="blue"
-    height="120"
-    width="120"
+    min-height="120"
+    min-width="120"
     style="color: white; display: flex; 
     justify-content:center; align-items: center; 
     flex-direction: column;"
