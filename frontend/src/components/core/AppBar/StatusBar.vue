@@ -15,7 +15,6 @@
               width="150"
               tile
               style="position: absolute; right: 25%; z-index: 1;"
-              
               v-show="CScenter"
             >
               <v-list-item v-for="(item, idx) in items" :key="idx">
