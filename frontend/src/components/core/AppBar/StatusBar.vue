@@ -8,26 +8,7 @@
         <div>
           <a @click="$router.push({ name: 'Login' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
           <a @click="$router.push({ name: 'Signup' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
-          <a @mouseover="CScenter=true" @click="$router.push({ name: 'Mypage' })"
-            class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터
-            <div style="position: relative; display: none;">
-              <v-card
-                class="mx-auto"
-                width="150"
-                tile
-                style="position: absolute; right: 0px; z-index: 3;"
-                v-show="CScenter"
-              >
-                <v-list-item v-for="(item, idx) in items" :key="idx">
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item"></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-              </v-card>
-            </div>
-          </a>
-          
+          <a @click="$router.push({ name: 'Mypage' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터</a>
         </div>
       </v-card-text>
     </div>
