@@ -14,7 +14,7 @@
       </v-icon>
       <span>카테고리</span>
     </v-sheet>
-    <div style="position: relative; z-index: 1" v-show="CategoriesShow" @mouseleave="CategoriesShow=false; SubShow=false;">
+    <div style="position: relative; z-index: 1;" v-show="CategoriesShow" @mouseleave="CategoriesShow=false; SubShow=false;">
       <div
         class="mx-auto"
         style="position: absolute; top: 0px; width: 150px; height: 400px; border: 1px solid gray; background-color: white;"
