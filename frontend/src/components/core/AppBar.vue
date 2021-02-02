@@ -2,7 +2,7 @@
   <v-card
     class="mx-auto"
     width="100%"
-    style="display: flex; flex-direction:column; align-items: center; min-width: 75%;"
+    style="display: flex; flex-direction: column; align-items: center; min-width: 75%;"
     flat
   >
     <!-- status bar -->
@@ -11,32 +11,39 @@
 
     <v-card-text
       class="pa-0"
-      style="display: flex; justify-content: space-between; width: 75%;"
+      style="display: flex; justify-content: center; align-items: center; width: 75%;"
     >
-    <div style="display: flex">
-      <!-- Categories -->
-      <Categories />
+    <v-row style="width: 100%;">
+      <v-col cols="4">
+        <div style="display: flex;">
+          <!-- Categories -->
+          <Categories />
 
-      <!-- logo(temporary) -->
-      <v-img
-        @click="$router.push({ name: 'Main' })"
-        style="cursor: pointer"
-        src="@/assets/eureka_logo(blank).png"
-        class="my-auto"
-        max-height="120"
-        max-width="400"
+          <!-- logo(temporary) -->
+          <v-img
+            @click="$router.push({ name: 'Main' })"
+            style="cursor: pointer"
+            src="@/assets/eureka_logo(blank).png"
+            class="my-auto"
+            max-height="120"
+            max-width="400"
+          >
+          </v-img>
+        </div>
+      </v-col>
+      <v-col cols="6" class="my-auto">
+          <!-- SearchBar -->
+          <SearchBar />
+      </v-col>
 
-      >
-      </v-img>
-
-      <!-- SearchBar -->
-      <SearchBar class="my-auto" />
-    </div>
-
-      <!-- icon -->
-      <AppBarIcons style="z-index: 0;" />
+      <v-col cols="2">
+        <!-- icon -->
+        <AppBarIcons style="z-index: 1;" />
+      </v-col>
+    </v-row>
       
     </v-card-text>
+    
   </v-card>
 </template>
 

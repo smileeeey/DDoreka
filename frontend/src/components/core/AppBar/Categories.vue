@@ -17,7 +17,7 @@
     <div style="position: relative; z-index: 1" v-show="CategoriesShow" @mouseleave="CategoriesShow=false; SubShow=false;">
       <div
         class="mx-auto"
-        style="position: absolute; top: 0px; width: 150px; height: 400px; border: 1px solid gray;"
+        style="position: absolute; top: 0px; width: 150px; height: 400px; border: 1px solid gray; background-color: white;"
       >
         <div>
           <ul v-for="(item, idx) in items" :key="idx" style="padding-left: 0px;" class="my-2" @mouseover="selectedItem=idx; SubShow=true">
@@ -26,7 +26,7 @@
           </ul>
         </div>
 
-        <div style="position: absolute; top: -2px; left: 148px; width: 400px; height: 400px; border: 1px solid gray;" 
+        <div style="position: absolute; top: -2px; left: 148px; width: 400px; height: 400px; border: 1px solid gray; background-color: white;" 
           v-show="SubShow" @mouseleave="SubShow=false"
         >
           <div v-if="selectedItem > -1">

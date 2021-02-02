@@ -6,26 +6,9 @@
         class="pa-2"
       >
         <div>
-          <a href="/login" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
-          <a href="/signup" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
-          <a @mouseover="CScenter=true"
-            href="/mypage" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터
-            <v-card
-              class="mx-auto"
-              width="150"
-              tile
-              style="position: absolute; right: 25%; z-index: 1;"
-              v-show="CScenter"
-            >
-              <v-list-item v-for="(item, idx) in items" :key="idx">
-                <v-list-item-content>
-                  <v-list-item-title v-text="item"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-            </v-card>
-          </a>
-          
+          <a @click="$router.push({ name: 'Login' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
+          <a @click="$router.push({ name: 'Signup' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
+          <a @click="$router.push({ name: 'Mypage' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">고객센터</a>
         </div>
       </v-card-text>
     </div>

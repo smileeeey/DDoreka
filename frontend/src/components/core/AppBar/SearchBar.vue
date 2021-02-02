@@ -1,24 +1,25 @@
 <template>
   <div style="display: flex; border: 3px skyblue solid">
-    <v-select
-      v-model="e1"
-      :items="items"
-      solo
-      flat
-      style="width: 130px"
-    ></v-select>
-
-    <v-text-field
-      
-      placeholder="찾고 싶은 상품을 검색해보세요!"
-      clearable
-      solo
-      flat
-      style="width: 580px"
-    ></v-text-field>
-    <v-icon large color="blue">
-      mdi-magnify
-    </v-icon>
+    <v-row>
+      <v-col cols="3">
+        <v-select
+          v-model="e1"
+          :items="items"
+          solo
+          flat
+          
+        ></v-select>
+      </v-col>
+      <v-col cols="9">
+        <v-text-field
+          placeholder="찾고 싶은 상품을 검색해보세요!"
+          clearable
+          solo
+          flat
+          append-icon="mdi-magnify"
+        ></v-text-field>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -39,5 +40,9 @@ export default {
 
   >>> .v-input__slot {
     margin: 0;
+  }
+
+  >>> .mdi-magnify {
+    color: #0275d8 !important;
   }
 </style>
