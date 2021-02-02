@@ -1,4 +1,6 @@
 <template>
+<v-app>
+
   <v-form>
     <v-container fluid style="width: 500px;">
       <v-row>
@@ -74,6 +76,7 @@
       </v-row>
     </v-container>
   </v-form>
+</v-app>
 </template>
 
 <script>
@@ -103,10 +106,7 @@ export default {
   }
 
   >>> .v-messages__message {
-    color: red;
+    margin-top: 2px;
   }
 
-  .redline >>> fieldset {
-    border-color: red;
-  }
 </style>
