@@ -39,7 +39,7 @@
     <v-btn style="background-color: #0275d8; color: white; 
       font-size: 1.3rem; font-weight: bold; 
       width: 100%; height: 3rem;"
-      :disabled="!boxAll"
+      :disabled="!boxAll || !enable"
     >
       동의하고 가입하기
     </v-btn>
@@ -71,6 +71,9 @@ export default {
       },
     ]
   }),
+  props: {
+    enable: Boolean,
+  },
   methods: {
     checkedAll() {
       for (let i in this.boxes) {

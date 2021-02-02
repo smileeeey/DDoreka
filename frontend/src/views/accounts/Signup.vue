@@ -83,7 +83,7 @@
         <v-col cols="12">
           <v-divider></v-divider>
         </v-col>
-          <SignupCheckbox />
+          <SignupCheckbox :enable="enable" />
         
 
         <v-col>
@@ -140,6 +140,13 @@ export default {
     },
     passwordConfirmationRule() {
       return () => (this.forms.password === this.rePassword) || '비밀번호가 일치하지 않습니다.'
+    },
+    enable() {
+      if (this.required_name() == true && this.required_phonenumber() == true && this.emailRules() == true && this.passwordConfirmationRule() == true && this.min_pw() == true) {
+        return true
+      } else {
+        return false
+      }
     }
 }
 }

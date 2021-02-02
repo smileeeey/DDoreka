@@ -37,7 +37,7 @@
             required
             prepend-inner-icon="mdi-lock-outline"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required,]"
+            :rules="[rules.required, rules.min]"
             :type="show1 ? 'text' : 'password'"
             label="비밀번호"
             v-model="form.password"
@@ -53,6 +53,7 @@
           <v-btn style="background-color: #0275d8; color: white; 
             font-size: 1.5rem; font-weight: bold; 
             width: 100%; height: 150%;"
+            :disabled="!enable"
           >
             로그인
           </v-btn>
@@ -94,9 +95,18 @@ export default {
       required_id: value => !!value || '아이디(이메일)를 입력해주세요.',
       emailRules: v => /.+@.+\..+/.test(v) || '아이디(이메일)는 이메일 형식으로 입력해주세요.',
       required: value => !!value || '비밀번호를 입력해주세요.',
-      min: v => v.length >= 8 || 'Min 8 characters',
+      min: v => v.length >= 8 || '비밀번호를 8자 이상 작성해주세요.',
     },
   }),
+  computed: {
+    enable () {
+      if (this.rules.emailRules(this.form.id) == true && this.rules.min(this.form.password) == true) {
+        return true
+      } else {
+        return false
+      }
+    }
+  }
 }
 </script>
 
