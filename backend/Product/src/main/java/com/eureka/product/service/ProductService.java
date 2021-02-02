@@ -14,19 +14,19 @@ public class ProductService {
     private ProductRepository repository;
 
     //카테고리별로 상품 정보 가져오기
-    public List<Product> getProductsByCategory(String id, int depth){
+    public List<Product> getProductsByCategory(String categoryId, int depth){
         switch(depth){
             case 3:
-                return repository.findByCategory3(id);
+                return repository.findByCategory3Id(categoryId);
             case 4:
-                return repository.findByCategory4(id);
+                return repository.findByCategory4Id(categoryId);
             case 5:
-                return repository.findByCategory5(id);
+                return repository.findByCategory5Id(categoryId);
         }
         return null;
     }
 
-    //상품 상세정보 가져오기
+    //상품 id로 상세정보 가져오기
     public Product getProductById(int id) {
         return repository.findById(id).orElse(null);
     }
@@ -40,11 +40,11 @@ public class ProductService {
 
         //depth=1인 카테고리 안에서 키워드로 상품 검색
         else
-            return repository.findByCategory1AndNameLike(categoryId,keyword);
+            return repository.findByCategory1IdAndNameLike(categoryId,keyword);
     }
 
-    //상품 id로 상세정보 가져오기
-    public List<>
+
+
 
 
     //상품 정보 입력하기
@@ -63,7 +63,6 @@ public class ProductService {
         existingProduct.setCategory5Id(product.getCategory5Id());
         existingProduct.setRegisterDateTime(product.getRegisterDateTime());
         existingProduct.setUpdateDateTime(product.getUpdateDateTime());
-        existingProduct.setDiscountPrice(product.getDiscountPrice());
         existingProduct.setDetailInfo(product.getDetailInfo());
         return repository.save(existingProduct);
     }

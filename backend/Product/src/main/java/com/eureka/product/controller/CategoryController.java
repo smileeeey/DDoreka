@@ -1,14 +1,38 @@
 package com.eureka.product.controller;
 
-import com.eureka.product.service.Category1Service;
+import com.eureka.product.dto.Category;
+import com.eureka.product.dto.SubCategory;
+import com.eureka.product.repository.CategoryRepository;
+import com.eureka.product.service.CategoryService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
 
-    // main 화면 카테고리 정보 가져오기
+    private final CategoryService service;
 
-    // sub 카테고리들 가져오기
+    public CategoryController(CategoryService service){
+        this.service = service;
+    }
+
+    // main 화면 카테고리 정보 가져오기
+    @GetMapping("/mainCategory")
+    public List<Category> findMainCategories(){
+        return service.getMainCategories();
+    }
+
+    // depth=3인 카테고리 id로 하위 카테고리 정보 가져오기
+    @GetMapping("/subCategory/{categoryId}")
+    public List<SubCategory> findSubCategories(@PathVariable String categoryId){
+
+        
+
+        return service.getSubCategories(categoryId);
+    }
 }

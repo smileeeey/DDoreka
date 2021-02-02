@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,7 +26,12 @@ public class Product implements Serializable {
     private String category5Id;
     private String registerDateTime;
     private String updateDateTime;
-    private int discountPrice;
     private String detailInfo;
     private double rating;
+    private int reviewCnt;
+
+    /*@OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private List<ProductOption> options;*/
+
 }
