@@ -1,36 +1,36 @@
 <template>
-  <div>
+  <v-container>
     <v-row>
-      <v-col cols=6>
-        <v-row class="d-flex flex-column">
-          <v-col cols="2">
-            {{category.name}}
-          </v-col>
-          <DetailBigItem :bigItems="bigItems" />
-        </v-row>
+      <v-col class="pa-0 text-center font-weight-bold" cols=2>{{category.name}}</v-col>
+      <v-col class="pa-0" cols=4>
+        <DetailBigItem :bigItems="bigItems" />
       </v-col>
-      <v-col cols=6>
-        소상품이미지
+      <v-col class="pa-0" cols=6>
+        <DetailSmallItem :smallItems="smallItems" />
       </v-col>
     </v-row>    
-  </div>
+  </v-container>
 </template>
 
 <script>
 import DetailBigItem from './DetailBigItem.vue'
+import DetailSmallItem from './DetailSmallItem.vue'
 export default {
   name: 'CategoryRecommendDetail',
   components: {
     DetailBigItem,
+    DetailSmallItem,
   },
   props: {
     category: Object,
   },
   data: () => ({
     bigItems: [],
+    smallItems: [],
   }),
   created() {
     this.bigItems = this.category.bigItems
+    this.smallItems = this.category.smallItems
   }
 }
 </script>

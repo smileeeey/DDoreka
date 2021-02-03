@@ -5,36 +5,31 @@
     hide-delimiter-background
     show-arrows-on-hover
   >
+    <!-- smallItem 6개가 한 슬라이드에 들어 오도록 구성해야한다. -->
     <v-carousel-item
-      v-for="(bigItem, idx) in bigItems"
-      :key="idx"
+      v-for="(slide, i) in slides"
+      :key="i"
     >
       <v-sheet
-        color="black"
+        :color="colors[i]"
         height="100%"
-        tile
       >
         <v-row
           class="fill-height"
           align="center"
           justify="center"
         >
-          <v-img
-            :src="bigItem.image"
-            height="100%"
-          >
-          </v-img>
         </v-row>
       </v-sheet>
     </v-carousel-item>
-  </v-carousel>
+  </v-carousel>  
 </template>
 
 <script>
 export default {
-  name: 'DetailBigItem',
+  name: 'DetailSmallItem',
   props: {
-    bigItems: Object,
+    smallItems: Object,
   }
 }
 </script>
