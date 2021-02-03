@@ -20,15 +20,16 @@
           <Categories />
 
           <!-- logo(temporary) -->
-          <v-img
-            @click="$router.push({ name: 'Main' })"
-            style="cursor: pointer"
-            src="@/assets/eureka_logo(blank).png"
-            class="my-auto"
-            max-height="120"
-            max-width="400"
-          >
-          </v-img>
+          <a href="/">
+            <v-img
+              style="cursor: pointer"
+              src="@/assets/eureka_logo(blank).png"
+              class="my-auto"
+              max-height="120"
+              max-width="400"
+            >
+            </v-img>
+          </a>
         </div>
       </v-col>
       <v-col cols="6" class="my-auto">

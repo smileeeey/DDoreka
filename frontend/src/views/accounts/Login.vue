@@ -54,6 +54,7 @@
             font-size: 1.5rem; font-weight: bold; 
             width: 100%; height: 150%;"
             :disabled="!enable"
+            @click="login"
           >
             로그인
           </v-btn>
@@ -105,6 +106,13 @@ export default {
       } else {
         return false
       }
+    }
+  },
+  methods: {
+    login() {
+      localStorage.setItem('jwt', 'token');
+      this.$store.dispatch("LOGIN")
+      this.$router.push({ name: 'Main' });
     }
   }
 }

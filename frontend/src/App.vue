@@ -14,5 +14,11 @@ export default {
   data: () => ({
     //
   }),
+  created: function () {
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      this.$store.dispatch('LOGIN')
+    }
+  }
 };
 </script>
