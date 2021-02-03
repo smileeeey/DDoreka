@@ -1,16 +1,26 @@
 package com.eureka.user.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.eureka.user.services.JwtUtil;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
+@RequestMapping(value = "/cart")
 public class CartController {
 
 
-//    @GetMapping(value = "/")
-//    public String getUsers(){
-//        return "sadfkljasdflakasjdfk";
-//    }
+    private final JwtUtil jwtUtil;
+
+    public CartController(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+
+    @GetMapping(value = "/{key}")
+    public String getUsers(@PathVariable(value = "key") String key){
+        System.out.println(key+"$$$$$$$$$$$$$$$$$$$$$$");
+
+        String userId=jwtUtil.getUsername(key);
+        System.out.println(userId);
+        return "";
+    }
 
 }

@@ -1,21 +1,25 @@
 package com.eureka.user.services;
 
-import com.eureka.user.dto.User;
+import com.eureka.user.Entity.UserEntity;
+import com.eureka.user.Entity.UseraddressEntity;
+import com.eureka.user.dto.Request.RequestLoginUser;
 
 import java.util.List;
 
 public interface AuthService {
 
-    public void saveUser(User user) throws Exception;
+    public void saveUser(UserEntity user) throws Exception;
 
 
-    public List<User> getUsers ();
+    public List<UserEntity> getUsers ();
 
-    public User getUser (String userEmail, String pw) throws Exception;
+    public UserEntity getUser (String userEmail, String pw) throws Exception;
 
-    public void updateUser(User user);
+    public void updateUser(UserEntity user);
 
-    public void deleteUser(User user);
+    public void deleteUser(UserEntity user);
 
     boolean isPasswordUuidValidate(String key);
+
+
 }

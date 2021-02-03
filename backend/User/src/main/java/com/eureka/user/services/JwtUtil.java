@@ -1,7 +1,7 @@
 package com.eureka.user.services;
 
 
-import com.eureka.user.dto.User;
+import com.eureka.user.Entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -54,11 +54,11 @@ public class JwtUtil {
 
 
 
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(UserEntity user) {
         return doGenerateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
-    public String generateToken(User user) {
+    public String generateToken(UserEntity user) {
         return doGenerateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
     }
 
@@ -66,7 +66,7 @@ public class JwtUtil {
 
         Claims claims = Jwts.claims();
         claims.put("userEmail", userEmail);
-
+        System.out.println(System.currentTimeMillis() + expireTime);
         String jwt = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))

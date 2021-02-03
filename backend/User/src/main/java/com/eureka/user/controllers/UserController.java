@@ -1,8 +1,9 @@
 package com.eureka.user.controllers;
 
+import com.eureka.user.Entity.UseraddressEntity;
 import com.eureka.user.dto.Request.RequestLoginUser;
 import com.eureka.user.dto.Response;
-import com.eureka.user.dto.User;
+import com.eureka.user.Entity.UserEntity;
 import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CookieUtil;
 import com.eureka.user.services.JwtUtil;
@@ -30,12 +31,13 @@ public class UserController {
         this.authService = authService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
-
         this.redisUtil = redisUtil;
     }
 
+
+
     @PostMapping(value = "/signup")
-    public Response saveUser(@RequestBody User user){
+    public Response saveUser(@RequestBody UserEntity user){
         try{
             authService.saveUser(user);
             return new Response("success","회원가입을 성공적으로 완료했습니다.",null);
@@ -48,7 +50,7 @@ public class UserController {
     @PostMapping(value = "/login")
     public Response login(@RequestBody RequestLoginUser loginUser, HttpServletRequest req, HttpServletResponse res){
         try{
-            final User user =authService.getUser(loginUser.getEmail(),loginUser.getPw());
+            final UserEntity user =authService.getUser(loginUser.getEmail(),loginUser.getPw());
             final  String token=jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
@@ -70,11 +72,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/password/{key}")
-    public Response isPasswordUUIdValidate(@PathVariable String key) {
+    @GetMapping("/password")
+    public Response isPasswordUUIdValidate(@RequestHeader(value = "Authorization") String header) {
+        System.out.println("isPasswordUUIdValidate- "+header);
         Response response;
         try {
-            if (authService.isPasswordUuidValidate(key))
+            if (authService.isPasswordUuidValidate(header))
                 response = new Response("success", "정상적인 접근입니다.", null);
             else
                 response = new Response("error", "유효하지 않은 Key값입니다.", null);
@@ -85,14 +88,9 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/")
-    public List<User> getUsers(){
-        System.out.println("getUsers");
-        return authService.getUsers();
-    }
 
     @PutMapping(value = "/")
-    public void updateUser(@RequestBody User user){
+    public void updateUser(@RequestBody UserEntity user){
         authService.updateUser(user);
     }
 

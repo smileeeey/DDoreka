@@ -30,3 +30,13 @@ spring:
 
 
 
+#server:
+#  servlet:
+#    contextPath:  /auth
+
+
+
+
+
+
+

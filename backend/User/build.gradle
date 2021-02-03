@@ -21,13 +21,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     //implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'mysql:mysql-connector-java'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.27.Final'
+
+
     implementation 'io.jsonwebtoken:jjwt-extensions:0.11.1'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+
+
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-security'
+    compile group: 'org.springframework.security', name: 'spring-security-jwt'
+    compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure'
 
 
     compileOnly 'org.projectlombok:lombok:1.18.16'
@@ -37,10 +44,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4'
-
-
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
-
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
