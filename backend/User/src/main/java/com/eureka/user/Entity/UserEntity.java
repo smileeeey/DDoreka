@@ -1,4 +1,4 @@
-package com.eureka.user.dto;
+package com.eureka.user.Entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

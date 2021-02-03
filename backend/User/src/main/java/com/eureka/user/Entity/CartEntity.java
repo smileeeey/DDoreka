@@ -1,11 +1,11 @@
-package com.eureka.user.dto;
+package com.eureka.user.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "choppingcart")
+@Table(name ="shoppingcart") //무시할것 에러 아님
 public class Cart {
     @Id
     private int id;
