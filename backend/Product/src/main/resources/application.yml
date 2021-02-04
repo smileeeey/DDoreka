@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: wndeowkd
     url: jdbc:mysql://localhost:3306/product?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
+    username: eureka
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
