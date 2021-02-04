@@ -44,7 +44,7 @@ public class SellerController {
         return service.updateSeller(seller);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteSeller/{id}")
     public String deleteSeller(@PathVariable int id){
         return service.deleteSeller(id);
     }
