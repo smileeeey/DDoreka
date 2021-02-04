@@ -25,7 +25,7 @@
         </div>
 
         <div class="box" style="position: absolute; top: -1px; left: 148px; width: 400px; height: 492px; background-color: white;" 
-          v-show="SubShow" @mouseleave="SubShow=false"
+          v-show="SubShow" @mouseleave="SubShow=false; selectedSubitem=-1;"
         >
           <div v-if="selectedItem > -1">
             <div v-for="(subitem, idx) in items[selectedItem].subtext" :key="idx" @mouseover="selectedSubitem=idx; ContentShow=true">
