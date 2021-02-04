@@ -1,6 +1,6 @@
 <template>
   <v-card
-    width="143"
+    width="100%;"
     flat
     class="card-css"
   >
@@ -106,7 +106,7 @@ export default {
 
   a {
     color: black;
-    font-size: 0.75rem;
+    font-size: 1rem;
     text-decoration: none;
   }
 
