@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +18,6 @@ public class Product implements Serializable {
     @GeneratedValue
     private int id;
     private int storeId;
-
     private String name;
     private String category1Id;
     private String category2Id;
@@ -30,8 +30,7 @@ public class Product implements Serializable {
     private double rating;
     private int reviewCnt;
 
-    /*@OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private List<ProductOption> options;*/
+    @OneToMany(mappedBy = "product")
+    private List<ProductOption> options = new ArrayList<>();
 
 }
