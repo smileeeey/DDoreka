@@ -1,10 +1,10 @@
 server:
-  address: localhost
+  address: i4d106.p.ssafy.io
   port: 8077
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ssafy
+    password: wndeowkd
     url: jdbc:mysql://localhost:3306/product?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
   jpa:
