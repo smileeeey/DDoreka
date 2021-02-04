@@ -1,5 +1,5 @@
 <template>
-  <v-carousel cycle>
+  <v-carousel cycle hide-delimiter-background>
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
@@ -16,19 +16,19 @@ export default {
     // items는 추후에 axios요청을 통해 채워 넣을 예정
     items: [
       {
-        src: '@/assets/img/main/topcarousels/sample1.png',
+        src: require('@/assets/img/main/topcarousels/sample1.png'),
       },
       {
-        src: '@/assets/img/main/topcarousels/sample2.png',
+        src: require('@/assets/img/main/topcarousels/sample2.png'),
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        src: require('@/assets/img/main/topcarousels/sample3.png'),
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        src: require('@/assets/img/main/topcarousels/sample4.png'),
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        src: require('@/assets/img/main/topcarousels/sample5.png'),
       },      
     ],    
   })
