@@ -16,10 +16,10 @@ export default {
     // items는 추후에 axios요청을 통해 채워 넣을 예정
     items: [
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        src: '@/assets/img/main/topcarousels/sample1.png',
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        src: '@/assets/img/main/topcarousels/sample2.png',
       },
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
