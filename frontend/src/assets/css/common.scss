@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+
+/* SIZE */
+
+$w100: 100%;
+$w75: 75%;
+$w50: 50%;
+$h100: 100%;
+$h75: 75%;
+$h50: 50%;
+
+/* FONT */
+
+$font-size__1: 1.786em; /*25px*/
+$font-size__2: 1.429em; /*20px*/
+$font-size__3: 1.286em; /*18px*/ 
+$font-size__4: 1em; /*14px*/
+$font-size__5: 0.857em; /*12px*/
+
+@mixin out-layout {
+  width: $w100;
+}
+
+@mixin in-layout {
+  width: $w75;
+}
+
+.out-layout {
+  width: $w75;
+}
+
+.in-layout {
+  width: $w75;
+}
+
+.category-recommend-container {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}

@@ -8,6 +8,12 @@
 <script>
 export default {
   name: 'Mypage',
+  created: function () {
+    const token = localStorage.getItem('jwt')
+    if (!token) {
+      this.$router.push({ name: 'Login' })
+    }
+  }
 }
 </script>
 
