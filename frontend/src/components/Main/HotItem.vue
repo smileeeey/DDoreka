@@ -53,8 +53,8 @@
                 ></v-rating>
 
                 <!-- 평균평점, 리뷰개수 -->
-                <div class="ml-2">
-                  4.5 (413)
+                <div class="ml-1">
+                  (413)
                 </div>
               </v-row>
             </v-card-text>            

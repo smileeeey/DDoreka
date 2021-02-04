@@ -1,5 +1,5 @@
 <template>
-  <div class="in-layout mx-auto" style="width: 100%;">
+  <div class="in-layout mx-auto" style="width: 100%">
     <TopCarousels />
     <TodayItemsList />
     <HotItem />

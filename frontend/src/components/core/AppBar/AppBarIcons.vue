@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; justify-content: flex-end;">
-    <div class="ml-5 mx-3" style="margin-top: 35px;">
+    <div class="ml-5 mx-3" style="margin-top: 26px;">
       <div @mouseover="MyEureka=true">
         <v-icon x-large class="mx-3" style="height: 40px;">
           mdi-account-outline
