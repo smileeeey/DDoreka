@@ -24,7 +24,7 @@
           </ul>
         </div>
 
-        <div style="position: absolute; top: -2px; left: 148px; width: 400px; height: 400px; border: 1px solid gray; background-color: white;" 
+        <div style="position: absolute; top: -1px; left: 148px; width: 400px; height: 400px; border: 1px solid gray; background-color: white;" 
           v-show="SubShow" @mouseleave="SubShow=false"
         >
           <div v-if="selectedItem > -1">
@@ -36,7 +36,7 @@
 
             <div v-if="selectedSubitem > -1" style="position: absolute; top: -1px; left: 148px; width: 251px; height: 400px; border: 1px solid gray;">
               <div v-for="(content, idx) in items[selectedItem].subtext[selectedSubitem].contents" :key="idx" @mouseover="selectedContent=idx">
-                <ul style="padding-left: 0px;" class="my-2">
+                <ul @click="$router.push({ name: 'Category', params: { name: content } })" style="padding-left: 0px;" class="my-2">
                   <!-- <p>{{content}}</p> -->
                   <p style="font-size: 15px; color: black; margin-left: 10px;" :class="{ select: idx === selectedContent }">{{content}}</p>
                 </ul>
