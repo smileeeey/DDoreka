@@ -1,13 +1,10 @@
 package com.eureka.product.controller;
 
 import com.eureka.product.dto.Product;
+import com.eureka.product.dto.Response;
 import com.eureka.product.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,6 +42,15 @@ public class ProductController {
     ////////// 유사 상품 가져오기
 
     // 관리자 페이지에서 상품 정보 입력
+    @PostMapping(value = "/add")
+    public Response saveProduct(@RequestBody Product product){
+        try{
+            service.saveProduct(product);
+            return new Response("success","상품 정보 저장 완료",null);
+        }catch (Exception e){
+            return new Response("error","상품 정보 저장 오류",e.getMessage());
+        }
+    }
 
     // 관리자 페이지에서 상품 정보 수정
 
