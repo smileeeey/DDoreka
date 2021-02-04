@@ -28,11 +28,11 @@
               style="height: 150px;"
             ></v-img>
             <v-card-text class="pa-0" style="height: 50px;">
-              <div class="black--text">
+              <div class="black--text ml-3">
                 <!-- 상품이름 -->
                 {{ smallItem.name }}
               </div>
-              <div class="black--text">
+              <div class="red--text text--darken-4 ml-3">
                 <!-- 상품가격 -->
                 {{ smallItem.price }}
               </div>

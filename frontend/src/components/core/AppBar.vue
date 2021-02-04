@@ -2,49 +2,45 @@
   <v-card
     class="mx-auto"
     width="100%"
-    style="display: flex; flex-direction: column; align-items: center; min-width: 75%;"
+    style="display: flex; flex-direction: column; align-items: center;"
     flat
   >
     <!-- status bar -->
     <StatusBar />
     <!-- main appbar -->
-
-    <v-card-text
-      class="pa-0"
-      style="display: flex; justify-content: center; align-items: center; width: 75%;"
-    >
-    <v-row style="width: 100%;">
-      <v-col cols="4">
-        <div style="display: flex;">
+    <v-container class="ma-0 px-0" style="max-width: initial">
+      <v-row
+        class="mx-auto"
+        justify="center"
+        align="center"
+        style="width: 75%;"
+      >
+        <v-col class="pa-0" cols="1">
           <!-- Categories -->
           <Categories />
-
+        </v-col>
+        <v-col class="pa-0" cols="2" style="height: 115px;">
           <!-- logo(temporary) -->
           <a href="/">
             <v-img
-              style="cursor: pointer"
+              style="cursor: pointer; height: 115px;"
               src="@/assets/eureka_logo(blank).png"
               class="my-auto"
-              max-height="120"
-              max-width="400"
+              contain
             >
             </v-img>
           </a>
-        </div>
-      </v-col>
-      <v-col cols="6" class="my-auto">
-          <!-- SearchBar -->
-          <SearchBar />
-      </v-col>
-
-      <v-col cols="2">
-        <!-- icon -->
-        <AppBarIcons style="z-index: 1;" />
-      </v-col>
-    </v-row>
-      
-    </v-card-text>
-    
+        </v-col>
+        <v-col class="pa-0 mx-auto" cols="7">
+            <!-- SearchBar -->
+            <SearchBar />
+        </v-col>
+        <v-col class="pa-0" cols="2">
+          <!-- icon -->
+          <AppBarIcons style="z-index: 1;" />
+        </v-col>
+      </v-row>
+    </v-container>
   </v-card>
 </template>
 

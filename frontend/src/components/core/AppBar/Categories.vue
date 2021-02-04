@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div style="height: 115px;">
     <v-sheet
       color="blue"
-      min-height="120"
-      min-width="120"
       style="color: white; display: flex; 
       justify-content:center; align-items: center; 
-      flex-direction: column;"
+      flex-direction: column; height: 100%;"
       @mouseover="CategoriesShow=true"
     >
       <v-icon x-large style="color: white">
@@ -36,18 +34,16 @@
               </ul>
             </div>
 
-          <div v-if="selectedSubitem > -1" style="position: absolute; top: -1px; left: 148px; width: 251px; height: 400px; border: 1px solid gray;">
-            <div v-for="(content, idx) in items[selectedItem].subtext[selectedSubitem].contents" :key="idx" @mouseover="selectedContent=idx">
-              <ul style="padding-left: 0px;" class="my-2">
-                <!-- <p>{{content}}</p> -->
-                <p style="font-size: 15px; color: black; margin-left: 10px;" :class="{ select: idx === selectedContent }">{{content}}</p>
-              </ul>
+            <div v-if="selectedSubitem > -1" style="position: absolute; top: -1px; left: 148px; width: 251px; height: 400px; border: 1px solid gray;">
+              <div v-for="(content, idx) in items[selectedItem].subtext[selectedSubitem].contents" :key="idx" @mouseover="selectedContent=idx">
+                <ul style="padding-left: 0px;" class="my-2">
+                  <!-- <p>{{content}}</p> -->
+                  <p style="font-size: 15px; color: black; margin-left: 10px;" :class="{ select: idx === selectedContent }">{{content}}</p>
+                </ul>
+              </div>
             </div>
           </div>
-          </div>
-
         </div>
-          
       </div>
     </div>
   </div>

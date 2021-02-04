@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; border: 3px skyblue solid">
     <v-row>
-      <v-col cols="3">
+      <v-col class="" cols="3">
         <v-select
           v-model="e1"
           :items="items"
@@ -10,7 +10,7 @@
           
         ></v-select>
       </v-col>
-      <v-col cols="9">
+      <v-col class="" cols="9">
         <v-text-field
           placeholder="찾고 싶은 상품을 검색해보세요!"
           clearable

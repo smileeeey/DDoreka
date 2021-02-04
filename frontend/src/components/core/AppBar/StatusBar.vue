@@ -14,7 +14,6 @@
           <a @click="logout" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그아웃</a>
           <a @click="$router.push({ name: 'Mypage' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">마이페이지</a>
         </div>
-
       </v-card-text>
     </div>
     <div>
