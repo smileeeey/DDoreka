@@ -26,11 +26,11 @@ export default {
     // Item에는 이미지 경로, 상품명, 평점, 리뷰개수, 상품 디테일 페이지 경로가 필요
     todayItems: [
       {src: 'https://thumbnail7.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/86848698996868-a741b76d-8b36-4572-80e2-2f869d9c2624.jpg'},
-      {src: `https://picsum.photos/500/300?image=20`},
-      {src: `https://picsum.photos/500/300?image=25`},
-      {src: `https://picsum.photos/500/300?image=30`},
-      {src: `https://picsum.photos/500/300?image=35`},
-      {src: `https://picsum.photos/500/300?image=40`},
+      {src: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2020/03/17/10/7/3e411590-854f-4eb7-84b3-2e7504840b3f.jpg'},
+      {src: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2323776566774729-86661932-eb66-43bd-ae2b-2b1c548930b3.jpg'},
+      {src: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/292x292ex/image/vendor_inventory/4fb4/cec81bb2c3f3407e76d1b0a35196e55c7b1aee2415d5276410422c53383e.png'},
+      {src: 'https://thumbnail10.coupangcdn.com/thumbnails/remote/292x292ex/image/vendor_inventory/3cb3/670006af555057e4c12263865c27eb5a816a20c266152c948ea8199e6833.jpg'},
+      {src: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/292x292ex/image/retail/images/88522104879397-a25cef30-7726-474c-a851-c4a4fc987c81.jpg'},
     ],
   }),
   created() {
