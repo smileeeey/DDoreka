@@ -79,16 +79,17 @@ const routes = [
 
       // payment
       {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('../views/payment/Cart.vue')
-      },
-      {
         path: '/checkout',
         name: 'Checkout',
         component: () => import('../views/payment/Checkout.vue')
       },
     ]
+  },
+  // payment
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('../views/payment/Cart.vue')
   },
 
 
