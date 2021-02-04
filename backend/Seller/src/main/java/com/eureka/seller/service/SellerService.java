@@ -12,11 +12,38 @@ public class SellerService {
     @Autowired
     private SellerRepository repository;
 
-    public Seller savaSeller(Seller seller){
+    public Seller saveSeller(Seller seller){
         return repository.save(seller);
     }
 
-    public List<Seller> savaSellers(List<Seller> sellers){
+    public List<Seller> saveSellers(List<Seller> sellers){
         return repository.saveAll(sellers);
+    }
+
+    public List<Seller> getSellers(){
+        return repository.findAll();
+    }
+
+    public Seller getSellerById(int id){
+        return repository.findById(id).orElse(null);
+    }
+
+    public Seller getSellerByName(String name) {
+        return repository.findByName(name);
+    }
+
+    public String deleteSeller(int id) {
+        repository.deleteById(id);
+        return "Seller removed !!" + id;
+    }
+
+    public Seller updateSeller(Seller seller){
+        Seller existingSeller = repository.findById(seller.getId()).orElse(null);
+        existingSeller.setName(seller.getName());
+        existingSeller.setEmail(seller.getEmail());
+        existingSeller.setPhone(seller.getPhone());
+        existingSeller.setBank_company(seller.getBank_company());
+        existingSeller.setBank_account(seller.getBank_account());
+        return repository.save(existingSeller);
     }
 }
