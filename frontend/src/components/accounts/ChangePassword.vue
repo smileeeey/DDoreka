@@ -43,7 +43,9 @@
     </v-row>
     <v-row>
       <v-col offset="2" cols="2">
-        <v-btn :disabled="!enable">비밀번호 변경</v-btn>
+        <v-btn :disabled="!enable"
+         @click="changepassword"
+        >비밀번호 변경</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -61,6 +63,13 @@ export default {
       newpassword: '',
     }
   }),
+  methods: {
+    changepassword() {
+      this.rePassword = '';
+      this.form.password = '';
+      this.form.newpassword = '';
+    },
+  },
   computed: {
     required() {
       return () => !!this.form.password || '비밀번호를 입력해주세요.'

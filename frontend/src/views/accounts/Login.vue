@@ -42,6 +42,7 @@
             label="비밀번호"
             v-model="form.password"
             @click:append="show1 = !show1"
+            @keypress.enter="login"
           ></v-text-field> 
         </v-col>
         
