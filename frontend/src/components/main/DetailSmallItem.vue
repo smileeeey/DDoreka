@@ -1,5 +1,6 @@
 <template>
   <v-carousel
+    cycle
     height="400"
     hide-delimiter-background
     show-arrows-on-hover
@@ -32,10 +33,25 @@
                 <!-- 상품이름 -->
                 {{ smallItem.name }}
               </div>
-              <div class="red--text text--darken-4 ml-3">
-                <!-- 상품가격 -->
-                {{ smallItem.price }}
-              </div>
+              <v-container>
+                <v-row>
+                  <div class="red--text text--darken-4 ml-3">
+                    <!-- 상품가격 -->
+                    <p style="margin-top: 1px;">{{ smallItem.price }}</p>
+                  </div>
+                  <!-- 평균평점 -->
+                  <div class="ml-2">
+                    <v-rating
+                      :value="smallItem.rating"
+                      color="amber"
+                      dense
+                      half-increments
+                      readonly
+                      size="16"
+                    ></v-rating>                 
+                  </div>
+                </v-row>
+              </v-container>
             </v-card-text>            
           </v-col>
         </v-row>
