@@ -1,6 +1,6 @@
 server:
   address: i4d106.p.ssafy.io
-  port: 8077
+  port: 8076
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
