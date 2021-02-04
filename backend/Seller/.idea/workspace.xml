@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/SellerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/SellerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/SellerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +63,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612472338286</updated>
-      <workItem from="1612472344250" duration="2571000" />
+      <workItem from="1612472344250" duration="2919000" />
     </task>
     <servers />
   </component>
