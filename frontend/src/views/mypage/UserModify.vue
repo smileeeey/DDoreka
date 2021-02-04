@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
   .simple_table { 
-    width: 60%; 
+    width: 75%; 
     border-top: 2px solid #969696;
     border-bottom: 2px solid #969696;
     border-collapse: separate; 
