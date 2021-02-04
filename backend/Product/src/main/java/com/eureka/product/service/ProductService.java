@@ -13,6 +13,10 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
+    public List<Product> getProducts() {
+        return repository.findAll();
+    }
+
     //카테고리별로 상품 정보 가져오기
     public List<Product> getProductsByCategory(String categoryId, int depth){
         switch(depth){
@@ -74,4 +78,6 @@ public class ProductService {
     public void deleteProduct(int id){
         repository.deleteById(id);
     }
+
+
 }

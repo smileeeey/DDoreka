@@ -20,6 +20,11 @@ public class ProductController {
         service = productService;
     }
 
+    @GetMapping("/all")
+    public List<Product> findAll(){
+        return service.getProducts();
+    }
+
     // 카테고리 선택 시 상품 list 가져오기
     @GetMapping("/findByCategory/{categoryId}/{depth}")
     public List<Product> findByCategory(@PathVariable String categoryId,@PathVariable int depth){

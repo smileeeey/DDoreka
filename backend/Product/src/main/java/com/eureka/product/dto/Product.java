@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product implements Serializable {
@@ -18,6 +17,7 @@ public class Product implements Serializable {
     @GeneratedValue
     private int id;
     private int storeId;
+
     private String name;
     private String category1Id;
     private String category2Id;
