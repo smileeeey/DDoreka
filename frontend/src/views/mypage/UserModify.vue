@@ -60,7 +60,10 @@ export default {
     border: none; 
     border-bottom: 1px solid #ddd;
     text-align: left; 
-    
+  }
+
+  table {
+    border-right: 1px solid #ddd;
   }
 
   
