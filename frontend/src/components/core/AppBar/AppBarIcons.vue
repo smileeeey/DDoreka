@@ -2,7 +2,7 @@
   <div style="display: flex; justify-content: flex-end;">
     <div class="ml-5 mx-3" style="margin-top: 26px;">
       <div @mouseover="MyEureka=true">
-        <v-icon x-large class="mx-3" style="height: 40px;">
+        <v-icon x-large class="ml-5" style="height: 40px;">
           mdi-account-outline
         </v-icon>
         <p>마이유레카</p>
@@ -25,7 +25,7 @@
       </div> -->
     </div>
 
-    <div class="mx-3" style="margin-top: 35px;">
+    <div class="mx-3" style="margin-top: 26px;">
       <div @mouseover="Bucket=true" @click="$router.push({ name: 'Cart' })">
         <v-badge
           :content="cart.number"

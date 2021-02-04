@@ -8,12 +8,12 @@
     <!-- status bar -->
     <StatusBar />
     <!-- main appbar -->
-    <v-container class="ma-0 px-0" style="max-width: initial">
+    <v-container class="ma-0 px-0" style="max-width: initial;">
       <v-row
         class="mx-auto"
         justify="center"
         align="center"
-        style="width: 75%;"
+        style="width: 75%; border-bottom: solid 1px grey;"
       >
         <v-col class="pa-0" cols="1">
           <!-- Categories -->
