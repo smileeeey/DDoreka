@@ -1,26 +1,45 @@
 <template>
   <v-carousel
-    cycle
-    height="300"
+    height="400"
     hide-delimiter-background
     show-arrows-on-hover
   >
     <!-- smallItem 6개가 한 슬라이드에 들어 오도록 구성해야한다. -->
     <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
+      v-for="(slide, idx) in smallItems"
+      :key="idx"
     >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
-      >
+      <v-container class="fill-height" style="box-sizing: border-box;">
         <v-row
-          class="fill-height"
+          class=""
           align="center"
           justify="center"
+          style="height: 400px;"
         >
+          <v-col
+            v-for="(smallItem, idx) in slide.smallItem"
+            :key="idx"
+            class="pa-0"
+            cols="4"
+            style="height: 200px;"
+          >
+            <v-img
+              :src="smallItem.image"
+              style="height: 150px;"
+            ></v-img>
+            <v-card-text class="pa-0" style="height: 50px;">
+              <div class="black--text">
+                <!-- 상품이름 -->
+                {{ smallItem.name }}
+              </div>
+              <div class="black--text">
+                <!-- 상품가격 -->
+                {{ smallItem.price }}
+              </div>
+            </v-card-text>            
+          </v-col>
         </v-row>
-      </v-sheet>
+      </v-container>
     </v-carousel-item>
   </v-carousel>  
 </template>
@@ -29,7 +48,7 @@
 export default {
   name: 'DetailSmallItem',
   props: {
-    smallItems: Object,
+    smallItems: Array,
   }
 }
 </script>

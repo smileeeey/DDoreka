@@ -1,31 +1,19 @@
 <template>
   <v-carousel
-    cycle
-    height="300"
+    height="400"
     hide-delimiter-background
     show-arrows-on-hover
+    style="border-box"
   >
     <v-carousel-item
       v-for="(bigItem, idx) in bigItems"
       :key="idx"
     >
-      <v-sheet
-        color="black"
+      <v-img
+        :src="bigItem.image"
         height="100%"
-        tile
       >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <v-img
-            :src="bigItem.image"
-            height="100%"
-          >
-          </v-img>
-        </v-row>
-      </v-sheet>
+      </v-img>
     </v-carousel-item>
   </v-carousel>
 </template>
@@ -34,7 +22,7 @@
 export default {
   name: 'DetailBigItem',
   props: {
-    bigItems: Object,
+    bigItems: Array,
   }
 }
 </script>
