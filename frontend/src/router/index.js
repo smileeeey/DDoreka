@@ -28,6 +28,13 @@ const routes = [
         name: 'Main',
         component: () => import('../views/Main.vue')
       },
+      // categoryList
+      {
+        path: '/category/:name',
+        name: 'Category',
+        component: () => import('../views/Category.vue'),
+        props: true,
+      },
       // mypage
       {
         path: '/mypage',
