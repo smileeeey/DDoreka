@@ -23,7 +23,7 @@ export default {
   props: {
     category: Object,
     keywords: Object,
-  }
+  },
 }
 </script>
 
