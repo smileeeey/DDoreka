@@ -42,6 +42,7 @@
             label="비밀번호"
             v-model="form.password"
             @click:append="show1 = !show1"
+            @keypress.enter="login"
           ></v-text-field> 
         </v-col>
         
@@ -54,6 +55,7 @@
             font-size: 1.5rem; font-weight: bold; 
             width: 100%; height: 150%;"
             :disabled="!enable"
+            @click="login"
           >
             로그인
           </v-btn>
@@ -105,6 +107,13 @@ export default {
       } else {
         return false
       }
+    }
+  },
+  methods: {
+    login() {
+      localStorage.setItem('jwt', 'token');
+      this.$store.dispatch("LOGIN")
+      this.$router.push({ name: 'Main' });
     }
   }
 }

@@ -7,7 +7,7 @@
         </v-icon>
         <p>마이유레카</p>
       </div>
-      <div style="display: relative;" >
+      <!-- <div style="display: relative;" >
         <v-card
           class="mx-auto"
           width="110"
@@ -22,7 +22,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-      </div>
+      </div> -->
     </div>
 
     <div class="mx-3" style="margin-top: 35px;">
@@ -40,7 +40,7 @@
         </v-badge>
         <p>장바구니</p>
       </div>
-      <div style="display: relative;" >
+      <!-- <div style="display: relative;" >
         <v-card
           class="mx-auto"
           width="110"
@@ -55,7 +55,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
