@@ -2,10 +2,10 @@
   <div>
   <v-container fluid>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-subheader>현재 비밀번호</v-subheader>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-text-field
           solo flat dense outlined required validate-on-blur
           type="password"
@@ -15,10 +15,10 @@
     </v-row>
 
     <v-row>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-subheader>새 비밀번호</v-subheader>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-text-field
           solo flat dense outlined required
           :rules="[required, min_pw]"
@@ -29,10 +29,10 @@
     </v-row>
 
     <v-row>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-subheader>비밀번호 다시 입력</v-subheader>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-text-field
           solo flat dense outlined required
           :rules="[passwordConfirmationRule]"
