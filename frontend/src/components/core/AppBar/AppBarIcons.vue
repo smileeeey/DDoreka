@@ -26,7 +26,7 @@
     </div>
 
     <div class="mx-3" style="margin-top: 35px;">
-      <div @mouseover="Bucket=true">
+      <div @mouseover="Bucket=true" @click="$router.push({ name: 'Cart' })">
         <v-badge
           :content="cart.number"
           color="blue"
