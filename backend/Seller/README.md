@@ -1,1 +1,0 @@
-server for seller
