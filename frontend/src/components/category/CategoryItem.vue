@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :to="{ name: 'ItemDetail', params: { name: '의류', code: 1 }}">
     <v-img
       :src="categoryItem.image"
       aspect-ratio="1"
