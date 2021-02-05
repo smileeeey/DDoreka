@@ -133,7 +133,7 @@ export default {
   name: 'Cart',
   data () {
     return {
-      e1: 3,
+      e1: 1,
       article: [null, '장바구니', '주문결제', '주문완료'],
     }
   }
