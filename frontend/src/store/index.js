@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     login(state) {
       state.login = true;
-      state.name = '권세진';
+      state.name = '안세익';
     }
   },
   actions: {

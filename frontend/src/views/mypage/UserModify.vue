@@ -5,15 +5,15 @@
         <tbody>
           <tr>
             <th scope="row">아이디(이메일)</th>
-            <td><strong>sejinkwon@naver.com</strong></td>
+            <td><strong>kma9271@naver.com</strong></td>
           </tr>
           <tr>
             <th scope="row">이름</th>
-            <td><strong>권세진</strong></td>
+            <td><strong>안세익</strong></td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
-            <td><strong>01077269318</strong></td>
+            <td><strong>01092716499</strong></td>
           </tr>
           <tr>
             <th scope="row">비밀번호변경</th>
