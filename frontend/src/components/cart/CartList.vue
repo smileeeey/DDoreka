@@ -8,43 +8,58 @@
         <th>전체선택</th>
         <th>상품정보</th>
         <th>상품금액</th>
-        <th>배송비</th>
+        <th style="text-align: center;">배송비</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
+    <tbody v-if="items">
+      <tr v-for="(item, idx) in items" :key="idx">
         <th scope="row" class="checkbox">
-          <v-checkbox v-model="select1" @click="selected"></v-checkbox>
+          <v-checkbox v-model="items[idx].select" @click="selected"></v-checkbox>
         </th>
         <td>
-          <v-img src="https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg"
+          <v-img :src="item.img"
             max-height="120"
             max-width="120"
           >
           </v-img>
         </td>
-        <td>민트위니 여성용 미키기모셋</td>
-        <td class="rightborder">22,900원</td>
-        <td rowspan="2" style="text-align: center;">무료</td>
-      </tr>
-      <tr>
-        <th scope="row" class="checkbox">
-          <v-checkbox v-model="select2" @click="selected"></v-checkbox>
-        </th>
         <td>
-          <v-img src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg"
-            max-height="120"
-            max-width="120"
-          ></v-img>
+          <div style="display: flex; justify-content: space-between;">
+            {{item.name}}
+            <div style="display: flex;">
+              <span style="color: #888; vertical-aling: top; font-size: 16px;">{{item.cost | comma}}원</span>
+              <select
+                class="quantity-select"
+                style="margin-left: 1rem; margin-right: 3rem;"
+                v-model="items[idx].amount"
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
         </td>
-        <td>캐럿 여성 와이드 밴딩 팬츠</td>
-        <td class="rightborder">9,900원</td>
+        <td class="rightborder">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="font-weight: bold; margin-left: 0.5rem;">{{item.cost*item.amount | comma}}원</span>
+            <span @click="deleteCartitem(idx)"><v-icon>mdi-close</v-icon></span>
+          </div>
+        </td>
+        <td v-if="idx==0" :rowspan="items.length" style="text-align: center; font-weight: bold;">무료</td>
       </tr>
+      
       <tr class="total" style="">
-        
-        <td colspan="5" style="border-top: 2px solid #969696; text-align: right !important; font-size: 16px;">상품가격 {{totalCost}}원 + 배송비 <strong>무료</strong> = 주문금액 <strong>{{totalCost}}</strong>원</td>
+        <td colspan="5" style="border-top: 2px solid #969696; text-align: right !important; font-size: 16px;">상품가격 <strong>{{totalCost | comma}}</strong>원 + 배송비 <strong>무료</strong> = 주문금액 <strong style="color: red;">{{totalCost | comma}}</strong>원</td>
       </tr>
 
+    </tbody>
+    <tbody v-else>
+      <tr>
+        <td colspan="5">장바구니에 담은 상품이 없습니다.</td>
+      </tr>
     </tbody>
   </table>
 </template>
@@ -54,32 +69,63 @@ export default {
   name: 'CartList',
   data: () => ({
     selectAll: true,
-    select1: true,
-    select2: true,
+    quantity: [1, 2, 3, 4, 5],
+    items: [
+      {
+        img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
+        name: '민트위니 여성용 미키기모셋',
+        cost: '22900',
+        amount: 1,
+        select: true,
+      },
+      {
+        img: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg',
+        name: '캐럿 여성 와이드 밴딩 팬츠',
+        cost: '9900',
+        amount: 1,
+        select: true,
+      },
+      {
+        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/358954270343111-663ca6b1-cd2c-4c03-9228-1ffbf43b93cb.jpg',
+        name: '루나걸 여성용 니트',
+        cost: '22900',
+        amount: 1,
+        select: true,
+      },
+    ]
   }),
   computed: {
     totalCost() {
       let cost = 0;
-      if (this.select1 == true) {
-        cost = cost + 22900
+      
+      for (let i in this.items) {
+        if (this.items[i].select) {
+          cost += (this.items[i].cost * this.items[i].amount)
+        }
       }
-      if (this.select2 == true) {
-        cost = cost + 9900
-      }
+      this.$emit('updateTotalCost', cost)
       return cost
     }
   },
   methods: {
     checkedAll() {
-      this.select1 = this.selectAll;
-      this.select2 = this.selectAll;
+      for (let i in this.items) {
+        this.items[i].select = this.selectAll
+      }
     },
     selected() {
-      if (this.select1 == true && this.select2 == true) {
-        this.selectAll = true
-      } else {
-        this.selectAll = false
+      for (let i in this.items) {
+        if(! this.items[i].select) {
+          this.selectAll = false;
+          return
+        } else {
+          this.selectAll = true;
+        }
       }
+    },
+    deleteCartitem(idx) {
+      // delete axios request
+      this.items.splice(idx, 1)
     }
   }
 }
@@ -91,7 +137,7 @@ export default {
   }
 
   strong {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .simple_table { 
@@ -135,10 +181,33 @@ export default {
     border-right: 1px solid #ddd;
   }
 
+  .quantity-select {
+    width: 60px;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    appearance: menulist;
+    box-sizing: border-box;
+    text-align: start;
+    align-items: center;
+    white-space: pre;
+    border-radius: 0px;;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(118, 118, 118);
+  }
+
   >>> .v-label {
     color: black !important;
   }
 
-
+  >>> .v-text-field__details {
+    display: none;
+  }
   
 </style>
