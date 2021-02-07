@@ -1,6 +1,3 @@
-server:
-  address: i4d106.p.ssafy.io
-  port: 8077
 spring:
   application:
     name: Product
