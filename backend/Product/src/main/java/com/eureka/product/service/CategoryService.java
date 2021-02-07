@@ -65,7 +65,7 @@ public class CategoryService {
 
     public String getSubCategories(String categoryId){
 
-        String q = "select c1.id as D4Id,c1.name as D4Name,c2.id as D5Id,c2.name as D5Name from Category as c1 left outer join Category as c2 on  c1.id = c2.parent_id where c1.parent_id = "+categoryId;
+        String q = "select c1.id as D4Id,c1.name as D4Name,c2.id as D5Id,c2.name as D5Name from category as c1 left outer join category as c2 on c1.id = c2.parent_id where c1.parent_id = "+categoryId;
 
         Query query = em.createNativeQuery(q,"SubCategoryMapping");
 
