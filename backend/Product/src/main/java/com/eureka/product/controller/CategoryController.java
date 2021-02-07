@@ -5,10 +5,7 @@ import com.eureka.product.dto.MainCategory;
 import com.eureka.product.dto.SubCategory;
 import com.eureka.product.repository.CategoryRepository;
 import com.eureka.product.service.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,4 +31,10 @@ public class CategoryController {
 
         return service.getSubCategories(categoryId);
     }
+
+    @PostMapping("/add")
+    public Category addCategory(@RequestBody Category category){
+        return service.saveCategory(category);
+    }
+
 }

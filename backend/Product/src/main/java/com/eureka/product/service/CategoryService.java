@@ -71,6 +71,7 @@ public class CategoryService {
 
         List<SubCategory> list = query.getResultList();
 
+
         //category depth별 2중 json으로 만들어서 FE로 넘기기
         JsonObject result = new JsonObject();
          try{
@@ -141,4 +142,7 @@ public class CategoryService {
         return result.toString();
     }
 
+    public Category saveCategory(Category category) {
+        return repository.save(category);
+    }
 }
