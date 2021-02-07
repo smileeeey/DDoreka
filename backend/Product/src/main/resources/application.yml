@@ -1,16 +1,18 @@
 server:
-  address: i4d106.p.ssafy.io
-  port: 8076
+  address: localhost
+  port: 8077
 spring:
+  application:
+    name: Product
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: wndeowkd
     url: jdbc:mysql://localhost:3306/product?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: eureka
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    generate-ddl: true
-    show-sql: true
     hibernate:
       ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+
+
