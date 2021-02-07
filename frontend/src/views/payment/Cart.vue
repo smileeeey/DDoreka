@@ -54,8 +54,11 @@
               </v-col>
             </v-row>
             <div v-if="e1==1">
-              <CartList style="width: 100%; margin-bottom: 3rem;" />
-              <div style="display: flex; justify-content: center;">
+              <CartList 
+                style="width: 100%;" 
+                @updateTotalCost="updateTotalCost"
+              />
+              <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
                   font-size: 1.5rem; font-weight: bold; border-color: #0275d8; margin-right: 1rem;"
                   @click="$router.push({ name: 'Main' })"
@@ -71,8 +74,8 @@
               </div>
             </div>
             <div v-else-if="e1==2">
-              <h1>This is Payment Page</h1>
-              <div style="display: flex; justify-content: center;">
+              <PaymentTable :totalCost="totalCost" />
+              <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
                   font-size: 1.5rem; font-weight: bold; border-color: #0275d8; margin-right: 1rem;"
                   @click="$router.push({ name: 'Main' })"
@@ -127,14 +130,22 @@
 
 <script>
 import CartList from '../../components/cart/CartList.vue'
+import PaymentTable from '../../components/cart/PaymentTable.vue'
 import Footer from '../../components/core/Footer.vue'
 export default {
-  components: { Footer, CartList },
+  components: { Footer, CartList, PaymentTable },
   name: 'Cart',
   data () {
     return {
       e1: 1,
       article: [null, '장바구니', '주문결제', '주문완료'],
+      totalCost: 0,
+    }
+  },
+
+  methods: {
+    updateTotalCost: function (cost) {
+      this.totalCost = cost
     }
   }
 }
@@ -149,7 +160,6 @@ export default {
   }
 
   .box {
-    height: 800px;
     border: 1px solid #e0e0e0;
     border-top: 2px solid #8a8a8a;
     border-bottom: 2px solid #8a8a8a;
