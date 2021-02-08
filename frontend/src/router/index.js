@@ -74,6 +74,11 @@ const routes = [
             name: 'UserModify',
             component: () => import('../views/mypage/UserModify.vue')
           },
+          {
+            path: 'addressbook',
+            name: 'AddressBook',
+            component: () => import('../views/mypage/AddressBook.vue')
+          },
         ]
       },
 
