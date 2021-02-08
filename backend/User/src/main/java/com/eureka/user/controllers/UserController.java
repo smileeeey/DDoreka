@@ -7,7 +7,7 @@ import com.eureka.user.Entity.UserEntity;
 import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CookieUtil;
 import com.eureka.user.services.JwtUtil;
-import com.eureka.user.services.RedisUtil;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -26,15 +26,24 @@ public class UserController {
 
     private final CookieUtil cookieUtil;
 
-    private final RedisUtil redisUtil;
 
-    public UserController(AuthService authService, JwtUtil jwtUtil, CookieUtil cookieUtil, RedisUtil redisUtil) {
+
+    public UserController(AuthService authService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
         this.authService = authService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
-        this.redisUtil = redisUtil;
+
     }
 
+    @PostMapping(value = "/login")
+    public Response login(@RequestBody UserEntity user){
+        try{
+            return new Response("success","로그인을 성공적으로 완료했습니다.",authService.getUser(user.getEmail(),user.getPw()));
+        }
+        catch (Exception e){
+            return new Response("error","로그인중 오류",e.getMessage());
+        }
+    }
 
 
     @PostMapping(value = "/signup")
@@ -48,55 +57,67 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/login")
-    public Response login(@RequestBody RequestLoginUser loginUser, HttpServletRequest req, HttpServletResponse res){
+//    @PostMapping(value = "/login")
+//    public Response login(@RequestBody RequestLoginUser loginUser, HttpServletRequest req, HttpServletResponse res){
+//        try{
+//            final UserEntity user =authService.getUser(loginUser.getEmail(),loginUser.getPw());
+//            final  String token=jwtUtil.generateToken(user);
+//            final String refreshJwt = jwtUtil.generateRefreshToken(user);
+//
+//            Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
+//            Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
+//
+//            redisUtil.setDataExpire(refreshJwt, user.getEmail(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
+//
+//            res.addCookie(accessToken);
+//            res.addCookie(refreshToken);
+//
+//            System.out.println("token : "+ token);
+//            System.out.println("refrshtoken : "+ refreshJwt);
+//
+//            return new Response("success","로그인 성공",token);
+//        }
+//        catch (Exception e){
+//            return new Response("error","로그인 실패",e.getMessage());
+//        }
+//    }
+
+//    @GetMapping("/password")
+//    public Response isPasswordUUIdValidate(@RequestHeader(value = "Authorization") String header) {
+//        System.out.println("isPasswordUUIdValidate- "+header);
+//        Response response;
+//        try {
+//            if (authService.isPasswordUuidValidate(header))
+//                response = new Response("success", "정상적인 접근입니다.", null);
+//            else
+//                response = new Response("error", "유효하지 않은 Key값입니다.", null);
+//        } catch (Exception e) {
+//            response = new Response("error", "유효하지 않은 key값입니다.", null);
+//        }
+//        return response;
+//    }
+
+
+
+    @PutMapping(value = "/update")
+    public Response updateUser(@RequestBody UserEntity user){
         try{
-            final UserEntity user =authService.getUser(loginUser.getEmail(),loginUser.getPw());
-            final  String token=jwtUtil.generateToken(user);
-            final String refreshJwt = jwtUtil.generateRefreshToken(user);
-
-            Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
-            Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
-
-            redisUtil.setDataExpire(refreshJwt, user.getEmail(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
-
-            res.addCookie(accessToken);
-            res.addCookie(refreshToken);
-
-            System.out.println("token : "+ token);
-            System.out.println("refrshtoken : "+ refreshJwt);
-
-            return new Response("success","로그인 성공",token);
+            authService.updateUser(user);
+            return new Response("success","회원정보 수정을 성공적으로 완료했습니다.",null);
         }
         catch (Exception e){
-            return new Response("error","로그인 실패",e.getMessage());
+            return new Response("error","회원정보 수정중 오류",e.getMessage());
         }
     }
 
-    @GetMapping("/password")
-    public Response isPasswordUUIdValidate(@RequestHeader(value = "Authorization") String header) {
-        System.out.println("isPasswordUUIdValidate- "+header);
-        Response response;
-        try {
-            if (authService.isPasswordUuidValidate(header))
-                response = new Response("success", "정상적인 접근입니다.", null);
-            else
-                response = new Response("error", "유효하지 않은 Key값입니다.", null);
-        } catch (Exception e) {
-            response = new Response("error", "유효하지 않은 key값입니다.", null);
+    @DeleteMapping(value = "/delete")
+    public Response deleteUser(@RequestBody UserEntity user){
+        try{
+            authService.deleteUser(user);
+            return new Response("success","회원정보 삭제을 성공적으로 완료했습니다.",null);
         }
-        return response;
-    }
-
-
-
-    @PutMapping(value = "/")
-    public void updateUser(@RequestBody UserEntity user){
-        authService.updateUser(user);
-    }
-
-    @DeleteMapping(value = "/")
-    public void deleteUser( String id){
-
+        catch (Exception e){
+            return new Response("error","회원정보 삭제중 오류",e.getMessage());
+        }
     }
 }

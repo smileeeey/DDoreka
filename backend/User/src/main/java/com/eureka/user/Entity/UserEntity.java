@@ -13,18 +13,14 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private int id;
-
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
     private String pw;
+    @Column(nullable = false)
+    private String name;
     private String phone;
-
-//    @OneToOne()
-//    @JoinColumn(name ="user_id")
-//    private UseraddressEntity UseraddressEntity ;
-
     private String salt;
-
     private String enabled="1";
+
 }

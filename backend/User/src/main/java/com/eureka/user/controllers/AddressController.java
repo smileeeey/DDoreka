@@ -6,8 +6,6 @@ import com.eureka.user.dto.Response;
 import com.eureka.user.services.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/user/address")
 @CrossOrigin(origins = "*")
@@ -21,19 +19,19 @@ public class AddressController {
 
     private final CookieUtil cookieUtil;
 
-    private final RedisUtil redisUtil;
 
-    public AddressController(AuthService authService, AddressService addressService, JwtUtil jwtUtil, CookieUtil cookieUtil, RedisUtil redisUtil) {
+
+    public AddressController(AuthService authService, AddressService addressService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
         this.authService = authService;
         this.addressService = addressService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
-        this.redisUtil = redisUtil;
+
     }
 
     @GetMapping(value = "/{id}")
-    public Response getaddress(@PathVariable("id") String loginUser){
-        System.out.println("get address");
+    public Response getAddress(@PathVariable("id") String loginUser){
+        System.out.println("get address "+ loginUser);
         Response response;
         try {
             response= new Response("success", "조회성공.", addressService.getaddress(loginUser)) ;
@@ -44,11 +42,23 @@ public class AddressController {
     }
 
     @PostMapping(value = "/{id}")
-    public Response saveaddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
+    public Response saveAddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
         System.out.println(" post address "+email+" "+useraddressEntity);
         Response response;
         try {
-            response= new Response("success", "등록성공", addressService.putaddress(useraddressEntity,email)) ;
+            response= new Response("success", "등록성공", addressService.saveaddress(useraddressEntity,email)) ;
+        } catch (Exception e) {
+            response= new Response("error", e.getMessage(), null) ;
+        }
+        return response;
+    }
+
+    @PutMapping(value = "/{id}")
+    public Response updateAddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
+        System.out.println(" updateAddress "+email+" "+useraddressEntity);
+        Response response;
+        try {
+            response= new Response("success", "등록성공", addressService.updateAddress(useraddressEntity,email)) ;
         } catch (Exception e) {
             response= new Response("error", e.getMessage(), null) ;
         }
@@ -56,7 +66,7 @@ public class AddressController {
     }
 
     @DeleteMapping(value = "/{id}/{addressId}")
-    public Response deleteaddress(@PathVariable("id") String email, @PathVariable("addressId") String addressId){
+    public Response deleteAddress(@PathVariable("id") String email, @PathVariable("addressId") String addressId){
         System.out.println(" post address "+email+" "+addressId);
         Response response;
         try {
