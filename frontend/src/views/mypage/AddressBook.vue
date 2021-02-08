@@ -18,7 +18,7 @@
       </div>
     </div>
     <div v-else>
-      <AddForm />
+      <AddForm @saveAddress="saveAddress" />
     </div>
   </div>
 </template>
@@ -64,6 +64,17 @@ export default {
     },
     deleteAddress: function (idx) {
       this.addresses.splice(idx, 1)
+    },
+    saveAddress: function (newAddress) {
+      let tmp = {
+        name: newAddress.name,
+        address: newAddress.main_address,
+        nickname: '내집',
+        phonenumber: newAddress.phonenumber,
+        comment: newAddress.comment,
+      }
+      this.addresses.push(tmp)
+      this.addState = false
     }
   }
 }
