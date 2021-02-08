@@ -28,11 +28,11 @@
             prepend-inner-icon="mdi-email-outline"
             :rules="[required_id, emailRules,]"
             label="아이디(이메일)"
-            v-model="forms.id"
+            v-model="form.id"
           ></v-text-field> 
           
           <v-text-field
-            v-model="forms.password"
+            v-model="form.password"
             solo
             flat
             dense
@@ -66,9 +66,9 @@
             prepend-inner-icon="mdi-account-outline"
             :rules="[required_name,]"
             label="이름"
-            v-model="forms.name"
+            v-model="form.name"
           ></v-text-field> 
-          <v-text-field
+          <!-- <v-text-field
             solo
             flat
             dense
@@ -78,7 +78,7 @@
             :rules="[required_phonenumber,]"
             label="휴대폰 번호"
             v-model="forms.phonenumber"
-          ></v-text-field> 
+          ></v-text-field>  -->
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
@@ -103,11 +103,10 @@ export default {
   name: 'Signup',
   data: () => ({
     rePassword: '',
-    forms: {
+    form: {
       id: '',
       password: '',
       name: '',
-      phonenumber: '',
     },
     show1: false,
     rules: {
@@ -116,33 +115,33 @@ export default {
   }),
   methods: {
     action() {
-      console.log(this.forms)
+      console.log(this.form)
     }
   },
   computed: {
     required() {
-      return () => !!this.forms.password || '비밀번호를 입력해주세요.'
+      return () => !!this.form.password || '비밀번호를 입력해주세요.'
     },
     required_id() {
-      return () => !!this.forms.id || '아이디(이메일)를 입력해주세요.'
+      return () => !!this.form.id || '아이디(이메일)를 입력해주세요.'
     },
     required_name() {
-      return () => !!this.forms.name || '이름을 정확히 입력하세요.'
+      return () => !!this.form.name || '이름을 정확히 입력하세요.'
     },
-    required_phonenumber() {
-      return () => !!this.forms.phonenumber || '휴대폰 번호를 정확하게 입력하세요.'
-    },
+    // required_phonenumber() {
+    //   return () => !!this.form.phonenumber || '휴대폰 번호를 정확하게 입력하세요.'
+    // },
     min_pw() {
-      return () => this.forms.password.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
+      return () => this.form.password.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
     },
     emailRules() {
-      return () => /.+@.+\..+/.test(this.forms.id) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
+      return () => /.+@.+\..+/.test(this.form.id) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
     },
     passwordConfirmationRule() {
-      return () => (this.forms.password === this.rePassword) || '비밀번호가 일치하지 않습니다.'
+      return () => (this.form.password === this.rePassword) || '비밀번호가 일치하지 않습니다.'
     },
     enable() {
-      if (this.required_name() == true && this.required_phonenumber() == true && this.emailRules() == true && this.passwordConfirmationRule() == true && this.min_pw() == true) {
+      if (this.required_name() == true && this.emailRules() == true && this.passwordConfirmationRule() == true && this.min_pw() == true) {
         return true
       } else {
         return false

@@ -74,6 +74,8 @@
               </div>
             </div>
             <div v-else-if="e1==2">
+              <BuyerInfo />
+              <DestinationInfo />
               <PaymentTable :totalCost="totalCost" />
               <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
@@ -129,11 +131,13 @@
 </template>
 
 <script>
+import DestinationInfo from '../../components/cart/DestinationInfo.vue'
+import BuyerInfo from '../../components/cart/BuyerInfo.vue'
 import CartList from '../../components/cart/CartList.vue'
 import PaymentTable from '../../components/cart/PaymentTable.vue'
 import Footer from '../../components/core/Footer.vue'
 export default {
-  components: { Footer, CartList, PaymentTable },
+  components: { Footer, CartList, PaymentTable, BuyerInfo, DestinationInfo },
   name: 'Cart',
   data () {
     return {
@@ -147,7 +151,7 @@ export default {
     updateTotalCost: function (cost) {
       this.totalCost = cost
     }
-  }
+  },
 }
 </script>
 
