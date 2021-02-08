@@ -1,8 +1,7 @@
 package com.eureka.user.services;
 
 import com.eureka.user.Entity.UserEntity;
-import com.eureka.user.Entity.UseraddressEntity;
-import com.eureka.user.dto.Request.RequestLoginUser;
+import com.eureka.user.dto.UserInfo;
 
 import java.util.List;
 
@@ -13,13 +12,13 @@ public interface AuthService {
 
     public List<UserEntity> getUsers ();
 
-    public UserEntity getUser (String userEmail, String pw) throws Exception;
+    public UserInfo getUser (String userEmail, String pw) throws Exception;
 
-    public void updateUser(UserEntity user);
+    public void updateUser(UserEntity user) throws Exception;
 
     public void deleteUser(UserEntity user);
 
-    boolean isPasswordUuidValidate(String key);
 
 
+    String getUserId(String userEmail) throws Exception;
 }
