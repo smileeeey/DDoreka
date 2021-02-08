@@ -40,6 +40,7 @@
       font-size: 1.3rem; font-weight: bold; 
       width: 100%; height: 3rem;"
       :disabled="!boxAll || !enable"
+      @click="$router.push({ name: 'Main' })"
     >
       동의하고 가입하기
     </v-btn>

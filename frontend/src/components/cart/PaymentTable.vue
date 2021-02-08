@@ -1,7 +1,7 @@
 <template>
   <div>
     <strong style="font-size: 1.5rem;">결제정보</strong>
-      <table class="simple_table">
+      <table class="simple_table" style="margin-top: 1rem; margin-bottom: 3rem;">
         <tbody>
           <tr>
             <th scope="row">총상품가격</th>
@@ -79,7 +79,7 @@ export default {
   }
 
   .simple_table td { 
-    padding: 15px; 
+    padding: 10px; 
     border: none; 
     border-bottom: 1px solid #ddd;
     text-align: left; 

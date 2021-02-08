@@ -58,7 +58,9 @@
             </a>
           </v-list-item-subtitle>
           <v-list-item-subtitle>
-            <a>
+            <a
+              @click="gotoAddressBook"
+            >
               배송지 관리
             </a>
           </v-list-item-subtitle>
@@ -85,6 +87,9 @@ export default {
     },
     gotoUserModify() {
       if (this.$route.path !== "/mypage/usermodify") { this.$router.push({ name: 'UserModify' }) }
+    },
+    gotoAddressBook() {
+      if (this.$route.path !== "/mypage/addresbook") { this.$router.push({ name: 'AddressBook' })}
     },
   }
 }

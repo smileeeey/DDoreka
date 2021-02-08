@@ -79,6 +79,7 @@ const routes = [
             name: 'AddressBook',
             component: () => import('../views/mypage/AddressBook.vue')
           },
+
         ]
       },
 
@@ -103,7 +104,12 @@ const routes = [
     name: 'Cart',
     component: () => import('../views/payment/Cart.vue')
   },
-
+  // popup
+  {
+    path: '/popup/address',
+    name: 'AddressPopup',
+    component: () => import('../components/address/AddressPopup.vue')
+  },
 
 ]
 
