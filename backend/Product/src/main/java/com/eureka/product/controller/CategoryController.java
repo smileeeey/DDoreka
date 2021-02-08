@@ -21,7 +21,7 @@ public class CategoryController {
     public Response findMainCategories(){
         Response response;
         try{
-            response = new Response("success", "메인 카테고리 조회 성공", new Gson().toJson(service.getMainCategories()));
+            response = new Response("success", "메인 카테고리 조회 성공", service.getMainCategories());
         }catch(Exception e){
             response = new Response("error", "메인 카테고리 조회 실패", e.getMessage());
         }
