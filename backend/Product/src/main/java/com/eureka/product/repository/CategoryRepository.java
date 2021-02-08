@@ -11,6 +11,5 @@ public interface CategoryRepository extends JpaRepository<Category,String> {
 
     Category findByName(String name);
 
-    List<Category> findByDepthBetweenOrderByDepthAsc(int start, int end);
-
+    List<Category> findByDepthBetweenOrderByIdAsc(int i, int i1);
 }
