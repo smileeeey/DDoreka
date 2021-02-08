@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user/address")
+@CrossOrigin(origins = "*")
 public class AddressController {
 
     private final AuthService authService;

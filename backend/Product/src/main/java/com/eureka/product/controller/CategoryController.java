@@ -1,13 +1,10 @@
 package com.eureka.product.controller;
 
 import com.eureka.product.dto.Category;
-import com.eureka.product.dto.MainCategory;
-import com.eureka.product.dto.SubCategory;
-import com.eureka.product.repository.CategoryRepository;
+import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -21,20 +18,39 @@ public class CategoryController {
 
     // main 화면 카테고리 정보 가져오기
     @GetMapping("/mainCategory")
-    public List<MainCategory> findMainCategories(){
-        return service.getMainCategories();
+    public Response findMainCategories(){
+        Response response;
+        try{
+            response = new Response("success", "메인 카테고리 조회 성공", service.getMainCategories());
+        }catch(Exception e){
+            response = new Response("error", "메인 카테고리 조회 실패", e.getMessage());
+        }
+
+        return response;
     }
 
     // depth=3인 카테고리 id로 하위 카테고리 정보 가져오기
     @GetMapping("/subCategory/{categoryId}")
-    public String findSubCategories(@PathVariable String categoryId){
-
-        return service.getSubCategories(categoryId);
+    public Response findSubCategories(@PathVariable String categoryId){
+        Response response;
+        try{
+            response = new Response("success", "하위 카테고리 조회 성공", service.getSubCategories(categoryId));
+        }catch(Exception e){
+            response = new Response("error", "하위 카테고리 조회 실패", e.getMessage());
+        }
+        return response;
     }
 
     @PostMapping("/add")
-    public Category addCategory(@RequestBody Category category){
-        return service.saveCategory(category);
+    public Response addCategory(@RequestBody Category category){
+        Response response;
+        try{
+            response = new Response("success", "카테고리 등록 성공", service.saveCategory(category));
+        }catch(Exception e){
+            response = new Response("error", "카테고리 등록 실패", e.getMessage());
+        }
+
+        return response;
     }
 
 }
