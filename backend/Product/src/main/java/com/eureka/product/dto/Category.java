@@ -19,7 +19,7 @@ import java.io.Serializable;
                         @ColumnResult(name="D4Id",type=String.class),
                         @ColumnResult(name="D4Name",type=String.class),
                         @ColumnResult(name="D5Id",type=String.class),
-                        @ColumnResult(name="D5Name",type=String.class)
+                        @ColumnResult(name="D5Name",type=String.class),
                 }
         )
 )
