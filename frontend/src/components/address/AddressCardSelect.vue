@@ -23,10 +23,10 @@
           {{address.phonenumber}}
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.address}}
+          {{address.main_address}}, {{address.sub_address}}
         </v-list-item-title>
         
-        <v-list-item-title class="my-1 sizeup">{{address.destination}}</v-list-item-title>
+        <v-list-item-title class="my-1 sizeup">{{address.comment}}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -63,7 +63,7 @@ export default {
   methods: {
     selectAddress: function () {
       window.opener.document.getElementById("name").textContent = this.address.name
-      window.opener.document.getElementById("address").textContent = this.address.address
+      window.opener.document.getElementById("address").textContent = this.address.main_address + ', ' + this.address.sub_address
       window.opener.document.getElementById("phonenumber").textContent = this.address.phonenumber
       
       

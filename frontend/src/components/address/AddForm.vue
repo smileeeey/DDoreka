@@ -41,7 +41,7 @@
               outlined
               required
               prepend-inner-icon="mdi-map-marker-outline"
-              
+              v-model="address.sub_address"
               label="상세 주소"
             ></v-text-field> 
             <div style="border: 1px solid black; display: none;">
@@ -103,7 +103,8 @@ export default {
     address: {
       name: '',
       main_address: '',
-      nickname: '',
+      sub_address: '',
+      nickname: '너네집',
       phonenumber: '',
       comment: '',
     }
@@ -116,6 +117,7 @@ export default {
 
   methods: {
     searchAddress: function () {
+
       new window.daum.Postcode({
         popupName: 'postcodePopup',
         oncomplete: function(data) {
@@ -149,24 +151,15 @@ export default {
           
           
           document.getElementById('main_address').value = addr;
-          document.getElementById('main_address').labe
+          var mother = document.getElementById('main_address').parentElement
+          var labeltag = mother.firstChild;
+          labeltag.innerText = '';
           document.getElementById("sub_address").focus()
           
         },
-
-        // onclose: function() {
-        //   this.address.main_address = document.getElementById("sample6_address").value;
-        //   this.address.phonenumber = document.getElementById("sample6_postcode").value;
-        // }
         
       }).open();
       console.log('start')
-      // this.address.main_address = document.getElementById("sample6_address").value;
-      
-      // this.address.phonenumber = document.getElementById("sample6_postcode").value;
-      // document.getElementById("comment").focus()
-      // console.log(this.address)
-
     },
     saveAddress: function () {
       this.address.main_address = document.getElementById('main_address').value

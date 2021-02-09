@@ -12,7 +12,7 @@
           <tr>
             <th scope="row">배송주소</th>
             <td>
-              <span id="address">{{address}}</span>
+              <span id="address">{{main_address}}, {{sub_address}}</span>
             </td>
           </tr>
           <tr>
@@ -37,7 +37,9 @@ export default {
   data () {
     return {
       name: '강과장',
-      address: '경찰서',
+      main_address: '경찰서',
+      sub_address: '안방',
+      nickname: '',
       phonenumber: '112',
       comment: 'ㅋㅋ',
     }
