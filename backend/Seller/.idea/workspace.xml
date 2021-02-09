@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/AuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/AuthApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
