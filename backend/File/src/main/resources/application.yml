@@ -1,0 +1,17 @@
+server:
+    port: 8082
+spring:
+    application:
+        name: File
+    datasource:
+        url: jdbc:mysql://localhost:3306/file?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+        username: sumin
+        password: sumin
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        generate-ddl: true
+
+
