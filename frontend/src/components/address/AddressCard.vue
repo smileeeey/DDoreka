@@ -20,7 +20,7 @@
           
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.phonenumber}}
+          {{address.phonenumber|phone}}
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
           {{address.main_address}}, {{address.sub_address}}

@@ -18,7 +18,7 @@
           <tr>
             <th scope="row">연락처</th>
             <td>
-              <span id="phonenumber">{{phonenumber}}</span>
+              <span id="phonenumber">{{phonenumber|phone}}</span>
             </td>
           </tr>
           <tr>
@@ -36,12 +36,12 @@ export default {
   name: 'DestinationInfo',
   data () {
     return {
-      name: '강과장',
-      main_address: '경찰서',
-      sub_address: '안방',
+      name: 'name',
+      main_address: 'main_address',
+      sub_address: 'sub_address',
       nickname: '',
-      phonenumber: '112',
-      comment: 'ㅋㅋ',
+      phonenumber: '01000000000',
+      comment: '',
     }
   },
   methods: {
