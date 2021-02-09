@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.2</version>
+        <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eureka</groupId>
@@ -15,6 +15,7 @@
     <description>MSA Architecture</description>
     <properties>
         <java.version>1.8</java.version>
+        <spring-cloud.version>Hoxton.SR4</spring-cloud.version> <!-- common difference -->
     </properties>
     <dependencies>
         <dependency>
@@ -26,6 +27,13 @@
             <artifactId>jjwt-api</artifactId>
             <version>0.10.7</version>
         </dependency>
+
+         <!--common difference-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+         <!--common difference-->
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -85,5 +93,20 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <!-- common difference -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- common difference -->
 
 </project>
