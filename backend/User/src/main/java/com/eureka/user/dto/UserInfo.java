@@ -14,5 +14,4 @@ public class UserInfo {
     private String phone;
 
 
-
 }

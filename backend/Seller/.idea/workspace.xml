@@ -2,8 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/credential/LoginService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Productimage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Productimage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Productoption.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/dto/Productoption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/ImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/ImageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/OptionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/OptionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/SellerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/SellerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/StoreRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/repository/StoreRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/SellerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/SellerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/service/StoreService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../User/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../User/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/CartEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/CartEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UseraddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UseraddressEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/AddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/AddressController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/dto/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/dto/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/AddressRepositoy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/AddressRepositoy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/CartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/CartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/CookieUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/CookieUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/RedisUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/RedisUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/SaltUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/SaltUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +93,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Auth" />
   </component>
   <component name="RunManager">
     <configuration name="SellerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -64,7 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612472338286</updated>
       <workItem from="1612472344250" duration="14545000" />
-      <workItem from="1612790746868" duration="1523000" />
+      <workItem from="1612790746868" duration="9638000" />
     </task>
     <servers />
   </component>
@@ -72,6 +123,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="620" y="295" key="FileChooserDialogImpl" timestamp="1612906704134">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="620" y="295" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612906704134" />
     <state width="938" height="282" key="GridCell.Tab.0.bottom" timestamp="1612477077215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -104,10 +159,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="938" height="282" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1612477077215" />
-    <state x="219" y="256" key="new project wizard" timestamp="1612792301043">
+    <state x="219" y="256" key="new project wizard" timestamp="1612906695176">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="219" y="256" key="new project wizard/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612792301043" />
+    <state x="219" y="256" key="new project wizard/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612906695176" />
     <state x="219" y="256" key="new project wizard/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1612739618052" />
     <state x="1920" y="463" key="new project wizard/0.0.1920.1040/1920.0.1080.1880@1920.0.1080.1880" timestamp="1612634823680" />
   </component>

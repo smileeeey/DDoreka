@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="shoppingcart") //무시할것 에러 아님
+@Table(name = "shoppingcart") //무시할것 에러 아님
 @Data
 public class CartEntity {
     @Id

@@ -18,11 +18,11 @@ import java.io.Serializable;
 public class Productimage implements Serializable {
     @Id
     private int fileId;
-    @Column(nullable = false,columnDefinition = "char")
+    @Column(nullable = false, columnDefinition = "char")
     private char imageType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     @JsonBackReference
     private Product product;
 }

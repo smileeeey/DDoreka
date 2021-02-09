@@ -36,23 +36,21 @@ public class UserController {
     }
 
 
-
     @PostMapping(value = "/signup")
-    public Response saveUser(@RequestBody UserEntity user){
-        try{
+    public Response saveUser(@RequestBody UserEntity user) {
+        try {
             authService.saveUser(user);
-            return new Response("success","회원가입을 성공적으로 완료했습니다.",null);
-        }
-        catch (Exception e){
-            return new Response("error","회원가입중 오류",e.getMessage());
+            return new Response("success", "회원가입을 성공적으로 완료했습니다.", null);
+        } catch (Exception e) {
+            return new Response("error", "회원가입중 오류", e.getMessage());
         }
     }
 
     @PostMapping(value = "/login")
-    public Response login(@RequestBody RequestLoginUser loginUser, HttpServletRequest req, HttpServletResponse res){
-        try{
-            final UserEntity user =authService.getUser(loginUser.getEmail(),loginUser.getPw());
-            final  String token=jwtUtil.generateToken(user);
+    public Response login(@RequestBody RequestLoginUser loginUser, HttpServletRequest req, HttpServletResponse res) {
+        try {
+            final UserEntity user = authService.getUser(loginUser.getEmail(), loginUser.getPw());
+            final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
             Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
@@ -63,19 +61,18 @@ public class UserController {
             res.addCookie(accessToken);
             res.addCookie(refreshToken);
 
-            System.out.println("token : "+ token);
-            System.out.println("refrshtoken : "+ refreshJwt);
+            System.out.println("token : " + token);
+            System.out.println("refrshtoken : " + refreshJwt);
 
-            return new Response("success","로그인 성공",token);
-        }
-        catch (Exception e){
-            return new Response("error","로그인 실패",e.getMessage());
+            return new Response("success", "로그인 성공", token);
+        } catch (Exception e) {
+            return new Response("error", "로그인 실패", e.getMessage());
         }
     }
 
     @GetMapping("/password")
     public Response isPasswordUUIdValidate(@RequestHeader(value = "Authorization") String header) {
-        System.out.println("isPasswordUUIdValidate- "+header);
+        System.out.println("isPasswordUUIdValidate- " + header);
         Response response;
         try {
             if (authService.isPasswordUuidValidate(header))
@@ -89,14 +86,13 @@ public class UserController {
     }
 
 
-
     @PutMapping(value = "/")
-    public void updateUser(@RequestBody UserEntity user){
+    public void updateUser(@RequestBody UserEntity user) {
         authService.updateUser(user);
     }
 
     @DeleteMapping(value = "/")
-    public void deleteUser( String id){
+    public void deleteUser(String id) {
 
     }
 }

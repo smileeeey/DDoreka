@@ -26,5 +26,5 @@ public class UserEntity {
 
     private String salt;
 
-    private String enabled="1";
+    private String enabled = "1";
 }

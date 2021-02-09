@@ -23,7 +23,6 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
 
-
     @Autowired
     private SaltUtil saltUtil;
 
@@ -60,7 +59,6 @@ public class AuthServiceImpl implements AuthService {
         String memberId = redisUtil.getData(key);
         return !memberId.equals("");
     }
-
 
 
     @Override

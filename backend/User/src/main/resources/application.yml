@@ -19,7 +19,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
   # JWT Secret Key
   jwt:
-    secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
+    secret: kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
   #Redis
   cache:
     type: redis

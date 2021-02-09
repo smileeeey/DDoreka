@@ -12,14 +12,14 @@ import java.io.Serializable;
 @Table
 
 @SqlResultSetMapping(
-        name="SubCategoryMapping",
+        name = "SubCategoryMapping",
         classes = @ConstructorResult(
                 targetClass = SubCategory.class,
                 columns = {
-                        @ColumnResult(name="D4Id",type=String.class),
-                        @ColumnResult(name="D4Name",type=String.class),
-                        @ColumnResult(name="D5Id",type=String.class),
-                        @ColumnResult(name="D5Name",type=String.class),
+                        @ColumnResult(name = "D4Id", type = String.class),
+                        @ColumnResult(name = "D4Name", type = String.class),
+                        @ColumnResult(name = "D5Id", type = String.class),
+                        @ColumnResult(name = "D5Name", type = String.class),
                 }
         )
 )

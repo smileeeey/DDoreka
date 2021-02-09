@@ -25,32 +25,32 @@ public class CategoryService {
     @PersistenceContext
     EntityManager em;
 
-    public List<MainCategory> getMainCategories(){
+    public List<MainCategory> getMainCategories() {
 
-        List<Category> list = repository.findByDepthBetweenOrderByIdAsc(1,3);
+        List<Category> list = repository.findByDepthBetweenOrderByIdAsc(1, 3);
         List<MainCategory> result = new ArrayList<>();
 
         //category depth별 3중 만들어서 FE로 넘기기
         int size = list.size();
-        for (int i = 0 ; i < size ; ++i){
+        for (int i = 0; i < size; ++i) {
             Category cur = list.get(0);
 
-            switch(cur.getDepth()){
+            switch (cur.getDepth()) {
                 case 1:
-                    result.add(new MainCategory(cur.getId(),cur.getName(),cur.getDepth(),new ArrayList<MainCategory>()));
+                    result.add(new MainCategory(cur.getId(), cur.getName(), cur.getDepth(), new ArrayList<MainCategory>()));
                     break;
                 case 2:
-                    for (int j = 0 ; j < result.size() ; ++j){
-                        if(result.get(j).getId().equals(cur.getParentId())){
-                            result.get(j).getSubCategory().add(new MainCategory(cur.getId(),cur.getName(),cur.getDepth(),new ArrayList<MainCategory>()));
+                    for (int j = 0; j < result.size(); ++j) {
+                        if (result.get(j).getId().equals(cur.getParentId())) {
+                            result.get(j).getSubCategory().add(new MainCategory(cur.getId(), cur.getName(), cur.getDepth(), new ArrayList<MainCategory>()));
                         }
                     }
                     break;
                 case 3:
-                    for (int j = 0 ; j < result.size() ; ++j){
-                        for (int k = 0 ; k < result.get(j).getSubCategory().size() ; ++k){
-                            if(result.get(j).getSubCategory().get(k).getId().equals(cur.getParentId())){
-                                result.get(j).getSubCategory().get(k).getSubCategory().add(new MainCategory(cur.getId(),cur.getName(),cur.getDepth(),new ArrayList<MainCategory>()));
+                    for (int j = 0; j < result.size(); ++j) {
+                        for (int k = 0; k < result.get(j).getSubCategory().size(); ++k) {
+                            if (result.get(j).getSubCategory().get(k).getId().equals(cur.getParentId())) {
+                                result.get(j).getSubCategory().get(k).getSubCategory().add(new MainCategory(cur.getId(), cur.getName(), cur.getDepth(), new ArrayList<MainCategory>()));
                             }
                         }
                     }
@@ -61,15 +61,14 @@ public class CategoryService {
         }
 
 
-
         return result;
     }
 
-    public List<MainCategory> getSubCategories(String categoryId){
+    public List<MainCategory> getSubCategories(String categoryId) {
 
-        String q = "select c1.id as D4Id,c1.name as D4Name, c2.id as D5Id,c2.name as D5Name from category as c1 left outer join category as c2 on c1.id = c2.parent_id where c1.parent_id = "+categoryId+" order by D4Id,D5Id";
+        String q = "select c1.id as D4Id,c1.name as D4Name, c2.id as D5Id,c2.name as D5Name from category as c1 left outer join category as c2 on c1.id = c2.parent_id where c1.parent_id = " + categoryId + " order by D4Id,D5Id";
 
-        Query query = em.createNativeQuery(q,"SubCategoryMapping");
+        Query query = em.createNativeQuery(q, "SubCategoryMapping");
         List<SubCategory> list = query.getResultList();
 
         System.out.println(list.get(0));
@@ -80,13 +79,12 @@ public class CategoryService {
         int idx = -1;
 
         for (SubCategory subCategory : list) {
-            if(subCategory.getD4Id().equals(prev)){
-                result.get(idx).getSubCategory().add(new MainCategory(subCategory.getD5Id(), subCategory.getD5Name(), 5,new ArrayList<MainCategory>()));
-            }
-            else{
+            if (subCategory.getD4Id().equals(prev)) {
+                result.get(idx).getSubCategory().add(new MainCategory(subCategory.getD5Id(), subCategory.getD5Name(), 5, new ArrayList<MainCategory>()));
+            } else {
                 List<MainCategory> main = new ArrayList<>();
-                main.add(new MainCategory(subCategory.getD5Id(), subCategory.getD5Name(), 5,new ArrayList<MainCategory>()));
-                result.add(new MainCategory(subCategory.getD4Id(),subCategory.getD4Name(),4,main));
+                main.add(new MainCategory(subCategory.getD5Id(), subCategory.getD5Name(), 5, new ArrayList<MainCategory>()));
+                result.add(new MainCategory(subCategory.getD4Id(), subCategory.getD4Name(), 4, main));
                 prev = subCategory.getD4Id();
                 idx++;
             }

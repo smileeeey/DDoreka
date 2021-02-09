@@ -22,7 +22,7 @@ public class Productoption implements Serializable {
     private int optionId;
     @Column(nullable = false)
     private int discountPrice;
-    @Column(nullable = false,columnDefinition = "integer default 0")
+    @Column(nullable = false, columnDefinition = "integer default 0")
     private int price;
     @Column(nullable = false)
     private String name;
@@ -31,7 +31,7 @@ public class Productoption implements Serializable {
     private int fileId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="productId")
+    @JoinColumn(name = "productId")
     @JsonBackReference
     private Product product;
 }

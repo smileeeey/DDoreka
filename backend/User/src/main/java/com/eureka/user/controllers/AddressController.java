@@ -32,37 +32,37 @@ public class AddressController {
     }
 
     @GetMapping(value = "/{id}")
-    public Response getaddress(@PathVariable("id") String loginUser){
+    public Response getaddress(@PathVariable("id") String loginUser) {
         System.out.println("get address");
         Response response;
         try {
-            response= new Response("success", "조회성공.", addressService.getaddress(loginUser)) ;
+            response = new Response("success", "조회성공.", addressService.getaddress(loginUser));
         } catch (Exception e) {
-            response= new Response("error", "조회실패", null) ;
+            response = new Response("error", "조회실패", null);
         }
         return response;
     }
 
     @PostMapping(value = "/{id}")
-    public Response saveaddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
-        System.out.println(" post address "+email+" "+useraddressEntity);
+    public Response saveaddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity) {
+        System.out.println(" post address " + email + " " + useraddressEntity);
         Response response;
         try {
-            response= new Response("success", "등록성공", addressService.putaddress(useraddressEntity,email)) ;
+            response = new Response("success", "등록성공", addressService.putaddress(useraddressEntity, email));
         } catch (Exception e) {
-            response= new Response("error", e.getMessage(), null) ;
+            response = new Response("error", e.getMessage(), null);
         }
         return response;
     }
 
     @DeleteMapping(value = "/{id}/{addressId}")
-    public Response deleteaddress(@PathVariable("id") String email, @PathVariable("addressId") String addressId){
-        System.out.println(" post address "+email+" "+addressId);
+    public Response deleteaddress(@PathVariable("id") String email, @PathVariable("addressId") String addressId) {
+        System.out.println(" post address " + email + " " + addressId);
         Response response;
         try {
-            response= new Response("success", "삭제 성공", addressService.delete(addressId,email)) ;
+            response = new Response("success", "삭제 성공", addressService.delete(addressId, email));
         } catch (Exception e) {
-            response= new Response("error", "삭제 실패", e.getMessage()) ;
+            response = new Response("error", "삭제 실패", e.getMessage());
         }
         return response;
     }

@@ -15,10 +15,10 @@ public class CartController {
     }
 
     @GetMapping(value = "/{key}")
-    public String getUsers(@PathVariable(value = "key") String key){
-        System.out.println(key+"$$$$$$$$$$$$$$$$$$$$$$");
+    public String getUsers(@PathVariable(value = "key") String key) {
+        System.out.println(key + "$$$$$$$$$$$$$$$$$$$$$$");
 
-        String userId=jwtUtil.getUsername(key);
+        String userId = jwtUtil.getUsername(key);
         System.out.println(userId);
         return "";
     }

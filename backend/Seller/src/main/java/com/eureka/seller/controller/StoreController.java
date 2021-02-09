@@ -29,22 +29,22 @@ public class StoreController {
     }
 
     @GetMapping("/storesById/{id}")
-    public Store findStoreById(@PathVariable int id){
+    public Store findStoreById(@PathVariable int id) {
         return service.getStoreById(id);
     }
 
     @GetMapping("/store/{name}")
-    public Store findStoreByName(@PathVariable String name){
-        return  service.getStoreByName(name);
+    public Store findStoreByName(@PathVariable String name) {
+        return service.getStoreByName(name);
     }
 
     @PutMapping("/updateStore")
-    public Store updateStore(@RequestBody Store store){
+    public Store updateStore(@RequestBody Store store) {
         return service.updateStore(store);
     }
 
     @DeleteMapping("/deleteStore/{id}")
-    public String deleteStore(@PathVariable int id){
-        return  service.deleteStore(id);
+    public String deleteStore(@PathVariable int id) {
+        return service.deleteStore(id);
     }
 }
