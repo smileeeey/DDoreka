@@ -20,13 +20,13 @@
           
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.phonenumber}}
+          {{address.phonenumber|phone}}
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.address}}
+          {{address.main_address}}, {{address.sub_address}}
         </v-list-item-title>
         
-        <v-list-item-title class="my-1 sizeup">{{address.comment}}</v-list-item-title>
+        <v-list-item-title class="mt-5 sizeup">{{address.comment}}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 

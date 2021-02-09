@@ -12,13 +12,13 @@
           <tr>
             <th scope="row">배송주소</th>
             <td>
-              <span id="address">{{address}}</span>
+              <span id="address">{{main_address}}, {{sub_address}}</span>
             </td>
           </tr>
           <tr>
             <th scope="row">연락처</th>
             <td>
-              <span id="phonenumber">{{phonenumber}}</span>
+              <span id="phonenumber">{{phonenumber|phone}}</span>
             </td>
           </tr>
           <tr>
@@ -36,10 +36,12 @@ export default {
   name: 'DestinationInfo',
   data () {
     return {
-      name: '강과장',
-      address: '경찰서',
-      phonenumber: '112',
-      comment: 'ㅋㅋ',
+      name: 'name',
+      main_address: 'main_address',
+      sub_address: 'sub_address',
+      nickname: '',
+      phonenumber: '01000000000',
+      comment: '',
     }
   },
   methods: {
