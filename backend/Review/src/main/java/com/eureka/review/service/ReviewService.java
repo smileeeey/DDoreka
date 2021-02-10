@@ -2,17 +2,17 @@ package com.eureka.review.service;
 
 import com.eureka.review.dto.Review;
 import com.eureka.review.dto.Reviewimage;
+import com.eureka.review.dto.Reviewlike;
 import com.eureka.review.repository.ReviewRepository;
 import com.eureka.review.repository.ReviewimageRepository;
+import com.eureka.review.repository.ReviewlikeRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import javax.transaction.Transactional;
+import java.util.*;
 
 @Service
 public class ReviewService {
@@ -22,6 +22,9 @@ public class ReviewService {
 
     @Autowired
     private ReviewimageRepository reviewimageRepository;
+
+    @Autowired
+    private ReviewlikeRepository reviewlikeRepository;
 
     public Review saveReview(Map<String,Object> param){
 
@@ -45,7 +48,40 @@ public class ReviewService {
 
         reviewimageRepository.saveAll(images);
 
-
         return reviewResult;
+    }
+
+    public Reviewlike saveLike(Reviewlike reviewlike) {
+        return reviewlikeRepository.save(reviewlike);
+    }
+
+
+    public void deleteLike(int reviewlikeId) {
+        reviewlikeRepository.deleteById(reviewlikeId);
+    }
+
+    public void deleteReview(int reviewId) {
+        reviewlikeRepository.deleteByReviewId(reviewId);
+        reviewRepository.deleteById(reviewId);
+    }
+
+    public Review updateReview(Review review) throws Exception {
+        if(reviewRepository.save(review) == null)   throw new Exception("해당 리뷰 업데이트 실패");
+        return review;
+    }
+
+    public List<Review> getReviews(int productId, int userId) {
+
+        List<Review> reviews =  reviewRepository.findAllByProductId(productId);
+
+        for (Review review : reviews) {
+            int cnt = reviewlikeRepository.findCountByReviewId(review.getId());
+            review.setReviewlikeCnt(cnt);
+            int size = reviewlikeRepository.findByUserIdAndReviewId(review.getId(),userId).size();
+            System.out.println(review.getId()+" "+userId+" 의 로우개수:"+size);
+            if(size>0)   review.setLiked(true);
+        }
+
+        return reviews;
     }
 }

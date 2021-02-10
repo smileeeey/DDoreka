@@ -39,12 +39,12 @@ public class Review {
     @Column(columnDefinition = "varchar(3000)")
     private String content;
 
- /*   @Transient
-    private int reviewCnt;
     @Transient
-    private boolean isLiked;*/
+    private int reviewlikeCnt;
+    @Transient
+    private boolean liked;
 
-    @OneToMany(mappedBy = "review")
+    @OneToMany(mappedBy = "review",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Reviewimage> images = new ArrayList<>();
 
