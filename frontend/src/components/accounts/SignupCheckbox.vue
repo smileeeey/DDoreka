@@ -40,7 +40,7 @@
       font-size: 1.3rem; font-weight: bold; 
       width: 100%; height: 3rem;"
       :disabled="!boxAll || !enable"
-      @click="$router.push({ name: 'Main' })"
+      @click="signup"
     >
       동의하고 가입하기
     </v-btn>
@@ -90,6 +90,20 @@ export default {
           this.boxAll = true;
         }
       }
+    },
+    signup() {
+      // signup axios보내기
+      var currentLink = document.location.href;
+      if (currentLink == 'http://localhost:8080/signup') {
+        // 구매자 page signup
+        this.$router.push({ name: 'Main' })
+      } else {
+        // 판매자 page signup
+        // axios
+        this.$router.push({ name: 'Dashboard' })
+      }
+      console.log(currentLink)
+      // $router.push({ name: 'Main' })
     }
   }
   

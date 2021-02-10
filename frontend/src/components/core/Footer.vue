@@ -10,14 +10,14 @@
         <v-divider></v-divider>
       </v-col>
       <v-btn
-        v-for="link in links"
-        :key="link"
-        
+        v-for="(link, idx) in links"
+        :key="idx"
+        :to="link.to"
         text
         rounded
         class="my-2 mx-5"
       >
-        {{ link }}
+        {{ link.text }}
       </v-btn>
 
       <v-col cols="12">
@@ -72,9 +72,23 @@ export default {
   name: 'Footer',
   data: () => ({
     links: [
-      '공지사항',
-      '이용약관',
-      '개인정보 처리방침',
+      {
+        to: '#',
+        text: '공지사항'
+      },
+      {
+        to: '#',
+        text: '이용약관'
+      },
+      {
+        to: '#',
+        text: '개인정보 처리방침'
+      },
+      {
+        to: '/sell',
+        text: '판매자 페이지'
+      },
+      
     ]
   })
 }

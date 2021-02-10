@@ -20,11 +20,10 @@ const routes = [
   // home
   {
     path: '/',
-    name: 'Home',
     component: () => import('../views/Home.vue'),
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Main',
         component: () => import('../views/Main.vue')
       },
@@ -109,6 +108,46 @@ const routes = [
     path: '/popup/address',
     name: 'AddressPopup',
     component: () => import('../components/address/AddressPopup.vue')
+  },
+
+  // seller page
+  {
+    path: '/sell',
+    component: () => import('../views/sell/Index.vue'),
+    children: [
+      {
+        name: 'Dashboard',
+        path: '',
+        component: () => import('../views/sell/Dashboard.vue')
+      },
+      {
+        name: 'SellerProfile',
+        path: '/user/profile',
+        component: () => import('../views/sell/SellerProfile.vue')
+      },
+      {
+        name: 'SellerRegister',
+        path: '/product/register',
+        component: () => import('../views/sell/SellerRegister.vue')
+      },
+      {
+        name: 'SellerNotification',
+        path: '/notification',
+        component: () => import('../views/sell/SellerNotification.vue')
+      },
+    ]
+  },
+
+  // seller accounts (Login & Signup page)
+  {
+    name: 'SellerLogin',
+    path: '/sell/login',
+    component: () => import('../views/sell/sellaccounts/SellerLogin.vue')
+  },
+  {
+    name: 'SellerSignup',
+    path: '/sell/signup',
+    component: () => import('../views/sell/sellaccounts/SellerSignup.vue')
   },
 
 ]
