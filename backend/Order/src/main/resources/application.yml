@@ -1,0 +1,40 @@
+
+spring:
+  port:8084
+  application:
+    name: order
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/eurekaorder?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: ssafy
+    password: ssafy
+    jpa:
+      hibernate:
+        ddl-auto: update
+
+      show-sql: true
+    driver-class-name: com.mysql.jdbc.Driver
+  # JWT Secret Key
+  jwt:
+    secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
+
+
+
+
+
+
+#server:
+#  servlet:
+#    contextPath:  /auth
+
+
+
+
+
+
+
