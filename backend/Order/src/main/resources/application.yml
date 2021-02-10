@@ -1,6 +1,7 @@
+server:
+  port: 8084
 
 spring:
-  port:8084
   application:
     name: order
   profiles:
