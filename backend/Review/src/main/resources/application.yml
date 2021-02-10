@@ -1,0 +1,15 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: Review
+  datasource:
+    url: jdbc:mysql://localhost:3306/review?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: sumin
+    password: sumin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    generate-ddl: true
