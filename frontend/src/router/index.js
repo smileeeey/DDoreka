@@ -30,7 +30,7 @@ const routes = [
       },
       // category
       {
-        path: '/category/:name',
+        path: '/category/:id/:depth',
         name: 'Category',
         component: () => import('../views/Category.vue'),
         props: true,
@@ -92,7 +92,7 @@ const routes = [
       },
     ]
   },
-  // payment
+  // Cart
   {
     path: '/cart',
     name: 'Cart',

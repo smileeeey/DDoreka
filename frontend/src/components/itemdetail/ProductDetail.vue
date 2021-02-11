@@ -1,41 +1,21 @@
 <template>
+  <!-- <div>{{ detailInfoList }}</div> -->
   <div>
-    <v-simple-table>
-      <template v-slot:default>
-        <tbody>
-          <tr>
-            <td>제품 소재</td>
-            <td>폴리에스테르 100</td>
-            <td>색상</td>
-            <td>블랙</td>
-          </tr>
-          <tr>
-            <td>치수</td>
-            <td>Free</td>
-            <td>제조자(수입자)</td>
-            <td>주식회사 퍼스트플로어</td>
-          </tr>
-          <tr>
-            <td>제조국</td>
-            <td>대한민국</td>
-            <td>세탁방법 및 취급시 주의사항</td>
-            <td>손세탁 권장</td>
-          </tr>
-          <tr>
-            <td>제조연월</td>
-            <td>2020.05</td>
-            <td>품질보증기준</td>
-            <td>제품 이상 시 공정거래위원회 기준에 의거 보상</td>
-          </tr>
-          <tr>
-            <td>AS 책임자와 전화번호</td>
-            <td>0000-0000</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+    <div class="my-10">
+      <h3 class="my-5">필수표기정보</h3>
+      <v-card>
+        <v-simple-table>
+          <template v-slot:default>
+            <tbody>
+              <tr v-for="(info, idx) in detailInfoList" :key="idx">
+                <td class="" style="background-color: #dee6ed;">{{ info[0] }}</td>
+                <td>{{ info[1] }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-card>
+    </div>
     <v-img
       src="https://thumbnail9.coupangcdn.com/thumbnails/remote/q89/image/retail/images/64059785646730-5ded04e1-33ef-4ea3-975e-e35b1b3417a9.jpg"
     ></v-img>
@@ -51,6 +31,48 @@
 <script>
 export default {
   name: 'ProductDetail',
+  props: {
+    item: Object,
+  },
+  data: () => ({
+    detailInfo: {},
+    detailInfoList: [],
+    reviews: [
+      {
+        id: 1,
+        orderId: 1,
+        optionId: 1,
+        productId: 1,
+        userId: 1,
+        rating: 4.5,
+        datetime: '2021.02.09',
+        editedOX: 'X',
+        title: '강추',
+        content: '이 제품 정말 좋아요 강추합니다.'
+      },
+      {
+        id: 2,
+        orderId: 2,
+        optionId: 1,
+        productId: 1,
+        userId: 2,
+        rating: 4,
+        datetime: '2021.02.09',
+        editedOX: 'X',
+        title: '후회 없는 선택',
+        content: '왜 이제 샀나 후회'
+      },
+    ]
+  }),
+  methods: {
+    getDetailInfo: function() {
+      this.detailInfo = JSON.parse(this.item.detailInfo)
+      this.detailInfoList = Object.entries(this.detailInfo)
+    }
+  },
+  created: function() {
+    this.getDetailInfo()
+  }
 }
 </script>
 

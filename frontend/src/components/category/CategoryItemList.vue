@@ -23,6 +23,9 @@ export default {
   components: {
     CategoryItem,
   },
+  props: {
+    items: Array,
+  },
   data: () => ({
     categoryItems: [
       {

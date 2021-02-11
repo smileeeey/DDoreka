@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import '@/assets/css/common.scss'
 export default {
   name: "TopCarousels",
@@ -30,8 +31,23 @@ export default {
       {
         src: require('@/assets/img/main/topcarousels/sample5.png'),
       },      
-    ],    
-  })
+    ],
+  }),
+  methods: {
+    getTopCarousels: () => {
+      axios.get('url')
+      .then(res => {
+        console.log(res.data)
+        this.items = res.data
+      })
+      .catch(err => {
+        console.error(err)
+      })      
+    }
+  },
+  created() {
+    getTopCarousels()
+  }
 }
 </script>
 
