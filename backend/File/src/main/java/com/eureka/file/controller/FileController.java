@@ -13,6 +13,7 @@ import java.util.List;
 @Api(tags = {"1. File"})
 @RestController
 @RequestMapping("/file")
+@CrossOrigin(origins = "*")
 public class FileController {
 
     private final FileService service;
