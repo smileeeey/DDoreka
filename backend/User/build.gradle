@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.eureka'
-version = '0.0.2-SNAPSHOT'
+version = '20210211-user'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -44,7 +44,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4'
-    compile 'org.springframework.boot:spring-boot-starter-data-redis'
+    
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

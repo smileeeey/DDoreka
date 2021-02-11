@@ -13,7 +13,7 @@
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
-            <td><strong>01092716499</strong></td>
+            <td><strong>{{'01092716499'|phone}}</strong></td>
           </tr>
           <tr>
             <th scope="row">비밀번호변경</th>

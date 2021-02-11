@@ -26,7 +26,7 @@
             prepend-inner-icon="mdi-email-outline"
             :rules="[rules.required_id, rules.emailRules,]"
             label="아이디(이메일)"
-            v-model="form.id"
+            v-model="form.email"
           ></v-text-field> 
           
           <v-text-field
@@ -40,7 +40,7 @@
             :rules="[rules.required, rules.min]"
             :type="show1 ? 'text' : 'password'"
             label="비밀번호"
-            v-model="form.password"
+            v-model="form.pw"
             @click:append="show1 = !show1"
             @keypress.enter="login"
           ></v-text-field> 
@@ -83,14 +83,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import AccountsFooter from '../../components/accounts/AccountsFooter.vue'
 export default {
   components: { AccountsFooter },
   name: 'Login',
   data: () => ({
     form: {
-      id: '',
-      password: '',
+      email: '',
+      pw: '',
     },
     show1: false,
     rules: {
@@ -102,7 +104,7 @@ export default {
   }),
   computed: {
     enable () {
-      if (this.rules.emailRules(this.form.id) == true && this.rules.min(this.form.password) == true) {
+      if (this.rules.emailRules(this.form.email) == true && this.rules.min(this.form.pw) == true) {
         return true
       } else {
         return false
@@ -110,7 +112,16 @@ export default {
     }
   },
   methods: {
-    login() {
+    login: function () {
+      axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
+        .then(res => {
+          console.log('this is res and res data4')
+          console.log(res)
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
       localStorage.setItem('jwt', 'token');
       this.$store.dispatch("LOGIN")
       this.$router.push({ name: 'Main' });

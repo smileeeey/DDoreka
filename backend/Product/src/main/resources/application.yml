@@ -1,6 +1,5 @@
 server:
-  address: localhost
-  port: 8077
+  port: 8081
 spring:
   application:
     name: Product

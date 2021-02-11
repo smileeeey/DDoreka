@@ -16,7 +16,7 @@ export default new Vuex.Store({
     login(state) {
       state.login = true;
       state.name = '안세익';
-    }
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -25,7 +25,7 @@ export default new Vuex.Store({
     },
     LOGIN({ commit }) {
       commit("login");
-    }
+    },
   },
   modules: {
   }

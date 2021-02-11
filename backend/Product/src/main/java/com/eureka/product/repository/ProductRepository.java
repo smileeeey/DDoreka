@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 
     List<Product> findByCategory3Id(String id);
+
     List<Product> findByCategory4Id(String id);
+
     List<Product> findByCategory5Id(String id);
 
     List<Product> findByName(String keyword);

@@ -14,17 +14,13 @@ spring:
     jpa:
       hibernate:
         ddl-auto: update #운영시에는 validate 추천s
+
       show-sql: true
     driver-class-name: com.mysql.jdbc.Driver
   # JWT Secret Key
   jwt:
     secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
-  #Redis
-  cache:
-    type: redis
-  redis:
-    host: 127.0.0.1
-    timeout: 0
+
 
 
 

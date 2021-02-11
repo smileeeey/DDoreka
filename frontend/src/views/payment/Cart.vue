@@ -55,6 +55,7 @@
             </v-row>
             <div v-if="e1==1">
               <CartList 
+                :items="items"
                 style="width: 100%;" 
                 @updateTotalCost="updateTotalCost"
               />
@@ -74,6 +75,8 @@
               </div>
             </div>
             <div v-else-if="e1==2">
+              <BuyerInfo />
+              <DestinationInfo />
               <PaymentTable :totalCost="totalCost" />
               <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
@@ -100,7 +103,7 @@
                     <v-list-item-title class="headline mb-1" style="text-align: center;">
                       <strong>주문이 완료</strong> 되었습니다. 감사합니다 !
                     </v-list-item-title>
-                    <v-list-item-subtitle style="text-align: center;">주문시간 : {{ new Date() }}</v-list-item-subtitle>
+                    <v-list-item-subtitle style="text-align: center;">{{ new Date() }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item style="display: flex; justify-content: center;">
@@ -119,6 +122,9 @@
               </v-card>
               
               <v-divider></v-divider>
+              <div v-for="(item, idx) in items" :key="idx">
+                <PaymentCompleteCard :item="item" />
+              </div>
             </div>
           </div>
         </v-col>
@@ -129,17 +135,43 @@
 </template>
 
 <script>
+import DestinationInfo from '../../components/cart/DestinationInfo.vue'
+import BuyerInfo from '../../components/cart/BuyerInfo.vue'
 import CartList from '../../components/cart/CartList.vue'
 import PaymentTable from '../../components/cart/PaymentTable.vue'
 import Footer from '../../components/core/Footer.vue'
+import PaymentCompleteCard from '../../components/cart/PaymentCompleteCard.vue'
 export default {
-  components: { Footer, CartList, PaymentTable },
+  components: { Footer, CartList, PaymentTable, BuyerInfo, DestinationInfo, PaymentCompleteCard },
   name: 'Cart',
   data () {
     return {
       e1: 1,
       article: [null, '장바구니', '주문결제', '주문완료'],
       totalCost: 0,
+      items: [
+      {
+        img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
+        name: '민트위니 여성용 미키기모셋',
+        cost: '22900',
+        amount: 1,
+        select: true,
+      },
+      {
+        img: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg',
+        name: '캐럿 여성 와이드 밴딩 팬츠',
+        cost: '9900',
+        amount: 1,
+        select: true,
+      },
+      {
+        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/358954270343111-663ca6b1-cd2c-4c03-9228-1ffbf43b93cb.jpg',
+        name: '루나걸 여성용 니트',
+        cost: '22900',
+        amount: 1,
+        select: true,
+      },
+    ]
     }
   },
 
@@ -147,7 +179,7 @@ export default {
     updateTotalCost: function (cost) {
       this.totalCost = cost
     }
-  }
+  },
 }
 </script>
 
