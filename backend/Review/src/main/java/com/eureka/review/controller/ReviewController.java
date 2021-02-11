@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/review")
+@CrossOrigin(origins = "*")
 public class ReviewController {
 
     private final ReviewService service;

@@ -13,6 +13,7 @@ import java.util.List;
 @Api(tags = {"1. File"})
 @RestController
 @RequestMapping("/file")
+@CrossOrigin(origins = "*")
 public class FileController {
 
     private final FileService service;
@@ -57,7 +58,7 @@ public class FileController {
 
     @ApiOperation(value="이미지 서빙(n개)", notes = "여러개의 이미지 불러오기", httpMethod = "GET")
     @GetMapping(value = "/fileServe")
-    public Response fileServe(@ApiParam(value="파일 고유값 리스트") @RequestBody List<Integer> fileIds) throws IllegalStateException {
+    public Response fileServe(@ApiParam(value="파일 고유값 리스트") @RequestParam(value="fileIds",required = true) List<Integer> fileIds) throws IllegalStateException {
         Response response;
 
         try {
