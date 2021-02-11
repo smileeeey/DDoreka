@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class FileService {
@@ -21,7 +19,7 @@ public class FileService {
     private FileRepository repository;
 
 
-    public void addFiles(MultipartFile[] files) throws Exception {
+    public void addFiles(List<MultipartFile> files) throws Exception {
 
         for (MultipartFile file : files) {
             if(file.isEmpty())  continue;
@@ -40,7 +38,8 @@ public class FileService {
             String currentTime = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
             StringTokenizer st = new StringTokenizer(currentTime,"/");
            //저장될 경로
-            String fsl = File.pathSeparator;
+            //String fsl = File.pathSeparator;
+            String fsl = "\\";
 
             StringBuilder pathRoot = new StringBuilder();
             pathRoot.append("C:\\Users\\sumin")
@@ -49,11 +48,11 @@ public class FileService {
                     .append(fsl).append("eureka");
 
             StringBuilder modulePath = new StringBuilder();
-            modulePath.append(fsl).append(st.nextToken())
+            modulePath.append(st.nextToken())
                     .append(fsl).append(st.nextToken())
                     .append(fsl).append(st.nextToken());
 
-            File pFile = new File(pathRoot.toString()+modulePath.toString());
+            File pFile = new File(pathRoot.toString()+fsl+modulePath.toString());
             //폴더 있는지 확인하고 폴더 생성
             if(pFile.exists()==false) {
                 pFile.mkdirs();
@@ -77,26 +76,23 @@ public class FileService {
     }
 
     public void addFile(MultipartFile file) throws Exception{
-        //if(file.isEmpty())  return;
-        System.out.println("파일은 있다.");
+        if(file.isEmpty())  return;
         String originName = file.getOriginalFilename();
-        System.out.println("오리지날이름:"+originName);
         String ext = "";
         int index = originName.lastIndexOf(".");
         if(index!=-1){
             ext = originName.substring(index);
         }
-        System.out.println("추가정보"+ext);
 
 
         //저장할 이름
         String systemName = UUID.randomUUID().toString() + ext;
-        System.out.println(systemName);
 
         String currentTime = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         StringTokenizer st = new StringTokenizer(currentTime,"/");
         //저장될 경로
-        String fsl = File.pathSeparator;
+        //String fsl = File.pathSeparator;
+        String fsl = "\\";
 
         StringBuilder pathRoot = new StringBuilder();
         pathRoot.append("C://Users/sumin")
@@ -105,11 +101,11 @@ public class FileService {
                 .append(fsl).append("eureka");
 
         StringBuilder modulePath = new StringBuilder();
-        modulePath.append(fsl).append(st.nextToken())
+        modulePath.append(st.nextToken())
                 .append(fsl).append(st.nextToken())
                 .append(fsl).append(st.nextToken());
 
-        File pFile = new File(pathRoot.toString()+modulePath.toString());
+        File pFile = new File(pathRoot.toString()+fsl+modulePath.toString());
         //폴더 있는지 확인하고 폴더 생성
         if(pFile.exists()==false) {
             pFile.mkdirs();
@@ -128,4 +124,41 @@ public class FileService {
 
         repository.save(image);
     }
+
+    public List<Image> filesServe(List<Integer> fileIds) {
+        List<Image> images = new ArrayList<>();
+        for (Integer fileId : fileIds) {
+            images.add(repository.findById(fileId));
+        }
+        return images;
+    }
+
+    public Image fileServe(int fileId) {
+        return repository.findById(fileId);
+    }
+
+    @Transactional
+    public void delete(int fileId) throws Exception {
+
+        Image image = repository.findById(fileId);
+        repository.deleteAllById(fileId);
+
+        //String fsl = File.pathSeparator;
+        String fsl = "\\";
+
+        StringBuilder pathRoot = new StringBuilder();
+        pathRoot.append("C:\\Users\\sumin")
+                .append(fsl).append("etc")
+                .append(fsl).append("upload")
+                .append(fsl).append("eureka");
+
+        pathRoot.append(fsl).append(image.getPath())
+                .append(fsl).append(image.getSystemName());
+        File file = new File(pathRoot.toString());
+        if(file.exists()){
+            if(!file.delete())  throw new Exception("파일 삭제 실패");
+        }
+    }
+
+
 }
