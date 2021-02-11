@@ -1,6 +1,7 @@
 package com.eureka.product.controller;
 
 import com.eureka.product.dto.Category;
+import com.eureka.product.dto.Product;
 import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.google.gson.Gson;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/category")
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
     private final CategoryService service;
