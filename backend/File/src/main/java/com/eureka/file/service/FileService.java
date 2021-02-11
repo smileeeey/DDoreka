@@ -39,13 +39,11 @@ public class FileService {
             StringTokenizer st = new StringTokenizer(currentTime,"/");
            //저장될 경로
             //String fsl = File.pathSeparator;
-            String fsl = "\\";
+            //String fsl = "\\";
+            String fsl="/";
 
             StringBuilder pathRoot = new StringBuilder();
-            pathRoot.append("C:\\Users\\sumin")
-                    .append(fsl).append("etc")
-                    .append(fsl).append("upload")
-                    .append(fsl).append("eureka");
+            pathRoot.append("/home/upload/image");
 
             StringBuilder modulePath = new StringBuilder();
             modulePath.append(st.nextToken())
@@ -92,13 +90,11 @@ public class FileService {
         StringTokenizer st = new StringTokenizer(currentTime,"/");
         //저장될 경로
         //String fsl = File.pathSeparator;
-        String fsl = "\\";
+        //String fsl = "\\";
+        String fsl="/";
 
         StringBuilder pathRoot = new StringBuilder();
-        pathRoot.append("C://Users/sumin")
-                .append(fsl).append("etc")
-                .append(fsl).append("upload")
-                .append(fsl).append("eureka");
+        pathRoot.append("/home/upload/image");
 
         StringBuilder modulePath = new StringBuilder();
         modulePath.append(st.nextToken())
@@ -144,13 +140,11 @@ public class FileService {
         repository.deleteAllById(fileId);
 
         //String fsl = File.pathSeparator;
-        String fsl = "\\";
+        //String fsl = "\\";
+        String fsl="/";
 
         StringBuilder pathRoot = new StringBuilder();
-        pathRoot.append("C:\\Users\\sumin")
-                .append(fsl).append("etc")
-                .append(fsl).append("upload")
-                .append(fsl).append("eureka");
+        pathRoot.append("/home/upload/image");
 
         pathRoot.append(fsl).append(image.getPath())
                 .append(fsl).append(image.getSystemName());
