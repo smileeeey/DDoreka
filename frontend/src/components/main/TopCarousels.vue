@@ -46,7 +46,7 @@ export default {
     }
   },
   created() {
-    getTopCarousels()
+    
   }
 }
 </script>
