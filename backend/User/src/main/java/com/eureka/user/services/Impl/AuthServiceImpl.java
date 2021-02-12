@@ -48,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
         userInfo.setEmail(userEmail);
         userInfo.setName(user.getName());
         userInfo.setPhone(user.getPhone());
+        userInfo.setId(Integer.toString(user.getId()));
         return userInfo;
     }
 
