@@ -9,7 +9,7 @@
           </tr>
           <tr>
             <th scope="row">이메일</th>
-            <td>[[vuex state로부터 받아올 예정]]</td>
+            <td>{{email}}</td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
@@ -31,7 +31,12 @@ export default {
   computed: {
     ...mapState([
       'name',
+      'email',
+      'phone',
     ])
+  },
+  mounted () {
+    this.phonenumber = this.phone
   }
 }
 </script>
