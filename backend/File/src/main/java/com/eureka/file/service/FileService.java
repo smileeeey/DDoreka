@@ -2,6 +2,7 @@ package com.eureka.file.service;
 
 import com.eureka.file.repository.FileRepository;
 import com.eureka.file.dto.Image;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -121,16 +124,33 @@ public class FileService {
         repository.save(image);
     }
 
-    public List<Image> filesServe(List<Integer> fileIds) {
+    public List<Image> filesServe(List<Integer> fileIds) throws IOException {
         List<Image> images = new ArrayList<>();
         for (Integer fileId : fileIds) {
-            images.add(repository.findById(fileId));
+            images.add(fileServe(fileId));
         }
         return images;
     }
 
-    public Image fileServe(int fileId) {
-        return repository.findById(fileId);
+    public Image fileServe(int fileId) throws IOException {
+
+        Image image = repository.findById(fileId);
+
+        //String fsl = File.pathSeparator;
+        //String fsl = "\\";
+        String fsl="/";
+
+        StringBuilder path = new StringBuilder();
+        path.append("/home/upload/image");
+
+        path.append(fsl).append(image.getPath())
+                .append(fsl).append(image.getSystemName());
+
+        InputStream in = getClass().getResourceAsStream(path.toString());
+
+        image.setImageBytes(IOUtils.toByteArray(in));
+
+        return image;
     }
 
     @Transactional
