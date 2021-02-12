@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/order")
+@CrossOrigin
 public class OrderFromUserController {
 
     private final OrderService orderService;
