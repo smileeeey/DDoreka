@@ -9,42 +9,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/seller")
 public class SellerController {
 
     @Autowired
     private SellerService service;
 
-    @PostMapping("/addSeller")
+    @PostMapping("/add")
     public Seller addSeller(@RequestBody Seller seller) {
         return service.saveSeller(seller);
     }
 
-    @PostMapping("/addSellers")
+    @PostMapping("/addAll")
     public List<Seller> addSellers(@RequestBody List<Seller> sellers) {
         return service.saveSellers(sellers);
     }
 
-    @GetMapping("/sellers")
+    @GetMapping("/getAll")
     public List<Seller> findAllSellers() {
         return service.getSellers();
     }
 
-    @GetMapping("/sellerById/{id}")
+    @GetMapping("/getById/{id}")
     public Seller findSellerById(@PathVariable int id) {
         return service.getSellerById(id);
     }
 
-    @GetMapping("/seller/{name}")
+    @GetMapping("/getByName/{name}")
     public Seller findSellerByName(@PathVariable String name) {
         return service.getSellerByName(name);
     }
 
-    @PutMapping("/updateSeller")
+    @PutMapping("/update")
     public Seller updateSeller(@RequestBody Seller seller) {
         return service.updateSeller(seller);
     }
 
-    @DeleteMapping("/deleteSeller/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public String deleteSeller(@PathVariable int id) {
         return service.deleteSeller(id);
     }

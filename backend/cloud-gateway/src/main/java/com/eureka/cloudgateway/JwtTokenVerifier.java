@@ -1,4 +1,4 @@
-package com.eureka.auth.jwt;
+package com.eureka.cloudgateway;
 
 import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
