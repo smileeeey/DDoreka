@@ -87,6 +87,11 @@ export default {
         to: '/notification',
       },
       {
+        icon: 'mdi-cart',
+        title: 'delivery',
+        to: '/product/deliver',
+      },
+      {
         icon: 'mdi-map-marker', 
         'icon-alt': 'mdi-bell',
         title: 'register',

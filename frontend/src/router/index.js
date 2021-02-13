@@ -136,6 +136,11 @@ const routes = [
         component: () => import('../views/sell/SellerRegister.vue')
       },
       {
+        name: 'SellerProductDeliver',
+        path: '/product/deliver',
+        component: () => import('../views/sell/SellerProductDeliver.vue')
+      },
+      {
         name: 'SellerNotification',
         path: '/notification',
         component: () => import('../views/sell/SellerNotification.vue')

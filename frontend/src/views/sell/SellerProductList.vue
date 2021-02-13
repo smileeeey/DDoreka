@@ -11,7 +11,9 @@
           :items-per-page="5"
           class="elevation-1"
           @click:row="handleClick"
-        ></v-data-table>
+        >
+
+        </v-data-table>
       </v-col>
     </v-row>
 

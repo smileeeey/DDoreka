@@ -162,7 +162,8 @@ export default {
   }
 
   .cancelbox {
-    background-color: tomato;
+    background-color: #f1f1f1;
     text-decoration: line-through;
+    color:#aa2222;
   }
 </style>
