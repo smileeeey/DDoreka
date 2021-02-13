@@ -7,7 +7,7 @@
       <v-col cols=10>
         <TopInfo />
         <v-divider class="my-5"></v-divider>
-        <CategoryItemList />
+        <CategoryItemList :items="items" />
         <Pagination />
       </v-col>
     </v-row>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import SideBar from '@/components/category/SideBar.vue'
 import TopInfo from '@/components/category/TopInfo.vue'
 import CategoryItemList from '@/components/category/CategoryItemList.vue'
@@ -28,8 +29,33 @@ export default {
     Pagination,
   },
   data: () => ({
-
+    id: '',
+    depth: '',
+    items: [],
   }),
+  methods: {
+    getId() {
+      this.id = this.$route.params.id  
+    },
+    getDepth() {
+      this.depth = this.$route.params.depth  
+    },
+    getItems() {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`)
+      .then(res => {
+        // console.log(res.data)
+        this.items = res.data.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created() {
+    this.getId()
+    this.getDepth()
+    this.getItems()
+  }
 }
 </script>
 

@@ -3,12 +3,12 @@
     <v-container>
       <v-row>
         <v-col
-          v-for="(categoryItem, idx) in categoryItems"
+          v-for="(item, idx) in items"
           :key="idx"
           class="d-flex child-flex"
           cols="4"
         >
-          <CategoryItem :categoryItem="categoryItem" />
+          <CategoryItem :item="item" />
         </v-col>
       </v-row>
     </v-container>
@@ -22,6 +22,9 @@ export default {
   name: 'CategoryItemList',
   components: {
     CategoryItem,
+  },
+  props: {
+    items: Array,
   },
   data: () => ({
     categoryItems: [
