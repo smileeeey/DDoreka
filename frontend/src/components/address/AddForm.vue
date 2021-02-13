@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form>
-      <v-container style="width: 500px;">
+      <v-container style="width: 100%;">
         <v-row>
           <v-col
             cols="12"
@@ -73,6 +73,17 @@
               prepend-inner-icon="mdi-message-processing-outline"
               label="배송 요청사항"
               v-model="address.comment"
+            ></v-text-field> 
+            <v-text-field
+              id="comment"
+              solo
+              flat
+              dense
+              outlined
+              required
+              prepend-inner-icon="mdi-tag-multiple"
+              label="별명 (ex : 본가, 자취방)"
+              v-model="address.nickname"
             ></v-text-field> 
             
           </v-col>
@@ -165,10 +176,10 @@ export default {
     saveAddress: function () {
       this.address.main_address = document.getElementById('main_address').value
       const form = {
-            "nickname": null,
+            "nickname": this.address.nickname,
             "mainAddress": this.address.main_address,
             "subAddress": this.address.sub_address,
-            "zipcode": null,
+            "zipcode": '',
             "recipientPhone": this.address.phonenumber,
             "recipientName": this.address.name,
             "deliveryMsg": this.address.comment

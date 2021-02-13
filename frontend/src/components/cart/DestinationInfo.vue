@@ -12,7 +12,7 @@
           <tr>
             <th scope="row">배송주소</th>
             <td>
-              <span id="address">{{main_address}}, {{sub_address}}</span>
+              <span id="address"></span>
             </td>
           </tr>
           <tr>
@@ -23,7 +23,10 @@
           </tr>
           <tr>
             <th scope="row">배송 요청사항</th>
-            <td><input type="text" v-model="comment"></td>
+            <td>
+              <span id="comment"></span>
+
+            </td>
           </tr>
         </tbody>
       </table>
