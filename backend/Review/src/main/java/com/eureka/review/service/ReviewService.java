@@ -105,4 +105,15 @@ public class ReviewService {
 
         return reviews;
     }
+
+    public List<Review> getReviewsByUser(int userId) {
+        List<Review> reviews =  reviewRepository.findAllByUserId(userId);
+
+        for (Review review : reviews) {
+            int cnt = reviewlikeRepository.findCountByReviewId(review.getId());
+            review.setReviewlikeCnt(cnt);
+        }
+
+        return reviews;
+    }
 }
