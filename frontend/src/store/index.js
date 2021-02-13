@@ -10,7 +10,6 @@ export default new Vuex.Store({
     name: null,
     currentItem: {},
     email: '',
-    name: '',
     phone: '',
   },
   mutations: {
