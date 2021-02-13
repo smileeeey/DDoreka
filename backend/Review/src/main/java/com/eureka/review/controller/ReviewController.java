@@ -58,11 +58,11 @@ public class ReviewController {
     }
 
     // review 좋아요 취소
-    @DeleteMapping(value="/dislike/{reviewlikeId}")
-    public Response deleteLike(@PathVariable int reviewlikeId){
+    @DeleteMapping(value="/dislike/{reviewId}/{userId}")
+    public Response deleteLike(@PathVariable int reviewId, @PathVariable int userId){
         Response response;
         try{
-            service.deleteLike(reviewlikeId);
+            service.deleteLike(reviewId,userId);
             response = new Response("success", "리뷰 좋아요 삭제 성공", null);
         }catch(Exception e){
             response = new Response("error", "리뷰 좋아요 삭제 실패", e.getMessage());
@@ -86,12 +86,11 @@ public class ReviewController {
     }
 
     //review 수정
-    /*
     @PutMapping(value="/update")
-    public Response updaetReview(@RequestBody Review review){
+    public Response updaetReview(@RequestBody Map<String,Object> param){
         Response response;
         try{
-            response = new Response("success", "리뷰 업데이트 성공", service.updateReview(review));
+            response = new Response("success", "리뷰 업데이트 성공", service.updateReview(param));
         }catch(Exception e){
             response = new Response("error", "리뷰 업데이트 실패", e.getMessage());
         }
@@ -99,6 +98,6 @@ public class ReviewController {
 
         return response;
     }
-    */
+
 
 }
