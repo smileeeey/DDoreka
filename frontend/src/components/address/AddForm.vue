@@ -95,7 +95,8 @@
 
 
 <script>
-
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   
   name: 'AddForm',
@@ -104,7 +105,7 @@ export default {
       name: '',
       main_address: '',
       sub_address: '',
-      nickname: '너네집',
+      nickname: '',
       phonenumber: '',
       comment: '',
     }
@@ -159,14 +160,31 @@ export default {
         },
         
       }).open();
-      console.log('start')
+      
     },
     saveAddress: function () {
       this.address.main_address = document.getElementById('main_address').value
-      this.$emit('saveAddress', this.address)
-      console.log(this.address)
+      const form = {
+            "nickname": null,
+            "mainAddress": this.address.main_address,
+            "subAddress": this.address.sub_address,
+            "zipcode": null,
+            "recipientPhone": this.address.phonenumber,
+            "recipientName": this.address.name,
+            "deliveryMsg": this.address.comment
+      }
+      axios.post(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`, form, {})
+        .then(res => {
+          this.$emit('saveAddress', res.data.data)
+        })
+      
     }
   },
+  computed: {
+    ...mapState([
+      'email',
+    ])
+  }
 
 }
 </script>

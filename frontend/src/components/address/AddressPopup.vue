@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
 import AddForm from './AddForm.vue'
 import AddressCardSelect from './AddressCardSelect.vue'
 export default {
@@ -29,44 +31,33 @@ export default {
   data () {
     return {
       addState: false,
-      addresses: [
-        {
-          name: '권세진',
-          main_address: '경상북도 구미시 진평동 526',
-          sub_address: 'IWC 302호',
-          nickname: '자취방',
-          phonenumber: '01077269318',
-          comment: '문 앞',
-        },
-        {
-          name: '권세진',
-          main_address: '대구광역시 수성구 욱수천로 27',
-          sub_address: '105동 1005호',
-          nickname: '본가',
-          phonenumber: '01077269318',
-          comment: '경비실',
-        },
-        {
-          name: 'ㅇㅇ',
-          main_address: '너네집',
-          sub_address: '멀티캠퍼스',
-          nickname: '',
-          phonenumber: '01077269318',
-          comment: '빨리가져다주세요',
-        },
-      ]
+      addresses: [],
     }
+  },
+  computed: {
+    ...mapState([
+      'email',
+    ])
   },
   components: {
     AddressCardSelect,
     AddForm,
   },
+  created () {
+    axios.get(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`)
+      .then(res => {
+        this.addresses = res.data.data
+      })
+  },
   methods: {
-    deleteAddress: function (idx) {
-      this.addresses.splice(idx, 1)
+    deleteAddress: function (addressId) {
+      axios.delete(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}/${addressId}`)
+        .then(res => {
+          this.addresses = res.data.data
+        })
     },
     saveAddress: function (newAddress) {
-      this.addresses.push(newAddress)
+      this.addresses = newAddress
       this.addState = false
     }
   }

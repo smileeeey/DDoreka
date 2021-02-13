@@ -28,11 +28,11 @@
             prepend-inner-icon="mdi-email-outline"
             :rules="[required_id, emailRules,]"
             label="아이디(이메일)"
-            v-model="form.email"
+            v-model="form.id"
           ></v-text-field> 
           
           <v-text-field
-            v-model="form.pw"
+            v-model="form.password"
             solo
             flat
             dense
@@ -68,22 +68,45 @@
             label="이름"
             v-model="form.name"
           ></v-text-field> 
-          <!-- <v-text-field
+
+          <v-text-field
             solo
             flat
             dense
             outlined
             required
-            prepend-inner-icon="mdi-cellphone"
-            :rules="[required_phonenumber,]"
-            label="휴대폰 번호"
-            v-model="forms.phonenumber"
-          ></v-text-field>  -->
+            prepend-inner-icon="mdi-phone"
+            label="전화번호"
+            v-model="form.phone"
+          ></v-text-field> 
+          
+          <v-text-field
+            solo
+            flat
+            dense
+            outlined
+            required
+            prepend-inner-icon="mdi-cash-multiple"
+            label="계좌은행"
+            v-model="form.bank_company"
+          ></v-text-field> 
+          
+          <v-text-field
+            solo
+            flat
+            dense
+            outlined
+            required
+            prepend-inner-icon="mdi-numeric"
+            label="계좌번호"
+            v-model="form.account"
+          ></v-text-field> 
+          
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
         </v-col>
-          <SignupCheckbox :form="form" :enable="enable" />
+          <SignupCheckbox :enable="enable" />
         
 
         <v-col>
@@ -96,17 +119,20 @@
 </template>
 
 <script>
-import SignupCheckbox from '../../components/accounts/SignupCheckbox.vue'
-import AccountsFooter from '../../components/accounts/AccountsFooter.vue'
+import SignupCheckbox from '@/components/accounts/SignupCheckbox.vue'
+import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
   components: { AccountsFooter, SignupCheckbox },
-  name: 'Signup',
+  name: 'SellerSignup',
   data: () => ({
     rePassword: '',
     form: {
-      email: '',
-      pw: '',
+      id: '',
+      password: '',
       name: '',
+      phone: '',
+      bank_company: '',
+      bank_account: '',
     },
     show1: false,
     rules: {
@@ -120,10 +146,10 @@ export default {
   },
   computed: {
     required() {
-      return () => !!this.form.pw || '비밀번호를 입력해주세요.'
+      return () => !!this.form.password || '비밀번호를 입력해주세요.'
     },
     required_id() {
-      return () => !!this.form.email || '아이디(이메일)를 입력해주세요.'
+      return () => !!this.form.id || '아이디(이메일)를 입력해주세요.'
     },
     required_name() {
       return () => !!this.form.name || '이름을 정확히 입력하세요.'
@@ -132,13 +158,13 @@ export default {
     //   return () => !!this.form.phonenumber || '휴대폰 번호를 정확하게 입력하세요.'
     // },
     min_pw() {
-      return () => this.form.pw.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
+      return () => this.form.password.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
     },
     emailRules() {
-      return () => /.+@.+\..+/.test(this.form.email) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
+      return () => /.+@.+\..+/.test(this.form.id) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
     },
     passwordConfirmationRule() {
-      return () => (this.form.pw === this.rePassword) || '비밀번호가 일치하지 않습니다.'
+      return () => (this.form.password === this.rePassword) || '비밀번호가 일치하지 않습니다.'
     },
     enable() {
       if (this.required_name() == true && this.emailRules() == true && this.passwordConfirmationRule() == true && this.min_pw() == true) {

@@ -1,5 +1,5 @@
 <template>
-<v-app>
+<v-app style="background-color: lightgray">
 
   <v-form>
     <v-container fluid style="width: 500px;">
@@ -25,7 +25,7 @@
             outlined
             prepend-inner-icon="mdi-email-outline"
             :rules="[rules.required_id, rules.emailRules,]"
-            label="아이디(이메일)"
+            label="판매자아이디(이메일)"
             v-model="form.email"
           ></v-text-field> 
           
@@ -68,7 +68,7 @@
           <v-btn style="background-color: white; color: #0275d8; 
             font-size: 1.5rem; font-weight: bold; 
             width: 100%; height: 150%;"
-            @click="$router.push({ name: 'Signup' })"
+            @click="$router.push({ name: 'SellerSignup' })"
           >
             회원가입
           </v-btn>
@@ -83,12 +83,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
-import AccountsFooter from '../../components/accounts/AccountsFooter.vue'
+import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
   components: { AccountsFooter },
-  name: 'Login',
+  name: 'SellerLogin',
   data: () => ({
     form: {
       email: '',
@@ -113,18 +113,18 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
-        .then(res => {
-          this.$store.dispatch("LOGIN", res.data.data)
-          // jwt token setting required
-          localStorage.setItem('jwt', 'token');
-          this.$router.push({ name: 'Main' })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      
-      
+      // axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
+      //   .then(res => {
+      //     console.log('this is res and res data4')
+      //     console.log(res)
+      //     console.log(res.data)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
+      localStorage.setItem('jwt', 'token');
+      // this.$store.dispatch("LOGIN")
+      this.$router.push({ name: 'Dashboard' });
     }
   }
 }

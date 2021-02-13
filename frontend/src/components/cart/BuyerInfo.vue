@@ -9,11 +9,11 @@
           </tr>
           <tr>
             <th scope="row">이메일</th>
-            <td>[[vuex state로부터 받아올 예정]]</td>
+            <td>{{email}}</td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
-            <td><input type="text" v-model="phonenumber"><button>저장</button></td>
+            <td><input type="text" v-model="phonenumber"><button @click="changePhone">저장</button></td>
           </tr>
         </tbody>
       </table>
@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex'
-
+// import axios from 'axios'
 export default {
   name: 'BuyerInfo',
   data: () => ({
@@ -31,7 +31,17 @@ export default {
   computed: {
     ...mapState([
       'name',
+      'email',
+      'phone',
     ])
+  },
+  mounted () {
+    this.phonenumber = this.phone
+  },
+  methods: {
+    changePhone: function () {
+      // axios.post()
+    }
   }
 }
 </script>
