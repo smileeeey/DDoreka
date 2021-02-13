@@ -2,7 +2,7 @@
   <v-container class="mt-10">
     <v-row>
       <v-col cols="6">
-        <TopInfoCarousels :item="item" />
+        <TopInfoCarousels v-if="sFiles.length" :sFiles="sFiles" />
       </v-col>
       <v-col cols="6">
         <TopInfoCard :item="item" />
@@ -22,6 +22,7 @@ export default {
   },
   props: {
     item: Object,
+    sFiles: Array,
   }
 }
 </script>

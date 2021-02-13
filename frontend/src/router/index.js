@@ -37,7 +37,7 @@ const routes = [
       },
       // ItemDetail
       {
-        path: '/category/:name/:code',
+        path: '/category/:id/detail/:productid',
         name: 'ItemDetail',
         component: () => import('../views/ItemDetail.vue'),
         props: true,

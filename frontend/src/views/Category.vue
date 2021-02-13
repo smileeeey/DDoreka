@@ -43,7 +43,7 @@ export default {
     getItems() {
       axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.items = res.data.data
       })
       .catch(err => {

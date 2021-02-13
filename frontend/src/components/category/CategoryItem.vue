@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="{ name: 'ItemDetail', params: { name: '의류', code: 1 }}">
+  <v-card :to="{ name: 'ItemDetail', params: { id: item.category3Id, productid: productId }}">
     <v-img
       :src="sumnailUrl"
       aspect-ratio="1"
@@ -59,6 +59,7 @@ export default {
     sFiles: [],
     mFiles: [],
     sumnailUrl: '',
+    productId: '',
   }),
   methods: {
     getFileIds() {
@@ -82,7 +83,11 @@ export default {
       .then(res => {
         // console.log(res.data)
         this.sFiles = res.data.data
-        this.sumnailUrl = `file:i4d106.p.ssafy.io/home/upload/image/${this.sFiles[0].path}/${this.sFiles[0].systemName}`
+        if (this.sFiles.length > 0) {
+          // this.sumnailUrl = `file:i4d106.p.ssafy.io/home/upload/image/${this.sFiles[0].path}/${this.sFiles[0].systemName}`
+          this.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`
+        }
+        
       })
       .catch(err => {
         console.log(err)
@@ -104,6 +109,7 @@ export default {
     },
   },
   created() {
+    this.productId = this.item.id
     this.getFileIds()
     this.getSFiles()
     this.getMFiles()

@@ -75,21 +75,30 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
   name: 'TopInfoCard',
   props: {
-    item: {
-      type: Object,
-    }
+    item: Object,
   },
   data: () => ({
     select: '',
+    price: 0,
+    discountPrice: 0,
   }),
   computed: {
     discountRate: function() {
       return Math.round(((this.item.options[0].price - this.item.options[0].discountPrice) / this.item.options[0].price) * 100)
     }
-  }
+  },
+  // computed: {
+  //   ...mapState({
+  //     currentItem: 'currentItem'
+  //   }),
+  // },
+  created() {
+    
+  },
 }
 </script>
 
