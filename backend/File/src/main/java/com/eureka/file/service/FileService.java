@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -142,13 +142,16 @@ public class FileService {
 
         StringBuilder path = new StringBuilder();
         path.append("/home/upload/image");
+        //path.append("C:\\Users\\sumin\\etc\\upload\\eureka");
 
         path.append(fsl).append(image.getPath())
                 .append(fsl).append(image.getSystemName());
 
-        InputStream in = getClass().getResourceAsStream(path.toString());
+        InputStream imgStream = new FileInputStream(path.toString());
+        byte[] imgByteArray = IOUtils.toByteArray(imgStream);
+        imgStream.close();
 
-        image.setImageBytes(IOUtils.toByteArray(in));
+        image.setImageBytes(imgByteArray);
 
         return image;
     }
