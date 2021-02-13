@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    login: true,
-    email: 'sejinkwon@naver.com',
-    name: '권세진',
-    phone: '01077269318',
+    login: false,
+    email: '',
+    name: '',
+    phone: '',
   },
   mutations: {
     logout(state) {
@@ -34,5 +35,8 @@ export default new Vuex.Store({
     },
   },
   modules: {
-  }
+  },
+  plugins: [
+    createPersistedState()
+  ]
 })
