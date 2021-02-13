@@ -56,17 +56,33 @@ public class ReviewService {
     }
 
 
-    public void deleteLike(int reviewlikeId) {
-        reviewlikeRepository.deleteById(reviewlikeId);
+    public void deleteLike(int reviewId, int userId) {
+        reviewlikeRepository.deleteByReviewIdAndUserId(reviewId,userId);
     }
+
 
     public void deleteReview(int reviewId) {
         reviewlikeRepository.deleteByReviewId(reviewId);
         reviewRepository.deleteById(reviewId);
     }
 
-    public Review updateReview(Review review) throws Exception {
-        if(reviewRepository.save(review) == null)   throw new Exception("해당 리뷰 업데이트 실패");
+    public Review updateReview(Map<String,Object> param) throws Exception {
+
+        Review review = (Review)param.get("review");
+        List<Integer> deletedFileId = (List)param.get("deleteFileId");
+        List<Integer> addedFileId = (List)param.get("addedFileId");
+
+        if(reviewRepository.save(review) == null)   throw new Exception("리뷰 업데이트 실패");
+
+        //file 서버에서도 삭제 해야댐! 프론트에서 요청 보내기!!
+        for (Integer fileId : deletedFileId) {
+            reviewimageRepository.deleteById(fileId);
+        }
+
+        for (Integer fileId : addedFileId) {
+            reviewimageRepository.save(new Reviewimage(fileId,review));
+        }
+
         return review;
     }
 

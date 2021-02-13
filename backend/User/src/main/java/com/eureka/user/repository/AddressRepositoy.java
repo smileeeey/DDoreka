@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AddressRepositoy extends JpaRepository<UseraddressEntity,String> {
+public interface AddressRepositoy extends JpaRepository<UseraddressEntity, String> {
     List<UseraddressEntity> findAllByUserId(String userId);
-    UseraddressEntity findFirstByAddressIdAndUserId(int addressId,int userId);
+
+    UseraddressEntity findFirstByAddressIdAndUserId(int addressId, int userId);
 
 
 }
