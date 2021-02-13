@@ -7,6 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     login: false,
+    name: null,
+    currentItem: {},
     email: '',
     name: '',
     phone: '',
@@ -22,6 +24,9 @@ export default new Vuex.Store({
       state.email = data.email;
       state.phone = data.phone
     },
+    selectItem(state, item) {
+      state.currentItem = item
+    }
   },
   actions: {
     LOGOUT({ commit }) {
@@ -32,6 +37,9 @@ export default new Vuex.Store({
       commit("login", data);
       console.log("this is data")
       console.log(data)
+    },
+    SELECTITEM({ commit }, item) {
+      commit("selectItem", item)
     },
   },
   modules: {

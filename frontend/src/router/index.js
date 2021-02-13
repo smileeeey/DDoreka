@@ -29,14 +29,14 @@ const routes = [
       },
       // category
       {
-        path: '/category/:name',
+        path: '/category/:id/:depth',
         name: 'Category',
         component: () => import('../views/Category.vue'),
         props: true,
       },
       // ItemDetail
       {
-        path: '/category/:name/:code',
+        path: '/category/:id/detail/:productid',
         name: 'ItemDetail',
         component: () => import('../views/ItemDetail.vue'),
         props: true,
@@ -97,7 +97,7 @@ const routes = [
       },
     ]
   },
-  // payment
+  // Cart
   {
     path: '/cart',
     name: 'Cart',

@@ -15,6 +15,7 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import TodayItem from './TodayItem.vue'
 export default {
   name: 'TodayItems',
@@ -33,9 +34,20 @@ export default {
       {src: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/292x292ex/image/retail/images/88522104879397-a25cef30-7726-474c-a851-c4a4fc987c81.jpg'},
     ],
   }),
-  created() {
-    console.log('Main created')
-  }
+  // methods: {
+  //   getTodayItemsList: () => {
+  //     axios.get('url')
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })      
+  //   },
+  // },
+  // created() {
+  //   getTodayItemsList()
+  // },
 }
 </script>
 
