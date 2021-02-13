@@ -8,6 +8,7 @@ import com.eureka.product.repository.ProductRepository;
 import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,11 +68,9 @@ public class ProductService {
     //상품 정보 입력하기
     public void saveProduct(Map<String, Object> param) {
 
-        Gson gson = new Gson();
+        Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-        JsonParser jsonParser = new JsonParser();
-
-        Product product = gson.fromJson(param.get("product").toString(), Product.class);
+        Product product = GSON.fromJson(param.get("product").toString(), Product.class);
 
         Date cur = new Date();
         product.setRegisterDate(cur);
@@ -79,10 +78,10 @@ public class ProductService {
         Product productResult = productRepository.save(product);
         System.out.println("상품 저장 완료. 아이디: " + productResult.getId());
 
-        Productoption[] optionArr = gson.fromJson(param.get("option").toString(), Productoption[].class);
+        Productoption[] optionArr = GSON.fromJson(param.get("option").toString(), Productoption[].class);
         List<Productoption> options = Arrays.asList(optionArr);
 
-        Productimage[] imageArr = gson.fromJson(param.get("image").toString(), Productimage[].class);
+        Productimage[] imageArr = GSON.fromJson(param.get("image").toString(), Productimage[].class);
         List<Productimage> images = Arrays.asList(imageArr);
 
         for (int i = 0; i < options.size(); ++i) {
