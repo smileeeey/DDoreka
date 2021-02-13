@@ -65,6 +65,7 @@ export default {
       window.opener.document.getElementById("name").textContent = this.address.recipientName
       window.opener.document.getElementById("address").textContent = this.address.mainAddress + ', ' + this.address.subAddress
       window.opener.document.getElementById("phonenumber").textContent = this.address.recipientPhone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      window.opener.document.getElementById("comment").textContent = this.address.deliveryMsg;
       
       
       window.close()
