@@ -60,6 +60,15 @@ public class CartController {
         }
     }
 
+<<<<<<< HEAD
+    @GetMapping(value = "/{key}")
+    public String getUsers(@PathVariable(value = "key") String key) {
+        System.out.println(key + "$$$$$$$$$$$$$$$$$$$$$$");
+
+        String userId = jwtUtil.getUsername(key);
+        System.out.println(userId);
+        return "";
+=======
     @DeleteMapping(value="/all/{UserEmail}")
     public Response deleteAllCart(@PathVariable("UserEmail") String UserEmail){
         System.out.println("deleteAllCart " +UserEmail);
@@ -82,6 +91,7 @@ public class CartController {
         catch (Exception e){
             return new Response("error","제품 장바구니 삭제 실패",e.getMessage());
         }
+>>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
     }
 
 

@@ -9,43 +9,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/seller")
 public class SellerController {
 
     @Autowired
     private SellerService service;
 
-    @PostMapping("/addSeller")
-    public Seller addSeller(@RequestBody Seller seller){
+    @PostMapping("/add")
+    public Seller addSeller(@RequestBody Seller seller) {
         return service.saveSeller(seller);
     }
 
-    @PostMapping("/addSellers")
-    public List<Seller> addSellers(@RequestBody List<Seller> sellers){
+    @PostMapping("/addAll")
+    public List<Seller> addSellers(@RequestBody List<Seller> sellers) {
         return service.saveSellers(sellers);
     }
 
-    @GetMapping("/sellers")
-    public List<Seller> findAllSellers(){
+    @GetMapping("/getAll")
+    public List<Seller> findAllSellers() {
         return service.getSellers();
     }
 
-    @GetMapping("/sellerById/{id}")
-    public Seller findSellerById(@PathVariable int id){
+    @GetMapping("/getById/{id}")
+    public Seller findSellerById(@PathVariable int id) {
         return service.getSellerById(id);
     }
 
-    @GetMapping("/seller/{name}")
-    public Seller findSellerByName(@PathVariable String name){
+    @GetMapping("/getByName/{name}")
+    public Seller findSellerByName(@PathVariable String name) {
         return service.getSellerByName(name);
     }
 
-    @PutMapping("/updateSeller")
-    public Seller updateSeller(@RequestBody Seller seller){
+    @PutMapping("/update")
+    public Seller updateSeller(@RequestBody Seller seller) {
         return service.updateSeller(seller);
     }
 
-    @DeleteMapping("/deleteSeller/{id}")
-    public String deleteSeller(@PathVariable int id){
+    @DeleteMapping("/deleteById/{id}")
+    public String deleteSeller(@PathVariable int id) {
         return service.deleteSeller(id);
     }
 }

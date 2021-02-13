@@ -12,7 +12,7 @@ public class StoreService {
     @Autowired
     private StoreRepository repository;
 
-    public Store saveStore(Store store){
+    public Store saveStore(Store store) {
         return repository.save(store);
     }
 
@@ -24,21 +24,21 @@ public class StoreService {
         return repository.findAll();
     }
 
-    public Store getStoreById(int id){
+    public Store getStoreById(int id) {
         return repository.findById(id).orElse(null);
     }
 
-    public Store getStoreByName(String name){
+    public Store getStoreByName(String name) {
         return repository.findByName(name);
     }
 
-    public String deleteStore(int id){
+    public String deleteStore(int id) {
         repository.deleteById(id);
-        return "store removed !!" +id;
+        return "store removed !!" + id;
     }
 
     //need to add function to change seller id
-    public Store updateStore(Store store){
+    public Store updateStore(Store store) {
         Store existingStore = repository.findById(store.getId()).orElse(null);
         existingStore.setName(store.getName());
         existingStore.setPhone(store.getPhone());
