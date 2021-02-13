@@ -29,4 +29,7 @@ public class Image {
     @Column(nullable = false)
     private String type;
 
+    @Transient
+    private byte[] imageBytes;
+
 }
