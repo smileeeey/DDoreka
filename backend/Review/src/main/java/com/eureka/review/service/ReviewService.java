@@ -86,16 +86,32 @@ public class ReviewService {
         return review;
     }
 
-    public List<Review> getReviews(int productId, int userId) {
+    public List<Review> getReviews(int productId, String userId) {
 
         List<Review> reviews =  reviewRepository.findAllByProductId(productId);
 
         for (Review review : reviews) {
             int cnt = reviewlikeRepository.findCountByReviewId(review.getId());
             review.setReviewlikeCnt(cnt);
-            int size = reviewlikeRepository.findByUserIdAndReviewId(review.getId(),userId).size();
-            System.out.println(review.getId()+" "+userId+" 의 로우개수:"+size);
-            if(size>0)   review.setLiked(true);
+
+            if(!userId.equals("notLogin")){
+                int userIdInt = Integer.parseInt(userId);
+                int size = reviewlikeRepository.findByUserIdAndReviewId(review.getId(),userIdInt).size();
+                System.out.println(review.getId()+" "+userIdInt+" 의 로우개수:"+size);
+                if(size>0)   review.setLiked(true);
+            }
+
+        }
+
+        return reviews;
+    }
+
+    public List<Review> getReviewsByUser(int userId) {
+        List<Review> reviews =  reviewRepository.findAllByUserId(userId);
+
+        for (Review review : reviews) {
+            int cnt = reviewlikeRepository.findCountByReviewId(review.getId());
+            review.setReviewlikeCnt(cnt);
         }
 
         return reviews;

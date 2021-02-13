@@ -1,38 +1,48 @@
 <template>
-  <div>Reviews</div>
+  <div>
+    <h3 class="mt-10 mb-3">상품평</h3>
+      <v-row>
+        <v-col 
+          v-for="(review, idx) in reviews"
+          :key="idx"
+          cols="4"
+        >
+          <ReviewCard :review="review" />
+        </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
+import axios from 'axios'
+import ReviewCard from './ReviewCard.vue'
 export default {
   name: 'Reviews',
+  components: {
+    ReviewCard,
+  },
   data: () => ({
-    // reviews: [
-    //   {
-    //     id: 1,
-    //     orderId: 1,
-    //     optionId: 1,
-    //     productId: 1,
-    //     userId: 1,
-    //     rating: 4.5,
-    //     datetime: '2021.02.09',
-    //     editedOX: 'X',
-    //     title: '강추',
-    //     content: '이 제품 정말 좋아요 강추합니다.'
-    //   },
-    //   {
-    //     id: 2,
-    //     orderId: 2,
-    //     optionId: 1,
-    //     productId: 1,
-    //     userId: 2,
-    //     rating: 4,
-    //     datetime: '2021.02.09',
-    //     editedOX: 'X',
-    //     title: '후회 없는 선택',
-    //     content: '왜 이제 샀나 후회'
-    //   },
-    // ]
+    userId: 'notLogin',
+    productId: 1,
+    reviews: [],
   }),
+  methods: {
+    getReviews() {
+      axios.get(`http://i4d106.p.ssafy.io:8083/review/get/${this.productId}/${this.userId}`)
+      .then(res => {
+        // console.log(res.data.data)
+        this.reviews = res.data.data
+        // console.log(this.reviews)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created() {
+    // this.productId = this.$route.params.productid
+    this.getReviews()
+  },
 }
 </script>
 

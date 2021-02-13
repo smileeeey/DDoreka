@@ -8,7 +8,7 @@
       <v-list-item-content>
         <v-list-item-title class="my-3">
           
-          <span style="font-weight: bold; font-size: 18px;">{{address.name}}
+          <span style="font-weight: bold; font-size: 18px;">{{address.recipientName}}
             <v-chip
               v-if="address.nickname"
               style="margin: 0 1rem;"
@@ -20,13 +20,13 @@
           
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.phonenumber|phone}}
+          {{address.recipientPhone|phone}}
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.main_address}}, {{address.sub_address}}
+          {{address.mainAddress}}, {{address.subAddress}}
         </v-list-item-title>
         
-        <v-list-item-title class="mt-5 sizeup">{{address.comment}}</v-list-item-title>
+        <v-list-item-title class="mt-5 sizeup">{{address.deliveryMsg}}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     deleteAddress: function () {
-      this.$emit('deleteAddress', this.idx)
+      console.log(this.address)
+      this.$emit('deleteAddress', this.address.addressId)
     }
   }
 }

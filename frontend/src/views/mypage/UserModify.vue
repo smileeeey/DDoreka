@@ -5,15 +5,15 @@
         <tbody>
           <tr>
             <th scope="row">아이디(이메일)</th>
-            <td><strong>kma9271@naver.com</strong></td>
+            <td><strong>{{email}}</strong></td>
           </tr>
           <tr>
             <th scope="row">이름</th>
-            <td><strong>안세익</strong></td>
+            <td><strong>{{name}}</strong></td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
-            <td><strong>{{'01092716499'|phone}}</strong></td>
+            <td><strong v-if="phone">{{phone | phone}}</strong></td>
           </tr>
           <tr>
             <th scope="row">비밀번호변경</th>
@@ -27,11 +27,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ChangePassword from '../../components/accounts/ChangePassword.vue'
 export default {
   name: 'UserModify',
   components: {
     ChangePassword,
+  },
+  computed: {
+    ...mapState([
+      'name',
+      'email',
+      'phone'
+    ])
   }
 }
 </script>
