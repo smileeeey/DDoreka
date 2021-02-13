@@ -5,10 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    login: false,
-    email: null,
-    name: null,
-    phone: null,
+    login: true,
+    email: 'sejinkwon@naver.com',
+    name: '권세진',
+    phone: '01077269318',
   },
   mutations: {
     logout(state) {

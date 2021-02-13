@@ -23,7 +23,7 @@
           </tr>
           <tr>
             <th scope="row">배송 요청사항</th>
-            <td><span>{{comment}}</span><button>변경</button></td>
+            <td><input type="text" v-model="comment"></td>
           </tr>
         </tbody>
       </table>
@@ -36,11 +36,11 @@ export default {
   name: 'DestinationInfo',
   data () {
     return {
-      name: 'name',
-      main_address: 'main_address',
-      sub_address: 'sub_address',
+      name: '',
+      main_address: '',
+      sub_address: '',
       nickname: '',
-      phonenumber: '01000000000',
+      phonenumber: '',
       comment: '',
     }
   },

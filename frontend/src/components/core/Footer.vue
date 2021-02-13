@@ -85,7 +85,7 @@ export default {
         text: '개인정보 처리방침'
       },
       {
-        to: '/sell',
+        to: '/sell/login',
         text: '판매자 페이지'
       },
       

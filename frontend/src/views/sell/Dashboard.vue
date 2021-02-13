@@ -3,7 +3,7 @@
     <v-row>
       <v-col
         cols="12"
-        lg="4"
+        lg="3"
       >
         <v-card>
           <LineChart 
@@ -25,7 +25,7 @@
       </v-col>
       <v-col
         cols="12"
-        lg="4"
+        lg="3"
       >
         <DoughnutChart 
           :chartdata="chartdata"
@@ -34,7 +34,7 @@
       </v-col>
       <v-col
         cols="12"
-        lg="4"
+        lg="3"
       >
         <BarChart
           :chartdata="chartdata"
@@ -55,15 +55,6 @@ export default {
   components: { LineChart, DoughnutChart, BarChart },
   name: 'Dashboard',
   data: () => ({
-<<<<<<< HEAD
-    labels: [
-      'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT',
-    ],
-    value: [
-      200, 675, 700, 410, 250, 430, 885,
-    ]
-  })
-=======
     chartdata: {
       labels: ['January', 'February'],
       datasets: [
@@ -77,7 +68,6 @@ export default {
     
   }),
 
->>>>>>> 742ac161899de7d8417f4b1fb0c4f33bcdc75383
 }
 </script>
 

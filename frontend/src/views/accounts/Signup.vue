@@ -28,11 +28,11 @@
             prepend-inner-icon="mdi-email-outline"
             :rules="[required_id, emailRules,]"
             label="아이디(이메일)"
-            v-model="form.id"
+            v-model="form.email"
           ></v-text-field> 
           
           <v-text-field
-            v-model="form.password"
+            v-model="form.pw"
             solo
             flat
             dense
@@ -83,7 +83,7 @@
         <v-col cols="12">
           <v-divider></v-divider>
         </v-col>
-          <SignupCheckbox :enable="enable" />
+          <SignupCheckbox :form="form" :enable="enable" />
         
 
         <v-col>
@@ -104,8 +104,8 @@ export default {
   data: () => ({
     rePassword: '',
     form: {
-      id: '',
-      password: '',
+      email: '',
+      pw: '',
       name: '',
     },
     show1: false,
@@ -120,10 +120,10 @@ export default {
   },
   computed: {
     required() {
-      return () => !!this.form.password || '비밀번호를 입력해주세요.'
+      return () => !!this.form.pw || '비밀번호를 입력해주세요.'
     },
     required_id() {
-      return () => !!this.form.id || '아이디(이메일)를 입력해주세요.'
+      return () => !!this.form.email || '아이디(이메일)를 입력해주세요.'
     },
     required_name() {
       return () => !!this.form.name || '이름을 정확히 입력하세요.'
@@ -132,13 +132,13 @@ export default {
     //   return () => !!this.form.phonenumber || '휴대폰 번호를 정확하게 입력하세요.'
     // },
     min_pw() {
-      return () => this.form.password.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
+      return () => this.form.pw.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
     },
     emailRules() {
-      return () => /.+@.+\..+/.test(this.form.id) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
+      return () => /.+@.+\..+/.test(this.form.email) || '아이디(이메일)는 이메일 형식으로 입력해주세요.'
     },
     passwordConfirmationRule() {
-      return () => (this.form.password === this.rePassword) || '비밀번호가 일치하지 않습니다.'
+      return () => (this.form.pw === this.rePassword) || '비밀번호가 일치하지 않습니다.'
     },
     enable() {
       if (this.required_name() == true && this.emailRules() == true && this.passwordConfirmationRule() == true && this.min_pw() == true) {

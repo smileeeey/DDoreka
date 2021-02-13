@@ -126,6 +126,11 @@ const routes = [
         component: () => import('../views/sell/SellerProfile.vue')
       },
       {
+        name: 'SellerProductList',
+        path: '/product/list',
+        component: () => import('../views/sell/SellerProductList.vue')
+      },
+      {
         name: 'SellerRegister',
         path: '/product/register',
         component: () => import('../views/sell/SellerRegister.vue')

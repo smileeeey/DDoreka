@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
@@ -113,18 +113,18 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
-        .then(res => {
-          console.log('this is res and res data4')
-          console.log(res)
-          console.log(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      // axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
+      //   .then(res => {
+      //     console.log('this is res and res data4')
+      //     console.log(res)
+      //     console.log(res.data)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
       localStorage.setItem('jwt', 'token');
-      this.$store.dispatch("LOGIN")
-      this.$router.push({ name: 'Main' });
+      // this.$store.dispatch("LOGIN")
+      this.$router.push({ name: 'Dashboard' });
     }
   }
 }

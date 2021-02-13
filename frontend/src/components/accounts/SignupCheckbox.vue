@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'SignupCheckbox',
   data: () => ({
@@ -74,6 +75,7 @@ export default {
   }),
   props: {
     enable: Boolean,
+    form: Object,
   },
   methods: {
     checkedAll() {
@@ -93,16 +95,32 @@ export default {
     },
     signup() {
       // signup axios보내기
-      var currentLink = document.location.href;
-      if (currentLink == 'http://localhost:8080/signup') {
-        // 구매자 page signup
-        this.$router.push({ name: 'Main' })
-      } else {
-        // 판매자 page signup
-        // axios
-        this.$router.push({ name: 'Dashboard' })
-      }
-      console.log(currentLink)
+      console.log(this.form)
+      axios.post('http://i4d106.p.ssafy.io:8080/user/signup', this.form)
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+          if (res.data.response == 'success') {
+            if (document.location.href == 'http://localhost:8080/signup') {
+              this.$router.push({ name: 'Login' })
+            } else {
+              this.$router.push({ name: 'Dashboard' })
+            }
+          } else {
+            // alert
+          }
+        })
+
+      // var currentLink = document.location.href;
+      // if (currentLink == 'http://localhost:8080/signup') {
+      //   // 구매자 page signup
+      //   this.$router.push({ name: 'Main' })
+      // } else {
+      //   // 판매자 page signup
+      //   // axios
+      //   this.$router.push({ name: 'Dashboard' })
+      // }
+      // console.log(currentLink)
       // $router.push({ name: 'Main' })
     }
   }
