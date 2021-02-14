@@ -104,7 +104,7 @@ public class ProductController {
     }
 
     @PutMapping(value="/seller/update")
-    public Response updaetProduct(@RequestBody Map<String,Object> param){
+    public Response updateProduct(@RequestBody Map<String,Object> param){
         Response response;
         try{
             response = new Response("success", "리뷰 업데이트 성공", service.updateProduct(param));
