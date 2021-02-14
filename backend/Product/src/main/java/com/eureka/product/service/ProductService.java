@@ -38,11 +38,11 @@ public class ProductService {
     public Page<Product> getProductsByCategory(String categoryId, int depth, Integer page, Integer size) {
         switch (depth) {
             case 3:
-                return productRepository.findByCategory3Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
+                return productRepository.findByCategory3Id(categoryId, PageRequest.of(page,size, Sort.by("id").ascending()));
             case 4:
-                return productRepository.findByCategory4Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
+                return productRepository.findByCategory4Id(categoryId, PageRequest.of(page,size, Sort.by("id").ascending()));
             case 5:
-                return productRepository.findByCategory5Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
+                return productRepository.findByCategory5Id(categoryId, PageRequest.of(page,size, Sort.by("id").ascending()));
         }
         return null;
     }
@@ -61,11 +61,11 @@ public class ProductService {
         System.out.println(":::::" + keyword);
         //상품 전체에서 키워드로 상품 검색
         if (category1Id.equals("ALL"))
-            return productRepository.findByNameContains(keyword, PageRequest.of(page,size, Sort.by("id").descending()));
+            return productRepository.findByNameContains(keyword, PageRequest.of(page,size, Sort.by("id").ascending()));
 
             //depth=1인 카테고리 안에서 키워드로 상품 검색
         else
-            return productRepository.findByCategory1IdAndNameContains(category1Id, keyword, PageRequest.of(page,size, Sort.by("id").descending()));
+            return productRepository.findByCategory1IdAndNameContains(category1Id, keyword, PageRequest.of(page,size, Sort.by("id").ascending()));
     }
 
     //상품 정보 입력하기
