@@ -11,6 +11,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,14 +35,14 @@ public class ProductService {
     }
 
     //카테고리별로 상품 정보 가져오기
-    public List<Product> getProductsByCategory(String categoryId, int depth) {
+    public Page<Product> getProductsByCategory(String categoryId, int depth, Integer page, Integer size) {
         switch (depth) {
             case 3:
-                return productRepository.findByCategory3Id(categoryId);
+                return productRepository.findByCategory3Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
             case 4:
-                return productRepository.findByCategory4Id(categoryId);
+                return productRepository.findByCategory4Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
             case 5:
-                return productRepository.findByCategory5Id(categoryId);
+                return productRepository.findByCategory5Id(categoryId, PageRequest.of(page,size, Sort.by("id").descending()));
         }
         return null;
     }
@@ -53,16 +56,16 @@ public class ProductService {
     }
 
     // 키워드로 상품 검색
-    public List<Product> getProductsByName(String category1Id, String keyword) {
+    public Page<Product> getProductsByName(String category1Id, String keyword, Integer page, Integer size) {
         System.out.println(":::::" + category1Id);
         System.out.println(":::::" + keyword);
         //상품 전체에서 키워드로 상품 검색
         if (category1Id.equals("ALL"))
-            return productRepository.findByNameContains(keyword);
+            return productRepository.findByNameContains(keyword, PageRequest.of(page,size, Sort.by("id").descending()));
 
             //depth=1인 카테고리 안에서 키워드로 상품 검색
         else
-            return productRepository.findByCategory1IdAndNameContains(category1Id, keyword);
+            return productRepository.findByCategory1IdAndNameContains(category1Id, keyword, PageRequest.of(page,size, Sort.by("id").descending()));
     }
 
     //상품 정보 입력하기

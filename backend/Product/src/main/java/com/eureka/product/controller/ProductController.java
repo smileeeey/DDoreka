@@ -33,23 +33,22 @@ public class ProductController {
 
     // 카테고리 선택 시 상품 list 가져오기
     @GetMapping("/findByCategory/{categoryId}/{depth}")
-    public Response findByCategory(@PathVariable String categoryId, @PathVariable int depth) {
+    public Response findByCategory(@PathVariable String categoryId, @PathVariable int depth, @RequestParam Integer page, @RequestParam Integer size) {
         Response response;
         try {
-            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByCategory(categoryId, depth));
+            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByCategory(categoryId, depth,page,size));
         } catch (Exception e) {
             response = new Response("error", "카테고리별 상품 조회 실패", e.getMessage());
         }
-
         return response;
     }
 
     // 상품 검색 시 상품 list 가져오기
     @GetMapping("/search/{category1Id}/{keyword}")
-    public Response findBySearch(@PathVariable String category1Id, @PathVariable String keyword) {
+    public Response findBySearch(@PathVariable String category1Id, @PathVariable String keyword, @RequestParam Integer page, @RequestParam Integer size) {
         Response response;
         try {
-            response = new Response("success", "상품 검색 성공", service.getProductsByName(category1Id, keyword));
+            response = new Response("success", "상품 검색 성공", service.getProductsByName(category1Id, keyword,page,size));
         } catch (Exception e) {
             response = new Response("error", "상품 검색 실패", e.getMessage());
         }
