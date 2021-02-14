@@ -4,6 +4,7 @@ import com.eureka.product.dto.Response;
 import com.eureka.product.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -73,7 +74,18 @@ public class ProductController {
     ///////// 필터 적용
 
 
-    ////////// 추천 상품 가져오기
+    //추천 상품 아이디로 추천 상품 정보 가져오기
+    @GetMapping(value = "/recommend/productids")
+    public Response recommendProducts( @RequestParam(value="fileIds",required = true) List<Integer> productIds) {
+        Response response;
+        try {
+            response = new Response("success", "추천 상품들 상세 조회 성공", service.getProductByIds(productIds));
+        } catch (Exception e) {
+            response = new Response("error", "추천 상품들 상세 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
 
     ////////// 유사 상품 가져오기
 
