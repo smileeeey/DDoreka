@@ -17,6 +17,8 @@ public class ProductController {
         service = productService;
     }
 
+    /////////////////// 사용자 페이지  ///////////////////
+
     @GetMapping("/all")
     public Response findAll() {
         Response response;
@@ -75,7 +77,9 @@ public class ProductController {
 
     ////////// 유사 상품 가져오기
 
-    // 관리자 페이지에서 상품 정보 입력
+    /////////////////// 판매자 페이지  ///////////////////
+
+    // 상품 정보 입력
     @PostMapping(value = "/add", produces = "application/json;charset=utf8")
     public Response saveProductAll(@RequestBody Map<String, Object> param) {
         try {
@@ -85,5 +89,33 @@ public class ProductController {
             return new Response("error", "상품 정보 저장 오류", e.getMessage());
         }
     }
+
+    // 관리자별 상품 리스트 가져오기
+    @GetMapping(value = "/seller/all/{storeId}")
+    public Response findByStoreId(@PathVariable int storeId) {
+        Response response;
+        try {
+            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByStore(storeId));
+        } catch (Exception e) {
+            response = new Response("error", "카테고리별 상품 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
+
+    @PutMapping(value="/seller/update")
+    public Response updaetProduct(@RequestBody Map<String,Object> param){
+        Response response;
+        try{
+            response = new Response("success", "리뷰 업데이트 성공", service.updateProduct(param));
+        }catch(Exception e){
+            response = new Response("error", "리뷰 업데이트 실패", e.getMessage());
+        }
+
+
+        return response;
+    }
+
+
 
 }
