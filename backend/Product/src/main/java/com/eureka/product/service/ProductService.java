@@ -96,7 +96,15 @@ public class ProductService {
     }
 
     //상품 정보 수정하기
-    public Product updateProduct(Product product) {
+    public Product updateProduct(Map<String,Object> param) {
+
+        Product product = (Product)param.get("product");
+        Productimage images = (Productimage)param.get("image");
+        Productoption options = (Productoption)param.get("option");
+
+        List<Productimage> existingImages = imageRepository.findByProductId(product.getId());
+
+
         Product existingProduct = productRepository.findById(product.getId()).orElse(null);
         existingProduct.setName(product.getName());
         existingProduct.setCategory1Id(product.getCategory1Id());
@@ -104,9 +112,9 @@ public class ProductService {
         existingProduct.setCategory3Id(product.getCategory3Id());
         existingProduct.setCategory4Id(product.getCategory4Id());
         existingProduct.setCategory5Id(product.getCategory5Id());
-        existingProduct.setRegisterDate(product.getRegisterDate());
         existingProduct.setUpdateDate(product.getUpdateDate());
         existingProduct.setDetailInfo(product.getDetailInfo());
+
         return productRepository.save(existingProduct);
     }
 
@@ -121,5 +129,8 @@ public class ProductService {
 
     }
 
-
+    //판매자의 모든 상품 가져오기
+    public List<Product> getProductsByStore(int storeId) {
+        return productRepository.findByStoreId(storeId);
+    }
 }
