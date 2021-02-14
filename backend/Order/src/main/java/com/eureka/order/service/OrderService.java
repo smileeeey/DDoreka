@@ -22,4 +22,8 @@ public interface OrderService {
     void saveOrder(OrderEntity orderEntity);
 
     void updateOrder(OrderDetailEntity orderDetailEntity);
+
+    List<Integer> getOrdersByProductIdSortedByDay(String prodcutid);
+
+    List<List<OrderEntity>> getOrdersBySellerIdByday(String sellerid, String month);
 }

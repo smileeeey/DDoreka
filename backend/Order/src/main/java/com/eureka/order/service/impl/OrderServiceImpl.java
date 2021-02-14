@@ -38,6 +38,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Integer> getOrdersByProductIdSortedByDay(String prodcutid) {
+        List<Integer> ls = new ArrayList<>();
+        for(int i=1;i<8;i++){
+            ls.add(orderRepositoty.findAllByDayOfWeek(Integer.toString(i),prodcutid).size());
+        }
+        return ls;
+    }
+
+    @Override
+    public List<List<OrderEntity>> getOrdersBySellerIdByday(String sellerid, String month) {
+        List<List<OrderEntity>> ls = new ArrayList<>();
+        for(int i=1;i<31;i++){
+            ls.add(orderRepositoty.findAllBySelleridofday(Integer.toString(i),sellerid,month));
+        }
+        return ls;
+    }
+
+
+    @Override
     public Page<OrderEntity> getOrdersByUserId(String userId, Integer page, Integer size) {
         return orderRepositoty.findAllByUserId(userId,  PageRequest.of(page,size, Sort.by("id").descending()));
     }
