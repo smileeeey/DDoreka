@@ -8,7 +8,7 @@
       <v-list-item-content>
         <v-list-item-title class="my-3">
           
-          <span style="font-weight: bold; font-size: 18px;">{{address.name}}
+          <span style="font-weight: bold; font-size: 18px;">{{address.recipientName}}
             <v-chip
               v-if="address.nickname"
               style="margin: 0 1rem;"
@@ -20,13 +20,13 @@
           
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.phonenumber|phone}}
+          {{address.recipientPhone|phone}}
         </v-list-item-title>
         <v-list-item-title class="my-1 sizeup">
-          {{address.main_address}}, {{address.sub_address}}
+          {{address.mainAddress}}, {{address.subAddress}}
         </v-list-item-title>
         
-        <v-list-item-title class="my-1 sizeup">{{address.comment}}</v-list-item-title>
+        <v-list-item-title class="my-1 sizeup">{{address.deliveryMsg}}</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -62,15 +62,16 @@ export default {
   },
   methods: {
     selectAddress: function () {
-      window.opener.document.getElementById("name").textContent = this.address.name
-      window.opener.document.getElementById("address").textContent = this.address.main_address + ', ' + this.address.sub_address
-      window.opener.document.getElementById("phonenumber").textContent = this.address.phonenumber.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      window.opener.document.getElementById("name").textContent = this.address.recipientName
+      window.opener.document.getElementById("address").textContent = this.address.mainAddress + ', ' + this.address.subAddress
+      window.opener.document.getElementById("phonenumber").textContent = this.address.recipientPhone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      window.opener.document.getElementById("comment").textContent = this.address.deliveryMsg;
       
       
       window.close()
     },
     deleteAddress: function () {
-      this.$emit('deleteAddress', this.idx)
+      this.$emit('deleteAddress', this.address.addressId)
     }
   }
 }
