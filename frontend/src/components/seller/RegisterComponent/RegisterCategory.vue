@@ -25,7 +25,7 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.text"></v-list-item-title>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -43,12 +43,12 @@
           <v-list>
             <!-- <v-list-title>대분류</v-list-title> -->
             <v-list-item-group
-              v-model="model"
+              v-model="submodel"
               active-class="border"
               color="indigo"
             >
               <v-list-item
-                v-for="(item, i) in items"
+                v-for="(item, i) in items[model].subCategory"
                 :key="i"
               >
                 <v-list-item-icon>
@@ -56,7 +56,7 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.text"></v-list-item-title>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -74,12 +74,12 @@
           <v-list>
             <!-- <v-list-title>대분류</v-list-title> -->
             <v-list-item-group
-              v-model="model"
+              v-model="detailmodel"
               active-class="border"
               color="indigo"
             >
               <v-list-item
-                v-for="(item, i) in items"
+                v-for="(item, i) in items[model].subCategory[submodel].subCategory"
                 :key="i"
               >
                 <v-list-item-icon>
@@ -87,7 +87,7 @@
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.text"></v-list-item-title>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'RegisterCategory',
   data: () => ({
@@ -116,13 +117,34 @@ export default {
         text: 'Data Usage',
       },
     ],
-    model: 1,
+    model: 0,
+    submodel : 0,
+    detailmodel: 0,
   }),
+  created: function () {
+    axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
+      .then(res => {
+        this.items = res.data.data
+      })
+  },
+  watch: {
+    model: function () {
+      this.$emit('maincode', this.items[this.model].id)
+    },
+
+    submodel: function () {
+      this.$emit('subcode', this.items[this.model].subCategory[this.submodel].id)
+    },
+
+    detailmodel: function () {
+      this.$emit('detailcode', this.items[this.model].subCategory[this.submodel].subCategory[this.detailmodel].id)
+    },
+  }
 }
 </script>
 
 <style scoped>
   .border {
-    border: 3px dashed red;
+    border: 2px dashed red;
   }
 </style>

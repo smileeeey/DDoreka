@@ -37,7 +37,11 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <RegisterCategory />
+        <RegisterCategory
+          @maincode="val => maincode = val"
+          @subcode="val => subcode = val"
+          @detailcode="val => detailcode = val"
+        />
         <v-col
           cols="12"
           class="text-right"
@@ -152,6 +156,9 @@ export default {
   data () {
     return {
       e1: 1,
+      maincode: 0,
+      subcode: 0,
+      detailcode: 0,
     }
   }
 }
