@@ -97,9 +97,9 @@ export default {
         title: 'register',
         model: false,
         children: [
-          { title: '등록된거', to: '/product/list' },
-          { title: '등록할거', to: '/product/register' },
-          { title: '수정삭제', to: '/user/profile' },
+          { icon: 'mdi-minus', title: '등록된거', to: '/product/list' },
+          { icon: 'mdi-minus', title: '등록할거', to: '/product/register' },
+          { icon: 'mdi-minus', title: '수정삭제', to: '/user/profile' },
         ]
       },
       {
@@ -134,5 +134,9 @@ export default {
 
   .v-list-group > .v-list-group__header > .v-list-item {
     padding: 0;
+  }
+
+  >>> .v-list-item__title {
+    margin-left: 0 !important;
   }
 </style>
