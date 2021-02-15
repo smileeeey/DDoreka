@@ -36,6 +36,9 @@ export default new Vuex.Store({
     },
     setwishlist(state, data) {
       state.wishlist = data
+    },
+    deletewishlist(state, idx) {
+      state.wishlist.splice(idx, 1)
     }
   },
   actions: {
@@ -52,6 +55,9 @@ export default new Vuex.Store({
     },
     SETWISHLIST({ commit }, data) {
       commit("setwishlist", data)
+    },
+    DELETEWISHLIST({ commit }, idx) {
+      commit("deletewishlist", idx)
     }
   },
   modules: {

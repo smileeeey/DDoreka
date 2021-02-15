@@ -129,16 +129,33 @@ export default {
   },
   watch: {
     model: function () {
-      this.$emit('maincode', this.items[this.model].id)
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
 
     submodel: function () {
-      this.$emit('subcode', this.items[this.model].subCategory[this.submodel].id)
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
 
     detailmodel: function () {
-      this.$emit('detailcode', this.items[this.model].subCategory[this.submodel].subCategory[this.detailmodel].id)
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
+  },
+  computed: {
+    modelCode() {
+       return this.items[this.model].id
+    },
+    submodelCode() {
+      return this.items[this.model].subCategory[this.submodel].id
+    },
+    detailmodelCode() {
+      return this.items[this.model].subCategory[this.submodel].subCategory[this.detailmodel].id
+    }
   }
 }
 </script>

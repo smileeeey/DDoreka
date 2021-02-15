@@ -94,34 +94,33 @@ export default {
       }
     },
     signup() {
-      // signup axios보내기
-      console.log(this.form)
-      axios.post('http://i4d106.p.ssafy.io:8080/user/signup', this.form)
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
-          if (res.data.response == 'success') {
-            if (document.location.href == 'http://localhost:8080/signup') {
-              this.$router.push({ name: 'Login' })
+      if (document.location.href.split('sell').length > 1) {
+        // console.log('i am seller')
+      } else {
+        // console.log('i am buyer')
+        axios.post(`http://i4d106.p.ssafy.io:8080/user/signup`, this.form)
+          .then(res => {
+            if (res.data.response == 'success') {
+              axios.post(`http://i4d106.p.ssafy.io:8088/login/add`, {
+                username: this.form.email,
+                password: this.form.pw,
+                role: 'USER',
+              }, {
+                headers: {
+                  'eureka-authorization': "Seungyun eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXVuZ3l1biIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE2MTM0MDI5MTIsImV4cCI6MTYxNDU1NjgwMH0.bbgvRGYbXv52BzwAFpIPq_WjkhpP2D1dYpByx6awEKZyj1j-WUMHFCor-4yn1VNML73JFieZpCDKtcBErqYgnA",
+                }
+              })
+                .then(response => {
+                  console.log(response)
+                  this.$router.push( {name: 'Main'} )
+                })
             } else {
-              this.$router.push({ name: 'Dashboard' })
+              // alert
+              console.log('signup failed')
             }
-          } else {
-            // alert
-          }
-        })
-
-      // var currentLink = document.location.href;
-      // if (currentLink == 'http://localhost:8080/signup') {
-      //   // 구매자 page signup
-      //   this.$router.push({ name: 'Main' })
-      // } else {
-      //   // 판매자 page signup
-      //   // axios
-      //   this.$router.push({ name: 'Dashboard' })
-      // }
-      // console.log(currentLink)
-      // $router.push({ name: 'Main' })
+          })
+      }
+      
     }
   }
   

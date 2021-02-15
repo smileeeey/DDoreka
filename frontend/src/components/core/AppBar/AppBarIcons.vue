@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapState } from 'vuex'
 export default {
   name: 'AppBarIcons',
@@ -96,16 +95,7 @@ export default {
       }
     }
   },
-  created: function () {
-    if (this.login) {
-      axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.email}`)
-        .then(res => {
-          this.$store.dispatch("SETWISHLIST", res.data.data)
-        })
-      
-      
-    }
-  },
+
   methods: {
     gotoCart: function () {
       if (this.login) {

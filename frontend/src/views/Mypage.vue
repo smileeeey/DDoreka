@@ -21,7 +21,7 @@ export default {
   components: { MypageNav, MypageAppBar },
   name: 'Mypage',
   created: function () {
-    const token = localStorage.getItem('jwt')
+    const token = localStorage.getItem('eureka-authorization')
     if (!token) {
       this.$router.push({ name: 'Login' })
     }
