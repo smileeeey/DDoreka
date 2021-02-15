@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
-@CrossOrigin
 public class CloudGatewayApplication {
 
     public static void main(String[] args) {
