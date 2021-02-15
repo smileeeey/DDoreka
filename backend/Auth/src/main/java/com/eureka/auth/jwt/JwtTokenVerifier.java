@@ -35,7 +35,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
             return;
         }
-        String token = authorizationHeader.replace("Bearer ", "");
+        String token = authorizationHeader.replace("Seungyun ", "");
         String secretKey = "seungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsome";
         try{
             Jws<Claims> claimsJws = Jwts.parser()
