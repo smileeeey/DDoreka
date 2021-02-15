@@ -13,6 +13,7 @@ export default new Vuex.Store({
     currentItem: {},
     email: '',
     phone: '',
+    seller: {},
   },
   mutations: {
     logout(state) {
@@ -39,12 +40,15 @@ export default new Vuex.Store({
     },
     deletewishlist(state, idx) {
       state.wishlist.splice(idx, 1)
+    },
+    setsellerinfo(state, data) {
+      state.seller = data
     }
   },
   actions: {
     LOGOUT({ commit }) {
       commit("logout");
-      localStorage.removeItem("jwt")
+      localStorage.removeItem("eureka-authorization")
     },
     LOGIN({ commit }, data) {
       commit("login", data);
@@ -58,6 +62,11 @@ export default new Vuex.Store({
     },
     DELETEWISHLIST({ commit }, idx) {
       commit("deletewishlist", idx)
+    },
+    SETSELLERINFO({ commit }, data) {
+      console.log('mynameisdata')
+      console.log(data)
+      commit("setsellerinfo", data)
     }
   },
   modules: {

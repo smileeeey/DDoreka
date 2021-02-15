@@ -83,7 +83,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
@@ -113,17 +113,23 @@ export default {
   },
   methods: {
     login: function () {
-      // axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
-      //   .then(res => {
-      //     console.log('this is res and res data4')
-      //     console.log(res)
-      //     console.log(res.data)
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
-      localStorage.setItem('jwt', 'token');
-      // this.$store.dispatch("LOGIN")
+      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+        username: this.form.email,
+        password: this.form.pw
+      })
+        .then(res => {
+          localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
+          const token = localStorage.getItem('seller-eureka-authorization')
+          axios.get(`http://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
+            headers: {
+              'eureka-authorization': token
+            }
+          })
+            .then(response=> {
+              this.$store.dispatch("SETSELLERINFO", response.data)
+            })
+
+        })
       this.$router.push({ name: 'Dashboard' });
     }
   }
