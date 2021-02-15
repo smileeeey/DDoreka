@@ -32,7 +32,7 @@ public class FileController {
         try {
             response = new Response("success", "1개 파일 등록 성공", service.addFiles(files));
         } catch(Exception e){
-            return response = new Response("error","파일 등록 실패",e.getMessage());
+            return response = new Response("error","파일 등록 실패",e.getStackTrace());
         }
 
         return response;
