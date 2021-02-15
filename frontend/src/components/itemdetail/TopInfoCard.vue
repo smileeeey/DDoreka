@@ -111,17 +111,22 @@ export default {
       const productId = this.item.id
       const optionId = this.selectOption.optionId
       const quantity = this.quantity
-      axios.post('http://localhost:8080/user/cart', {
-        params: {
-          userEmail: userEmail,
-          productId: productId,
-          optionId: optionId,
-          quantity: quantity,
+      const token = localStorage.getItem('eureka-authorization')
+      axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
+        userEmail: userEmail,
+        productId: productId,
+        optionId: optionId,
+        quantity: quantity,
+      }, {
+        headers: {
+          'eureka-authorization': token,
         }
       })
       .then(res => {
-        console.log(res)
-        this.$store.dispatch('SETWISHLIST', res.data.data)
+        console.log(res.data.response)
+        if (res.data.response == 'success') {
+          this.$store.dispatch('SETWISHLIST', res.data.data)
+        }
       })
       .catch(err => {
         console.log(err)

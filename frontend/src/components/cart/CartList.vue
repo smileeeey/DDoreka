@@ -113,9 +113,15 @@ export default {
     deleteCartitem(idx) {
       // delete axios request
       console.log(this.items[idx].cartId)
-      axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[idx].cartId}`)
-        .then(function () {
-          this.$store.dispatch("DELETEWISHLIST", this.items[idx].cartId)
+      const token = localStorage.getItem('eureka-authorization')
+      axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[idx].cartId}`, {}, {
+        headers: {
+          'eureka-authorization': token,
+        }
+      })
+        .then(res => {
+          console.log(res)
+          this.$store.dispatch("DELETEWISHLIST", idx)
         })
       this.items.splice(idx, 1)
     }
