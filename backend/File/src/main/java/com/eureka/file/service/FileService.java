@@ -80,7 +80,7 @@ public class FileService {
         image.setPath(modulePath.toString());
 
         Image doneImage = repository.save(image);
-        InputStream imgStream = new FileInputStream(totalPath);
+        InputStream imgStream = new FileInputStream(totalPath+fsl+systemName);
         byte[] imgByteArray = IOUtils.toByteArray(imgStream);
         imgStream.close();
 
