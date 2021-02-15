@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/face")
+@CrossOrigin
 public class FaceController {
 
     @Autowired
@@ -25,9 +26,9 @@ public class FaceController {
         return service.getFacesByUsername(username);
     }
 
-    @GetMapping("/getAllByProduct_id/{product_id}")
-    public List<Face> findFacesByProduct_id(@PathVariable int product_id){
-        return service.getFacesByProduct_id(product_id);
+    @GetMapping("/getAllByProduct/{product}")
+    public List<Face> findFacesByProduct(@PathVariable int product){
+        return service.getFacesByProduct(product);
     }
 
     @DeleteMapping("/deleteById/{id}")

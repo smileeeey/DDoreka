@@ -22,12 +22,13 @@ public class Face {
     private int id;
     private int product;
     private String username;
-    private int happy;
-    private int neutral;
-    private int sad;
-    private int angry;
-    private int fearful;
-    private int disgusted;
-    private int surprised;
+    private float happy;
+    private float neutral;
+    private float sad;
+    private float angry;
+    private float fearful;
+    private float disgusted;
+    private float surprised;
+    private int time;
 
 }

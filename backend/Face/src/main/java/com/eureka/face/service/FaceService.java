@@ -17,7 +17,7 @@ public class FaceService {
 
     public List<Face> getFacesByUsername(String username) {return repository.findAllByUsername(username);}
 
-    public List<Face> getFacesByProduct_id(int product) {return repository.findAllByProduct(product);}
+    public List<Face> getFacesByProduct(int product) {return repository.findAllByProduct(product);}
 
     public String deleteFaceById(int id){
         repository.deleteById(id);
