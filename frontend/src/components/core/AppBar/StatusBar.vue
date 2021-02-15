@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.removeItem('eureka-authorization')
       this.$store
         .dispatch("LOGOUT")
         .then(() => {

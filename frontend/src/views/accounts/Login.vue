@@ -113,14 +113,31 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
+      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+        username: this.form.email,
+        password: this.form.pw
+      })
         .then(res => {
-          this.$store.dispatch("LOGIN", res.data.data)
-          axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`)
-            .then(res => {
-              this.$store.dispatch("SETWISHLIST", res.data.data)
-              localStorage.setItem('jwt', 'token');
-              this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
+          console.log('login')
+          localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
+          const token = localStorage.getItem('eureka-authorization')
+          console.log(token)
+          axios.post('http://i4d106.p.ssafy.io:8080/user/login', this.form, {
+            headers: {
+              'eureka-authorization': token,
+            }
+          })
+            .then(response => {
+              this.$store.dispatch("LOGIN", response.data.data)
+              axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
+                headers: {
+                  'eureka-authorization': token,
+                }
+              })
+                .then(newres=> {
+                  this.$store.dispatch("SETWISHLIST", newres.data.data)
+                  this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
+                })
             })
           // jwt token setting required
           
