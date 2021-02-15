@@ -1,8 +1,9 @@
 server:
   port: 8083
+
 spring:
   application:
-    name: Review
+    name: REVIEW-SERVICE
   datasource:
     url: jdbc:mysql://localhost:3306/review?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: sumin
@@ -13,3 +14,9 @@ spring:
       ddl-auto: update
     show-sql: true
     generate-ddl: true
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://i4d106.p.ssafy.io:8761/eureka/
