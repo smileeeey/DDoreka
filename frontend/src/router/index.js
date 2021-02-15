@@ -20,24 +20,23 @@ const routes = [
   // home
   {
     path: '/',
-    name: 'Home',
     component: () => import('../views/Home.vue'),
     children: [
       {
-        path: '/',
+        path: '',
         name: 'Main',
         component: () => import('../views/Main.vue')
       },
       // category
       {
-        path: '/category/:name',
+        path: '/category/:id/:depth',
         name: 'Category',
         component: () => import('../views/Category.vue'),
         props: true,
       },
       // ItemDetail
       {
-        path: '/category/:name/:code',
+        path: '/category/:id/detail/:productid',
         name: 'ItemDetail',
         component: () => import('../views/ItemDetail.vue'),
         props: true,
@@ -98,7 +97,7 @@ const routes = [
       },
     ]
   },
-  // payment
+  // Cart
   {
     path: '/cart',
     name: 'Cart',
@@ -109,6 +108,56 @@ const routes = [
     path: '/popup/address',
     name: 'AddressPopup',
     component: () => import('../components/address/AddressPopup.vue')
+  },
+
+  // seller page
+  {
+    path: '/sell',
+    component: () => import('../views/sell/Index.vue'),
+    children: [
+      {
+        name: 'Dashboard',
+        path: '',
+        component: () => import('../views/sell/Dashboard.vue')
+      },
+      {
+        name: 'SellerProfile',
+        path: '/user/profile',
+        component: () => import('../views/sell/SellerProfile.vue')
+      },
+      {
+        name: 'SellerProductList',
+        path: '/product/list',
+        component: () => import('../views/sell/SellerProductList.vue')
+      },
+      {
+        name: 'SellerRegister',
+        path: '/product/register',
+        component: () => import('../views/sell/SellerRegister.vue')
+      },
+      {
+        name: 'SellerProductDeliver',
+        path: '/product/deliver',
+        component: () => import('../views/sell/SellerProductDeliver.vue')
+      },
+      {
+        name: 'SellerNotification',
+        path: '/notification',
+        component: () => import('../views/sell/SellerNotification.vue')
+      },
+    ]
+  },
+
+  // seller accounts (Login & Signup page)
+  {
+    name: 'SellerLogin',
+    path: '/sell/login',
+    component: () => import('../views/sell/sellaccounts/SellerLogin.vue')
+  },
+  {
+    name: 'SellerSignup',
+    path: '/sell/signup',
+    component: () => import('../views/sell/sellaccounts/SellerSignup.vue')
   },
 
 ]

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form>
-      <v-container style="width: 500px;">
+      <v-container style="width: 100%;">
         <v-row>
           <v-col
             cols="12"
@@ -74,6 +74,17 @@
               label="배송 요청사항"
               v-model="address.comment"
             ></v-text-field> 
+            <v-text-field
+              id="comment"
+              solo
+              flat
+              dense
+              outlined
+              required
+              prepend-inner-icon="mdi-tag-multiple"
+              label="별명 (ex : 본가, 자취방)"
+              v-model="address.nickname"
+            ></v-text-field> 
             
           </v-col>
           <v-col cols="12">
@@ -95,7 +106,8 @@
 
 
 <script>
-
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   
   name: 'AddForm',
@@ -104,7 +116,7 @@ export default {
       name: '',
       main_address: '',
       sub_address: '',
-      nickname: '너네집',
+      nickname: '',
       phonenumber: '',
       comment: '',
     }
@@ -159,14 +171,31 @@ export default {
         },
         
       }).open();
-      console.log('start')
+      
     },
     saveAddress: function () {
       this.address.main_address = document.getElementById('main_address').value
-      this.$emit('saveAddress', this.address)
-      console.log(this.address)
+      const form = {
+            "nickname": this.address.nickname,
+            "mainAddress": this.address.main_address,
+            "subAddress": this.address.sub_address,
+            "zipcode": '',
+            "recipientPhone": this.address.phonenumber,
+            "recipientName": this.address.name,
+            "deliveryMsg": this.address.comment
+      }
+      axios.post(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`, form, {})
+        .then(res => {
+          this.$emit('saveAddress', res.data.data)
+        })
+      
     }
   },
+  computed: {
+    ...mapState([
+      'email',
+    ])
+  }
 
 }
 </script>

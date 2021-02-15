@@ -115,16 +115,16 @@ export default {
     login: function () {
       axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
         .then(res => {
-          console.log('this is res and res data4')
-          console.log(res)
-          console.log(res.data)
+          this.$store.dispatch("LOGIN", res.data.data)
+          // jwt token setting required
+          localStorage.setItem('jwt', 'token');
+          this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
         })
         .catch(err => {
           console.log(err)
         })
-      localStorage.setItem('jwt', 'token');
-      this.$store.dispatch("LOGIN")
-      this.$router.push({ name: 'Main' });
+      
+      
     }
   }
 }

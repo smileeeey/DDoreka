@@ -1,21 +1,30 @@
 package com.eureka.product.repository;
 
 import com.eureka.product.dto.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+@EnableJpaRepositories
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 
-    List<Product> findByCategory3Id(String id);
-    List<Product> findByCategory4Id(String id);
-    List<Product> findByCategory5Id(String id);
+    Page<Product> findByCategory3Id(String id, Pageable pageable);
+
+    Page<Product> findByCategory4Id(String id, Pageable pageable);
+
+    Page<Product> findByCategory5Id(String id, Pageable pageable);
 
     List<Product> findByName(String keyword);
 
-    List<Product> findByNameContains(String keyword);
+    Page<Product> findByNameContains(String keyword, Pageable pageable);
 
-    List<Product> findByCategory1IdAndNameContains(String category1Id, String keyword);
+    Page<Product> findByCategory1IdAndNameContains(String category1Id, String keyword, Pageable pageable);
+
+    List<Product> findByStoreId(int storeId);
 }

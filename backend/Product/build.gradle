@@ -1,12 +1,19 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.8.RELEASE'
+    id 'org.springframework.boot' version '2.3.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.eureka'
-version = 'v0.0.16'
+version = 'v0.0.23'
 sourceCompatibility = '1.8'
+
+// for Eureka client
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
+    }
+}
 
 configurations {
     compileOnly {
@@ -37,10 +44,12 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    // for Eureka client
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 }
 
 test {
     useJUnitPlatform()
 }
 
-apply plugin:'io.spring.dependency-management'
+apply plugin: 'io.spring.dependency-management'

@@ -23,6 +23,7 @@
 export default {
   name: 'SideBarCheck',
   data: () => ({
+    selected: false,
     boxes: [
       {
         checkbox: false, text: '캐럿'

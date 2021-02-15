@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; justify-content: flex-end;">
     <div class="ml-5 mx-3" style="margin-top: 26px;">
-      <div @mouseover="MyEureka=true">
+      <div @mouseover="MyEureka=true" style="cursor: pointer">
         <v-icon x-large class="ml-5" style="height: 40px;">
           mdi-account-outline
         </v-icon>
@@ -26,9 +26,9 @@
     </div>
 
     <div class="mx-3" style="margin-top: 26px;">
-      <div @mouseover="Bucket=true" @click="$router.push({ name: 'Cart' })">
+      <div @mouseover="Bucket=true" @click="gotoCart" style="cursor: pointer;">
         <v-badge
-          :content="cart.number"
+          :content="cartLength"
           color="blue"
           overlap
           bordered
@@ -61,11 +61,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'AppBarIcons',
   data: () => ({
     cart: {
-      number: 2
+      number: 1
     },
     items: [
       '주문목록',
@@ -80,6 +82,41 @@ export default {
     MyEureka: false,
     Bucket: false,
   }),
+  computed: {
+    ...mapState([
+      'login',
+      'email',
+      'wishlist',
+    ]),
+    cartLength () {
+      if (this.wishlist.length > 0) {
+        return this.wishlist.length
+      } else {
+        return '0'
+      }
+    }
+  },
+  created: function () {
+    if (this.login) {
+      axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.email}`)
+        .then(res => {
+          this.$store.dispatch("SETWISHLIST", res.data.data)
+        })
+      
+      
+    }
+  },
+  methods: {
+    gotoCart: function () {
+      if (this.login) {
+        this.$router.push({ name: 'Cart' })
+      } else {
+        this.$router.push({ name: 'Login', query: { next: 'Cart' } })
+      }
+      
+    }
+    
+  }
 }
 </script>
 

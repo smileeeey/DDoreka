@@ -1,7 +1,7 @@
 <template>
-  <v-card :to="{ name: 'ItemDetail', params: { name: '의류', code: 1 }}">
+  <v-card :to="{ name: 'ItemDetail', params: { id: item.category3Id, productid: productId }}">
     <v-img
-      :src="categoryItem.image"
+      :src="sumnailUrl"
       aspect-ratio="1"
       class="grey lighten-2"
     >
@@ -18,17 +18,17 @@
         </v-row>
       </template>
     </v-img>
-    <v-card-title class="pa-0 pl-3 pt-3">{{ categoryItem.name }}</v-card-title>
+    <v-card-title class="pa-0 pl-3 pt-3">{{ item.name }}</v-card-title>
     <v-card-text>
       <div class="pb-2 subtitle-1 red--text text--darken-4">
-        {{ categoryItem.price }}
+        {{ item.options[0].discountPrice | comma }}
       </div>
       <v-row
         align="center"
         class="mx-0 py-1"
       >
         <v-rating
-          :value="categoryItem.rating"
+          :value="item.rating"
           color="amber"
           dense
           half-increments
@@ -37,7 +37,7 @@
         ></v-rating>
 
         <div class="grey--text ml-1">
-          ({{ categoryItem.reviews }})
+          ({{ item.reviewCnt }})
         </div>
       </v-row>
     </v-card-text>    
@@ -45,10 +45,74 @@
 </template>
 
 <script>
+import axios from 'axios'
+// import qs from 'qs'
+
 export default {
   name: 'CategoryItem',
   props: {
-    categoryItem: Object,
+    item: Object,
+  },
+  data: () => ({
+    sFileIds: [],
+    mFileIds: [],
+    sFiles: [],
+    mFiles: [],
+    sumnailUrl: '',
+    productId: '',
+  }),
+  methods: {
+    getFileIds() {
+      this.item.images.forEach(image => {
+        if (image.imageType === 'S') {
+          this.sFileIds.push(image.fileId)
+        } else {
+          this.mFileIds.push(image.fileId)
+        }
+      })
+    },
+    getSFiles() {
+      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+        params: {
+          fileIds: this.sFileIds.join(',')
+        },
+        // paramsSerializer: params => {
+        //   return qs.stringify(params)
+        // }
+      })
+      .then(res => {
+        // console.log(res.data)
+        this.sFiles = res.data.data
+        if (this.sFiles.length > 0) {
+          // this.sumnailUrl = `file:i4d106.p.ssafy.io/home/upload/image/${this.sFiles[0].path}/${this.sFiles[0].systemName}`
+          this.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`
+        }
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    getMFiles() {
+      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+        params: {
+          fileIds: this.mFileIds.join(',')
+        },
+      })
+      .then(res => {
+        // console.log(res.data)
+        this.mFiles = res.data.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+  },
+  created() {
+    this.productId = this.item.id
+    this.getFileIds()
+    this.getSFiles()
+    this.getMFiles()
   }
 }
 </script>
