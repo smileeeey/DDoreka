@@ -11,7 +11,7 @@
         <div class="mb-16 py-5 text-center">
           <v-pagination
             v-model="page"
-            :length="10"
+            :length="totalPages"
           ></v-pagination>
         </div>        
       </v-col>
@@ -38,7 +38,8 @@ export default {
     depth: '',
     items: [],
     page: 1,
-    size: 3,
+    size: 6,
+    totalPages: 0,
   }),
   methods: {
     getId() {
@@ -50,13 +51,14 @@ export default {
     getItems() {
       axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
         params: {
-          page: this.page,
+          page: this.page - 1,
           size: this.size,
         }
       })
       .then(res => {
         // console.log(res.data.data.content)
         this.items = res.data.data.content
+        this.totalPages = res.data.data.totalPages
       })
       .catch(err => {
         console.log(err)
@@ -67,7 +69,7 @@ export default {
     page: function() {
       axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
         params: {
-          page: this.page,
+          page: this.page - 1,
           size: this.size,
         }
       })

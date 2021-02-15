@@ -88,7 +88,7 @@ export default {
         // console.log(res.data.data)
         this.files = res.data.data
         this.files.forEach(file => {
-          console.log(file)
+          // console.log(file)
           let imageUrl = 'data:image/jpeg;base64,' + file.imageBytes
           // console.log(imageUrl)
           this.imageUrls.push(imageUrl)
@@ -103,7 +103,7 @@ export default {
     // console.log(this.review.images)
     this.getFileIds()
     this.getFiles()
-    this.getImageUrl()
+    // this.getImageUrl()
   }
   
 }

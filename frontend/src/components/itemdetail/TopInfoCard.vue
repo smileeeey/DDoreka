@@ -12,9 +12,8 @@
     </template>
 
     <v-card-title class="pb-1">{{ item.name }} </v-card-title>
-
     <v-card-text>
-      <v-container class="mb-5 pl-0">
+      <v-container class="pl-0">
         <v-row
           align="center"
           class="mx-0"
@@ -41,13 +40,19 @@
       <div>
         <!-- 선택한 옵션이 object로 리턴된다. -->
         <v-select
-          v-model="select"
+          v-model="selectOption"
           :items="item.options"
           label="사이즈"
           item-text="name"
           solo
           return-object
-        ></v-select>  
+        ></v-select>
+        <v-select
+          v-model="quantity"
+          :items="numbers"
+          label="수량"
+          solo
+        ></v-select>
       </div>
     </v-card-text>
 
@@ -60,9 +65,11 @@
         <v-card-actions>
           <v-btn
             color="blue darken-1"
+            @click="addWishList"
           >
             장바구니 담기
           </v-btn>
+          <!-- 바로 구매 가능하게 할지 고민 -->
           <v-btn
             color="blue darken-1"
           >
@@ -76,28 +83,61 @@
 
 <script>
 // import { mapState } from 'vuex'
+import axios from 'axios'
 export default {
   name: 'TopInfoCard',
   props: {
     item: Object,
   },
   data: () => ({
-    select: '',
+    selectOption: '',
     price: 0,
     discountPrice: 0,
+    numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    quantity: 0,
   }),
   computed: {
+    // ...mapState ([
+    //  'email'
+    //   // 'currentItem'
+    // ]),
     discountRate: function() {
       return Math.round(((this.item.options[0].price - this.item.options[0].discountPrice) / this.item.options[0].price) * 100)
     }
   },
-  // computed: {
-  //   ...mapState({
-  //     currentItem: 'currentItem'
-  //   }),
-  // },
+  methods: {
+    addWishList() {
+      const userEmail = this.$store.state.email
+      const productId = this.item.id
+      const optionId = this.selectOption.optionId
+      const quantity = this.quantity
+      axios.post('http://localhost:8080/user/cart', {
+        params: {
+          userEmail: userEmail,
+          productId: productId,
+          optionId: optionId,
+          quantity: quantity,
+        }
+      })
+      .then(res => {
+        console.log(res)
+        this.$store.dispatch('SETWISHLIST', res.data.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  watch: {
+    quantity() {
+      console.log(this.quantity)
+    },
+    selectOption() {
+      console.log(this.selectOption)
+    }
+  },
   created() {
-    
+    // console.log(this.item)
   },
 }
 </script>
