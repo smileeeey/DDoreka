@@ -27,3 +27,4 @@ zuul:
       path: /store/**
       serviceId: SELLER-SERVICE
       stripPrefix: false
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin

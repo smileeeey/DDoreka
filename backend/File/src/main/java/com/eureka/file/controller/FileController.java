@@ -30,8 +30,7 @@ public class FileController {
         Response response;
 
         try {
-            service.addFiles(files);
-            response = new Response("success", "1개 파일 등록 성공", null);
+            response = new Response("success", "1개 파일 등록 성공", service.addFiles(files));
         } catch(Exception e){
             return response = new Response("error","파일 등록 실패",e.getMessage());
         }
@@ -46,8 +45,8 @@ public class FileController {
         Response response;
 
         try {
-            service.addFile(file);
-            response = new Response("success", "1개 파일 등록 성공", null);
+
+            response = new Response("success", "1개 파일 등록 성공", service.addFile(file));
         } catch(Exception e){
             System.out.println("sad");
             response = new Response("error","파일 등록 실패",e.getMessage());

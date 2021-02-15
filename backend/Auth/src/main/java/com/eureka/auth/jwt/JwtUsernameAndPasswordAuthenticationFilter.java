@@ -59,6 +59,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
 
-        response.addHeader("Eureka-authorization", "Bearer " + token);
+        response.addHeader("eureka-authorization", "Bearer " + token);
     }
 }
