@@ -37,8 +37,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login/SELLER/**").hasRole("ADMIN")
-                .antMatchers("/login/USER/**").hasRole("ADMIN") //actually it is not needed... bur for test~!
+                .antMatchers("/login/add").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated();
     }
