@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 
 
@@ -35,6 +36,14 @@ public class AuthServiceImpl implements AuthService {
         }catch (Exception e){
             throw new Exception("해당아이디 조회 실패");
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateUserPhone(UserInfo user) {
+        UserEntity updateUser= userRepository.findTop1ByEmail(user.getEmail());
+        updateUser.setPhone(user.getPhone());
+        userRepository.save(updateUser);
     }
 
     @Override

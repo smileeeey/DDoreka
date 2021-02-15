@@ -11,4 +11,6 @@ import java.util.List;
 @EnableJpaRepositories
 public interface OrderDetailRepositoty extends JpaRepository<OrderDetailEntity,String> {
         List<OrderDetailEntity> findAllByCheckDatetime(String isnull);
+
+        List<OrderDetailEntity> findAllByOrderStatus(String status);
 }

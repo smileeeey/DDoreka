@@ -55,6 +55,15 @@ public class OrderServiceImpl implements OrderService {
         return ls;
     }
 
+    @Override
+    public List<Integer> getOrdersBySellerIdBystatus(String sellerid, Integer status) {
+//        OrderStatus orderStatus=OrderStatus.valueOf();
+//        System.out.println(orderStatus);
+//       orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+
+        return null;
+    }
+
 
     @Override
     public Page<OrderEntity> getOrdersByUserId(String userId, Integer page, Integer size) {

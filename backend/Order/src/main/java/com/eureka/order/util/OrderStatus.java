@@ -12,5 +12,6 @@ public enum OrderStatus {
     REFUND(3,"환불신청");
 
     OrderStatus(int i, String status) {
+
     }
 }

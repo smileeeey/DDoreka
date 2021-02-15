@@ -21,4 +21,6 @@ public interface AuthService {
 
 
     String getUserId(String userEmail) throws Exception;
+
+    void updateUserPhone(UserInfo user);
 }
