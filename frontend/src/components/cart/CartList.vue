@@ -17,9 +17,10 @@
           <v-checkbox v-model="items[idx].select" @click="selected"></v-checkbox>
         </th>
         <td>
-          <v-img :src="item.img"
-            max-height="120"
-            max-width="120"
+          <v-img
+            :src="`data:image/jpeg;base64,${item.img}`"
+            height="120"
+            width="120"
           >
           </v-img>
         </td>
