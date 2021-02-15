@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/CloudGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/CloudGatewayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/config/CorsConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
