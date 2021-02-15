@@ -32,7 +32,7 @@
 
               <v-col cols="5" offset="3" style="padding-left: 0; padding-right: 0;">
                 <div>
-                <v-stepper style="margin-top: 0.25rem;" v-model="e1">
+                <v-stepper id="originalheader" style="margin-top: 0.25rem;" v-model="e1">
                   <div>
                   <v-stepper-header>
                     <v-stepper-step step="1" :complete="e1 > 1">
@@ -44,6 +44,24 @@
                     </v-stepper-step>
                     <v-divider></v-divider>
                     <v-stepper-step step="3">
+                      주문완료
+                    </v-stepper-step>
+                  </v-stepper-header>
+                  </div>
+                  
+                </v-stepper>
+                <v-stepper id="hiddenheader" style="margin-top: 0.25rem; display: none;">
+                  <div>
+                  <v-stepper-header>
+                    <v-stepper-step complete>
+                      장바구니
+                    </v-stepper-step>
+                    <v-divider></v-divider>
+                    <v-stepper-step complete>
+                      주문결제
+                    </v-stepper-step>
+                    <v-divider></v-divider>
+                    <v-stepper-step complete>
                       주문완료
                     </v-stepper-step>
                   </v-stepper-header>
@@ -187,6 +205,10 @@ export default {
             A.style.display = "inline"
             let B = document.getElementById('hide')
             B.style.display = "none"
+            let C = document.getElementById('hiddenheader')
+            C.style.display = "inline"
+            let D = document.getElementById('originalheader')
+            D.style.display = "none"
           } else {
             msg = "결제에 실패하였습니다.";
             msg += "에러내용 : " + rsp.error_msg;
