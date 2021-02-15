@@ -35,9 +35,9 @@ public class SellerController {
         return service.getSellerById(id);
     }
 
-    @GetMapping("/getByName/{name}")
-    public Seller findSellerByName(@PathVariable String name) {
-        return service.getSellerByName(name);
+    @GetMapping("/getByEmail/{email}")
+    public Seller findSellerByEmail(@PathVariable String email) {
+        return service.getSellerByEmail(email);
     }
 
     @PutMapping("/update")

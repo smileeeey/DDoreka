@@ -28,8 +28,8 @@ public class SellerService {
         return repository.findById(id).orElse(null);
     }
 
-    public Seller getSellerByName(String name) {
-        return repository.findByName(name);
+    public Seller getSellerByEmail(String email) {
+        return repository.findByEmail(email);
     }
 
     public String deleteSeller(int id) {
