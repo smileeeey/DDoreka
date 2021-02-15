@@ -22,10 +22,12 @@ public class FileService {
     private FileRepository repository;
 
 
-    public void addFiles(List<MultipartFile> files) throws Exception {
+    public List<Image> addFiles(List<MultipartFile> files) throws Exception {
+
+        List<Image> images = new ArrayList<>();
 
         for (MultipartFile file : files) {
-            if(file.isEmpty())  continue;
+            if(file.isEmpty())  throw new Exception("파일 등록 실패 (파일 객체 비었음)");
 
             String originName = file.getOriginalFilename();
             String ext = "";
@@ -70,14 +72,14 @@ public class FileService {
             image.setSize((int)file.getSize());
             image.setPath(modulePath.toString());
 
-            repository.save(image);
+            images.add(repository.save(image));
         }
 
-
+        return images;
     }
 
-    public void addFile(MultipartFile file) throws Exception{
-        if(file.isEmpty())  return;
+    public Image addFile(MultipartFile file) throws Exception{
+        if(file.isEmpty())  throw new Exception("파일 등록 실패 (파일 객체 비었음)");
         String originName = file.getOriginalFilename();
         String ext = "";
         int index = originName.lastIndexOf(".");
@@ -121,7 +123,7 @@ public class FileService {
         image.setSize((int)file.getSize());
         image.setPath(modulePath.toString());
 
-        repository.save(image);
+        return repository.save(image);
     }
 
     public List<Image> filesServe(List<Integer> fileIds) throws IOException {
