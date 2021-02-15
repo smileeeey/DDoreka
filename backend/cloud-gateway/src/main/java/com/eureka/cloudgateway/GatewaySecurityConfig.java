@@ -20,7 +20,7 @@ public class GatewaySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 //role based logic below
-                .antMatchers("/login/USER/**").hasRole("ADMIN") //actually it is not needed... bur for test~!
+
                 .anyRequest()
                 .permitAll();
     }

@@ -31,7 +31,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String authorizationHeader = request.getHeader("Eureka-authorization");
 
-        if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")){
+        if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Seungyun ")){
             filterChain.doFilter(request,response);
             return;
         }
