@@ -55,7 +55,7 @@ export default {
         });
     },
     goLogin() {
-      this.$router.push({ name: 'Login', query: { redirect: 'Main' } })
+      this.$router.push({ name: 'Login', query: { next: 'Main' } })
     }
   }
 }

@@ -7,9 +7,9 @@
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="item.img"
-          max-height="120"
-          max-width="120"
+          :src="`data:image/jpeg;base64,${item.img}`"
+          height="120"
+          width="120"
         ></v-img>
       </div>
       <div>

@@ -4,7 +4,6 @@
   >
   <v-container fluid style="width: 75rem;">
       <v-row justify="center">
-        {{wishlist}}
         <v-col cols="12">
           <v-img
             @click="$router.push({ name: 'Main' })"
@@ -55,6 +54,7 @@
               </v-col>
             </v-row>
             <div v-if="e1==1">
+
               <CartList 
                 :items="items"
                 style="width: 100%;" 
@@ -137,7 +137,7 @@
 
 <script>
 import { mapState } from 'vuex'
-
+import axios from 'axios'
 import DestinationInfo from '../../components/cart/DestinationInfo.vue'
 import BuyerInfo from '../../components/cart/BuyerInfo.vue'
 import CartList from '../../components/cart/CartList.vue'
@@ -187,6 +187,37 @@ export default {
     ...mapState([
       'wishlist',
     ])
+  },
+  created: function () {
+    let tmpitems = [];
+    for (let i=0; i<this.wishlist.length; i++) {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
+        .then(detailres => {
+          let productName = detailres.data.data.name
+          if (detailres.data.data.images.length > 0) {
+            axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
+              .then(fileres => {
+                console.log('getimage')
+                tmpitems.push({
+                  img: fileres.data.data.imageBytes,
+                  name: productName,
+                  cost: 1000,
+                  amount: this.wishlist[i].quantity,
+                  select: true
+                })
+              })
+          } else {
+            tmpitems.push({
+              img: null,
+              name: productName,
+              cost: 1000,
+              amount: this.wishlist[i].quantity,
+              select: true
+            })
+          }
+        })
+    }
+    this.items = tmpitems
   }
 }
 </script>
