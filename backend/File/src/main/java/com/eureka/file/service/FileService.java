@@ -36,6 +36,7 @@ public class FileService {
     public Image addFile(MultipartFile file) throws Exception{
         if(file.isEmpty())  throw new Exception("파일 등록 실패 (파일 객체 비었음)");
         String originName = file.getOriginalFilename();
+        System.out.println(originName);
         String ext = "";
         int index = originName.lastIndexOf(".");
         if(index!=-1){
