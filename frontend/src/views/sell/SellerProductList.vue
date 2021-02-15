@@ -8,10 +8,18 @@
         <v-data-table
           :headers="headers"
           :items="items"
-          :items-per-page="5"
+          :items-per-page="10"
           class="elevation-1"
           @click:row="handleClick"
-        ></v-data-table>
+        >
+          
+          <template v-slot:item.cost="{ item }">
+            {{ item.cost|comma }}
+          </template>
+          <template v-slot:item.totalincome="{ item }">
+            {{ item.totalincome|comma }}
+          </template>
+        </v-data-table>
       </v-col>
     </v-row>
 
@@ -24,9 +32,8 @@
         class="mx-auto"
       >
         <v-img
-          :src="selectdata.img"
+          :src="`data:image/jpeg;base64,${selectdata.img}`"
         ></v-img>
-
         <v-card-title>{{selectdata.productname}}</v-card-title>
         <v-card-text>
           <v-row
@@ -74,6 +81,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 
@@ -205,6 +213,56 @@ export default {
       this.selectdata = value;
       this.componentKey += 1
     }
+  },
+  created: function () {
+    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/1`)
+      .then(res => {
+        let productslist = res.data.data;
+        const productsize = productslist.length
+        let newItems = [];
+        let idx = 1;
+
+        for(let i=0; i<productsize; i++) {
+          if (productslist[i].images.length > 0) {
+            axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
+              .then(res => {
+                let tmp = productslist[i].registerDate.split('T')
+                for (let j=0; j<productslist[i].options.length; j++) {
+                  newItems.push({
+                    index: idx,
+                    created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
+                    totalincome: '1000000',
+                    productname: productslist[i].name + productslist[i].options[j].name,
+                    cost: productslist[i].options[j].price,
+                    amount: productslist[i].options[j].stockQuantity,
+                    img: res.data.data.imageBytes,
+                  })
+                  idx += 1
+                }
+                
+              })
+              .catch(res => {
+                console.log(res)
+              })
+          } else {
+                let tmp = productslist[i].registerDate.split('T')
+                for (let j=0; j<productslist[i].options.length; j++) {
+                  newItems.push({
+                    index: idx,
+                    created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
+                    totalincome: '1000000',
+                    productname: productslist[i].name + productslist[i].options[j].name,
+                    cost: productslist[i].options[j].price,
+                    amount: productslist[i].options[j].stockQuantity,
+                    img: res.data.data.imageBytes,
+                  })
+                  idx += 1
+                }
+          }
+        }
+        this.items = newItems
+        
+      })
   }
 }
 </script>

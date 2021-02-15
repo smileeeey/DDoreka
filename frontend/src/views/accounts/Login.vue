@@ -118,7 +118,7 @@ export default {
           this.$store.dispatch("LOGIN", res.data.data)
           // jwt token setting required
           localStorage.setItem('jwt', 'token');
-          this.$router.push({ name: 'Main' })
+          this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
         })
         .catch(err => {
           console.log(err)
