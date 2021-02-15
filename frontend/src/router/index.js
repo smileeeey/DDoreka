@@ -41,6 +41,13 @@ const routes = [
         component: () => import('../views/ItemDetail.vue'),
         props: true,
       },
+      // search
+      {
+        path: '/search/:category1id/:keyword',
+        name: 'Search',
+        component: () => import('../views/Search.vue'),
+        props: true,
+      },
       // mypage
       {
         path: '/mypage',
@@ -49,9 +56,14 @@ const routes = [
         redirect: { name: 'OrderList' },
         children: [
           {
-            path: 'order/list',
+            path: 'orderlist',
             name: 'OrderList',
-            component: () => import('../views/mypage/OrderList.vue')
+            component: () => import('../views/mypage/OrderList.vue'),
+          },
+          {
+            path: 'createreview',
+            name: 'CreateReview',
+            component: () => import('../views/mypage/CreateReview.vue')
           },
           {
             path: 'cancel-return-exchange/list',
@@ -59,7 +71,7 @@ const routes = [
             component: () => import('../views/mypage/CancelReturnExchangeList.vue')
           },
           {
-            path: 'product/review',
+            path: 'productreview',
             name: 'ProductReview',
             component: () => import('../views/mypage/ProductReview.vue')
           },

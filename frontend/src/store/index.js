@@ -13,6 +13,7 @@ export default new Vuex.Store({
     currentItem: {},
     email: '',
     phone: '',
+    searchData: [],
   },
   mutations: {
     logout(state) {
@@ -36,7 +37,10 @@ export default new Vuex.Store({
     },
     setwishlist(state, data) {
       state.wishlist = data
-    }
+    },
+    searchData(state, data) {
+      state.searchData = data
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -52,7 +56,10 @@ export default new Vuex.Store({
     },
     SETWISHLIST({ commit }, data) {
       commit("setwishlist", data)
-    }
+    },
+    SEARCHDATA({ commit }, data) {
+      commit("searchData", data)
+    },
   },
   modules: {
   },

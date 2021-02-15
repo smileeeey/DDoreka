@@ -21,6 +21,7 @@
 
 <script>
 import axios from 'axios'
+// import { mapState } from 'vuex'
 import SideBar from '@/components/category/SideBar.vue'
 import TopInfo from '@/components/category/TopInfo.vue'
 import CategoryItemList from '@/components/category/CategoryItemList.vue'
@@ -65,6 +66,11 @@ export default {
       })
     }
   },
+  // computed: {
+  //   ...mapState([
+  //     'search'
+  //   ])
+  // },
   watch: {
     page: function() {
       axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
@@ -83,6 +89,7 @@ export default {
     }
   },
   created() {
+    // console.log(this.search)
     this.getId()
     this.getDepth()
     this.getItems()
