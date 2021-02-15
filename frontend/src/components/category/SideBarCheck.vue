@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .v-input__slot {
     font-size: 5px;
   }

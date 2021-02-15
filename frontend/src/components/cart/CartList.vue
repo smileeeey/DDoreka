@@ -39,6 +39,11 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
               </select>
             </div>
           </div>
@@ -46,7 +51,7 @@
         <td class="rightborder">
           <div style="display: flex; justify-content: space-between;">
             <span style="font-weight: bold; margin-left: 0.5rem;">{{item.cost*item.amount | comma}}원</span>
-            <span @click="deleteCartitem(idx)"><v-icon>mdi-close</v-icon></span>
+            <a @click="deleteCartitem(idx)"><v-icon>mdi-close</v-icon></a>
           </div>
         </td>
         <td v-if="idx==0" :rowspan="items.length" style="text-align: center; font-weight: bold;">무료</td>

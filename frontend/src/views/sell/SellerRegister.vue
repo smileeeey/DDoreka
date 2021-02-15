@@ -1,5 +1,6 @@
 <template>
   <v-stepper v-model="e1">
+    {{maincode}}  {{subcode}}  {{detailcode}}
     <v-col class="px-5" cols="8" offset="2">
       <v-stepper-header>
         <v-stepper-step
@@ -156,9 +157,9 @@ export default {
   data () {
     return {
       e1: 1,
-      maincode: 0,
-      subcode: 0,
-      detailcode: 0,
+      maincode: '001',
+      subcode: '101',
+      detailcode: '201',
     }
   }
 }

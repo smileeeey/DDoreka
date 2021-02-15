@@ -116,9 +116,14 @@ export default {
       axios.post('http://i4d106.p.ssafy.io:8080/user/login/', this.form)
         .then(res => {
           this.$store.dispatch("LOGIN", res.data.data)
+          axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`)
+            .then(res => {
+              this.$store.dispatch("SETWISHLIST", res.data.data)
+              localStorage.setItem('jwt', 'token');
+              this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
+            })
           // jwt token setting required
-          localStorage.setItem('jwt', 'token');
-          this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
+          
         })
         .catch(err => {
           console.log(err)

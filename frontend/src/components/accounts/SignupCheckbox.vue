@@ -102,7 +102,7 @@ export default {
           console.log(res.data)
           if (res.data.response == 'success') {
             if (document.location.href == 'http://localhost:8080/signup') {
-              this.$router.push({ name: 'Login' })
+              this.$router.push({ name: 'Login', query: { next: 'Main' } })
             } else {
               this.$router.push({ name: 'Dashboard' })
             }
