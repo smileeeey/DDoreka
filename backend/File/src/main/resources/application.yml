@@ -1,8 +1,9 @@
 server:
     port: 8082
+
 spring:
     application:
-        name: File
+        name: FILE-SERVICE
     datasource:
         url: jdbc:mysql://localhost:3306/file?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
         username: sumin
@@ -14,4 +15,9 @@ spring:
         show-sql: true
         generate-ddl: true
 
-
+eureka:
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://i4d106.p.ssafy.io:8761/eureka/

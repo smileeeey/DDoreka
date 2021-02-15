@@ -1,16 +1,23 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.8.RELEASE'
+    id 'org.springframework.boot' version '2.3.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.eureka'
-version = 'v0.0.11'
+version = 'v0.0.13'
 sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+// for Eureka client
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
     }
 }
 
@@ -42,6 +49,9 @@ dependencies {
         // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
         compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.41'
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.4'
+
+        // for Eureka client
+        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
