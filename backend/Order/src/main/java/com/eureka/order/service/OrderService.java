@@ -27,6 +27,7 @@ public interface OrderService {
 
     List<List<OrderEntity>> getOrdersBySellerIdByday(String sellerid, String month);
 
-    List<Integer> getOrdersBySellerIdBystatus(String sellerid, Integer status);
+    List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status);
 
+    List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status);
 }

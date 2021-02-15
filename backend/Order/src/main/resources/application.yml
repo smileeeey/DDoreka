@@ -1,9 +1,16 @@
 server:
   port: 8084
 
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
 spring:
   application:
-    name: order
+    name: ORDER-SERVICE
   profiles:
     active:
       default
@@ -20,9 +27,6 @@ spring:
 
       show-sql: true
     driver-class-name: com.mysql.jdbc.Driver
-  # JWT Secret Key
-  jwt:
-    secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
 
 
 

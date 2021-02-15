@@ -56,12 +56,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Integer> getOrdersBySellerIdBystatus(String sellerid, Integer status) {
-//        OrderStatus orderStatus=OrderStatus.valueOf();
-//        System.out.println(orderStatus);
-//       orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+    public List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+            if(o.getOrderEntity().getSellerId().equals(sellerid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
+    }
 
-        return null;
+    @Override
+    public List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+
+            if(o.getOrderEntity().getUserId().equals(userid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
     }
 
 

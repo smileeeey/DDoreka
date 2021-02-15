@@ -69,8 +69,8 @@ public class OrderfromSellerController {
         return response;
     }
 
-    @GetMapping(value ="sellerid/{sellerid}/{status}")
-    public Response getOrdersBySellerIdBystatus(@PathVariable("sellerid") String sellerid,@PathVariable("status") Integer status){
+    @GetMapping(value ="sellerid/{sellerid}/status/{statusnum}")
+    public Response getOrdersBySellerIdBystatus(@PathVariable("sellerid") String sellerid,@PathVariable("statusnum") Integer status){
 
         System.out.println("getOrdersBySellerIdBystatus : "+sellerid+" "+status);
         Response response;
