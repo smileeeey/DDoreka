@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="" />
+    <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtTokenVerifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtTokenVerifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/GatewaySecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/GatewaySecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-registry/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../service-registry/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
