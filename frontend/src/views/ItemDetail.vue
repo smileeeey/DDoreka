@@ -83,46 +83,6 @@ export default {
           console.log(err)
         })
     },
-    // getFileIds() {
-    //   this.item.images.forEach(image => {
-    //     if (image.imageType === 'S') {
-    //       this.sFileIds.push(image.fileId)
-    //     } else {
-    //       this.mFileIds.push(image.fileId)
-    //     }
-    //   })
-    // },
-    // getSFiles() {
-    //   axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-    //     params: {
-    //       fileIds: this.sFileIds.join(',')
-    //     },
-    //     // paramsSerializer: params => {
-    //     //   return qs.stringify(params)
-    //     // }
-    //   })
-    //   .then(res => {
-    //     // console.log(res.data)
-    //     this.sFiles = res.data.data
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // },
-    // getMFiles() {
-    //   axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-    //     params: {
-    //       fileIds: this.mFileIds.join(',')
-    //     },
-    //   })
-    //   .then(res => {
-    //     // console.log(res.data)
-    //     this.mFiles = res.data.data
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    // },
   },
   created() {
     this.productId = this.$route.params.productid

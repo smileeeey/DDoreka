@@ -1,5 +1,6 @@
 <template>
   <div style="display: flex; border: 3px skyblue solid">
+    <!-- {{ e1 }} -->
     <v-row>
       <v-col class="" cols="3">
         <v-select
@@ -7,6 +8,8 @@
           :items="items"
           solo
           flat
+          item-text="name"
+          return-object
           
         ></v-select>
       </v-col>
@@ -24,12 +27,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'SearchBar',
   data: () => ({
       e1: '전체',
       items: ['전체', '여성패션', '남성패션', '뷰티'],
     }),
+  created() {
+    axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
+      .then(res => {
+        this.items = res.data.data
+        this.items.unshift({
+          name: '전체',
+        })
+      })
+  },
 }
 </script>
 
