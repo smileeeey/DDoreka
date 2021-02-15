@@ -55,6 +55,33 @@ public class OrderServiceImpl implements OrderService {
         return ls;
     }
 
+    @Override
+    public List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+            if(o.getOrderEntity().getSellerId().equals(sellerid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+
+            if(o.getOrderEntity().getUserId().equals(userid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
+    }
+
 
     @Override
     public Page<OrderEntity> getOrdersByUserId(String userId, Integer page, Integer size) {

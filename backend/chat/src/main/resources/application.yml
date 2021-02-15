@@ -22,3 +22,6 @@ spring:
 
       show-sql: true
     driver-class-name: com.mysql.jdbc.Driver
+  rsocket:
+    server:
+      port: 63342

@@ -4,6 +4,7 @@ import com.eureka.user.Entity.UseraddressEntity;
 import com.eureka.user.dto.Request.RequestLoginUser;
 import com.eureka.user.dto.Response;
 import com.eureka.user.Entity.UserEntity;
+import com.eureka.user.dto.UserInfo;
 import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CookieUtil;
 import com.eureka.user.services.JwtUtil;
@@ -151,6 +152,18 @@ public class UserController {
     public Response updateUser(@RequestBody UserEntity user){
         try{
             authService.updateUser(user);
+            return new Response("success","회원정보 수정을 성공적으로 완료했습니다.",null);
+        }
+        catch (Exception e){
+            return new Response("error","회원정보 수정중 오류",e.getMessage());
+        }
+    }
+
+    @PutMapping(value = "/update/phone")
+    public Response updateUserPhone(@RequestBody UserInfo user){
+        System.out.println("updateUserPhone "+user);
+        try{
+            authService.updateUserPhone(user);
             return new Response("success","회원정보 수정을 성공적으로 완료했습니다.",null);
         }
         catch (Exception e){

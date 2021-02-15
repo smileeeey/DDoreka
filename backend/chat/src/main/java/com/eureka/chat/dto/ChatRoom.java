@@ -1,52 +1,22 @@
 package com.eureka.chat.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-
+@NoArgsConstructor
 @Getter
-@Setter
+@ToString
 public class ChatRoom {
-    private String roomId;
-    private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
+    private long id;
+    private String title;
 
-    public static ChatRoom create(String name){
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.roomId = UUID.randomUUID().toString();
-        chatRoom.name = name;
-        return chatRoom;
+    @Builder
+    public ChatRoom(long id, String title, long masterId) {
+        super();
+        this.id = id;
+        this.title = title;
     }
 
-    public void handleMessage(WebSocketSession session, ChatMessage chatMessage,
-                              ObjectMapper objectMapper) throws IOException {
-        if(chatMessage.getType() == MessageType.ENTER){
-            sessions.add(session);
-            chatMessage.setMessage(chatMessage.getWriter() + "님이 입장하셨습니다.");
-        }
-        else if(chatMessage.getType() == MessageType.LEAVE){
-            sessions.remove(session);
-            chatMessage.setMessage(chatMessage.getWriter() + "님임 퇴장하셨습니다.");
-        }
-        else{
-            chatMessage.setMessage(chatMessage.getWriter() + " : " + chatMessage.getMessage());
-        }
-        send(chatMessage,objectMapper);
-    }
-
-    private void send(ChatMessage chatMessage, ObjectMapper objectMapper) throws IOException {
-        TextMessage textMessage = new TextMessage(objectMapper.
-                writeValueAsString(chatMessage.getMessage()));
-        for(WebSocketSession sess : sessions){
-            sess.sendMessage(textMessage);
-        }
-    }
 }

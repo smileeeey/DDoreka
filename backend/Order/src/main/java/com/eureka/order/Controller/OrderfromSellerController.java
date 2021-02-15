@@ -69,4 +69,17 @@ public class OrderfromSellerController {
         return response;
     }
 
+    @GetMapping(value ="sellerid/{sellerid}/status/{statusnum}")
+    public Response getOrdersBySellerIdBystatus(@PathVariable("sellerid") String sellerid,@PathVariable("statusnum") Integer status){
+
+        System.out.println("getOrdersBySellerIdBystatus : "+sellerid+" "+status);
+        Response response;
+        try {
+            response= new Response("success", "조회성공", orderService.getOrdersBySellerIdBystatus(sellerid, status)) ;
+        } catch (Exception e) {
+            response= new Response("error", e.getMessage(), null) ;
+        }
+        return response;
+    }
+
 }

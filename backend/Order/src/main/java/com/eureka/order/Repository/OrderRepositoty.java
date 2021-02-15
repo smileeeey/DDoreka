@@ -23,4 +23,6 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
 
     @Query(value = "SELECT * FROM orders m WHERE m.seller_id=:sellerid  and dayofmonth(m.datetime) = :day and month(m.datetime) = :month",nativeQuery = true)
     List<OrderEntity> findAllBySelleridofday(@Param("day") String day, @Param("sellerid") String sellerid,@Param("month") String month);
+
+
 }
