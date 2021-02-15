@@ -27,52 +27,7 @@ public class FileService {
         List<Image> images = new ArrayList<>();
 
         for (MultipartFile file : files) {
-            if(file.isEmpty())  throw new Exception("파일 등록 실패 (파일 객체 비었음)");
-
-            String originName = file.getOriginalFilename();
-            String ext = "";
-            int index = originName.lastIndexOf(".");
-            if(index!=-1){
-                ext = originName.substring(index);
-            }
-
-            //저장할 이름
-            String systemName = UUID.randomUUID().toString() + ext;
-
-
-            String currentTime = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-            StringTokenizer st = new StringTokenizer(currentTime,"/");
-           //저장될 경로
-            //String fsl = File.pathSeparator;
-            //String fsl = "\\";
-            String fsl="/";
-
-            StringBuilder pathRoot = new StringBuilder();
-            pathRoot.append("/home/upload/image");
-
-            StringBuilder modulePath = new StringBuilder();
-            modulePath.append(st.nextToken())
-                    .append(fsl).append(st.nextToken())
-                    .append(fsl).append(st.nextToken());
-
-            File pFile = new File(pathRoot.toString()+fsl+modulePath.toString());
-            //폴더 있는지 확인하고 폴더 생성
-            if(pFile.exists()==false) {
-                pFile.mkdirs();
-            }
-
-            //서버에 파일 생성하기
-            //pfile의 설정된 경로를 준다
-            file.transferTo(new File(pFile,systemName));
-
-            Image image = new Image();
-            image.setOriginName(originName);
-            image.setSystemName(systemName);
-            image.setType(file.getContentType());
-            image.setSize((int)file.getSize());
-            image.setPath(modulePath.toString());
-
-            images.add(repository.save(image));
+            images.add(addFile(file));
         }
 
         return images;
@@ -106,7 +61,8 @@ public class FileService {
                 .append(fsl).append(st.nextToken())
                 .append(fsl).append(st.nextToken());
 
-        File pFile = new File(pathRoot.toString()+fsl+modulePath.toString());
+        String totalPath = pathRoot.toString()+fsl+modulePath.toString();
+        File pFile = new File(totalPath);
         //폴더 있는지 확인하고 폴더 생성
         if(pFile.exists()==false) {
             pFile.mkdirs();
@@ -123,7 +79,14 @@ public class FileService {
         image.setSize((int)file.getSize());
         image.setPath(modulePath.toString());
 
-        return repository.save(image);
+        Image doneImage = repository.save(image);
+        InputStream imgStream = new FileInputStream(totalPath);
+        byte[] imgByteArray = IOUtils.toByteArray(imgStream);
+        imgStream.close();
+
+        doneImage.setImageBytes(imgByteArray);
+
+        return doneImage;
     }
 
     public List<Image> filesServe(List<Integer> fileIds) throws IOException {
