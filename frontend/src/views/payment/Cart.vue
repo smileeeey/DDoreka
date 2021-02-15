@@ -191,26 +191,37 @@ export default {
   created: function () {
     let tmpitems = [];
     for (let i=0; i<this.wishlist.length; i++) {
+      let cartId = this.wishlist[i].id
+      let optionV = this.wishlist[i].optionId
       axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
         .then(detailres => {
           let productName = detailres.data.data.name
+          let optionName = null;
+          let optionValue = null;
+          for (let j=0; j<detailres.data.data.options.length; j++) {
+            if (detailres.data.data.options[j].optionId == optionV) {
+              optionName = detailres.data.data.options[j].name
+              optionValue = detailres.data.data.options[j].discountPrice
+            }
+          }
           if (detailres.data.data.images.length > 0) {
             axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
               .then(fileres => {
-                console.log('getimage')
                 tmpitems.push({
+                  cartId: cartId,
                   img: fileres.data.data.imageBytes,
-                  name: productName,
-                  cost: 1000,
+                  name: productName + ' ' +optionName,
+                  cost: optionValue,
                   amount: this.wishlist[i].quantity,
                   select: true
                 })
               })
           } else {
             tmpitems.push({
+              cartId: cartId,
               img: null,
-              name: productName,
-              cost: 1000,
+              name: productName + ' ' + optionName,
+              cost: optionValue,
               amount: this.wishlist[i].quantity,
               select: true
             })

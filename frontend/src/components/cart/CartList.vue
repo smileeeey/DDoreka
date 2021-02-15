@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'CartList',
   data: () => ({
@@ -106,6 +107,11 @@ export default {
     },
     deleteCartitem(idx) {
       // delete axios request
+      console.log(this.items[idx].cartId)
+      axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[idx].cartId}`)
+        .then(function () {
+          this.$store.dispatch("DELETEWISHLIST", this.items[idx].cartId)
+        })
       this.items.splice(idx, 1)
     }
   }
