@@ -100,8 +100,18 @@ export default {
     if (this.login) {
       axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.email}`)
         .then(res => {
-          this.$store.dispatch("SETWISHLIST", res.data.data)
+          let wishlist = res.data.data
+          for (let i=0; i<wishlist.length; i++) {
+            axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${wishlist[i].productId}`)
+              .then(detailres => {
+                wishlist[i].name = detailres.data.name
+              })
+            
+          }
+          this.$store.dispatch("SETWISHLIST", wishlist)    
         })
+      
+      
     }
   },
   methods: {

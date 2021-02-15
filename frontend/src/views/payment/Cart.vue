@@ -4,6 +4,7 @@
   >
   <v-container fluid style="width: 75rem;">
       <v-row justify="center">
+        {{wishlist}}
         <v-col cols="12">
           <v-img
             @click="$router.push({ name: 'Main' })"
@@ -135,6 +136,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import DestinationInfo from '../../components/cart/DestinationInfo.vue'
 import BuyerInfo from '../../components/cart/BuyerInfo.vue'
 import CartList from '../../components/cart/CartList.vue'
@@ -180,6 +183,11 @@ export default {
       this.totalCost = cost
     }
   },
+  computed: {
+    ...mapState([
+      'wishlist',
+    ])
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
         class="pa-2"
       >
         <div v-if="!login">
-          <a @click="$router.push({ name: 'Login' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
+          <a @click="goLogin" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
           <a @click="$router.push({ name: 'Signup' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
         </div>
         <div v-else>
@@ -53,6 +53,9 @@ export default {
         .catch(() => {
           console.error("logout error occured!!");
         });
+    },
+    goLogin() {
+      this.$router.push({ name: 'Login', query: { redirect: 'Main' } })
     }
   }
 }
