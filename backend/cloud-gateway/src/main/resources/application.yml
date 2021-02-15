@@ -16,6 +16,9 @@ zuul:
     AUTH-SERVICE:
       path: /login/**
       stripPrefix: false
+    FACE-SERVICE:
+      path: /face/**
+      stripPrefix: false
     seller-service:
       path: /seller/**
       serviceId: SELLER-SERVICE

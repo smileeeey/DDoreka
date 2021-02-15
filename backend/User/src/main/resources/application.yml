@@ -1,6 +1,6 @@
 spring:
   application:
-    name: User
+    name: USER-SERVICE
   profiles:
     active:
       default
@@ -30,15 +30,20 @@ spring:
 =======
     secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
 
+<<<<<<< backend/User/src/main/resources/application.yml
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+=======
 >>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
 
+>>>>>>> backend/User/src/main/resources/application.yml
 
 
 
-
-#server:
-#  servlet:
-#    contextPath:  /auth
 
 
 

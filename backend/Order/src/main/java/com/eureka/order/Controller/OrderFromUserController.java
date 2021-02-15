@@ -45,6 +45,19 @@ public class OrderFromUserController {
 
     }
 
+    @GetMapping(value ="userid/{userid}/status/{statusnum}")
+    public Response getOrdersByUserIdBystatus(@PathVariable("userid") String userid,@PathVariable("statusnum") Integer status){
+
+        System.out.println("getOrdersByUserIdBystatus : "+userid+" "+status);
+        Response response;
+        try {
+            response= new Response("success", "조회성공", orderService.getOrdersByUserIdBystatus(userid, status)) ;
+        } catch (Exception e) {
+            response= new Response("error", e.getMessage(), null) ;
+        }
+        return response;
+    }
+
     @PostMapping()
     public Response saveOrders( @RequestBody OrderEntity orderEntity) {
 

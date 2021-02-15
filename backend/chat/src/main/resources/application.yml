@@ -1,0 +1,27 @@
+
+spring:
+  mvc:
+    view:
+      prefix: "/resources/templates"
+      suffix: ".html"
+  application:
+    name: chat
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/eurekachat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: ssafy
+    password: ssafy
+    jpa:
+      hibernate:
+        ddl-auto: update
+
+      show-sql: true
+    driver-class-name: com.mysql.jdbc.Driver
+  rsocket:
+    server:
+      port: 63342

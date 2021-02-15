@@ -68,6 +68,15 @@ public class ProductService {
             return productRepository.findByCategory1IdAndNameContains(category1Id, keyword, PageRequest.of(page,size, Sort.by("id").ascending()));
     }
 
+    //상품 아이디 리스트 조회
+    public List<Product> getProductByIds(List<Integer> productIds) {
+        List<Product> products = new ArrayList<>();
+        for (Integer productId : productIds) {
+            products.add(getProductById(productId));
+        }
+        return products;
+    }
+
     //상품 정보 입력하기
     public void saveProduct(Map<String, Object> param) {
 
@@ -103,6 +112,7 @@ public class ProductService {
 
         Product product = (Product)param.get("product");
         Productimage images = (Productimage)param.get("image");
+        List<Integer> deleteImages = (List<Integer>)param.get("deleteImages");
         Productoption options = (Productoption)param.get("option");
 
         List<Productimage> existingImages = imageRepository.findByProductId(product.getId());
@@ -117,6 +127,14 @@ public class ProductService {
         existingProduct.setCategory5Id(product.getCategory5Id());
         existingProduct.setUpdateDate(product.getUpdateDate());
         existingProduct.setDetailInfo(product.getDetailInfo());
+
+        //사진 데이터 삭제
+        for (Integer imageId : deleteImages) {
+            imageRepository.deleteById(imageId);
+        }
+
+
+
 
         return productRepository.save(existingProduct);
     }
@@ -136,4 +154,6 @@ public class ProductService {
     public List<Product> getProductsByStore(int storeId) {
         return productRepository.findByStoreId(storeId);
     }
+
+
 }

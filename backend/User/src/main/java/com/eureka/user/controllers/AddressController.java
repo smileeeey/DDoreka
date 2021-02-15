@@ -58,7 +58,7 @@ public class AddressController {
         System.out.println(" post address "+email+" "+useraddressEntity);
         Response response;
         try {
-            response= new Response("success", "등록성공", addressService.saveaddress(useraddressEntity,email)) ;
+            response= new Response("success", "등록성공", addressService.   saveaddress(useraddressEntity,email)) ;
         } catch (Exception e) {
             response= new Response("error", e.getMessage(), null) ;
         }

@@ -38,6 +38,52 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Integer> getOrdersByProductIdSortedByDay(String prodcutid) {
+        List<Integer> ls = new ArrayList<>();
+        for(int i=1;i<8;i++){
+            ls.add(orderRepositoty.findAllByDayOfWeek(Integer.toString(i),prodcutid).size());
+        }
+        return ls;
+    }
+
+    @Override
+    public List<List<OrderEntity>> getOrdersBySellerIdByday(String sellerid, String month) {
+        List<List<OrderEntity>> ls = new ArrayList<>();
+        for(int i=1;i<31;i++){
+            ls.add(orderRepositoty.findAllBySelleridofday(Integer.toString(i),sellerid,month));
+        }
+        return ls;
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+            if(o.getOrderEntity().getSellerId().equals(sellerid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status) {
+        OrderStatus orderStatus=OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
+        List<OrderDetailEntity> orderDetailEntityList=orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println(orderDetailEntityList.size());
+        List<OrderEntity> orderEntityList=new ArrayList<>();
+        for(OrderDetailEntity o:orderDetailEntityList){
+
+            if(o.getOrderEntity().getUserId().equals(userid)) orderEntityList.add(o.getOrderEntity());
+        }
+        return orderEntityList;
+    }
+
+
+    @Override
     public Page<OrderEntity> getOrdersByUserId(String userId, Integer page, Integer size) {
         return orderRepositoty.findAllByUserId(userId,  PageRequest.of(page,size, Sort.by("id").descending()));
     }
