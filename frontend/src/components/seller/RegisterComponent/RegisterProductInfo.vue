@@ -27,7 +27,7 @@
           등록일<span style="color: red;"> * </span>
           </span>
           <v-text-field 
-            value="new Date()"
+            :value="date"
             disabled
             outlined 
             style="display: inline-block; width: 50%;" 
@@ -41,7 +41,7 @@
 
           상품명<span style="color: red;"> * </span>
           </span>
-          <v-text-field outlined style="display: inline-block; width: 50%;" class="mx-5"></v-text-field>
+          <v-text-field v-model="productname" outlined style="display: inline-block; width: 50%;" class="mx-5"></v-text-field>
         </v-col>
         <v-col
           cols="12"
@@ -101,6 +101,7 @@
 export default {
   name: 'RegisterProductInfo',
   data: () => ({
+    productname: '',
     options: [
       {
         name: '',
@@ -108,7 +109,7 @@ export default {
         price: '',
         discountPrice: '',
       },
-    ]
+    ],
   }),
   methods: {
     addOption: function () {
@@ -130,6 +131,23 @@ export default {
         price: '',
         discountPrice: '',
       }]
+    }
+  },
+  watch: {
+    options: {
+      deep: true,
+      handler () {
+        this.$emit('options', this.options)
+      }
+    },
+    productname() {
+      this.$emit('productname', this.productname)
+    }
+  },
+  computed: {
+    date () {
+      let A = new Date()
+      return A.getUTCFullYear() + '년 ' + (A.getUTCMonth()+1) + '월 ' + A.getUTCDate() + '일'
     }
   }
 }

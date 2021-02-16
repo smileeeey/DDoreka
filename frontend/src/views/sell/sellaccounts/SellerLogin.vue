@@ -118,6 +118,8 @@ export default {
         password: this.form.pw
       })
         .then(res => {
+          console.log('1st')
+          console.log(res.data)
           localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('seller-eureka-authorization')
           axios.get(`http://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
@@ -126,7 +128,15 @@ export default {
             }
           })
             .then(response=> {
+              console.log('2nd')
+              console.log(response.data)
               this.$store.dispatch("SETSELLERINFO", response.data)
+              axios.get(`http://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
+                .then(resp => {
+                  console.log('3rd')
+                  console.log(resp.data)
+                  this.$store.dispatch('SETSELLERSTORE', resp.data)
+                })
             })
 
         })

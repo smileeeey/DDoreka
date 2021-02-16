@@ -14,6 +14,7 @@ export default new Vuex.Store({
     email: '',
     phone: '',
     seller: {},
+    sellerstore: {},
   },
   mutations: {
     logout(state) {
@@ -43,6 +44,9 @@ export default new Vuex.Store({
     },
     setsellerinfo(state, data) {
       state.seller = data
+    },
+    setsellerstore(state, data) {
+      state.sellerstore = data
     }
   },
   actions: {
@@ -64,10 +68,11 @@ export default new Vuex.Store({
       commit("deletewishlist", idx)
     },
     SETSELLERINFO({ commit }, data) {
-      console.log('mynameisdata')
-      console.log(data)
       commit("setsellerinfo", data)
-    }
+    },
+    SETSELLERSTORE({ commit }, data) {
+      commit("setsellerstore", data)
+    },
   },
   modules: {
   },

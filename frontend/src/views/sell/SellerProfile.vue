@@ -7,6 +7,7 @@
         cols="12"
         md="8"
       >
+      {{sellerstore}}
         <v-card>
           <v-form>
             <v-container>
@@ -17,7 +18,7 @@
                 >
                   <v-text-field
                     label="이름"
-                    value="권세진"
+                    :value="seller.name"
                     disabled 
                     style="font-weight: bold;"
                   ></v-text-field>
@@ -29,7 +30,7 @@
                 >
                   <v-text-field
                     label="이메일"
-                    value="sejinkwon@naver.com"
+                    :value="seller.email"
                     disabled 
                     style="font-weight: bold;"
                   ></v-text-field>
@@ -41,12 +42,11 @@
                 >
                   <v-text-field
                     label="전화번호"
-                    value="01077269318"
+                    :value="seller.phone"
                     
                   ></v-text-field>
                 </v-col>
 
-                
                 
                 <v-col
                   cols="4"
@@ -54,7 +54,7 @@
                 >
                   <v-text-field
                     label="은행"
-                    value="신한은행"
+                    :value="seller.bank_company"
                   >
                   </v-text-field>
                 </v-col>
@@ -65,7 +65,7 @@
                 >
                   <v-text-field
                     label="계좌번호"
-                    value="110435498410"
+                    :value="seller.bank_account"
                   >
                   </v-text-field>
                 </v-col>
@@ -156,21 +156,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'SellerProfile',
   data: () => ({
     store: {
-      name: '티바 두마리치킨',
-      phone: '01077269318',
-      main_address: '경북 구미시 진평4길 21',
-      sub_address: 'IWC 302호',
-      zipcode: '12345',
+      name: '',
+      phone: '',
+      main_address: '',
+      sub_address: '',
+      zipcode: '',
     },
-    seller: {
-      bank_company: '신한은행',
-      bank_account: '110435498410',
-    }
+
   }),
+  created() {
+    this.store.name = this.sellerstore.name
+    this.store.phone = this.sellerstore.phone
+    this.store.main_address = this.sellerstore.main_address
+    this.store.sub_address = this.sellerstore.sub_address
+    this.store.zipcode = this.sellerstore.zipcode
+  },
   mounted() {
     let recaptchaScript = document.createElement('script')
     recaptchaScript.setAttribute('src', 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js')
@@ -215,20 +221,45 @@ export default {
           document.getElementById('zipcode').value = zonecode;
           var mother = document.getElementById('main_address').parentElement
           var labeltag = mother.firstChild;
-          labeltag.innerText = '';
+          labeltag.classList.add('v-label--active')
+          mother = document.getElementById('zipcode').parentElement
+          labeltag = mother.firstChild;
+          labeltag.classList.add('v-label--active')
           document.getElementById("sub_address").focus()
           
         },
         
       }).open();
-      console.log('start')
     },
     saveAddress: function () {
       this.store.zipcode = document.getElementById('zipcode').value
       this.store.main_address = document.getElementById('main_address').value
+      console.log('this is store')
+      console.log(this.store)
+      console.log(this.seller)
+      axios.post('http://i4d106.p.ssafy.io:8088/store/add', {
+        'sellerId': this.seller.id,
+        'phone': this.store.phone,
+        'name': this.store.name,
+        'main_address': this.store.main_address,
+        'sub_address': this.store.sub_address,
+        'zipcode': this.store.zipcode,
+      })
+        .then(res => {
+          console.log('store add')
+          console.log(res)
+          this.$store.dispatch("SETSELLERSTORE", res.data)
+        })
       
     }
   },
+
+  computed: {
+    ...mapState([
+      'seller',
+      'sellerstore',
+    ])
+  }
 
 }
 </script>
