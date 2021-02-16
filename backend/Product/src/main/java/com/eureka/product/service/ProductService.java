@@ -1,5 +1,6 @@
 package com.eureka.product.service;
 
+import com.eureka.product.dto.Category;
 import com.eureka.product.dto.Product;
 import com.eureka.product.dto.Productimage;
 import com.eureka.product.dto.Productoption;
@@ -157,5 +158,13 @@ public class ProductService {
     }
 
 
+    public Map<String,List<Product>> getLatestProduct(List<Category> category1) {
+        Map<String,List<Product>> map = new HashMap<>();
 
+        for (Category category : category1) {
+            map.put(category.getId(),productRepository.findTop23ByCategory1IdOrderByRegisterDateDesc(category.getId()));
+        }
+
+        return map;
+    }
 }

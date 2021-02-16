@@ -116,6 +116,20 @@ public class ProductController {
         return response;
     }
 
+    //카테고리별 추천상품 가져오기
+    @GetMapping(value="/recommend/latestproduct")
+    public Response latestProduct() {
+        Response response;
+        try {
+            List<Category> category1 = categoryService.getCategories1();
+            response = new Response("success", "카테고리별 최신 상품 조회 성공", service.getLatestProduct(category1));
+        } catch (Exception e) {
+            response = new Response("error", "카테고리별 최신 상품 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
+
     ////////// 유사 상품 가져오기
 
     /////////////////// 판매자 페이지  ///////////////////
