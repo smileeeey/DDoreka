@@ -6,6 +6,7 @@ import com.eureka.product.repository.SearchlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ public class SearchlogService {
         Searchlog searchlog = new Searchlog();
         searchlog.setSearchDate(cur);
         searchlog.setSearchWord(keyword);
+        searchlog.setCategory1Id(category1Id);
         repository.save(searchlog);
     }
 }
