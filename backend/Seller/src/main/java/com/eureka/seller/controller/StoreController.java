@@ -35,7 +35,7 @@ public class StoreController {
     }
 
     @GetMapping("/getBySellerId/{sellerId}")
-    public Store findStoreBySeller_id(@PathVariable int sellerId) {
+    public Store findStoreBySellerId(@PathVariable int sellerId) {
         return service.getStoreBySellerId(sellerId);
     }
 
