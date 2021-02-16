@@ -4,11 +4,8 @@ import com.eureka.product.dto.Category;
 import com.eureka.product.dto.MainCategory;
 import com.eureka.product.dto.SubCategory;
 import com.eureka.product.repository.CategoryRepository;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.applet.Main;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -94,5 +91,9 @@ public class CategoryService {
 
     public Category saveCategory(Category category) {
         return repository.save(category);
+    }
+
+    public List<Category> getCategories1() {
+        return repository.findByDepth(1);
     }
 }
