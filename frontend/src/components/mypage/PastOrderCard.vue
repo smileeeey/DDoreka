@@ -33,6 +33,7 @@
         color="blue"
         outlined
         text
+        @click="createReview"
       >
         구매후기 쓰기
       </v-btn>
@@ -53,6 +54,11 @@ export default {
   name: 'PastOrderCard',
   props: {
     item: Object,
+  },
+  methods: {
+    createReview() {
+      this.$router.push({ path: 'createreview' })
+    }
   }
 }
 </script>

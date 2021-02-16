@@ -13,6 +13,7 @@ export default new Vuex.Store({
     currentItem: {},
     email: '',
     phone: '',
+    searchData: [],
   },
   mutations: {
     logout(state) {
@@ -39,7 +40,10 @@ export default new Vuex.Store({
     },
     deletewishlist(state, idx) {
       state.wishlist.splice(idx, 1)
-    }
+    },
+    searchData(state, data) {
+      state.searchData = data
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -58,7 +62,10 @@ export default new Vuex.Store({
     },
     DELETEWISHLIST({ commit }, idx) {
       commit("deletewishlist", idx)
-    }
+    },
+    SEARCHDATA({ commit }, data) {
+      commit("searchData", data)
+    },
   },
   modules: {
   },
