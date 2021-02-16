@@ -9,7 +9,6 @@ import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +28,7 @@ public class ProductService {
 
     @Autowired
     private ImageRepository imageRepository;
+
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -66,6 +66,7 @@ public class ProductService {
             //depth=1인 카테고리 안에서 키워드로 상품 검색
         else
             return productRepository.findByCategory1IdAndNameContains(category1Id, keyword, PageRequest.of(page,size, Sort.by("id").ascending()));
+
     }
 
     //상품 아이디 리스트 조회
@@ -154,6 +155,7 @@ public class ProductService {
     public List<Product> getProductsByStore(int storeId) {
         return productRepository.findByStoreId(storeId);
     }
+
 
 
 }
