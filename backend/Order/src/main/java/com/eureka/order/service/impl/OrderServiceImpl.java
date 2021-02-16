@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -123,5 +124,22 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+
+
+    ////////////////////////   수민   /////////////////////////////
+    @Override
+    public List<Integer> getSteadySeller() {
+        return orderRepositoty.findSteadySeller();
+    }
+
+    @Override
+    public List<Integer> getHotProduct() {
+        return orderRepositoty.findHotProduct();
+    }
+
+    @Override
+    public List<Map<String,Object>> getTodayHot(int userId) {
+        return orderRepositoty.findTodayHot(userId);
+    }
 
 }

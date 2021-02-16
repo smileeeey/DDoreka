@@ -85,4 +85,43 @@ public class OrderFromUserController {
         }
         return response;
     }
+
+////////////////////////   수민   /////////////////////////////
+
+    //스테디 셀러
+    @GetMapping(value ="/recommend/steadyseller")
+    public Response steadySeller(){
+
+        Response response;
+        try {
+            response= new Response("success", "스테디셀러 조회 성공", orderService.getSteadySeller()) ;
+        } catch (Exception e) {
+            response= new Response("error", "스테디셀러 조회 실패", e.getMessage()) ;
+        }
+        return response;
+    }
+
+    //요즘 뜨는 상품
+    @GetMapping(value ="/recommend/hotproduct")
+    public Response hotProduct(){
+        Response response;
+        try {
+            response= new Response("success", "요즘 뜨는 상품 조회 성공", orderService.getHotProduct()) ;
+        } catch (Exception e) {
+            response= new Response("error", "요즘 뜨는 상품 조회 실패", e.getMessage()) ;
+        }
+        return response;
+    }
+
+    // 당신을 탕탕 저격하는 오늘의 상품
+    @GetMapping(value ="/recommend/todayhot/{userId}")
+    public Response todayHot(@PathVariable int userId){
+        Response response;
+        try {
+            response= new Response("success", "오늘 뜨는 상품 조회 성공", orderService.getTodayHot(userId)) ;
+        } catch (Exception e) {
+            response= new Response("error", "오늘 뜨는 상품 조회 실패", e.getMessage()) ;
+        }
+        return response;
+    }
 }
