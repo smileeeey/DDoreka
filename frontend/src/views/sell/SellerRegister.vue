@@ -158,6 +158,7 @@ export default {
   },
   computed: {
     ...mapState([
+      'seller',
       'sellerstore',
     ])
   },
@@ -217,7 +218,7 @@ export default {
 
               axios.post('http://i4d106.p.ssafy.io:8081/product/add', {
                 'product': {
-                  'storeId': this.sellerstore.id,
+                  'storeId': this.seller.id,
                   'name': "'" + this.productname + "'",
                   'category1Id': this.maincode,
                   'category2Id': this.subcode,

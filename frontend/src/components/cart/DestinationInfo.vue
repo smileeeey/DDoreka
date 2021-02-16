@@ -6,25 +6,25 @@
           <tr>
             <th scope="row">이름</th>
             <td>
-              <span id="name">{{name}}</span>
+              <span id="uniquename" :v-model="name"></span>
             </td>
           </tr>
           <tr>
             <th scope="row">배송주소</th>
             <td>
-              <span id="address"></span>
+              <span id="uniqueaddress"></span>
             </td>
           </tr>
           <tr>
             <th scope="row">연락처</th>
             <td>
-              <span id="phonenumber">{{phonenumber|phone}}</span>
+              <span id="uniquephonenumber">{{phonenumber|phone}}</span>
             </td>
           </tr>
           <tr>
             <th scope="row">배송 요청사항</th>
             <td>
-              <span id="comment"></span>
+              <span id="uniquecomment"></span>
 
             </td>
           </tr>
@@ -51,7 +51,8 @@ export default {
     changeAddress: function () {
       window.open("http://localhost:8080/popup/address", "PopupWin", "width=500, height=600");
     }
-  }
+  },
+
 
 }
 </script>

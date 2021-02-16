@@ -14,6 +14,7 @@
             max-width="300"
           >
           </v-img>
+          <input id="flag" type="text" v-model="e1" style="visibility: hidden">
         </v-col>
       </v-row>
       <v-row>
@@ -22,7 +23,7 @@
             <v-row>
               
               <v-col cols="4" style="display: flex">
-                <v-icon x-large color="black">
+                <v-icon x-large color="black" @click="e1=1">
                   mdi-cart-outline
                 </v-icon>
                 <p style="font-size: 1.75rem; margin-top: 1rem; margin-bottom: 0; font-weight: bold;">{{article[e1]}}</p>
@@ -32,7 +33,7 @@
 
               <v-col cols="5" offset="3" style="padding-left: 0; padding-right: 0;">
                 <div>
-                <v-stepper id="originalheader" style="margin-top: 0.25rem;" v-model="e1">
+                <v-stepper style="margin-top: 0.25rem;" v-model="e1">
                   <div>
                   <v-stepper-header>
                     <v-stepper-step step="1" :complete="e1 > 1">
@@ -50,24 +51,7 @@
                   </div>
                   
                 </v-stepper>
-                <v-stepper id="hiddenheader" style="margin-top: 0.25rem; display: none;">
-                  <div>
-                  <v-stepper-header>
-                    <v-stepper-step complete>
-                      장바구니
-                    </v-stepper-step>
-                    <v-divider></v-divider>
-                    <v-stepper-step complete>
-                      주문결제
-                    </v-stepper-step>
-                    <v-divider></v-divider>
-                    <v-stepper-step complete>
-                      주문완료
-                    </v-stepper-step>
-                  </v-stepper-header>
-                  </div>
-                  
-                </v-stepper>
+
                 </div>
               </v-col>
             </v-row>
@@ -93,9 +77,15 @@
                 </v-btn>
               </div>
             </div>
-            <div id="hide" v-show="e1==2">
+            <div v-show="e1==2">
               <BuyerInfo />
-              <DestinationInfo />
+              <DestinationInfo
+                @name="val => name=val"
+                @main_address="val => main_address=val"
+                @sub_address="val => sub_address=val"
+                @phonenumber="val => phonenumber=val"
+                @comment="val => comment=val"
+              />
               <PaymentTable :totalCost="totalCost" />
               <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
@@ -112,7 +102,7 @@
                 </v-btn>
               </div>
             </div>
-            <div id="complete" style="display: none;">
+            <div v-show="e1==3">
               <v-card
                 class="mx-auto paymentcard"
                 outlined
@@ -171,7 +161,12 @@ export default {
       article: [null, '장바구니', '주문결제', '주문완료'],
       totalCost: 0,
       items: [],
-
+      flag: false,
+      name: '',
+      main_address: '',
+      sub_address: '',
+      phonenumber: '',
+      comment: '',
     }
   },
 
@@ -201,17 +196,13 @@ export default {
             msg += "상점 거래ID : " + rsp.merchant_uid;
             msg += "결제 금액 : " + rsp.paid_amount;
             msg += "카드 승인번호 : " + rsp.apply_num;
-            let A = document.getElementById('complete')
-            A.style.display = "inline"
-            let B = document.getElementById('hide')
-            B.style.display = "none"
-            let C = document.getElementById('hiddenheader')
-            C.style.display = "inline"
-            let D = document.getElementById('originalheader')
-            D.style.display = "none"
+            let FLAG = document.getElementById('flag');
+            FLAG.value = 3;
+            FLAG.dispatchEvent(new Event('input'));
           } else {
             msg = "결제에 실패하였습니다.";
             msg += "에러내용 : " + rsp.error_msg;
+
           }
           alert(msg);
         },
@@ -224,7 +215,51 @@ export default {
       'email',
       'name',
       'phone',
+      'userId',
     ])
+  },
+  watch: {
+    e1: function () {
+      console.log(this.wishlist)
+      console.log(this.items)
+      if (this.e1 == 3) {
+        let sortwishlist = this.wishlist
+
+        sortwishlist.sort(function(a, b) {
+          return a.id - b.id
+        })
+        
+        for (let i=0; i<this.items.length; i++) {
+          if (this.items[i].select == true) {
+            console.log('order')
+            axios.post('http://i4d106.p.ssafy.io:8084/order', {
+              'userId': this.userId,
+              'productId': sortwishlist[i].productId,
+              'optionId': sortwishlist[i].optionId,
+              'sellerId': this.items[i].sellerId,
+              'addressMain': document.getElementById("uniqueaddress").textContent.split(', ')[0],
+              'addressSub': document.getElementById("uniqueaddress").textContent.split(', ')[1],
+              'recipientName': document.getElementById("uniquename").textContent,
+              'zipcode': '0',
+              'deliveryMsg': document.getElementById("uniquecomment").textContent,
+              'recipientPhone': document.getElementById("uniquephonenumber").textContent,
+              'quantity': this.items[i].amount,
+              'price': Number(this.items[i].cost) * this.items[i].amount,
+              'paymentMethod': 'Online',
+            })
+              .then(res => {
+                console.log(res)
+                console.log(res.data)
+                axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
+                  .then(r => {
+                    console.log(r)
+                    this.$store.dispatch('PAYWISHLIST', this.items[i].cartId)
+                  })
+              })
+          }
+        }
+      }
+    }
   },
   created: function () {
     let tmpitems = [];
@@ -236,6 +271,7 @@ export default {
           let productName = detailres.data.data.name
           let optionName = null;
           let optionValue = null;
+          let sellerId = detailres.data.data.storeId
           for (let j=0; j<detailres.data.data.options.length; j++) {
             if (detailres.data.data.options[j].optionId == optionV) {
               optionName = detailres.data.data.options[j].name
@@ -246,6 +282,7 @@ export default {
             axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
               .then(fileres => {
                 tmpitems.push({
+                  sellerId: sellerId,
                   cartId: cartId,
                   img: fileres.data.data.imageBytes,
                   name: productName + ' ' +optionName,
@@ -256,6 +293,7 @@ export default {
               })
           } else {
             tmpitems.push({
+              sellerId: sellerId,
               cartId: cartId,
               img: null,
               name: productName + ' ' + optionName,
@@ -266,6 +304,9 @@ export default {
           }
         })
     }
+    tmpitems.sort(function(a, b) {
+      return a.cartId - b.cartId;
+    });
     this.items = tmpitems
   }
 }
