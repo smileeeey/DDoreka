@@ -221,13 +221,14 @@ export default {
   watch: {
     e1: function () {
       console.log(this.wishlist)
+      console.log(this.items)
       if (this.e1 == 3) {
         let sortwishlist = this.wishlist
 
         sortwishlist.sort(function(a, b) {
           return a.id - b.id
         })
-
+        
         for (let i=0; i<this.items.length; i++) {
           if (this.items[i].select == true) {
             console.log('order')
@@ -249,6 +250,11 @@ export default {
               .then(res => {
                 console.log(res)
                 console.log(res.data)
+                axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
+                  .then(r => {
+                    console.log(r)
+                    this.$store.dispatch('PAYWISHLIST', this.items[i].cartId)
+                  })
               })
           }
         }

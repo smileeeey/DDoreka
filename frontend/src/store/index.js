@@ -52,6 +52,14 @@ export default new Vuex.Store({
     searchData(state, data) {
       state.searchData = data
     },
+    paywishlist(state, data) {
+      for (let i=0; i<state.wishlist.length; i++) {
+        if (state.wishlist[i].id == data) {
+          state.wishlist.splice(i, 1);
+          break;
+        }
+      }
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -79,6 +87,9 @@ export default new Vuex.Store({
     },
     SEARCHDATA({ commit }, data) {
       commit("searchData", data)
+    },
+    PAYWISHLIST({ commit }, data) {
+      commit("paywishlist", data)
     },
   },
   modules: {
