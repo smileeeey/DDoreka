@@ -20,7 +20,7 @@ public class Store {
     @Id
     @GeneratedValue
     private int id;
-    private int seller_id;
+    private int sellerId;
     private String phone;
     private String name;
     private String main_address;

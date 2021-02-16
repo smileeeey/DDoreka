@@ -27,6 +27,9 @@ public class StoreService {
     public Store getStoreById(int id) {
         return repository.findById(id).orElse(null);
     }
+    public Store getStoreBySellerId(int sellerId) {
+        return repository.findBySellerId(sellerId);
+    }
 
     public Store getStoreByName(String name) {
         return repository.findByName(name);
