@@ -138,8 +138,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Map<String,Object>> getTodayHot(int userId) {
-        return orderRepositoty.findTodayHot(userId);
+    public List<Map<String,Object>> getTodayHot() {
+        return orderRepositoty.findTodayHot();
     }
 
 }
