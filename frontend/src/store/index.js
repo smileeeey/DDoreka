@@ -13,6 +13,8 @@ export default new Vuex.Store({
     currentItem: {},
     email: '',
     phone: '',
+    seller: {},
+    sellerstore: {},
     searchData: [],
   },
   mutations: {
@@ -41,6 +43,12 @@ export default new Vuex.Store({
     deletewishlist(state, idx) {
       state.wishlist.splice(idx, 1)
     },
+    setsellerinfo(state, data) {
+      state.seller = data
+    },
+    setsellerstore(state, data) {
+      state.sellerstore = data
+    },
     searchData(state, data) {
       state.searchData = data
     },
@@ -48,7 +56,7 @@ export default new Vuex.Store({
   actions: {
     LOGOUT({ commit }) {
       commit("logout");
-      localStorage.removeItem("jwt")
+      localStorage.removeItem("eureka-authorization")
     },
     LOGIN({ commit }, data) {
       commit("login", data);
@@ -62,6 +70,12 @@ export default new Vuex.Store({
     },
     DELETEWISHLIST({ commit }, idx) {
       commit("deletewishlist", idx)
+    },
+    SETSELLERINFO({ commit }, data) {
+      commit("setsellerinfo", data)
+    },
+    SETSELLERSTORE({ commit }, data) {
+      commit("setsellerstore", data)
     },
     SEARCHDATA({ commit }, data) {
       commit("searchData", data)

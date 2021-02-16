@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <video autoplay playsinline muted id="webcam" width="5-0" height="500"></video>
+      <video style="transform: scaleX(-1);" autoplay playsinline muted id="webcam" width="5-0" height="500"></video>
     </div>
     <div>
       <!--<canvas ref="canvas" id="canvas" width="640" height="480" style="border:1px solid #BBB;"></canvas>-->

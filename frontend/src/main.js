@@ -12,5 +12,9 @@ new Vue({
   store,
   router,
   vuetify,
-  render: h => h(App)
+  render: h => h(App),
+  mounted () {
+    const IMP = window.IMP;
+    IMP.init("imp06841011")
+  }
 }).$mount('#app')

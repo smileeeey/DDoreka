@@ -51,6 +51,8 @@ import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 import BarChart from '../../components/seller/chart/BarChart.js'
 
+import { mapState } from 'vuex'
+
 export default {
   components: { LineChart, DoughnutChart, BarChart },
   name: 'Dashboard',
@@ -67,6 +69,11 @@ export default {
     },
     
   }),
+  computed: {
+    ...mapState([
+      'seller',
+    ])
+  }
 
 }
 </script>

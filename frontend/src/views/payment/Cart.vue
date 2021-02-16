@@ -32,7 +32,7 @@
 
               <v-col cols="5" offset="3" style="padding-left: 0; padding-right: 0;">
                 <div>
-                <v-stepper style="margin-top: 0.25rem;" v-model="e1">
+                <v-stepper id="originalheader" style="margin-top: 0.25rem;" v-model="e1">
                   <div>
                   <v-stepper-header>
                     <v-stepper-step step="1" :complete="e1 > 1">
@@ -50,10 +50,28 @@
                   </div>
                   
                 </v-stepper>
+                <v-stepper id="hiddenheader" style="margin-top: 0.25rem; display: none;">
+                  <div>
+                  <v-stepper-header>
+                    <v-stepper-step complete>
+                      장바구니
+                    </v-stepper-step>
+                    <v-divider></v-divider>
+                    <v-stepper-step complete>
+                      주문결제
+                    </v-stepper-step>
+                    <v-divider></v-divider>
+                    <v-stepper-step complete>
+                      주문완료
+                    </v-stepper-step>
+                  </v-stepper-header>
+                  </div>
+                  
+                </v-stepper>
                 </div>
               </v-col>
             </v-row>
-            <div v-if="e1==1">
+            <div v-show="e1==1">
 
               <CartList 
                 :items="items"
@@ -75,7 +93,7 @@
                 </v-btn>
               </div>
             </div>
-            <div v-else-if="e1==2">
+            <div id="hide" v-show="e1==2">
               <BuyerInfo />
               <DestinationInfo />
               <PaymentTable :totalCost="totalCost" />
@@ -88,13 +106,13 @@
                 </v-btn>
                 <v-btn style="background-color: #0275d8; color: white; width: 200px; height: 50px;
                   font-size: 1.5rem; font-weight: bold; margin-left: 1rem;"
-                  @click="e1=3"
+                  @click="buyitems"
                 >
                   결제하기
                 </v-btn>
               </div>
             </div>
-            <div v-else>
+            <div id="complete" style="display: none;">
               <v-card
                 class="mx-auto paymentcard"
                 outlined
@@ -152,40 +170,60 @@ export default {
       e1: 1,
       article: [null, '장바구니', '주문결제', '주문완료'],
       totalCost: 0,
-      items: [
-      {
-        img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
-        name: '민트위니 여성용 미키기모셋',
-        cost: '22900',
-        amount: 1,
-        select: true,
-      },
-      {
-        img: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg',
-        name: '캐럿 여성 와이드 밴딩 팬츠',
-        cost: '9900',
-        amount: 1,
-        select: true,
-      },
-      {
-        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/358954270343111-663ca6b1-cd2c-4c03-9228-1ffbf43b93cb.jpg',
-        name: '루나걸 여성용 니트',
-        cost: '22900',
-        amount: 1,
-        select: true,
-      },
-    ]
+      items: [],
+
     }
   },
 
   methods: {
     updateTotalCost: function (cost) {
       this.totalCost = cost
-    }
+    },
+    buyitems() {
+      const IMP = window.IMP;
+      IMP.request_pay(
+        {
+          pg: "html5_inicis",
+          pay_method: "card",
+          merchant_uid: "merchant_" + new Date().getTime(),
+          name: "EUREKA: 주문",
+          amount: this.totalCost / 100,
+          buyer_email: this.email,
+          buyer_name: this.name,
+          buyer_tel: this.phone,
+          buyer_addr: "서울특별시 강남구 삼성동",
+          buyer_postcode: "123-456",
+        },
+        function(rsp) {
+          var msg = "결제가 완료되었습니다.";
+          if (rsp.success) {
+            msg += "고유ID : " + rsp.imp_uid;
+            msg += "상점 거래ID : " + rsp.merchant_uid;
+            msg += "결제 금액 : " + rsp.paid_amount;
+            msg += "카드 승인번호 : " + rsp.apply_num;
+            let A = document.getElementById('complete')
+            A.style.display = "inline"
+            let B = document.getElementById('hide')
+            B.style.display = "none"
+            let C = document.getElementById('hiddenheader')
+            C.style.display = "inline"
+            let D = document.getElementById('originalheader')
+            D.style.display = "none"
+          } else {
+            msg = "결제에 실패하였습니다.";
+            msg += "에러내용 : " + rsp.error_msg;
+          }
+          alert(msg);
+        },
+      );
+    },
   },
   computed: {
     ...mapState([
       'wishlist',
+      'email',
+      'name',
+      'phone',
     ])
   },
   created: function () {
