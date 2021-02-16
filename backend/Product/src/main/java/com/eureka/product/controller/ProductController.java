@@ -61,7 +61,9 @@ public class ProductController {
         Response response;
         try {
             Page<Product> pages = service.getProductsByName(category1Id, keyword,page,size);
+            System.out.println("hi");
             searchlogService.addLog(category1Id,keyword);
+            System.out.println("bye");
             response = new Response("success", "상품 검색 성공", pages);
         } catch (Exception e) {
             response = new Response("error", "상품 검색 실패", e.getMessage());

@@ -1,18 +1,23 @@
 package com.eureka.product.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table
 public class Searchlog implements Serializable {
 
@@ -28,5 +33,7 @@ public class Searchlog implements Serializable {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date searchDate;
+
 }
