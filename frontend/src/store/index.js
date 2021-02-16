@@ -15,6 +15,7 @@ export default new Vuex.Store({
     phone: '',
     seller: {},
     sellerstore: {},
+    searchData: [],
   },
   mutations: {
     logout(state) {
@@ -47,7 +48,10 @@ export default new Vuex.Store({
     },
     setsellerstore(state, data) {
       state.sellerstore = data
-    }
+    },
+    searchData(state, data) {
+      state.searchData = data
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -72,6 +76,9 @@ export default new Vuex.Store({
     },
     SETSELLERSTORE({ commit }, data) {
       commit("setsellerstore", data)
+    },
+    SEARCHDATA({ commit }, data) {
+      commit("searchData", data)
     },
   },
   modules: {

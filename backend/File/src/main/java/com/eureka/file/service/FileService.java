@@ -24,6 +24,7 @@ public class FileService {
 
     public List<Image> addFiles(List<MultipartFile> files) throws Exception {
 
+        System.out.println("파일 개수:"+files.size());
         List<Image> images = new ArrayList<>();
 
         for (MultipartFile file : files) {

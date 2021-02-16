@@ -42,7 +42,7 @@
         <v-select
           v-model="selectOption"
           :items="item.options"
-          label="사이즈"
+          label="옵션선택"
           item-text="name"
           solo
           return-object
@@ -128,6 +128,11 @@ export default {
           this.$store.dispatch('SETWISHLIST', res.data.data)
         }
       })
+      .then(res => {
+        console.log(res)
+        alert('상품이 장바구니에 추가되었습니다.')
+        this.$store.dispatch('SETWISHLIST', res.data.data)
+      })
       .catch(err => {
         console.log(err)
       })
@@ -142,7 +147,7 @@ export default {
     }
   },
   created() {
-    // console.log(this.item)
+    console.log(this.item)
   },
 }
 </script>

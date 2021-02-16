@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @EnableJpaRepositories
 public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
@@ -25,4 +26,14 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
     List<OrderEntity> findAllBySelleridofday(@Param("day") String day, @Param("sellerid") String sellerid,@Param("month") String month);
 
 
+
+    ////////////////////////   수민   /////////////////////////////
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 month) group by product_id order by sum(quantity) DESC limit 0,10",nativeQuery = true)
+    List<Integer> findSteadySeller();
+
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -7 day) group by product_id order by sum(quantity) DESC limit 0,10",nativeQuery = true)
+    List<Integer> findHotProduct();
+
+    @Query(value= "select product_id as id,count(*) as cnt from orders where datetime > DATE_ADD(now(),INTERVAL -1 day) group by product_id order by cnt DESC limit 0,10",nativeQuery = true)
+    List<Map<String,Object>> findTodayHot();
 }

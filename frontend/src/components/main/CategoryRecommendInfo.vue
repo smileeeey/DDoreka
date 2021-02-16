@@ -22,7 +22,7 @@ export default {
   name: 'CategoryRecommendInfo',
   props: {
     category: Object,
-    keywords: Object,
+    keywords: Array,
   },
 }
 </script>

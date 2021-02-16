@@ -34,6 +34,11 @@ public class StoreController {
         return service.getStoreById(id);
     }
 
+    @GetMapping("/getBySellerId/{sellerId}")
+    public Store findStoreBySellerId(@PathVariable int sellerId) {
+        return service.getStoreBySellerId(sellerId);
+    }
+
     @GetMapping("/getByName/{name}")
     public Store findStoreByName(@PathVariable String name) {
         return service.getStoreByName(name);

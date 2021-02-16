@@ -5,6 +5,7 @@ import com.eureka.order.Entity.OrderEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -30,4 +31,12 @@ public interface OrderService {
     List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status);
 
     List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status);
+
+    ////////////////////////   수민   /////////////////////////////
+
+    List<Integer> getSteadySeller();
+
+    List<Integer> getHotProduct();
+
+    List<Map<String,Object>> getTodayHot();
 }

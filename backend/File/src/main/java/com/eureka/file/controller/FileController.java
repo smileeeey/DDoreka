@@ -1,4 +1,5 @@
 package com.eureka.file.controller;
+import com.eureka.file.dto.Image;
 import com.eureka.file.dto.Response;
 import com.eureka.file.service.FileService;
 import io.swagger.annotations.Api;
@@ -6,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,14 +27,17 @@ public class FileController {
     @ApiOperation(value="이미지 등록(upload)", notes = "이미지 파일을 업로드한다.", httpMethod = "POST")
     @PostMapping(value = "/upload")
     public Response uploadFile(
-            @ApiParam(value="MultiipartFile 형태의 이미지 배열") @RequestPart(value = "imgUrlBase", required = false) List<MultipartFile> files)
+            @ApiParam(value="MultiipartFile 형태의 이미지 배열") MultipartHttpServletRequest request)
     {
         Response response;
 
         try {
-            response = new Response("success", "1개 파일 등록 성공", service.addFiles(files));
+            List<MultipartFile> inputs = request.getFiles("files");
+            List<Image> images = service.addFiles(inputs);
+
+            response = new Response("success", images.size()+"개 파일 등록 성공", images);
         } catch(Exception e){
-            return response = new Response("error","파일 등록 실패",e.getStackTrace());
+            return response = new Response("error","파일 등록 실패",e.getMessage());
         }
 
         return response;
