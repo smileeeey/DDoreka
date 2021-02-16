@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 아래 face app -->
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       rel="stylesheet"
@@ -11,7 +12,9 @@
       <template slot="header">Custom Header</template>
       <RwvCamera @pictureTaken="setImage($event)" />
     </balloon>
-    <!-- {{ this.$store.state.currentItem }} -->
+    <!-- 위 face app -->
+    
+    <!-- 여기부터 ItemDetial -->
     <TopInfo v-if="Object.keys(item).length && sFiles.length" :item="item" :sFiles="sFiles" />
     <OtherItems />
     <ProductDetail v-if="Object.keys(item).length  && mFiles.length" :item="item" :mFiles="mFiles" />
@@ -29,6 +32,8 @@ import OtherItems from '@/components/itemdetail/OtherItems.vue'
 import ProductDetail from '@/components/itemdetail/ProductDetail.vue'
 import Reviews from '@/components/itemdetail/Reviews.vue'
 // import ProductInquiry from '@/components/itemdetail/ProductInquiry.vue'
+//
+// --------- 아래 face app ---------------------------
 import Guidance from '@/components/itemdetail/Guidance.vue'
 import RwvCamera from "@/components/TheCamera.vue";
 import { Balloon } from "vue-balloon";
@@ -37,6 +42,7 @@ import * as faceapi from "face-api.js";
 const params = {
   minConfidence: 0.5,
 };
+// --------- 위 face app ---------------------------
 export default {
   name: 'ItemDetail',
   components: {
@@ -56,6 +62,7 @@ export default {
     mFileIds: [],
     sFiles: [],
     mFiles: [],
+  // ----------- 아래 face app ----------------------
     mood: "로딩중...",
     class: null,
     neutral: 0.0,
@@ -78,7 +85,58 @@ export default {
     this.stopAnalysis();
     console.log(this.timer);
   },
+  // ----------- 위 face app ----------------------
+  //
+  //
+  //
   methods: {
+    getItem() {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
+        .then(res => {
+          console.log(res.data.data)
+          this.item = res.data.data
+          this.$store.dispatch('SELECTITEM', this.item)
+          this.item.images.forEach(image => {
+            if (image.imageType === 'S') {
+              this.sFileIds.push(image.fileId)
+            } else {
+              this.mFileIds.push(image.fileId)
+            }
+          })
+          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+            params: {
+              fileIds: this.sFileIds.join(',')
+            },
+            // paramsSerializer: params => {
+            //   return qs.stringify(params)
+            // }
+          })
+            .then(res => {
+              // console.log(res.data)
+              this.sFiles = res.data.data
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+            params: {
+              fileIds: this.mFileIds.join(',')
+            },
+          })
+            .then(res => {
+              // console.log(res.data)
+              this.mFiles = res.data.data
+            })
+            .catch(err => {
+              console.log(err)
+            })          
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    // ----------------------- 아래 face app---------------------------------
     async init(callback) {
       var self = this;
       // load the face detection api & emotion detection model
@@ -180,52 +238,11 @@ export default {
       this.timer = 0;
       this.mood = "감정분석 종료";
     },
-    getItem() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
-        .then(res => {
-          // console.log(res.data.data)
-          this.item = res.data.data
-          this.$store.dispatch('SELECTITEM', this.item)
-          this.item.images.forEach(image => {
-            if (image.imageType === 'S') {
-              this.sFileIds.push(image.fileId)
-            } else {
-              this.mFileIds.push(image.fileId)
-            }
-          })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-            params: {
-              fileIds: this.sFileIds.join(',')
-            },
-            // paramsSerializer: params => {
-            //   return qs.stringify(params)
-            // }
-          })
-            .then(res => {
-              // console.log(res.data)
-              this.sFiles = res.data.data
-            })
-            .catch(err => {
-              console.log(err)
-            })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-            params: {
-              fileIds: this.mFileIds.join(',')
-            },
-          })
-            .then(res => {
-              // console.log(res.data)
-              this.mFiles = res.data.data
-            })
-            .catch(err => {
-              console.log(err)
-            })          
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
   },
+  // -----------------위 내용 face app---------------------------------
+  //
+  //
+  //
   created() {
     this.productId = this.$route.params.productid
     // console.log(this.productId)
@@ -236,6 +253,7 @@ export default {
 </script>
 
 <style scoped>
+/* face app css */
 RwvRecommendations {
   max-height: 720px;
   overflow-y: scroll;

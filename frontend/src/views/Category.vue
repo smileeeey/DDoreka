@@ -64,6 +64,12 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+    orderByDescend() {
+
+    },
+    orderByAscend() {
+      
     }
   },
   // computed: {
