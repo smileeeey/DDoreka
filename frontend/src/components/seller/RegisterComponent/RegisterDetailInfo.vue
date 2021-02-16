@@ -2,7 +2,6 @@
   <v-card>
     <v-container>
       <v-row>
-        {{stringInfo}}
         <v-col
           cols="12"
         >

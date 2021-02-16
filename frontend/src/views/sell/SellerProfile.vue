@@ -7,7 +7,6 @@
         cols="12"
         md="8"
       >
-      {{sellerstore}}
         <v-card>
           <v-form>
             <v-container>

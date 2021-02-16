@@ -1,8 +1,5 @@
 <template>
   <v-stepper v-model="e1">
-    {{maincode}}  {{subcode}}  {{detailcode}}
-    {{simages}} {{mimages}}
-    {{options}}
     <v-col class="px-5" cols="8" offset="2">
       <v-stepper-header>
         <v-stepper-step

@@ -5,7 +5,6 @@
         cols="12"
         lg="3"
       >
-        {{seller}}
         <v-card>
           <LineChart 
             :chartdata="chartdata"
