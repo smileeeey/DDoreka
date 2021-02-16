@@ -18,8 +18,6 @@
             v-if="!item.children"
             :key="idx"
             :to="item.to"
-            @click="currentSelection = item.title"
-            :class="currentSelection == item.title ? 'grey': ''"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -50,9 +48,8 @@
             <v-list-item
               v-for="(child, i) in item.children"
               :key="i"
-              @click="item.model = false;currentSelection = child.title"
+              @click="item.model = false"
               :to="child.to"
-              :class="currentSelection == child.title ? 'grey': ''"
             >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>

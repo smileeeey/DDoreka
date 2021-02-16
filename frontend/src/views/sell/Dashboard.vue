@@ -8,7 +8,6 @@
         <v-card>
           <LineChart 
             :chartdata="chartdata"
-            :options="options"
           />
           <v-card-title>
             Weekly 매출액
@@ -29,7 +28,6 @@
       >
         <DoughnutChart 
           :chartdata="chartdata"
-          :options="options"
         />
       </v-col>
       <v-col
