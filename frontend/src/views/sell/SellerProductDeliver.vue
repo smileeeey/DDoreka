@@ -12,7 +12,7 @@
               <div v-for="(item, idx) in orderlist" :key="idx">
                 <div class="box orderbox">
                   <div>
-                    <p>송장번호 : {{item.invoiceNum}}</p>
+                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
                     <p>{{item.recipientName}} {{item.recipientPhone}}</p>
                     <p>{{item.addressMain}}, {{item.addressSub}}</p>
                     <p>{{item.deliveryMsg}}</p>
@@ -47,11 +47,10 @@
               <div v-for="(item, idx) in deliverList" :key="idx">
                 <div class="box deliverbox">
                   <div>
-                    <p>송장번호 : {{item.invoiceNum}}</p>
+                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
                     <p>{{item.recipientName}} {{item.recipientPhone}}</p>
                     <p>{{item.addressMain}}, {{item.addressSub}}</p>
                     <p>{{item.deliveryMsg}}</p>
-                    <p>{{item.deliveryStartDatetime}}</p>
                   </div>
                   <v-col
                     cols="12"
@@ -83,11 +82,10 @@
               <div v-for="(item, idx) in deliverComplete" :key="idx">
                 <div class="box completebox">
                   <div>
-                    <p>송장번호 : {{item.invoiceNum}}</p>
+                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
                     <p>{{item.recipientName}} {{item.recipientPhone}}</p>
                     <p>{{item.addressMain}}, {{item.addressSub}}</p>
                     <p>{{item.deliveryMsg}}</p>
-                    <p>{{item.deliveryStartDatetime}}</p>
                   </div>
                 </div>
               </div>
@@ -107,6 +105,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'SellerProductDeliver',
   data: () => ({
@@ -165,12 +165,59 @@ export default {
   methods: {
     deliveryStart: function (idx) {
       this.deliverList.push(this.orderlist[idx])
+      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+        'orderId': this.orderlist[idx].orderDetail.orderId,
+        'checkDatetime': this.orderlist[idx].orderDetail.checkDatetime,
+        'orderStatus': 'SHIPPING',
+        'courier': this.orderlist[idx].orderDetail.courier,
+        'invoiceNum': this.orderlist[idx].orderDetail.invoiceNum,
+        'deliveryStartDatatime': this.orderlist[idx].orderDetail.deliveryStartDatatime,
+        'deliveryCompletionDatatime': this.orderlist[idx].orderDetail.deliveryCompletionDatatime,
+        'cancelMsg': this.orderlist[idx].orderDetail.cancelMsg,
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+        })
       this.orderlist.splice(idx, 1)
     },
     deliveryComplete: function (idx) {
       this.deliverComplete.push(this.deliverList[idx])
+      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+        'orderId': this.deliverList[idx].orderDetail.orderId,
+        'checkDatetime': this.deliverList[idx].orderDetail.checkDatetime,
+        'orderStatus': 'DONE',
+        'courier': this.deliverList[idx].orderDetail.courier,
+        'invoiceNum': this.deliverList[idx].orderDetail.invoiceNum,
+        'deliveryStartDatatime': this.deliverList[idx].orderDetail.deliveryStartDatatime,
+        'deliveryCompletionDatatime': this.deliverList[idx].orderDetail.deliveryCompletionDatatime,
+        'cancelMsg': this.deliverList[idx].orderDetail.cancelMsg,
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+        })
       this.deliverList.splice(idx, 1)
     },
+  },
+  computed: {
+    ...mapState([
+      'seller',
+    ])
+  },
+  created() {
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
+      .then(res => {
+        this.orderlist = res.data.data
+        axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
+          .then(delres => {
+            this.deliverList = delres.data.data
+            axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
+              .then(comres => {
+                this.deliverComplete = comres.data.data
+              })
+          })
+      })
   }
 }
 </script>

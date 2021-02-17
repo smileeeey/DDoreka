@@ -5,7 +5,6 @@
         cols="12"
         md="12"
       >
-      {{selectdata}}
         <v-data-table
           :headers="headers"
           :items="items"
@@ -224,7 +223,7 @@ export default {
                           datasets: [
                             {
                               label: 'Something',
-                              backgroundColor: ['yellow', 'green'],
+                              backgroundColor: ['red', 'green'],
                               data: [sumdata, computedStock]
                             }
                           ]
