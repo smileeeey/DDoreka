@@ -16,7 +16,7 @@
     
     <!-- 여기부터 ItemDetial -->
     <TopInfo v-if="Object.keys(item).length && sFiles.length" :item="item" :sFiles="sFiles" />
-    <OtherItems />
+    <OtherItems v-if="storeId != ''" :storeId="storeId" />
     <ProductDetail v-if="Object.keys(item).length  && mFiles.length" :item="item" :mFiles="mFiles" />
     <Reviews v-if="Object.keys(item).length" :item="item" />
     <!-- <ProductInquiry v-if="Object.keys(item).length" :item="item" /> -->
@@ -62,6 +62,7 @@ export default {
     mFileIds: [],
     sFiles: [],
     mFiles: [],
+    storeId: '',
   // ----------- 아래 face app ----------------------
     mood: "로딩중...",
     class: null,
@@ -95,6 +96,7 @@ export default {
         .then(res => {
           console.log(res.data.data)
           this.item = res.data.data
+          this.storeId = this.item.storeId
           this.$store.dispatch('SELECTITEM', this.item)
           this.item.images.forEach(image => {
             if (image.imageType === 'S') {

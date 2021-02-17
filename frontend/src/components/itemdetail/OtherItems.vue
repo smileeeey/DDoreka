@@ -11,64 +11,30 @@
         class="pa-2"
         show-arrows
       >
-        <v-slide-item
-          v-for="(hotItem, idx) in hotItems"
+        <OtherItemCard 
+          v-for="(item, idx) in items"
           :key="idx"
-        >
-          <v-card
-            class="ma-4"
-            height="200"
-            width="200"
-          >
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>            
-            <v-img
-              :src="hotItem.src"
-              height="150"
-              width="200"
-            ></v-img>
-            <v-card-text class="pa-1 ml-2">
-              <div class="mb-1 subtitle-1 font-weight-bold text-truncate" color="black">
-                <!-- 상품이름 -->
-                {{ hotItem.name }}
-              </div>
-              <v-row
-                align="center"
-                justify="start"
-                class="mx-0"
-              >
-                <!-- 평균평점 -->
-                <v-rating
-                  :value="hotItem.rating"
-                  color="amber"
-                  dense
-                  half-increments
-                  readonly
-                  size="16"
-                ></v-rating>
+          :item="item"
+        />
 
-                <!-- 평균평점, 리뷰개수 -->
-                <div class="ml-1">
-                  ({{ hotItem.reviews }})
-                </div>
-              </v-row>
-            </v-card-text>            
-          </v-card>
-        </v-slide-item>
       </v-slide-group>
     </v-sheet>    
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import OtherItemCard from './OtherItemCard.vue'
 export default {
   name: 'OtherItems',
+  components: {
+    OtherItemCard,
+  },
+  props: {
+    storeId: Number,
+  },
   data: () => ({
+    items: [],
     hotItems: [
       {
         id: 1,
@@ -127,7 +93,23 @@ export default {
         reviews: 8812,
       },                                                                                   
     ]
-  }),  
+  }),
+  methods: {
+    getItems() {
+      console.log(this.storeId)
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.storeId}`)
+      .then(res => {
+        console.log(res.data.data)
+        this.items = res.data.data.slice(0, 10)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created() {
+    this.getItems()
+  },
 }
 </script>
 

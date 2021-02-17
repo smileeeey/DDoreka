@@ -47,12 +47,14 @@
 import axios from 'axios'
 export default {
   name: 'CreateReview',
+  props: {
+    orderId: String,
+    optionId: String,
+    productId: String,
+    userId: String,
+  },
   data: () => ({
     files: [],
-    orderId: '11',
-    optionId: '111',
-    productId: '111',
-    userId: '11',
     rating: 0,
     title: '',
     content: '',
@@ -104,6 +106,8 @@ export default {
       })
       .then(res => {
         console.log(res)
+        alert('리뷰 등록 성공')
+        this.$router.push({ name: 'ProductReview' })
       })
       .catch(err => {
         console.log(err)
