@@ -55,15 +55,15 @@ export default {
       .then(res => {
         let array = res.data.data;
         for (let j=0; j<array.length; j++) {
-          console.log(array[j])
           let date = array[j].datetime
-          console.log(date)
           var y = date.substr(0, 4);
           var m = date.substr(5, 2);
           var d = date.substr(8, 2);
           let newD = new Date(y, m-1, d)
           axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
             .then(resp => {
+              console.log(resp)
+              console.log(resp.data.data.id)
               for (let k=0; k<resp.data.data.options.length; k++) {
                 if (resp.data.data.options[k].optionId == array[j].optionId) {
                   var optionprice = resp.data.data.options[k].price
@@ -80,6 +80,10 @@ export default {
                     amount: array[j].quantity,
                     date: newD,
                     status: array[j].orderDetail.orderStatus,
+                    productId: resp.data.data.id,
+                    optionId: array[j].optionId,
+                    orderId: array[j].id,
+                    userId: array[j].userId,
                   })
                 })
             })

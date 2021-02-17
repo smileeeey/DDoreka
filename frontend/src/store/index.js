@@ -77,6 +77,9 @@ export default new Vuex.Store({
         }
       }
     },
+    changephone(state, data) {
+      state.phone = data
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -107,6 +110,9 @@ export default new Vuex.Store({
     },
     PAYWISHLIST({ commit }, data) {
       commit("paywishlist", data)
+    },
+    CHANGEPHONE({ commit }, data) {
+      commit("changephone", data)
     },
   },
   modules: {

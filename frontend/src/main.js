@@ -6,6 +6,10 @@ import vuetify from './plugins/vuetify';
 import "./filters"
 import Chat from 'vue-beautiful-chat'
 import firebase from 'firebase'
+
+import vueMoment from 'vue-moment'
+Vue.use(vueMoment)
+
 require("firebase/firestore");
 var firebaseConfig = {
   apiKey: "AIzaSyCxsTzWbVyhonjACmIQ2LIuszBqiy_fvUw",
