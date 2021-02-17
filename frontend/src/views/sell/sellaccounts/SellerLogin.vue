@@ -136,11 +136,12 @@ export default {
                   console.log('3rd')
                   console.log(resp.data)
                   this.$store.dispatch('SETSELLERSTORE', resp.data)
+                  this.$router.push({ name: 'Dashboard' });
                 })
             })
 
         })
-      this.$router.push({ name: 'Dashboard' });
+      
     }
   }
 }

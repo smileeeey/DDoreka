@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
+      {{seller}}
       <v-col
         cols="12"
         lg="3"
@@ -71,7 +72,8 @@ export default {
     ...mapState([
       'seller',
     ])
-  }
+  },
+
 
 }
 </script>
