@@ -54,11 +54,12 @@
                   :class="{ cancelbox: order.cancel }"
                 >
                   <v-icon @click="deleteOrder(idx)" style="position: absolute; right: 25px;">mdi-close</v-icon>
-                  <span>{{order.time.getFullYear()}}.{{order.time.getMonth()+1}}.{{order.time.getDate()}} {{order.time.getHours()}}:{{order.time.getMinutes()}}:{{order.time.getSeconds()}}</span>
-                  <span style="margin-left: 20px;">{{order.ordercode}}</span>
+                  <strong>{{order.time|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</strong>
+                  <strong style="margin-left: 20px;">{{order.csname}} ({{order.csphone }})</strong>
 
-                  <div>{{order.productname}}, {{order.amount}} 개
+                  <div><strong>{{order.productname}} {{order.amount}} 개</strong>
                   </div>
+                  <strong>[{{order.ordercode | comma}}원] 계산완료</strong>
                   
                 </div>
               </div>
@@ -77,6 +78,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'SellerNotification',
   data: () =>({
@@ -125,6 +128,11 @@ export default {
       },
     ]
   }),
+  computed: {
+    ...mapState([
+      'seller',
+    ])
+  },
   methods: {
     deleteReview(idx) {
       // delete noti axios request
@@ -133,8 +141,70 @@ export default {
     deleteOrder(idx) {
       // delete noti axios request
       console.log(idx)
+      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+        orderId: this.orders[idx].orderDetail.orderId,
+        checkDatetime: new Date(),
+        orderStatus: this.orders[idx].orderDetail.orderStatus,
+        courier: this.orders[idx].orderDetail.courier,
+        invoiceNum: this.orders[idx].orderDetail.invoiceNum,
+        deliveryStartDatatime: this.orders[idx].orderDetail.deliveryStartDatatime,
+        deliveryCompletionDatatime: this.orders[idx].orderDetail.deliveryCompletionDatatime,
+        cancelMsg: this.orders[idx].orderDetail.cancelMsg,
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+        })
       this.orders.splice(idx, 1)
     },
+  },
+  created() {
+    let dataArray = []
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
+      .then(res => {
+        res.data.data.forEach(order => {
+          let csname = order.recipientName.substr(0, 1) + '*' + order.recipientName.substr(2, 1)
+          let csphone = '';
+          if (order.recipientPhone.length > 0) {
+            csphone = order.recipientPhone.substr(0, 3) + '-****-' + order.recipientPhone.substr(9, 4)
+            // console.log(order.recipientPhone.substr(0, 3) + '-****-' + order.recipientphone.substr(9, 4))
+          }
+          let year = order.datetime.substr(0, 4)
+          let month = order.datetime.substr(5, 2)
+          let day = order.datetime.substr(8, 2)
+          let hour = order.datetime.substr(11, 2)
+          let minute = order.datetime.substr(14, 2)
+          let second = order.datetime.substr(17, 2)
+          
+          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${order.productId}`)
+            .then(resp => {
+              var productname = resp.data.data.name;
+              for (let k=0; k < resp.data.data.options.length; k++) {
+                if (resp.data.data.options[k].optionId == order.optionId) {
+                  var optionprice = resp.data.data.options[k].price
+                  var optionname = resp.data.data.options[k].name
+                  break;
+                }
+              }
+              dataArray.push({
+                orderId: order.id,
+                cancel: false,
+                productname: productname + '  [' + optionname + ']',
+                amount: order.quantity,
+                time: new Date(year, month-1, day, Number(hour) + 9, minute, second),
+                ordercode: optionprice * order.quantity,
+                csname: csname,
+                csphone: csphone,
+                orderDetail: order.orderDetail,
+              })
+              dataArray.sort(function(a, b) {
+                return (Number(b.orderId) - Number(a.orderId))
+              })
+            })
+        })
+
+      })
+      this.orders = dataArray
   }
 }
 </script>

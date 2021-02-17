@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'BuyerInfo',
   data: () => ({
@@ -35,12 +35,21 @@ export default {
       'phone',
     ])
   },
-  mounted () {
+  created () {
     this.phonenumber = this.phone
   },
   methods: {
     changePhone: function () {
-      // axios.post()
+      axios.put('http://i4d106.p.ssafy.io:8080/user/update/phone', {
+        email: this.email,
+        phone: this.phonenumber
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
+          alert('휴대폰 번호가 변경되었습니다.')
+          this.$store.dispatch('CHANGEPHONE', this.phonenumber)
+        })
     }
   }
 }

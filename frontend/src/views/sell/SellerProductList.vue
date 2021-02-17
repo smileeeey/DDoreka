@@ -5,6 +5,7 @@
         cols="12"
         md="12"
       >
+      {{selectdata}}
         <v-data-table
           :headers="headers"
           :items="items"
@@ -30,9 +31,12 @@
       >
       <v-card
         class="mx-auto"
+        @click="gotoDetailpage"
       >
         <v-img
           :src="`data:image/jpeg;base64,${selectdata.img}`"
+          width="450"
+          height="450"
         ></v-img>
         <v-card-title>{{selectdata.productname}}</v-card-title>
         <v-card-text>
@@ -41,7 +45,7 @@
             class="mx-0"
           >
             <v-rating
-              :value="4.5"
+              :value="selectdata.rating"
               color="amber"
               dense
               half-increments
@@ -49,7 +53,7 @@
               size="14"
             ></v-rating>
             <div class="grey--text ml-4">
-              4.5 (413)
+              {{selectdata.rating}} ({{selectdata.reviewCnt}})
             </div>
           </v-row>
         </v-card-text>
@@ -82,6 +86,7 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 
@@ -139,70 +144,6 @@ export default {
               ]
             }
           },
-          {
-            index: 2,
-            created_at: '2020-12-12',
-            totalincome: '3620000',
-            productname: '캐럿 여성 와이드 밴딩 팬츠',
-            cost: 9900,
-            amount: 84,
-            img: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg',
-            chartdata: {
-              labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
-              datasets: [
-                {
-                  label: '주간 매출',
-                  backgroundColor: 'purple',
-                  borderColor: 'skyblue',
-                  data: [20, 120, 80, 40, 65, 10, 25],
-                  fill: false,
-                  lineTension: 0
-                }
-              ]
-            },
-            doughnutChartdata: {
-              labels: ['ㅋㅋ', 'ㅎㅎ', '깔깔'],
-              datasets: [
-                {
-                  label: 'Something',
-                  backgroundColor: ['green', 'red', 'black'],
-                  data: [40, 20, 30]
-                }
-              ]
-            }
-          },
-          {
-            index: 3,
-            created_at: '2021-02-13',
-            totalincome: '630000',
-            productname: '루나걸 여성용 니트',
-            cost: 22900,
-            amount: 25,
-            img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/358954270343111-663ca6b1-cd2c-4c03-9228-1ffbf43b93cb.jpg',
-            chartdata: {
-              labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
-              datasets: [
-                {
-                  label: '주간 매출',
-                  backgroundColor: 'purple',
-                  borderColor: 'skyblue',
-                  data: [60, 10, 25, 140, 750, 35, 125],
-                  fill: false,
-                  lineTension: 0
-                }
-              ]
-            },
-            doughnutChartdata: {
-              labels: ['어떤', '차트를', '넣어야', '할까요'],
-              datasets: [
-                {
-                  label: 'Something',
-                  backgroundColor: ['skyblue', 'red', 'purple', 'yellow'],
-                  data: [40, 20, 30, 30]
-                }
-              ]
-            }
-          },
         ],
         selectdata: null,
     }
@@ -212,10 +153,22 @@ export default {
       this.selectdata = null;
       this.selectdata = value;
       this.componentKey += 1
+    },
+    gotoDetailpage: function () {
+      let routeData = this.$router.resolve({ name: 'ItemDetail', params: {
+        id: this.selectdata.ctid,
+        productid: this.selectdata.pdid
+      } })
+      window.open(routeData.href, '_blank')
     }
   },
+  computed: {
+    ...mapState([
+      'seller',
+    ])
+  },
   created: function () {
-    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/1`)
+    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
       .then(res => {
         let productslist = res.data.data;
         const productsize = productslist.length
@@ -223,42 +176,86 @@ export default {
         let idx = 1;
 
         for(let i=0; i<productsize; i++) {
-          if (productslist[i].images.length > 0) {
-            axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
-              .then(res => {
-                let tmp = productslist[i].registerDate.split('T')
-                for (let j=0; j<productslist[i].options.length; j++) {
-                  newItems.push({
-                    index: idx,
-                    created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
-                    totalincome: '1000000',
-                    productname: productslist[i].name + productslist[i].options[j].name,
-                    cost: productslist[i].options[j].price,
-                    amount: productslist[i].options[j].stockQuantity,
-                    img: res.data.data.imageBytes,
-                  })
-                  idx += 1
-                }
-                
+          let ctid = productslist[i].category1Id
+          axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
+            .then(r => {
+              let data = r.data.data
+              console.log(data)
+              let sumdata = data.reduce(function(a, b) {
+                return a + b
               })
-              .catch(res => {
-                console.log(res)
-              })
-          } else {
-                let tmp = productslist[i].registerDate.split('T')
-                for (let j=0; j<productslist[i].options.length; j++) {
-                  newItems.push({
-                    index: idx,
-                    created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
-                    totalincome: '1000000',
-                    productname: productslist[i].name + productslist[i].options[j].name,
-                    cost: productslist[i].options[j].price,
-                    amount: productslist[i].options[j].stockQuantity,
-                    img: res.data.data.imageBytes,
+              if (productslist[i].images.length > 0) {
+                axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
+                  .then(res => {
+                    let tmp = productslist[i].registerDate.split('T')
+                    for (let j=0; j<productslist[i].options.length; j++) {
+                      if (productslist[i].options[j].stockQuantity - sumdata > -1) {
+                        var computedStock = productslist[i].options[j].stockQuantity - sumdata
+                      } else {
+                        var computedStock = 0
+                      }
+                      newItems.push({
+                        index: idx,
+                        created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
+                        totalincome: sumdata * productslist[i].options[j].price,
+                        productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
+                        cost: productslist[i].options[j].price,
+                        amount: computedStock,
+                        img: res.data.data.imageBytes,
+                        rating: productslist[i].rating,
+                        reviewCnt: productslist[i].reviewCnt,
+                        pdid: productslist[i].id,
+                        ctid: ctid,
+                        chartdata: {
+                          labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
+                          datasets: [
+                            {
+                              label: '주간 매출',
+                              backgroundColor: 'purple',
+                              borderColor: 'skyblue',
+                              data: data,
+                              fill: false,
+                              lineTension: 0
+                            }
+                          ],
+                        },
+                        doughnutChartdata: {
+                          labels: ['판매수', '재고'],
+                          datasets: [
+                            {
+                              label: 'Something',
+                              backgroundColor: ['yellow', 'green'],
+                              data: [sumdata, computedStock]
+                            }
+                          ]
+                        }
+                      })
+                      idx += 1
+                    }
+                    
                   })
-                  idx += 1
-                }
-          }
+                  .catch(res => {
+                    console.log(res)
+                  })
+              } else {
+                    let tmp = productslist[i].registerDate.split('T')
+                    for (let j=0; j<productslist[i].options.length; j++) {
+                      newItems.push({
+                        index: idx,
+                        created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
+                        totalincome: '1000000',
+                        productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
+                        cost: productslist[i].options[j].price,
+                        amount: productslist[i].options[j].stockQuantity,
+                        img: res.data.data.imageBytes,
+                        rating: productslist[i].rating,
+                        reviewCnt: productslist[i].reviewCnt,
+                      })
+                      idx += 1
+                    }
+              }
+            })
+
         }
         this.items = newItems
         

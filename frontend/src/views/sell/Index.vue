@@ -13,6 +13,12 @@ import SellerView from '../../components/core/SellerComponent/SellerView.vue'
 export default {
   components: { SellerAppBar, SellerDrawer, SellerView },
   name: 'DashboardIndex',
+  created: function () {
+    const token = localStorage.getItem('seller-eureka-authorization')
+    if (!token) {
+      this.$router.push({ name: 'SellerLogin' })
+    }
+  }
 }
 </script>
 
