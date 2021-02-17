@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -127,7 +125,7 @@
       <workItem from="1612915222929" duration="6320000" />
       <workItem from="1613159164962" duration="1201000" />
       <workItem from="1613205220504" duration="7589000" />
-      <workItem from="1613551997383" duration="1671000" />
+      <workItem from="1613551997383" duration="2269000" />
     </task>
     <servers />
   </component>
