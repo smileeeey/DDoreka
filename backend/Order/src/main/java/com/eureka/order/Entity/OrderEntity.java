@@ -3,6 +3,7 @@ package com.eureka.order.Entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -49,11 +50,12 @@ public class OrderEntity {
     private String quantity;
     @NotNull
     private String price;
-    @UpdateTimestamp
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date datetime;
     @Column(name = "payment_method")
     private String paymentMethod;
-
     @OneToOne
     @JoinColumn(name ="id")
     @JsonManagedReference
