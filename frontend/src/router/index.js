@@ -61,9 +61,10 @@ const routes = [
             component: () => import('../views/mypage/OrderList.vue'),
           },
           {
-            path: 'createreview',
+            path: 'createreview/:orderId/:optionId/:productId/:userId',
             name: 'CreateReview',
-            component: () => import('../views/mypage/CreateReview.vue')
+            component: () => import('../views/mypage/CreateReview.vue'),
+            props: true,
           },
           {
             path: 'cancel-return-exchange/list',

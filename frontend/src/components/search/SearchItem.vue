@@ -29,7 +29,8 @@
       >
         <v-rating
           :value="item.rating"
-          color="amber"
+          color="warning"
+          background-color="warning lighten-1"
           dense
           half-increments
           readonly
@@ -123,7 +124,7 @@ export default {
     },
   },
   created() {
-    console.log(this.item)
+    // console.log(this.item)
     this.productId = this.item.id
     this.getFileIds()
     this.getSFiles()

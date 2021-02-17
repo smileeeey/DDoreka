@@ -57,9 +57,9 @@ export default {
   },
   methods: {
     createReview() {
-      this.$router.push({ path: 'createreview' })
+      this.$router.push({ name: 'CreateReview', params: { orderId: this.item.orderId, optionId: this.item.optionId, productId: this.item.productId, userId: this.item.userId }})
     }
-  }
+  },
 }
 </script>
 

@@ -42,7 +42,11 @@ public class OrderServiceImpl implements OrderService {
     public List<Integer> getOrdersByProductIdSortedByDay(String prodcutid) {
         List<Integer> ls = new ArrayList<>();
         for(int i=1;i<8;i++){
-            ls.add(orderRepositoty.findAllByDayOfWeek(Integer.toString(i),prodcutid).size());
+            int cnt=0;
+            for(OrderEntity orderEntity : orderRepositoty.findAllByDayOfWeek(Integer.toString(i),prodcutid) ){
+                cnt+=Integer.parseInt(orderEntity.getQuantity().trim());
+            }
+            ls.add(cnt);
         }
         return ls;
     }

@@ -23,4 +23,12 @@ public class AccountController {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
+
+    @PutMapping("/update")
+    public Account updateAccount(@RequestBody Account account) {
+        Account existingAccount = accountRepository.findById(account.getUsername()).orElse(null);
+        existingAccount.setPassword(account.getPassword());
+        return accountRepository.save(existingAccount);
+    }
+
 }

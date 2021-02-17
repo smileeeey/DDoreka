@@ -30,7 +30,8 @@
           <!-- 평균평점 -->
           <v-rating
             :value="item.rating"
-            color="amber"
+            color="warning"
+            background-color="warning lighten-1"
             dense
             half-increments
             readonly

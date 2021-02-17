@@ -20,7 +20,8 @@
         >
           <v-rating
             :value="item.rating"
-            color="amber"
+            color="warning"
+            background-color="warning lighten-1"
             dense
             half-increments
             readonly
@@ -72,6 +73,7 @@
           <!-- 바로 구매 가능하게 할지 고민 -->
           <v-btn
             color="blue darken-1"
+            @click="buyNow"
           >
             바로구매
           </v-btn>
@@ -107,6 +109,34 @@ export default {
   },
   methods: {
     addWishList() {
+      console.log('장바구니 추가')
+      const userEmail = this.$store.state.email
+      const productId = this.item.id
+      const optionId = this.selectOption.optionId
+      const quantity = this.quantity
+      const token = localStorage.getItem('eureka-authorization')
+      axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
+        userEmail: userEmail,
+        productId: productId,
+        optionId: optionId,
+        quantity: quantity,
+      }, {
+        headers: {
+          'eureka-authorization': token,
+        }
+      })
+      .then(res => {
+        console.log(res.data.response)
+        if (res.data.response == 'success') {
+          alert('상품이 장바구니에 추가되었습니다.')
+          this.$store.dispatch('SETWISHLIST', res.data.data)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    buyNow() {
       const userEmail = this.$store.state.email
       const productId = this.item.id
       const optionId = this.selectOption.optionId
@@ -126,28 +156,13 @@ export default {
         console.log(res.data.response)
         if (res.data.response == 'success') {
           this.$store.dispatch('SETWISHLIST', res.data.data)
+          this.$router.push({name: 'Cart'})
         }
-      })
-      .then(res => {
-        console.log(res)
-        alert('상품이 장바구니에 추가되었습니다.')
-        this.$store.dispatch('SETWISHLIST', res.data.data)
       })
       .catch(err => {
         console.log(err)
-      })
+      })      
     }
-  },
-  watch: {
-    quantity() {
-      console.log(this.quantity)
-    },
-    selectOption() {
-      console.log(this.selectOption)
-    }
-  },
-  created() {
-    console.log(this.item)
   },
 }
 </script>

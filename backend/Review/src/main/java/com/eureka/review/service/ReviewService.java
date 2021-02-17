@@ -88,7 +88,7 @@ public class ReviewService {
 
     public List<Review> getReviews(int productId, String userId) {
 
-        List<Review> reviews =  reviewRepository.findAllByProductId(productId);
+        List<Review> reviews =  reviewRepository.findByProductId(productId);
 
         for (Review review : reviews) {
             int cnt = reviewlikeRepository.findCountByReviewId(review.getId());
