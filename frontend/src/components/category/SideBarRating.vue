@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="ma-0 mt-3 ml-3 font-weight-bold">별점</p>
+    <p class="ma-0 mt-3 ml-3 font-weight-bold">별점기준</p>
     <v-list-item class="pl-2 py-0">
       <v-list-item-content>
         <v-rating
@@ -24,6 +24,9 @@
 <script>
 export default {
   name: 'SideBarRating',
+  data: () => ({
+    filterRating: 0,
+  }),
 }
 </script>
 

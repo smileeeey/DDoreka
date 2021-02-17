@@ -63,6 +63,8 @@ export default {
   }),
   methods: {
     getFileIds() {
+      this.sFileIds = [],
+      this.mFileIds = [],
       this.item.images.forEach(image => {
         if (image.imageType === 'S') {
           this.sFileIds.push(image.fileId)
@@ -72,6 +74,8 @@ export default {
       })
     },
     getSFiles() {
+      this.sFiles = [],
+      this.sumnailUrl = '',
       axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.sFileIds.join(',')
@@ -94,6 +98,7 @@ export default {
       })
     },
     getMFiles() {
+      this.mFiles = [],
       axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.mFileIds.join(',')
@@ -108,12 +113,22 @@ export default {
       })
     },
   },
+  watch: {
+    item: function() {
+      console.log(this.item.name)
+      this.productId = this.item.id
+      this.getFileIds()
+      this.getSFiles()
+      this.getMFiles()
+    },
+  },
   created() {
+    console.log('create')
     this.productId = this.item.id
     this.getFileIds()
     this.getSFiles()
     this.getMFiles()
-  }
+  },
 }
 </script>
 
