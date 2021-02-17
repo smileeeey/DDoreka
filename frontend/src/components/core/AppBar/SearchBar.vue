@@ -6,7 +6,7 @@
         <!-- return-object -->
         <v-select
           v-model="category1id"
-          :items="items"
+          :items="categoryNames"
           solo
           flat
           item-text="name"
@@ -34,40 +34,31 @@ import axios from 'axios'
 export default {
   name: 'SearchBar',
   data: () => ({
+    categoryNames: [],
     category1id: 'ALL',
-    items: [],
-    page: 1,
-    size: 6,
     keyword: '',
   }),
   methods: {
-    searchItem() {
-      // console.log('검색실행')
-      // console.log(this.keyword)
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
-        params: {
-          page: this.page - 1,
-          size: this.size,
-        }
-      })
+    getCategoryName() {
+      axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
       .then(res => {
-        // console.log(res.data.data.content)
-        this.$store.dispatch('SEARCHDATA', res.data.data)
-        this.$router.push({name:'Search', params: {category1id: this.category1id, keyword: this.keyword}})
+        this.categoryNames = res.data.data
+        this.categoryNames.unshift({
+          name: 'ALL',
+        })
       })
       .catch(err => {
         console.log(err)
       })
+    },
+    searchItem() {
+      // console.log('검색실행')
+      // console.log(this.keyword)
+      this.$router.push({name:'Search', params: {category1id: this.category1id, keyword: this.keyword}})
     }
   },
   created() {
-    axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
-    .then(res => {
-      this.items = res.data.data
-      this.items.unshift({
-        name: 'ALL',
-      })
-    })
+    this.getCategoryName()
   },
 }
 </script>

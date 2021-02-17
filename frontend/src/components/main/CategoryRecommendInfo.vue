@@ -9,6 +9,7 @@
         <v-chip
           v-for="(keyword, idx) in keywords"
           :key="idx"
+          @click="moveSearchHotKeyword(keyword)"
         >
           {{ keyword }}
         </v-chip>
@@ -29,7 +30,12 @@ export default {
     ...mapState([
       'category1Name'
     ])
-  }
+  },
+  methods: {
+    moveSearchHotKeyword(keyword) {
+      this.$router.push({name: 'Search', params: {category1id: this.categoryKey, keyword: keyword}})
+    }
+  },
 }
 </script>
 

@@ -45,53 +45,44 @@
         </v-row>
       </v-card-text>            
     </v-card>
-  </v-slide-item>
+  </v-slide-item>  
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-  name: 'SteadySellerCard',
+  name: 'OtherItemCard',
   props: {
-    productId: Number,
+    item: Object,
   },
   data: () => ({
-    item: {},
     sFileIds: [],
     sFiles: [],
     sumnailUrl: '',
   }),
   methods: {
-    getItem() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
+    getUrl() {
+      this.item.images.forEach(image => {
+        if (image.imageType === 'S') {
+          this.sFileIds.push(image.fileId)
+        }
+      })
+      // console.log(this.sFileIds)
+      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+        params: {
+          fileIds: this.sFileIds.join(',')
+        },
+      })
       .then(res => {
         // console.log(res.data.data)
-        this.item = res.data.data
-        this.item.images.forEach(image => {
-          if (image.imageType === 'S') {
-            this.sFileIds.push(image.fileId)
-          }
-        })
-        // console.log(this.sFileIds)
-        axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-          params: {
-            fileIds: this.sFileIds.join(',')
-          },
-        })
-        .then(res => {
-          // console.log(res.data.data)
-          this.sFiles = res.data.data
-          if (this.sFiles.length > 0) {
-          this.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`
-        }
-        })
-        .catch(err => {
-          console.log(err)
-        })
+        this.sFiles = res.data.data
+        if (this.sFiles.length > 0) {
+        this.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`
+      }
       })
       .catch(err => {
         console.log(err)
-      })
+      })      
     },
     moveItemDetail: function () {
       // 추후 Item Detail페이지 url을 입력
@@ -99,8 +90,7 @@ export default {
     },
   },
   created() {
-    // console.log(this.productId)
-    this.getItem()
+    this.getUrl()
   }
 }
 </script>

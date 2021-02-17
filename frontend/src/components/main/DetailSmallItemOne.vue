@@ -23,7 +23,8 @@
           <div class="ml-2">
             <v-rating
               :value="smallItem.rating"
-              color="amber"
+              color="warning"
+              background-color="warning lighten-1"
               dense
               half-increments
               readonly

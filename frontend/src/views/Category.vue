@@ -12,6 +12,8 @@
           @order-by-review-cnt="orderByReviewCnt"
           @order-by-price-descend="orderByPriceDescend"
           @order-by-price-ascend="orderByPriceAscend"
+          @filter-on="filterOn"
+          @filter-off="filterOff"
         />
         <v-divider class="my-5"></v-divider>
         <CategoryItemList :items="items" />
@@ -33,21 +35,20 @@ import _ from 'lodash'
 // import SideBar from '@/components/category/SideBar.vue'
 import TopInfo from '@/components/category/TopInfo.vue'
 import CategoryItemList from '@/components/category/CategoryItemList.vue'
-// import Pagination from '@/components/category/Pagination.vue'
 export default {
   name: 'Category',
   components: {
     // SideBar,
     TopInfo,
     CategoryItemList,
-    // Pagination,
   },
   data: () => ({
     id: '',
     depth: '',
     items: [],
+    originItems: [],
     page: 1,
-    size: 6,
+    size: 9,
     totalPages: 0,
     totalElements: 0,
   }),
@@ -66,8 +67,9 @@ export default {
         }
       })
       .then(res => {
-        console.log(res.data.data.content)
+        // console.log(res.data.data.content)
         this.items = res.data.data.content
+        this.originItems = this.items
         this.totalPages = res.data.data.totalPages
         this.totalElements = res.data.data.totalElements
       })
@@ -101,6 +103,34 @@ export default {
         return item1.options[0].discountPrice - item2.options[0].discountPrice
       })
     },
+    filterOn(filterInfo) {
+      console.log(filterInfo)
+      // 평점 필터
+      if (filterInfo.rating != 0 ) {
+        const items = this.items.filter(function (item) {
+          return item.rating >= filterInfo.rating
+        })
+        this.items = items
+      }
+      // 최저가 필터
+      if (filterInfo.minPrice != 0 ) {
+        const items = this.items.filter(function (item) {
+          return item.options[0].discountPrice >= filterInfo.minPrice
+        })
+        this.items = items
+      }
+      // 최고가 필터
+      if (filterInfo.maxPrice != 0 ) {
+        const items = this.items.filter(function (item) {
+          return item.options[0].discountPrice <= filterInfo.maxPrice
+        })
+        this.items = items
+      }
+    },
+    filterOff() {
+      console.log('filterOff')
+      this.items = this.originItems
+    },
   },
   // computed: {
   //   ...mapState([
@@ -116,8 +146,9 @@ export default {
         }
       })
       .then(res => {
-        console.log('페이지 변경')
+        // console.log('페이지 변경')
         this.items = res.data.data.content
+        this.originItems = this.items
       })
       .catch(err => {
         console.log(err)
