@@ -1,11 +1,18 @@
 <template>
   <v-container class="ma-0">
     <v-row>
-      <v-col class="pa-0" cols=2>
+      <!-- <v-col class="pa-0" cols=2>
         <SideBar />
-      </v-col>
-      <v-col cols=10>
-        <TopInfo />
+      </v-col> -->
+      <v-col cols=12>
+        <TopInfo
+          :totalElements="totalElements"
+          @order-by-rating="orderByRating"
+          @order-by-date="orderByDate"
+          @order-by-review-cnt="orderByReviewCnt"
+          @order-by-price-descend="orderByPriceDescend"
+          @order-by-price-ascend="orderByPriceAscend"
+        />
         <v-divider class="my-5"></v-divider>
         <CategoryItemList :items="items" />
         <div class="mb-16 py-5 text-center">
@@ -21,15 +28,16 @@
 
 <script>
 import axios from 'axios'
+import _ from 'lodash'
 // import { mapState } from 'vuex'
-import SideBar from '@/components/category/SideBar.vue'
+// import SideBar from '@/components/category/SideBar.vue'
 import TopInfo from '@/components/category/TopInfo.vue'
 import CategoryItemList from '@/components/category/CategoryItemList.vue'
 // import Pagination from '@/components/category/Pagination.vue'
 export default {
   name: 'Category',
   components: {
-    SideBar,
+    // SideBar,
     TopInfo,
     CategoryItemList,
     // Pagination,
@@ -41,6 +49,7 @@ export default {
     page: 1,
     size: 6,
     totalPages: 0,
+    totalElements: 0,
   }),
   methods: {
     getId() {
@@ -57,20 +66,41 @@ export default {
         }
       })
       .then(res => {
-        // console.log(res.data.data.content)
+        console.log(res.data.data.content)
         this.items = res.data.data.content
         this.totalPages = res.data.data.totalPages
+        this.totalElements = res.data.data.totalElements
       })
       .catch(err => {
         console.log(err)
       })
     },
-    orderByDescend() {
-
+    orderByRating() {
+      console.log('평점높은순')
+      this.items = _.orderBy(this.items, 'rating', 'desc')
+      // console.log(this.items)
     },
-    orderByAscend() {
-      
-    }
+    orderByDate() {
+      console.log('최신 등록순')
+      this.items = _.orderBy(this.items, 'registerDate', 'desc')
+      // console.log(this.items)
+    },
+    orderByReviewCnt() {
+      console.log('리뷰 많은 순')
+      this.items = _.orderBy(this.items, 'reviewCnt', 'desc')
+    },
+    orderByPriceDescend() {
+      console.log('가격 높은순')
+      this.items.sort(function(item1, item2) {
+        return item2.options[0].discountPrice - item1.options[0].discountPrice
+      })
+    },
+    orderByPriceAscend() {
+      console.log('가격 낮은순')
+      this.items.sort(function(item1, item2) {
+        return item1.options[0].discountPrice - item2.options[0].discountPrice
+      })
+    },
   },
   // computed: {
   //   ...mapState([

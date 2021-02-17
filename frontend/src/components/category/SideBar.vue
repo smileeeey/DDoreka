@@ -5,8 +5,8 @@
     class="mx-auto"
   >
     <v-navigation-drawer permanent style="width: 100%">
-      <SideBarTree />
-      <SideBarCheck />
+      <!-- <SideBarTree /> -->
+      <!-- <SideBarCheck /> -->
       <SideBarRating />
       <SideBarList />
     </v-navigation-drawer>
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import SideBarTree from './SideBarTree.vue'
-import SideBarCheck from './SideBarCheck.vue'
+// import SideBarTree from './SideBarTree.vue'
+// import SideBarCheck from './SideBarCheck.vue'
 import SideBarRating from './SideBarRating.vue'
 import SideBarList from './SideBarList.vue'
 export default {
   name: 'SideBar',
   components: {
-    SideBarTree,
-    SideBarCheck,
+    // SideBarTree,
+    // SideBarCheck,
     SideBarRating,
     SideBarList,
   },
