@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.eureka'
-version = 'order-20210217.1'
+version = 'order-20210217.2'
 sourceCompatibility = '1.8'
 
 configurations {
