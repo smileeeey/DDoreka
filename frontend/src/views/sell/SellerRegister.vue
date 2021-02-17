@@ -163,7 +163,7 @@ export default {
     ])
   },
   created() {
-    if (!this.sellerstore) {
+    if (!!this.sellerstore) {
       this.$router.push({ name: 'SellerProfile' })
     }
   },

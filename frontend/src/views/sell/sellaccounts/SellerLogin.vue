@@ -131,12 +131,16 @@ export default {
               console.log('2nd')
               console.log(response.data)
               this.$store.dispatch("SETSELLERINFO", response.data)
+              console.log(response.data)
               axios.get(`http://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
                 .then(resp => {
                   console.log('3rd')
                   console.log(resp.data)
                   this.$store.dispatch('SETSELLERSTORE', resp.data)
                   this.$router.push({ name: 'Dashboard' });
+                })
+                .catch(err => {
+                  this.$router.push({ name: 'Dashboard' })
                 })
             })
 
