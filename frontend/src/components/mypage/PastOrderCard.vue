@@ -4,15 +4,15 @@
     max-width="100%"
   >
     <v-card-title class="pb-0" style="font-weight: bold;">
-      {{item.date.getUTCFullYear()}}년 {{item.date.getUTCMonth()+1}}월 {{item.date.getUTCDate()}}일 주문
+      {{item.date.getFullYear()}}년 {{item.date.getMonth()+1}}월 {{item.date.getDate()}}일 주문
     </v-card-title>
 
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="item.img"
-          max-height="120"
-          max-width="120"
+          :src="`data:image/jpeg;base64,${item.img}`"
+          height="120"
+          width="120"
         ></v-img>
       </div>
       <div>
@@ -22,7 +22,7 @@
         <v-card-subtitle
           style="font-size: 1rem;"
         >
-          {{item.cost|comma}}원 · {{item.amount}}개
+          {{item.cost|comma}}원 · {{item.amount}}개 // {{item.status}}
         </v-card-subtitle>
       </div>
       
