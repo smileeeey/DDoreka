@@ -15,7 +15,7 @@ public interface ReviewlikeRepository extends JpaRepository<Reviewlike,Integer> 
     @Transactional
     @Modifying
     @Query(value="delete from reviewlike where review_id = :reviewId and user_id = :userId",nativeQuery = true)
-    void deleteByReviewIdAndUserId(@Param("reviewId") int reviewId,@Param("reviewId") int userId);
+    void deleteByReviewIdAndUserId(@Param("reviewId") int reviewId,@Param("userId") int userId);
 
     @Transactional
     @Modifying
