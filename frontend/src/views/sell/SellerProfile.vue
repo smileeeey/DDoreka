@@ -42,7 +42,8 @@
                   <v-text-field
                     label="전화번호"
                     :value="seller.phone"
-                    
+                    disabled 
+                    style="font-weight: bold;"
                   ></v-text-field>
                 </v-col>
 
@@ -54,6 +55,8 @@
                   <v-text-field
                     label="은행"
                     :value="seller.bank_company"
+                    disabled 
+                    style="font-weight: bold;"
                   >
                   </v-text-field>
                 </v-col>
@@ -65,6 +68,8 @@
                   <v-text-field
                     label="계좌번호"
                     :value="seller.bank_account"
+                    disabled 
+                    style="font-weight: bold;"
                   >
                   </v-text-field>
                 </v-col>

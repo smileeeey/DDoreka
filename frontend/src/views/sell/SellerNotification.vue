@@ -139,17 +139,18 @@ export default {
       this.reviews.splice(idx, 1)
     },
     deleteOrder(idx) {
-      // delete noti axios request
-      console.log(idx)
+      let now = new Date()
+      let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
+      
       axios.put('http://i4d106.p.ssafy.io:8084/order', {
-        orderId: this.orders[idx].orderDetail.orderId,
-        checkDatetime: new Date(),
-        orderStatus: this.orders[idx].orderDetail.orderStatus,
-        courier: this.orders[idx].orderDetail.courier,
-        invoiceNum: this.orders[idx].orderDetail.invoiceNum,
-        deliveryStartDatatime: this.orders[idx].orderDetail.deliveryStartDatatime,
-        deliveryCompletionDatatime: this.orders[idx].orderDetail.deliveryCompletionDatatime,
-        cancelMsg: this.orders[idx].orderDetail.cancelMsg,
+        'orderId': this.orders[idx].orderDetail.orderId,
+        'checkDatetime': nowv,
+        'orderStatus': this.orders[idx].orderDetail.orderStatus,
+        'courier': this.orders[idx].orderDetail.courier,
+        'invoiceNum': this.orders[idx].orderDetail.invoiceNum,
+        'deliveryStartDatatime': this.orders[idx].orderDetail.deliveryStartDatatime,
+        'deliveryCompletionDatatime': this.orders[idx].orderDetail.deliveryCompletionDatatime,
+        'cancelMsg': this.orders[idx].orderDetail.cancelMsg,
       })
         .then(res => {
           console.log(res)

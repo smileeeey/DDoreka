@@ -73,35 +73,30 @@ export default {
   name: 'SellerDrawer',
   data: () => ({
     items: [
-      {
-        icon: 'mdi-view-dashboard',
-        title: 'dashboard',
-        to: '/sell',
-      },
+
       {
         icon: 'mdi-bell',
-        title: 'notifications',
+        title: '주문알림',
         to: '/notification',
       },
       {
         icon: 'mdi-cart',
-        title: 'delivery',
+        title: '배송관리',
         to: '/product/deliver',
       },
       {
-        icon: 'mdi-map-marker', 
-        'icon-alt': 'mdi-bell',
-        title: 'register',
+        icon: 'mdi-note', 
+        'icon-alt': 'mdi-note',
+        title: '상품관리',
         model: false,
         children: [
-          { icon: 'mdi-minus', title: '등록된거', to: '/product/list' },
-          { icon: 'mdi-minus', title: '등록할거', to: '/product/register' },
-          { icon: 'mdi-minus', title: '수정삭제', to: '/user/profile' },
+          { icon: 'mdi-minus', title: '판매제품', to: '/product/list' },
+          { icon: 'mdi-minus', title: '판매등록', to: '/product/register' },
         ]
       },
       {
         icon: 'mdi-account',
-        title: 'profile',
+        title: '프로필수정',
         to: '/user/profile',
       },
     ]

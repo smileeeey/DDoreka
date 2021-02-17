@@ -1,7 +1,11 @@
 <template>
   <v-container fluid>
     <v-row>
-      {{seller}}
+      <v-col
+        cols="12"
+      >
+        <DBCalender />
+      </v-col>
       <v-col
         cols="12"
         lg="3"
@@ -46,6 +50,7 @@
 </template>
 
 <script>
+import DBCalender from '../../components/seller/DBCalender.vue'
 import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 import BarChart from '../../components/seller/chart/BarChart.js'
@@ -53,7 +58,7 @@ import BarChart from '../../components/seller/chart/BarChart.js'
 import { mapState } from 'vuex'
 
 export default {
-  components: { LineChart, DoughnutChart, BarChart },
+  components: { LineChart, DoughnutChart, BarChart, DBCalender },
   name: 'Dashboard',
   data: () => ({
     chartdata: {
