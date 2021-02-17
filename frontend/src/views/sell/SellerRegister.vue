@@ -233,6 +233,8 @@ export default {
                 .then(r => {
                   console.log(r)
                   console.log(r.data)
+                  console.log('router go')
+                  this.$router.push({ name: 'SellerProductList' })
                 })
 
             })

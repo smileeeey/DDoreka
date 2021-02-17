@@ -9,7 +9,33 @@ export default {
     },
     options: {
       type: Object,
-      default: null
+      default: {
+        responsive: true,
+        legend: {
+            position: 'top',
+        },
+        hover: {
+            mode: 'label'
+        },
+        scales: {
+            xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                    }
+                }],
+            yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }]
+        },
+        title: {
+            display: false,
+            text: 'Chart.js Line Chart - Legend'
+        }
+    }
     }
   },
   mounted () {
