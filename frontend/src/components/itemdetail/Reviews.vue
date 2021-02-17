@@ -60,7 +60,7 @@ export default {
     ])
   },
   created() {
-    // this.productId = this.$route.params.productid
+    this.productId = this.$route.params.productid
     this.getReviews()
   },
 }
