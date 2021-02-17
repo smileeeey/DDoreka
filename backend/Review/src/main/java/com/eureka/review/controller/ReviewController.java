@@ -21,10 +21,9 @@ public class ReviewController {
 
     // 상품id주면 리뷰 가져오기
     @GetMapping(value="/get/{productId}/{userId}")
-    public Response getReviewByUserId(@PathVariable int productId, @PathVariable String userId){
+    public Response getReviewByProductId(@PathVariable int productId, @PathVariable String userId){
         Response response;
         try{
-
             response = new Response("success", "리뷰 조회 성공", service.getReviews(productId,userId));
         }catch(Exception e){
             response = new Response("error", "리뷰 조회 실패", e.getMessage());
