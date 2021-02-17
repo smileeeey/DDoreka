@@ -25,8 +25,6 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
     @Query(value = "SELECT * FROM orders m WHERE m.seller_id=:sellerid  and dayofmonth(m.datetime) = :day and month(m.datetime) = :month",nativeQuery = true)
     List<OrderEntity> findAllBySelleridofday(@Param("day") String day, @Param("sellerid") String sellerid,@Param("month") String month);
 
-
-
     ////////////////////////   수민   /////////////////////////////
     @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 month) group by product_id order by sum(quantity) DESC limit 0,10",nativeQuery = true)
     List<Integer> findSteadySeller();
