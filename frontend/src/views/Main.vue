@@ -53,10 +53,22 @@ export default {
     CategoryRecommend,
   },
   created(){
+    let tmp = this.userId
     this.fetchMessages();
-    db.collection('user').add({
-      name: this.userId,
-    })   
+    let chk = true;
+    db.collection('user').get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc){
+        if(doc.data().name == tmp) {
+          chk = false
+        }
+      })
+    });
+    console.log(chk)
+    if(chk){
+      db.collection('user').add({
+        name: this.userId,
+      })
+    }       
   },
   methods:{
     deleteCollection() {

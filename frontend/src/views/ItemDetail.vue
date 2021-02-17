@@ -1,17 +1,19 @@
 <template>
   <div>
-    <!-- 아래 face app -->
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-      crossorigin="anonymous"
-    />
-    <balloon :title="mood" position="bottom-right" :zooming="true">
-      <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
-      <template slot="header">Custom Header</template>
-      <RwvCamera @pictureTaken="setImage($event)" />
-    </balloon>
+    <div v-if="login">
+      <!-- 아래 face app -->
+      <link
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous"
+      />
+      <balloon :title="mood" position="bottom-right" :zooming="true">
+        <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
+        <template slot="header">Custom Header</template>
+        <RwvCamera @pictureTaken="setImage($event)" />
+      </balloon>
+    </div>
     <!-- 위 face app -->
     
     <!-- 여기부터 ItemDetial -->
@@ -25,6 +27,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 // import { mapActions } from 'vuex'
 import axios from 'axios'
 import TopInfo from '@/components/itemdetail/TopInfo.vue'
@@ -176,6 +179,20 @@ export default {
             }
           );
         }
+        if(expression == 'neutral')
+          expression = '😃 중립'
+        else if(expression == 'happy')
+          expression = '😁 행복'
+        else if(expression == 'sad')
+          expression = '😭 슬픔'
+        else if(expression == 'angry')
+          expression = '😡 분노'
+        else if(expression == 'fearful')
+          expression = '😱 두려움'
+        else if(expression == 'disgusted')
+          expression = '😵 역겨움'
+        else 
+          expression = '😲 놀람'
         this.setMood(expression);
         this.timer += 0.1;
         this.neutral += userExpression.expressions["neutral"];
@@ -185,7 +202,7 @@ export default {
         this.fearful += userExpression.expressions["fearful"];
         this.disgusted += userExpression.expressions["disgusted"];
         this.surprised += userExpression.expressions["surprised"];
-        if (this.timer >= 10) this.stopAnalysis();
+        if (this.timer >= 60) this.stopAnalysis();
       }, 100);
     },
     setMood(mood) {
@@ -237,7 +254,7 @@ export default {
       // );
       //axios call
       this.sendData();
-      this.timer = 0;
+      //this.timer = 0;
       this.mood = "감정분석 종료";
     },
   },
@@ -251,6 +268,11 @@ export default {
     this.getItem()
     // this.getFileIds()
   },
+  computed: {
+    ...mapState([
+      'login',
+    ])
+  }
 }
 </script>
 
@@ -265,4 +287,5 @@ RwvRecommendations {
 #modal {
   opacity: 0.5 !important;
 }
+
 </style>
