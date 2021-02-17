@@ -15,7 +15,7 @@
             <th scope="row">총결제금액</th>
             <td><strong>{{totalCost | comma}}</strong>원</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th scope="row">결제방법</th>
             <td>
               <v-container fluid>
@@ -38,7 +38,7 @@
                 </v-radio-group>
               </v-container>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
   </div>

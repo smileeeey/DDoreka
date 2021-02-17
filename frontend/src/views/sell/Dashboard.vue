@@ -8,7 +8,6 @@
         <v-card>
           <LineChart 
             :chartdata="chartdata"
-            :options="options"
           />
           <v-card-title>
             Weekly 매출액
@@ -29,7 +28,6 @@
       >
         <DoughnutChart 
           :chartdata="chartdata"
-          :options="options"
         />
       </v-col>
       <v-col
@@ -51,6 +49,8 @@ import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 import BarChart from '../../components/seller/chart/BarChart.js'
 
+import { mapState } from 'vuex'
+
 export default {
   components: { LineChart, DoughnutChart, BarChart },
   name: 'Dashboard',
@@ -67,6 +67,11 @@ export default {
     },
     
   }),
+  computed: {
+    ...mapState([
+      'seller',
+    ])
+  }
 
 }
 </script>

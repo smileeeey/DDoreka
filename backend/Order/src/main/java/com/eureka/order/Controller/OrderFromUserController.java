@@ -113,12 +113,12 @@ public class OrderFromUserController {
         return response;
     }
 
-    // 당신을 탕탕 저격하는 오늘의 상품
-    @GetMapping(value ="/recommend/todayhot/{userId}")
-    public Response todayHot(@PathVariable int userId){
+    // 오늘의 상품
+    @GetMapping(value ="/recommend/todayhot")
+    public Response todayHot(){
         Response response;
         try {
-            response= new Response("success", "오늘 뜨는 상품 조회 성공", orderService.getTodayHot(userId)) ;
+            response= new Response("success", "오늘 뜨는 상품 조회 성공", orderService.getTodayHot()) ;
         } catch (Exception e) {
             response= new Response("error", "오늘 뜨는 상품 조회 실패", e.getMessage()) ;
         }

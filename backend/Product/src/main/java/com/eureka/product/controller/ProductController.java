@@ -1,7 +1,12 @@
 package com.eureka.product.controller;
 
+import com.eureka.product.dto.Category;
+import com.eureka.product.dto.Product;
 import com.eureka.product.dto.Response;
+import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
+import com.eureka.product.service.SearchlogService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +18,14 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductService service;
+    private final SearchlogService searchlogService;
+    private final CategoryService categoryService;
 
-    public ProductController(ProductService productService) {
-        service = productService;
+
+    public ProductController(ProductService productService,SearchlogService searchlogService,CategoryService categoryService) {
+        this.service = productService;
+        this.searchlogService = searchlogService;
+        this.categoryService = categoryService;
     }
 
     /////////////////// 사용자 페이지  ///////////////////
@@ -50,7 +60,11 @@ public class ProductController {
     public Response findBySearch(@PathVariable String category1Id, @PathVariable String keyword, @RequestParam Integer page, @RequestParam Integer size) {
         Response response;
         try {
-            response = new Response("success", "상품 검색 성공", service.getProductsByName(category1Id, keyword,page,size));
+            Page<Product> pages = service.getProductsByName(category1Id, keyword,page,size);
+            System.out.println("hi");
+            searchlogService.addLog(category1Id,keyword);
+            System.out.println("bye");
+            response = new Response("success", "상품 검색 성공", pages);
         } catch (Exception e) {
             response = new Response("error", "상품 검색 실패", e.getMessage());
         }
@@ -82,6 +96,35 @@ public class ProductController {
             response = new Response("success", "추천 상품들 상세 조회 성공", service.getProductByIds(productIds));
         } catch (Exception e) {
             response = new Response("error", "추천 상품들 상세 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
+
+
+    // 실시간 검색어 가져오기
+    @GetMapping(value="/recommend/realtimesearchword")
+    public Response realtimeSearchWord() {
+        Response response;
+        try {
+            List<Category> category1 = categoryService.getCategories1();
+            response = new Response("success", "실시간 검색어 조회 성공", searchlogService.getRealtimeSearchWord(category1));
+        } catch (Exception e) {
+            response = new Response("error", "실시간 검색어 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
+
+    //카테고리별 추천상품 가져오기
+    @GetMapping(value="/recommend/latestproduct")
+    public Response latestProduct() {
+        Response response;
+        try {
+            List<Category> category1 = categoryService.getCategories1();
+            response = new Response("success", "카테고리별 최신 상품 조회 성공", service.getLatestProduct(category1));
+        } catch (Exception e) {
+            response = new Response("error", "카테고리별 최신 상품 조회 실패", e.getMessage());
         }
 
         return response;

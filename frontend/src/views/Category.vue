@@ -122,6 +122,16 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    },
+
+    '$route.params.id': {
+      handler: function () {
+        this.getId()
+        this.getDepth()
+        this.getItems()
+      },
+      deep: true,
+      immediate: true
     }
   },
   created() {

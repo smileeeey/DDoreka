@@ -14,6 +14,7 @@
             max-width="300"
           >
           </v-img>
+          <input id="flag" type="text" v-model="e1" style="visibility: hidden">
         </v-col>
       </v-row>
       <v-row>
@@ -22,7 +23,7 @@
             <v-row>
               
               <v-col cols="4" style="display: flex">
-                <v-icon x-large color="black">
+                <v-icon x-large color="black" @click="e1=1">
                   mdi-cart-outline
                 </v-icon>
                 <p style="font-size: 1.75rem; margin-top: 1rem; margin-bottom: 0; font-weight: bold;">{{article[e1]}}</p>
@@ -50,10 +51,11 @@
                   </div>
                   
                 </v-stepper>
+
                 </div>
               </v-col>
             </v-row>
-            <div v-if="e1==1">
+            <div v-show="e1==1">
 
               <CartList 
                 :items="items"
@@ -75,9 +77,15 @@
                 </v-btn>
               </div>
             </div>
-            <div v-else-if="e1==2">
+            <div v-show="e1==2">
               <BuyerInfo />
-              <DestinationInfo />
+              <DestinationInfo
+                @name="val => name=val"
+                @main_address="val => main_address=val"
+                @sub_address="val => sub_address=val"
+                @phonenumber="val => phonenumber=val"
+                @comment="val => comment=val"
+              />
               <PaymentTable :totalCost="totalCost" />
               <div style="display: flex; justify-content: center; margin-top: 3rem;">
                 <v-btn style="background-color: white; color: #0275d8; width: 200px; height: 50px;
@@ -88,13 +96,13 @@
                 </v-btn>
                 <v-btn style="background-color: #0275d8; color: white; width: 200px; height: 50px;
                   font-size: 1.5rem; font-weight: bold; margin-left: 1rem;"
-                  @click="e1=3"
+                  @click="buyitems"
                 >
                   결제하기
                 </v-btn>
               </div>
             </div>
-            <div v-else>
+            <div v-show="e1==3">
               <v-card
                 class="mx-auto paymentcard"
                 outlined
@@ -152,41 +160,106 @@ export default {
       e1: 1,
       article: [null, '장바구니', '주문결제', '주문완료'],
       totalCost: 0,
-      items: [
-      {
-        img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
-        name: '민트위니 여성용 미키기모셋',
-        cost: '22900',
-        amount: 1,
-        select: true,
-      },
-      {
-        img: 'https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/86815902988186-18c5ec56-8775-4476-ae6f-d1bae7e2dcc5.jpg',
-        name: '캐럿 여성 와이드 밴딩 팬츠',
-        cost: '9900',
-        amount: 1,
-        select: true,
-      },
-      {
-        img: 'https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/358954270343111-663ca6b1-cd2c-4c03-9228-1ffbf43b93cb.jpg',
-        name: '루나걸 여성용 니트',
-        cost: '22900',
-        amount: 1,
-        select: true,
-      },
-    ]
+      items: [],
+      flag: false,
+      name: '',
+      main_address: '',
+      sub_address: '',
+      phonenumber: '',
+      comment: '',
     }
   },
 
   methods: {
     updateTotalCost: function (cost) {
       this.totalCost = cost
-    }
+    },
+    buyitems() {
+      const IMP = window.IMP;
+      IMP.request_pay(
+        {
+          pg: "html5_inicis",
+          pay_method: "card",
+          merchant_uid: "merchant_" + new Date().getTime(),
+          name: "EUREKA: 주문",
+          amount: this.totalCost / 100,
+          buyer_email: this.email,
+          buyer_name: this.name,
+          buyer_tel: this.phone,
+          buyer_addr: "서울특별시 강남구 삼성동",
+          buyer_postcode: "123-456",
+        },
+        function(rsp) {
+          var msg = "결제가 완료되었습니다.";
+          if (rsp.success) {
+            msg += "고유ID : " + rsp.imp_uid;
+            msg += "상점 거래ID : " + rsp.merchant_uid;
+            msg += "결제 금액 : " + rsp.paid_amount;
+            msg += "카드 승인번호 : " + rsp.apply_num;
+            let FLAG = document.getElementById('flag');
+            FLAG.value = 3;
+            FLAG.dispatchEvent(new Event('input'));
+          } else {
+            msg = "결제에 실패하였습니다.";
+            msg += "에러내용 : " + rsp.error_msg;
+
+          }
+          alert(msg);
+        },
+      );
+    },
   },
   computed: {
     ...mapState([
       'wishlist',
+      'email',
+      'name',
+      'phone',
+      'userId',
     ])
+  },
+  watch: {
+    e1: function () {
+      console.log(this.wishlist)
+      console.log(this.items)
+      if (this.e1 == 3) {
+        let sortwishlist = this.wishlist
+
+        sortwishlist.sort(function(a, b) {
+          return a.id - b.id
+        })
+        
+        for (let i=0; i<this.items.length; i++) {
+          if (this.items[i].select == true) {
+            console.log('order')
+            axios.post('http://i4d106.p.ssafy.io:8084/order', {
+              'userId': this.userId,
+              'productId': sortwishlist[i].productId,
+              'optionId': sortwishlist[i].optionId,
+              'sellerId': this.items[i].sellerId,
+              'addressMain': document.getElementById("uniqueaddress").textContent.split(', ')[0],
+              'addressSub': document.getElementById("uniqueaddress").textContent.split(', ')[1],
+              'recipientName': document.getElementById("uniquename").textContent,
+              'zipcode': '0',
+              'deliveryMsg': document.getElementById("uniquecomment").textContent,
+              'recipientPhone': document.getElementById("uniquephonenumber").textContent,
+              'quantity': this.items[i].amount,
+              'price': Number(this.items[i].cost) * this.items[i].amount,
+              'paymentMethod': 'Online',
+            })
+              .then(res => {
+                console.log(res)
+                console.log(res.data)
+                axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
+                  .then(r => {
+                    console.log(r)
+                    this.$store.dispatch('PAYWISHLIST', this.items[i].cartId)
+                  })
+              })
+          }
+        }
+      }
+    }
   },
   created: function () {
     let tmpitems = [];
@@ -198,6 +271,7 @@ export default {
           let productName = detailres.data.data.name
           let optionName = null;
           let optionValue = null;
+          let sellerId = detailres.data.data.storeId
           for (let j=0; j<detailres.data.data.options.length; j++) {
             if (detailres.data.data.options[j].optionId == optionV) {
               optionName = detailres.data.data.options[j].name
@@ -208,6 +282,7 @@ export default {
             axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
               .then(fileres => {
                 tmpitems.push({
+                  sellerId: sellerId,
                   cartId: cartId,
                   img: fileres.data.data.imageBytes,
                   name: productName + ' ' +optionName,
@@ -218,6 +293,7 @@ export default {
               })
           } else {
             tmpitems.push({
+              sellerId: sellerId,
               cartId: cartId,
               img: null,
               name: productName + ' ' + optionName,
@@ -228,6 +304,9 @@ export default {
           }
         })
     }
+    tmpitems.sort(function(a, b) {
+      return a.cartId - b.cartId;
+    });
     this.items = tmpitems
   }
 }

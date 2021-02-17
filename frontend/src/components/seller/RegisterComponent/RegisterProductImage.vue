@@ -8,7 +8,8 @@
         >
           썸네일 이미지 등록
           <v-file-input
-            v-model="simage"
+            v-model="simages"
+            multiple
             solo
             chips
             show-size
@@ -18,7 +19,6 @@
             prepend-icon="mdi-camera"
             label="썸네일 이미지"
           ></v-file-input>
-          {{simage}}
         </v-col>
         <v-col
           cols="12"
@@ -26,7 +26,10 @@
         >
           상품 상세 이미지 등록
           <v-file-input
+            v-model="mimages"
+            multiple
             solo
+            chips
             show-size
             counter
             outlined
@@ -45,8 +48,17 @@ export default {
   name: 'RegisterProductImage',
   data() {
     return {
-      simage: null,
+      simages: [],
+      mimages: [],
     }
+  },
+  watch: {
+    simages: function () {
+      this.$emit("simage", this.simages)
+    },
+    mimages: function () {
+      this.$emit("mimage", this.mimages)
+    },
   }
 }
 </script>

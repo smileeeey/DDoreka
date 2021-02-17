@@ -99,14 +99,14 @@
             required
             prepend-inner-icon="mdi-numeric"
             label="계좌번호"
-            v-model="form.account"
+            v-model="form.bank_account"
           ></v-text-field> 
           
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
         </v-col>
-          <SignupCheckbox :enable="enable" />
+          <SignupCheckbox :form="form" :enable="enable" />
         
 
         <v-col>
