@@ -9,11 +9,17 @@
 
 <script>
 import PastOrderCard from '../../components/mypage/PastOrderCard.vue'
-
+import { mapState } from 'vuex';
+import axios from 'axios';
 export default {
   name: 'OrderList',
   components: {
     PastOrderCard
+  },
+  computed: {
+    ...mapState([
+      'userId',
+    ])
   },
   data () {
     return {
@@ -42,6 +48,45 @@ export default {
     ]
   
     }
+  },
+  created: function () {
+    let dataArray = [];
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/all`)
+      .then(res => {
+        let array = res.data.data;
+        for (let j=0; j<array.length; j++) {
+          console.log(array[j])
+          let date = array[j].datetime
+          console.log(date)
+          var y = date.substr(0, 4);
+          var m = date.substr(5, 2);
+          var d = date.substr(8, 2);
+          let newD = new Date(y, m-1, d)
+          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
+            .then(resp => {
+              for (let k=0; k<resp.data.data.options.length; k++) {
+                if (resp.data.data.options[k].optionId == array[j].optionId) {
+                  var optionprice = resp.data.data.options[k].price
+                  var optionname = resp.data.data.options[k].name
+                  break;
+                }
+              }
+              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${resp.data.data.images[0].fileId}`)
+                .then(respo => {
+                  dataArray.push({
+                    img: respo.data.data.imageBytes,
+                    name: resp.data.data.name + '  ' + optionname,
+                    cost: optionprice,
+                    amount: array[j].quantity,
+                    date: newD,
+                    status: array[j].orderDetail.orderStatus,
+                  })
+                })
+            })
+        }
+        this.items = dataArray
+
+      })
   }
 }
 </script>
