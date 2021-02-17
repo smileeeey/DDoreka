@@ -2,7 +2,7 @@
   <v-container class="mb-5 category-recommend-container">
     <v-row>
       <v-col class="pa-0" cols=2>
-        <CategoryRecommendInfo :category="category" :keywords="keywords" />
+        <CategoryRecommendInfo :categoryKey="categoryKey" :keywords="keywords" />
       </v-col>
       <v-col class="pa-0" cols=4>
         <DetailBigItem :bigItems="bigItems" />
@@ -26,16 +26,20 @@ export default {
     DetailSmallItem,
   },
   props: {
-    category: Object,
+    categoryKey: String,
+    items: Array,
+    keywords: Array,
   },
   data: () => ({
     bigItems: [],
     smallItems: [],
-    keywords: ['#니트', '#기모 바지', '#기모 맨투맨', '#마스크걸이', '#아우터', '#나이키', '#스웨터']
   }),
   created() {
-    this.bigItems = this.category.bigItems
-    this.smallItems = this.category.smallItems
+    this.bigItems = this.items.slice(0, 5)
+    const slide1 = this.items.slice(5, 11)
+    const slide2 = this.items.slice(11, 17)
+    const slide3 = this.items.slice(17, 23)
+    this.smallItems.push(slide1, slide2, slide3)
   }
 }
 </script>

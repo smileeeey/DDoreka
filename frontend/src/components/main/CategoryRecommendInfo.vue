@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-5 pl-3 text-h6 font-weight-bold">{{category.name}}</div>
+    <div class="mt-5 pl-3 text-h6 font-weight-bold">{{ category1Name[categoryKey] }}</div>
     <div class="pa-4">
       <div>HOT키워드</div>
       <v-chip-group
@@ -18,12 +18,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'CategoryRecommendInfo',
   props: {
-    category: Object,
+    categoryKey: String,
     keywords: Array,
   },
+  computed: {
+    ...mapState([
+      'category1Name'
+    ])
+  }
 }
 </script>
 
