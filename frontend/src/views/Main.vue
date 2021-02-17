@@ -29,6 +29,7 @@
       :messageStyling="messageStyling"
       @onType="handleOnType"
       @edit="editMessage" ><template v-slot:header><div>🙋 Eureka의 상담원과 채팅중입니다.</div></template></beautiful-chat>
+      
   </div>
 </template>
 
@@ -171,3 +172,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  >>> .sc-chat-window {
+    z-index: 100;
+  }
+</style>
