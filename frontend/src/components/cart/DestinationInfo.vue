@@ -49,11 +49,7 @@ export default {
   methods: {
     changeAddress: function() {
       window.open(
-<<<<<<< HEAD
         'http://i4d106.p.ssafy.io/popup/address',
-=======
-        'http://i4d106.p.ssafy.io:8085/popup/address',
->>>>>>> 82201f568aefe2b71d3689dcadb882f04eaa251a
         'PopupWin',
         'width=500, height=600'
       );

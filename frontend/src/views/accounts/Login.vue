@@ -120,22 +120,14 @@ export default {
         .then(res => {
           localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('eureka-authorization')
-<<<<<<< HEAD
           axios.post('http://i4d106.p.ssafy.io:8080/user/login', this.form, {
-=======
-          axios.post('http://i4d106.p.ssafy.io/user/login', this.form, {
->>>>>>> 82201f568aefe2b71d3689dcadb882f04eaa251a
             headers: {
               'eureka-authorization': token,
             }
           })
             .then(response => {
               this.$store.dispatch("LOGIN", response.data.data)
-<<<<<<< HEAD
               axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
-=======
-              axios.get(`http://i4d106.p.ssafy.io/user/cart/${this.form.email}`, {
->>>>>>> 82201f568aefe2b71d3689dcadb882f04eaa251a
                 headers: {
                   'eureka-authorization': token,
                 }
