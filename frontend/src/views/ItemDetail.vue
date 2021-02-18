@@ -167,8 +167,7 @@ export default {
           .withFaceLandmarks()
           .withFaceExpressions();
         if (typeof userExpression === "undefined") {
-          this.show = false;
-          this.$refs["error-modal"].show();
+          this.show = false;          
         } else {          
           this.show = false;
           var expression = Object.keys(userExpression.expressions).reduce(
@@ -205,7 +204,7 @@ export default {
         this.fearful += userExpression.expressions["fearful"];
         this.disgusted += userExpression.expressions["disgusted"];
         this.surprised += userExpression.expressions["surprised"];
-        if (this.timer >= 20) this.stopAnalysis();
+        if (this.timer >= 60) this.stopAnalysis();
       }, 100);
     },
     setMood(mood) {
@@ -219,7 +218,7 @@ export default {
     },
     sendData: function() {
       axios
-        .post("http://localhost:8088/face/add", {
+        .post("http://i4d106.p.ssafy.io:8088/face/add", {
           product: 14,
           user: 123,
           happy: this.happy.toFixed(2),
@@ -243,6 +242,7 @@ export default {
       clearInterval(this.polling);
       this.sendData();   
       this.mood = "감정분석 종료";
+      this.timer = 9999;
     },
   },
   // -----------------위 내용 face app---------------------------------
@@ -261,8 +261,10 @@ export default {
     ])
   },
   beforeDestroy(){
-    this.stopAnalysis();
-  }
+    if(this.timer >= 5 && this.timer <= 60)
+      this.stopAnalysis();
+  },
+
 }
 </script>
 
