@@ -240,7 +240,7 @@ export default {
             ];
           for (let i=1; i<13; i++) {
             
-            axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`)
+            axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`)
               .then(res=> {
                 var monthtotal = 0;
                 for (let j=0; j<30; j++) {
@@ -265,13 +265,13 @@ export default {
       this.componentKey += 1
     },
     getOrderInfo() {
-      axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
+      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
         .then(res => {
           this.callCnt = res.data.data.length
-          axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
+          axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
             .then(delres => {
               this.deliveryCnt = delres.data.data.length
-              axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
+              axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
                 .then(comres => {
                   this.completeCnt = comres.data.data.length
                 })

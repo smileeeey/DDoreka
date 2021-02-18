@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getReviews() {
-      axios.get(`https://i4d106.p.ssafy.io:8083/review/get/${this.userId}`)
+      axios.get(`http://i4d106.p.ssafy.io:8083/review/get/${this.userId}`)
       .then(res => {
         console.log(res)
         this.reviews = res.data.data

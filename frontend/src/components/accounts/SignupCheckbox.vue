@@ -97,7 +97,7 @@ export default {
       if (document.location.href.split('sell').length > 1) {
         // console.log('i am seller')
         console.log(this.form)
-        axios.post(`https://i4d106.p.ssafy.io:8088/seller/add`, {
+        axios.post(`http://i4d106.p.ssafy.io:8088/seller/add`, {
           name: this.form.name,
           pw: this.form.password,
           email: this.form.id,
@@ -108,7 +108,7 @@ export default {
           .then(res => {
             
             if (res.status == 200) {
-              axios.post(`https://i4d106.p.ssafy.io:8088/login/add`, {
+              axios.post(`http://i4d106.p.ssafy.io:8088/login/add`, {
                 username: this.form.id,
                 password: this.form.password,
                 role: 'SELLER',
@@ -125,10 +125,10 @@ export default {
           })
       } else {
         // console.log('i am buyer')
-        axios.post(`https://i4d106.p.ssafy.io:8080/user/signup`, this.form)
+        axios.post(`http://i4d106.p.ssafy.io:8080/user/signup`, this.form)
           .then(res => {
             if (res.data.response == 'success') {
-              axios.post(`https://i4d106.p.ssafy.io:8088/login/add`, {
+              axios.post(`http://i4d106.p.ssafy.io:8088/login/add`, {
                 username: this.form.email,
                 password: this.form.pw,
                 role: 'USER',

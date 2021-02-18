@@ -113,21 +113,21 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('https://i4d106.p.ssafy.io:8088/login', {
+      axios.post('http://i4d106.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
           localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('eureka-authorization')
-          axios.post('https://i4d106.p.ssafy.io:8080/user/login', this.form, {
+          axios.post('http://i4d106.p.ssafy.io:8080/user/login', this.form, {
             headers: {
               'eureka-authorization': token,
             }
           })
             .then(response => {
               this.$store.dispatch("LOGIN", response.data.data)
-              axios.get(`https://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
+              axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
                 headers: {
                   'eureka-authorization': token,
                 }

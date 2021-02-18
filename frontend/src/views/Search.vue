@@ -56,7 +56,7 @@ export default {
   }),
   methods: {
     getItems() {
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
         params: {
           page: this.page - 1,
           size: this.size,
@@ -130,7 +130,7 @@ export default {
   },
   watch: {
     page: function() {
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
         params: {
           page: this.page - 1,
           size: this.size,

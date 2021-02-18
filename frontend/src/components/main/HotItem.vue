@@ -34,7 +34,7 @@ export default {
   }),
   methods: {
     getItems() {
-      axios.get('https://i4d106.p.ssafy.io:8084/order/recommend/hotproduct')
+      axios.get('http://i4d106.p.ssafy.io:8084/order/recommend/hotproduct')
       .then(res => {
         // console.log(res.data.data)
         this.productIds = res.data.data

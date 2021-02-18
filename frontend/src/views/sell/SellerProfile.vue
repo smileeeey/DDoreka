@@ -241,7 +241,7 @@ export default {
       console.log('this is store')
       console.log(this.store)
       console.log(this.seller)
-      axios.post('https://i4d106.p.ssafy.io:8088/store/add', {
+      axios.post('http://i4d106.p.ssafy.io:8088/store/add', {
         'sellerId': this.seller.id,
         'phone': this.store.phone,
         'name': this.store.name,

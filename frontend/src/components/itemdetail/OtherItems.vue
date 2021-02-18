@@ -97,7 +97,7 @@ export default {
   methods: {
     getItems() {
       console.log(this.storeId)
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/seller/all/${this.storeId}`)
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.storeId}`)
       .then(res => {
         console.log(res.data.data)
         this.items = res.data.data.slice(0, 10)
