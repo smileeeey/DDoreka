@@ -179,7 +179,6 @@ export default {
           axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
             .then(r => {
               let data = r.data.data
-              console.log(data)
               let sumdata = data.reduce(function(a, b) {
                 return a + b
               })

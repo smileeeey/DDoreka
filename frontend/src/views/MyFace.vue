@@ -7,14 +7,21 @@
         <v-data-table
           :headers="headers"
           :items="items"
-          :items-per-page="10"
+          :items-per-page="5"
           class="elevation-1"
           @click:row="handleClick"
         >
 
-          <template v-slot:item.created_at="{ item }">
-            {{ item.created_at|moment('YYYY년 MM월 DD일 HH시 mm분 ss초') }}
+          <template v-slot:item.happyscore="{ item }">
+            {{ item.happyscore}}%
           </template>
+          <template v-slot:item.surprisescore="{ item }">
+            {{ item.surprisescore}}%
+          </template>
+          <template v-slot:item.face.createdAt="{ item }">
+            {{ item.face.createdAt|moment('YYYY년 MM월 DD일 HH시 mm분 ss초') }}
+          </template>
+          
 
         </v-data-table>
 
@@ -30,18 +37,18 @@
           @click="gotoDetailpage"
         >
           <v-img
-            :src="selectdata.img"
+            :src="`data:image/jpeg;base64,${selectdata.img}`"
             width="450"
             height="450"
           ></v-img>
-          <v-card-title>{{selectdata.productname}}</v-card-title>
+          <v-card-title>{{selectdata.product.name}}</v-card-title>
           <v-card-text>
             <v-row
               align="center"
               class="mx-0"
             >
               <v-rating
-                :value="selectdata.rating"
+                :value="selectdata.product.rating"
                 color="amber"
                 dense
                 half-increments
@@ -49,7 +56,7 @@
                 size="14"
               ></v-rating>
               <div class="grey--text ml-4">
-                {{selectdata.rating}} ({{selectdata.reviewCnt}})
+                {{selectdata.product.rating}} ({{selectdata.product.reviewCnt}})
               </div>
             </v-row>
           </v-card-text>
@@ -58,7 +65,7 @@
       </v-col>
       <v-col
         cols="12"
-        md="4"
+        md="5"
         v-if="selectdata"
       >
         <v-card>
@@ -71,7 +78,7 @@
           <v-divider></v-divider>
           <div class="mx-3">
             <v-icon small class="mr-1">mdi-clock-outline</v-icon>
-            <span class="caption grey--text font-weight-light mb-3">updated {{selectdata.created_at}} minutes ago</span>
+            <strong class="caption mb-3">updated {{selectdata.face.createdAt | moment("from", "now")}}</strong>
           </div>
         </v-card>
       </v-col>
@@ -83,7 +90,7 @@
 import DoughnutChart from '../components/seller/chart/DoughnutChart.js'
 
 import { mapState } from 'vuex'
-
+import axios from 'axios'
 export default {
   name: 'MyFace',
   components: {
@@ -94,49 +101,65 @@ export default {
       componentKey: 0,
       headers: [
         {
-          text: '목차',
+          text: '갱신일',
           align: 'start',
-          sortable: false,
-          value: 'index',
+          value: 'face.createdAt',
         },
-        { text: '상품명', value: 'productname' },
-        { text: '행복지수', value: 'doughnutChartdata.datasets[0].data[1]' },
-        { text: '갱신일', value: 'created_at' },
+        { text: '상품명', value: 'product.name' },
+        { text: '행복지수', value: 'happyscore' },
+        { text: '놀람지수', value: 'surprisescore' },
+        { text: '제품감상시간 (초)', value: 'face.time' },
       ],
       items: [
-        {
-          created_at: new Date(),
-          index: 1,
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png',
-          productname: '제품명123',
-          pdid: 1,
-          ctid: 1,
-          rating: 0,
-          reviewCnt: 0,
-          doughnutChartdata: {
-            labels: ['중립', '행복', '슬픔', '분노', '두려움', '역겨움', '놀람'],
-            datasets: [
-              {
-                label: '표정',
-                backgroundColor: ['yellow', 'green', 'pink', 'red', 'blue', 'black', 'purple'],
-                data: [0.2, 0.3, 0.1, 0.1, 0.1, 0.1, 0.1]
-              }
-            ]
-          }
-        }
+
       ],
       selectdata: null,
     }
   },
   computed: {
     ...mapState([
-      'login'
-    ])
+      'login',
+      'userId'
+    ]),
   },
   created () {
     if (!this.login) {
       this.$router.push({ name: 'Login' })
     }
+    let items = [];
+    axios.get(`http://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
+      .then(res => {
+        res.data.forEach(item => {
+          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${item.product}`)
+            .then(pres => {
+              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${pres.data.data.images[0].fileId}`)
+                .then(ires => {
+                  let array = [item.neutral, item.happy, item.sad, item.angry, item.fearful, item.disgusted, item.surprised]
+                  let sumscore = array.reduce(function (a, b) {
+                    return a+b
+                  })
+                  items.push({
+                    img: ires.data.data.imageBytes,
+                    product: pres.data.data,
+                    face: item,
+                    happyscore: Math.round((item.happy/sumscore).toFixed(2)*100),
+                    surprisescore: Math.round((item.surprised/sumscore).toFixed(2)*100),
+                    doughnutChartdata: {
+                      labels: ['중립', '행복', '슬픔', '분노', '두려움', '역겨움', '놀람'],
+                      datasets: [
+                        {
+                          label: '표정',
+                          backgroundColor: ['yellow', 'green', 'pink', 'red', 'blue', 'black', 'purple'],
+                          data: array
+                        }
+                      ]
+                    }
+                  })
+                })
+            })
+        })
+      this.items = items
+      })
   },
   methods: {
     handleClick: function (value) {
@@ -146,8 +169,8 @@ export default {
     },
     gotoDetailpage: function () {
       let routeData = this.$router.resolve({ name: 'ItemDetail', params: {
-        id: this.selectdata.ctid,
-        productid: this.selectdata.pdid
+        id: this.selectdata.product.category3Id,
+        productid: this.selectdata.product.id
       }})
       window.open(routeData.href, '_blank')
     }
