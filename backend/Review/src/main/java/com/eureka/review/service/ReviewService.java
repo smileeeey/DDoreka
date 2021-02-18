@@ -120,7 +120,9 @@ public class ReviewService {
     public List<Review> getReviewsByProductIds(List<Integer> productIds) {
         List<Review> reviews =  new ArrayList<>();
         for (Integer productId : productIds) {
-            reviews.add(reviewRepository.findTop1ByProductIdOrderByCreatedDateDesc(productId));
+            Review review = reviewRepository.findTop1ByProductIdOrderByCreatedDateDesc(productId);
+            if(review != null)
+                reviews.add(review);
         }
         return reviews;
 
