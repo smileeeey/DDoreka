@@ -4,13 +4,13 @@
     max-width="100%"
   >
     <v-card-title class="pb-0" style="font-weight: bold;">
-      {{item.date.getUTCFullYear()}}년 {{item.date.getUTCMonth()+1}}월 {{item.date.getUTCDate()}}일 주문취소
+      {{item.date|moment('YYYY년 MM월 DD일')}} 주문 취소
     </v-card-title>
 
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="item.img"
+          :src="`data:image/jpeg;base64,${item.img}`"
           max-height="120"
           max-width="120"
         ></v-img>
@@ -33,8 +33,9 @@
         color="blue"
         outlined
         text
+        @click="gotoDetail"
       >
-        장바구니 담기
+        상품 보러가기
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -45,6 +46,11 @@ export default {
   name: 'CancelOrderCard',
   props: {
     item: Object,
+  },
+  methods: {
+    gotoDetail() {
+      this.$router.push({ name: 'ItemDetail', params: {id: this.item.categoryId, productid: this.item.productId} })
+    },
   }
 }
 </script>

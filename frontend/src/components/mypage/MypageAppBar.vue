@@ -14,25 +14,25 @@
             <v-col cols="3" style="padding-bottom: 0; padding-right: 0;">
               <div style="" class="box2">
                 <p>결제완료</p>
-                <p>1개</p>
+                <p>{{prepareCnt + deliveryCnt + completeCnt}}개</p>
               </div>
             </v-col>
             <v-col cols="3" style="padding-bottom: 0; padding-left: 0; padding-right: 0;">
               <div style="" class="box2">
                 <p>상품준비중</p>
-                <p>1개</p>
+                <p>{{prepareCnt}}개</p>
               </div>
             </v-col>
             <v-col cols="3" style="padding-bottom: 0; padding-left: 0; padding-right: 0;">
               <div style="" class="box2">
                 <p>배송시작</p>
-                <p>1개</p>
+                <p>{{deliveryCnt}}개</p>
               </div>
             </v-col>
             <v-col cols="3" style="padding-bottom: 0; padding-left: 0; padding-right: 0;">
               <div style="" class="box2">
-                <p>배송중</p>
-                <p>1개</p>
+                <p>배송완료</p>
+                <p>{{completeCnt}}개</p>
               </div>
             </v-col>
           </v-row>
@@ -43,9 +43,36 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   name: 'MypageAppBar',
+  data() {
+    return {
+      prepareCnt: 0,
+      deliveryCnt: 0,
+      completeCnt: 0,
+    }
+  },
+  created() {
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/0`)
+      .then(res => {
+        this.prepareCnt = res.data.data.length
+      })
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/1`)
+      .then(res => {
+        this.deliveryCnt = res.data.data.length
+      })
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/2`)
+      .then(res => {
+        this.completeCnt = res.data.data.length
+      })
+  },
+  computed: {
+    ...mapState([
+      'userId',
+    ])
+  }
 }
 </script>
 

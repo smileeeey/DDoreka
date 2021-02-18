@@ -136,7 +136,11 @@ export default {
               })
                 .then(newres=> {
                   this.$store.dispatch("SETWISHLIST", newres.data.data)
-                  this.$router.push({ name: this.$route.query.next } || { name: 'Main' })
+                  if (this.$route.query.next) {
+                    this.$router.push({ name: this.$route.query.next })
+                  } else {
+                    this.$router.push({ name: 'Main' })
+                  }
                 })
             })
           // jwt token setting required
