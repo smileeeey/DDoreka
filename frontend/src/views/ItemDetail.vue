@@ -242,7 +242,7 @@ export default {
       clearInterval(this.polling);
       this.sendData();   
       this.mood = "감정분석 종료";
-      this.timer = 9999;
+      this.timer = 60;
     },
   },
   // -----------------위 내용 face app---------------------------------
@@ -262,7 +262,7 @@ export default {
     ])
   },
   beforeDestroy(){
-    if(this.timer >= 5 && this.timer <= 60)
+    if(this.timer >= 5 && this.timer < 60)
       this.stopAnalysis();
   },
 
