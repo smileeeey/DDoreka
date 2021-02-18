@@ -77,7 +77,7 @@ export default {
     getSFiles() {
       this.sFiles = [],
       this.sumnailUrl = '',
-      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+      axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.sFileIds.join(',')
         },
@@ -100,7 +100,7 @@ export default {
     },
     getMFiles() {
       this.mFiles = [],
-      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+      axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.mFileIds.join(',')
         },

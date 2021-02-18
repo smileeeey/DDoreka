@@ -59,7 +59,7 @@ export default {
   methods: {
     getEvents ({ start, end }) {
       const orders = [];
-      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${start.month}/`)
+      axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${start.month}/`)
         .then(res => {
           const dayInfo = res.data.data;
           for (let i=0; i<30; i++) {

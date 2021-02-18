@@ -123,7 +123,7 @@ export default {
   methods: {
     deliveryStart: function (idx) {
       this.deliverList.push(this.orderlist[idx])
-      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+      axios.put('https://i4d106.p.ssafy.io:8084/order', {
         'orderId': this.orderlist[idx].orderDetail.orderId,
         'checkDatetime': this.orderlist[idx].orderDetail.checkDatetime,
         'orderStatus': 'SHIPPING',
@@ -141,7 +141,7 @@ export default {
     },
     deliveryComplete: function (idx) {
       this.deliverComplete.push(this.deliverList[idx])
-      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+      axios.put('https://i4d106.p.ssafy.io:8084/order', {
         'orderId': this.deliverList[idx].orderDetail.orderId,
         'checkDatetime': this.deliverList[idx].orderDetail.checkDatetime,
         'orderStatus': 'DONE',
@@ -164,13 +164,13 @@ export default {
     ])
   },
   created() {
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
+    axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
       .then(res => {
         this.orderlist = res.data.data
-        axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
+        axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
           .then(delres => {
             this.deliverList = delres.data.data
-            axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
+            axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
               .then(comres => {
                 this.deliverComplete = comres.data.data
               })

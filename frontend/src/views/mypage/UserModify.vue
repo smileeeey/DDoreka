@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     changePhone: function () {
-      axios.put('http://i4d106.p.ssafy.io:8080/user/update/phone', {
+      axios.put('https://i4d106.p.ssafy.io:8080/user/update/phone', {
         email: this.email,
         phone: this.newphone
       })

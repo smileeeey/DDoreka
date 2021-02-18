@@ -27,7 +27,7 @@ export default {
   }),
   methods: {
     getTodayItems() {
-      axios.get('http://i4d106.p.ssafy.io:8084/order/recommend/todayhot')
+      axios.get('https://i4d106.p.ssafy.io:8084/order/recommend/todayhot')
       .then(res => {
         // console.log(res.data.data)
         this.todayItems = res.data.data

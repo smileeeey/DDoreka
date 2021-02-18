@@ -127,12 +127,12 @@ export default {
       this.$router.push({ name: 'Login' })
     }
     let items = [];
-    axios.get(`http://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
+    axios.get(`https://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
       .then(res => {
         res.data.forEach(item => {
-          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${item.product}`)
+          axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${item.product}`)
             .then(pres => {
-              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${pres.data.data.images[0].fileId}`)
+              axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe/${pres.data.data.images[0].fileId}`)
                 .then(ires => {
                   let array = [item.neutral, item.happy, item.sad, item.angry, item.fearful, item.disgusted, item.surprised]
                   let sumscore = array.reduce(function (a, b) {

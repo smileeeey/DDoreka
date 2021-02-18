@@ -46,9 +46,9 @@
           ></v-text-field> 
         </v-col>
         
-        <v-col style="padding-top: 0;">
+        <!-- <v-col style="padding-top: 0;">
           <p style="text-align: right; cursor: pointer; color: #0275d8;">비밀번호 찾기 ></p>
-        </v-col>
+        </v-col> -->
         
         <v-col cols="12">
           <v-btn style="background-color: #0275d8; color: white; 
@@ -113,23 +113,21 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+      axios.post('https://i4d106.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
-          console.log('login')
           localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('eureka-authorization')
-          console.log(token)
-          axios.post('http://i4d106.p.ssafy.io:8080/user/login', this.form, {
+          axios.post('https://i4d106.p.ssafy.io:8080/user/login', this.form, {
             headers: {
               'eureka-authorization': token,
             }
           })
             .then(response => {
               this.$store.dispatch("LOGIN", response.data.data)
-              axios.get(`http://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
+              axios.get(`https://i4d106.p.ssafy.io:8080/user/cart/${this.form.email}`, {
                 headers: {
                   'eureka-authorization': token,
                 }
@@ -147,7 +145,7 @@ export default {
           
         })
         .catch(err => {
-          console.log(err)
+          alert('로그인에 실패하였습니다. 비밀번호를 확인해주세요.')
         })
       
       

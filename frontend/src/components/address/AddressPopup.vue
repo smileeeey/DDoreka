@@ -44,14 +44,14 @@ export default {
     AddForm,
   },
   created () {
-    axios.get(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`)
+    axios.get(`https://i4d106.p.ssafy.io:8080/user/address/${this.email}`)
       .then(res => {
         this.addresses = res.data.data
       })
   },
   methods: {
     deleteAddress: function (addressId) {
-      axios.delete(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}/${addressId}`)
+      axios.delete(`https://i4d106.p.ssafy.io:8080/user/address/${this.email}/${addressId}`)
         .then(res => {
           this.addresses = res.data.data
         })

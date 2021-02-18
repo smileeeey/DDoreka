@@ -35,7 +35,7 @@ export default {
   }),
   methods: {
     getItem() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.todayItem.id}`)
+      axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${this.todayItem.id}`)
       .then(res => {
         // console.log(res.data.data)
         this.item = res.data.data
@@ -45,7 +45,7 @@ export default {
           }
         })
         // console.log(this.sFileIds)
-        axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+        axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
           params: {
             fileIds: this.sFileIds.join(',')
           },

@@ -187,7 +187,7 @@ export default {
       this.simages.forEach(file => {
         formData.append('files', file)
       })
-      axios.post('http://i4d106.p.ssafy.io:8082/file/upload', formData, {
+      axios.post('https://i4d106.p.ssafy.io:8082/file/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -203,7 +203,7 @@ export default {
           this.mimages.forEach(file => {
             formData.append('files', file)
           })
-          axios.post('http://i4d106.p.ssafy.io:8082/file/upload', formData, {
+          axios.post('https://i4d106.p.ssafy.io:8082/file/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -216,7 +216,7 @@ export default {
                 })
               })
 
-              axios.post('http://i4d106.p.ssafy.io:8081/product/add', {
+              axios.post('https://i4d106.p.ssafy.io:8081/product/add', {
                 'product': {
                   'storeId': this.seller.id,
                   'name': "'" + this.productname + "'",

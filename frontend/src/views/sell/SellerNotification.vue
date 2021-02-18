@@ -142,7 +142,7 @@ export default {
       let now = new Date()
       let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
       
-      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+      axios.put('https://i4d106.p.ssafy.io:8084/order', {
         'orderId': this.orders[idx].orderDetail.orderId,
         'checkDatetime': nowv,
         'orderStatus': this.orders[idx].orderDetail.orderStatus,
@@ -161,7 +161,7 @@ export default {
   },
   created() {
     let dataArray = []
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
+    axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
       .then(res => {
         res.data.data.forEach(order => {
           let csname = order.recipientName.substr(0, 1) + '*' + order.recipientName.substr(2, 1)
@@ -177,7 +177,7 @@ export default {
           let minute = order.datetime.substr(14, 2)
           let second = order.datetime.substr(17, 2)
           
-          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${order.productId}`)
+          axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${order.productId}`)
             .then(resp => {
               var productname = resp.data.data.name;
               for (let k=0; k < resp.data.data.options.length; k++) {

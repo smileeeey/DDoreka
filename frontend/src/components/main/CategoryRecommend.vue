@@ -27,7 +27,7 @@ export default {
   }),
   methods: {
     getCategories() {
-      axios.get('http://i4d106.p.ssafy.io:8081/product/recommend/latestproduct')
+      axios.get('https://i4d106.p.ssafy.io:8081/product/recommend/latestproduct')
       .then(res => {
         // console.log('카테고리별 추천!')
         // console.log(res.data.data)
@@ -39,7 +39,7 @@ export default {
       })
     },
     getKeywords() {
-      axios.get('http://i4d106.p.ssafy.io:8081/product/recommend/realtimesearchword')
+      axios.get('https://i4d106.p.ssafy.io:8081/product/recommend/realtimesearchword')
       .then(res => {
         // console.log('키워드 획득')
         // console.log(res.data.data)
