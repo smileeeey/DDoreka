@@ -153,6 +153,9 @@ export default {
     this.getItems()
   },
   // updated() {
+  //   this.getItems()
+  // },
+  // updated() {
   //   this.items = this.searchData.content
   //   this.originItems = this.items
   //   this.totalPages = this.searchData.totalPages

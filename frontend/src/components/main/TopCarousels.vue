@@ -4,6 +4,7 @@
       v-for="(item,i) in items"
       :key="i"
       :src="item.src"
+      @click="moveItemDetail(item)"
     ></v-carousel-item>
   </v-carousel>
 </template>
@@ -18,19 +19,19 @@ export default {
     items: [
       {
         src: require('@/assets/img/main/topcarousels/sample1.png'),
+        category3Id: 244,
+        productId: 223,
       },
       {
         src: require('@/assets/img/main/topcarousels/sample2.png'),
+        category3Id: 212,
+        productId: 41,
       },
       {
         src: require('@/assets/img/main/topcarousels/sample3.png'),
+        category3Id: 243,
+        productId: 209,
       },
-      {
-        src: require('@/assets/img/main/topcarousels/sample4.png'),
-      },
-      {
-        src: require('@/assets/img/main/topcarousels/sample5.png'),
-      },      
     ],
   }),
   methods: {
@@ -43,7 +44,11 @@ export default {
       .catch(err => {
         console.error(err)
       })      
-    }
+    },
+    moveItemDetail: function (item) {
+      // 추후 Item Detail페이지 url을 입력
+      this.$router.push({name: 'ItemDetail', params: {id: item.category3Id, productid: item.productId}})
+    },
   },
   created() {
     
