@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; justify-content: flex-end;">
     <div class="ml-5 mx-3" style="margin-top: 26px;">
-      <div @mouseover="MyEureka=true" style="cursor: pointer">
+      <div @mouseover="MyEureka=true" @click="$router.push({ name: 'MyFace' })" style="cursor: pointer">
         <v-icon x-large class="ml-5" style="height: 40px;">
           mdi-account-outline
         </v-icon>

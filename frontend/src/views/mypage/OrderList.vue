@@ -62,8 +62,7 @@ export default {
           let newD = new Date(y, m-1, d)
           axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
             .then(resp => {
-              console.log(resp)
-              console.log(resp.data.data.id)
+              var categoryId = resp.data.data.category3Id
               for (let k=0; k<resp.data.data.options.length; k++) {
                 if (resp.data.data.options[k].optionId == array[j].optionId) {
                   var optionprice = resp.data.data.options[k].price
@@ -81,9 +80,11 @@ export default {
                     date: newD,
                     status: array[j].orderDetail.orderStatus,
                     productId: resp.data.data.id,
+                    categoryId: categoryId,
                     optionId: array[j].optionId,
                     orderId: array[j].id,
                     userId: array[j].userId,
+                    orderDetail: array[j].orderDetail
                   })
                 })
             })

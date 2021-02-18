@@ -31,8 +31,10 @@
             MY 활동
           </v-list-item-title>
           <v-list-item-subtitle>
-            <a>
-              문의하기
+            <a
+              @click="$router.push({ name: 'MyFace' })"
+            >
+              My유레카
             </a>
           </v-list-item-subtitle>
           <v-list-item-subtitle>

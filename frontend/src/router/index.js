@@ -27,6 +27,11 @@ const routes = [
         name: 'Main',
         component: () => import('../views/Main.vue')
       },
+      {
+        path: '/myface',
+        name: 'MyFace',
+        component: () => import('../views/MyFace.vue')
+      },
       // category
       {
         path: '/category/:id/:depth',
