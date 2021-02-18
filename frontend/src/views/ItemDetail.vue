@@ -216,9 +216,9 @@ export default {
     },
     sendData: function() {
       axios
-        .post("http://localhost:8088/face/add", {
-          product: 123,
-          username: "sskim",
+        .post("http://i4d106.p.ssafy.io:8088/face/add", {
+          product: this.productId,
+          user: this.userId,
           happy: this.happy.toFixed(2),
           neutral: this.neutral.toFixed(2),
           sad: this.sad.toFixed(2),
@@ -227,6 +227,7 @@ export default {
           disgusted: this.disgusted.toFixed(2),
           surprised: this.surprised.toFixed(2),
           time: Math.floor(this.timer),
+          createdAt: new Date(),
         })
         .then((response) => {
           console.log(response);
@@ -271,6 +272,7 @@ export default {
   computed: {
     ...mapState([
       'login',
+      'userId',
     ])
   }
 }
