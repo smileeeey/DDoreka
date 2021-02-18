@@ -76,9 +76,9 @@
             />
           </div>
           <v-divider></v-divider>
-          <div class="mx-3">
-            <v-icon small class="mr-1">mdi-clock-outline</v-icon>
-            <strong class="caption mb-3">updated {{selectdata.face.createdAt | moment("from", "now")}}</strong>
+          <div class="mx-3 my-3">
+            <v-icon  class="mr-1">mdi-clock-outline</v-icon>
+            <span class=" mb-3">updated {{selectdata.face.createdAt | moment("from", "now")}}</span>
           </div>
         </v-card>
       </v-col>
