@@ -116,4 +116,15 @@ public class ReviewService {
 
         return reviews;
     }
+
+    public List<Review> getReviewsByProductIds(List<Integer> productIds) {
+
+        List<Review> reviews = new ArrayList<>();
+
+        reviewRepository.findTop5ByProductIdInOrderByCreatedDateDesc(productIds);
+
+
+        return reviews;
+
+    }
 }
