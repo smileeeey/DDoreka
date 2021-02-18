@@ -10,7 +10,10 @@
           <v-list-item>
             <v-list-item-content>
               <strong>총 매출</strong>
-              <span style="text-align: right">{{totalIncome | comma}}원</span>
+              <span style="text-align: right">{{chartdata.datasets[0].data[0] + chartdata.datasets[0].data[1] + chartdata.datasets[0].data[2]
+                + chartdata.datasets[0].data[3] + chartdata.datasets[0].data[4] + chartdata.datasets[0].data[5] + chartdata.datasets[0].data[6]
+                + chartdata.datasets[0].data[7] + chartdata.datasets[0].data[8] + chartdata.datasets[0].data[9] + chartdata.datasets[0].data[10]
+                + chartdata.datasets[0].data[11] | comma}}원</span>
             </v-list-item-content>
           </v-list-item>
 
@@ -38,7 +41,7 @@
           <v-list-item>
             <v-list-item-content>
               <strong>등록한 상품</strong>
-              <span style="text-align: right">75 개</span>
+              <span style="text-align: right">{{productCnt}} 개</span>
             </v-list-item-content>
           </v-list-item>
 
@@ -52,7 +55,7 @@
           <v-list-item>
             <v-list-item-content>
               <strong>총 판매량</strong>
-              <span style="text-align: right">8450 개</span>
+              <span style="text-align: right">{{callCnt + deliveryCnt + completeCnt}} 개</span>
             </v-list-item-content>
           </v-list-item>
 
@@ -119,7 +122,7 @@
       </v-col>
     </v-row>
 
-    <v-row style="my-5">
+    <v-row style="my-5" @click="componentKey += 1">
       <v-col
         cols="12"
         md="4"
@@ -211,12 +214,6 @@ export default {
     ...mapState([
       'seller',
     ]),
-    totalIncome: function () {
-      const result = this.chartdata.datasets[0].data.reduce(function add(a, b) {
-        return a + b
-      })
-      return result
-    },
     todayDate: function () {
       return new Date().getDate() - 1
     },
@@ -224,6 +221,7 @@ export default {
   created: function () {
     this.datarendering()
     this.getOrderInfo()
+    this.getProductCnt()
   },
 
 
@@ -240,7 +238,7 @@ export default {
             ];
           for (let i=1; i<13; i++) {
             
-            axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`)
+            axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`)
               .then(res=> {
                 var monthtotal = 0;
                 for (let j=0; j<30; j++) {
@@ -260,22 +258,26 @@ export default {
           this.chartdata.datasets[0].data = tmpdata
           this.linedata.datasets[0].data = tmpthismonthdata
     },
-    check() {
-      console.log(this.$route)
-      this.componentKey += 1
-    },
+
     getOrderInfo() {
-      axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
+      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
         .then(res => {
           this.callCnt = res.data.data.length
-          axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
+          axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
             .then(delres => {
               this.deliveryCnt = delres.data.data.length
-              axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
+              axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
                 .then(comres => {
                   this.completeCnt = comres.data.data.length
                 })
             })
+        })
+    },
+
+    getProductCnt() {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
+        .then(res => {
+          this.productCnt = res.data.data.length
         })
     }
   }

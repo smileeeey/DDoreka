@@ -55,15 +55,15 @@ export default {
     }
   },
   created() {
-    axios.get(`https://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/0`)
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/0`)
       .then(res => {
         this.prepareCnt = res.data.data.length
       })
-    axios.get(`https://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/1`)
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/1`)
       .then(res => {
         this.deliveryCnt = res.data.data.length
       })
-    axios.get(`https://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/2`)
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/2`)
       .then(res => {
         this.completeCnt = res.data.data.length
       })

@@ -7,16 +7,6 @@
     flat
     height="75"
   >
-    <!-- <v-btn
-      class="mr-3"
-      elevation="1"
-      fab
-      small
-    >
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn> -->
-
-
     <v-spacer />
 
     <v-btn
@@ -34,16 +24,7 @@
       text
       to="/notification"
     >
-      <v-badge
-        color="red"
-        overlap
-        bordered
-      >
-        <template v-slot:badge>
-          <span>{{alarm}}</span>
-        </template>
-        <v-icon>mdi-earth</v-icon>
-      </v-badge>
+      <v-icon>mdi-bell</v-icon>
     </v-btn>
 
     <v-btn
@@ -54,6 +35,14 @@
     >
       <v-icon>mdi-account</v-icon>
     </v-btn>
+    <v-btn
+      class="ml-2"
+      min-width="0"
+      text
+      @click="logout"
+    >
+      로그아웃
+    </v-btn>
 
   </v-app-bar>
 </template>
@@ -63,8 +52,16 @@ export default {
   name: 'SellerAppBar',
   data () {
     return {
-      alarm: 3,
     }
+  },
+  methods: {
+    logout() {
+      this.$store
+        .dispatch("SELLERLOGOUT")
+        .then(() => {
+          if (this.$route.path !== "/") this.$router.replace("/");
+        })
+    },
   }
 }
 </script>

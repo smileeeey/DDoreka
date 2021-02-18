@@ -109,29 +109,22 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('https://i4d106.p.ssafy.io:8088/login', {
+      axios.post('http://i4d106.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
-          console.log('1st')
-          console.log(res.data)
           localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('seller-eureka-authorization')
-          axios.get(`https://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
+          axios.get(`http://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
             headers: {
               'eureka-authorization': token
             }
           })
             .then(response=> {
-              console.log('2nd')
-              console.log(response.data)
               this.$store.dispatch("SETSELLERINFO", response.data)
-              console.log(response.data)
-              axios.get(`https://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
+              axios.get(`http://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
                 .then(resp => {
-                  console.log('3rd')
-                  console.log(resp.data)
                   this.$store.dispatch('SETSELLERSTORE', resp.data)
                   this.$router.push({ name: 'Dashboard' });
                 })
@@ -140,6 +133,9 @@ export default {
                 })
             })
 
+        })
+        .catch(_ => {
+          alert('로그인에 실패했습니다. 비밀번호를 확인해 주세요.')
         })
       
     }

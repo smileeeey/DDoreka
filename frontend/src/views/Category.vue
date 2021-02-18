@@ -60,7 +60,7 @@ export default {
       this.depth = this.$route.params.depth  
     },
     getItems() {
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
         params: {
           page: this.page - 1,
           size: this.size,
@@ -139,7 +139,7 @@ export default {
   // },
   watch: {
     page: function() {
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
         params: {
           page: this.page - 1,
           size: this.size,

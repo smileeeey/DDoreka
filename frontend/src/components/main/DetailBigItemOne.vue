@@ -28,7 +28,7 @@ export default {
         }
       })
       // console.log(this.sFileIds)
-      axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
+      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.sFileIds.join(',')
           // fileIds: '1, 2'

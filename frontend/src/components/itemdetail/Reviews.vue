@@ -43,7 +43,7 @@ export default {
         this.nowUserId = this.userId
       }
       // console.log(this.nowUserId)
-      axios.get(`https://i4d106.p.ssafy.io:8083/review/get/${this.productId}/${this.nowUserId}`)
+      axios.get(`http://i4d106.p.ssafy.io:8083/review/get/${this.productId}/${this.nowUserId}`)
       .then(res => {
         // console.log(res.data.data)
         this.reviews = res.data.data

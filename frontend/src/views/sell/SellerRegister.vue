@@ -76,6 +76,7 @@
               color="primary"
               @click="e1 = 3"
               style="margin-right: 2rem;"
+              :disabled="!productname || !options[0].name || !options[0].stockQuantity || !options[0].price || !options[0].discountPrice"
             >
               다음
             </v-btn>
@@ -106,6 +107,7 @@
               color="primary"
               @click="e1 = 4"
               style="margin-right: 2rem;"
+              :disabled="!simages || !mimages"
             >
               다음
             </v-btn>
@@ -131,6 +133,7 @@
               color="primary"
               style="margin-right: 2rem;"
               @click="registerItem"
+              :disabled="!detailInfo"
             >
               등록
             </v-btn>
@@ -164,6 +167,7 @@ export default {
   },
   created() {
     if (!this.sellerstore.id) {
+      alert('매장 등록 후 상품등록을 진행할 수 있습니다!')
       this.$router.push({ name: 'SellerProfile' })
     }
   },
@@ -187,7 +191,7 @@ export default {
       this.simages.forEach(file => {
         formData.append('files', file)
       })
-      axios.post('https://i4d106.p.ssafy.io:8082/file/upload', formData, {
+      axios.post('http://i4d106.p.ssafy.io:8082/file/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -203,7 +207,7 @@ export default {
           this.mimages.forEach(file => {
             formData.append('files', file)
           })
-          axios.post('https://i4d106.p.ssafy.io:8082/file/upload', formData, {
+          axios.post('http://i4d106.p.ssafy.io:8082/file/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -216,7 +220,7 @@ export default {
                 })
               })
 
-              axios.post('https://i4d106.p.ssafy.io:8081/product/add', {
+              axios.post('http://i4d106.p.ssafy.io:8081/product/add', {
                 'product': {
                   'storeId': this.seller.id,
                   'name': "'" + this.productname + "'",
@@ -232,8 +236,6 @@ export default {
               })
                 .then(r => {
                   console.log(r)
-                  console.log(r.data)
-                  console.log('router go')
                   this.$router.push({ name: 'SellerProductList' })
                 })
 

@@ -184,7 +184,7 @@ export default {
             "recipientName": this.address.name,
             "deliveryMsg": this.address.comment
       }
-      axios.post(`https://i4d106.p.ssafy.io:8080/user/address/${this.email}`, form, {})
+      axios.post(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`, form, {})
         .then(res => {
           this.$emit('saveAddress', res.data.data)
         })
