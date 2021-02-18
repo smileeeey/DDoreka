@@ -118,12 +118,10 @@ public class ReviewService {
     }
 
     public List<Review> getReviewsByProductIds(List<Integer> productIds) {
-
-        List<Review> reviews = new ArrayList<>();
-
-        reviewRepository.findTop5ByProductIdInOrderByCreatedDateDesc(productIds);
-
-
+        List<Review> reviews =  new ArrayList<>();
+        for (Integer productId : productIds) {
+            reviews.add(reviewRepository.findTop1ByProductIdOrderByCreatedDateDesc(productId));
+        }
         return reviews;
 
     }
