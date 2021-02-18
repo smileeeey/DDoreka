@@ -114,7 +114,7 @@ export default {
       // delete axios request
       console.log(this.items[idx].cartId)
       const token = localStorage.getItem('eureka-authorization')
-      axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[idx].cartId}`, {}, {
+      axios.delete(`https://i4d106.p.ssafy.io:8080/user/cart/${this.items[idx].cartId}`, {}, {
         headers: {
           'eureka-authorization': token,
         }

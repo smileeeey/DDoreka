@@ -73,7 +73,7 @@ export default {
       // for (let [key, value] of formData.entries()) {
       //   console.log(`${key}: ${value}`)
       // }
-      axios.post('http://i4d106.p.ssafy.io:8082/file/upload', formData, {
+      axios.post('https://i4d106.p.ssafy.io:8082/file/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -92,7 +92,7 @@ export default {
     },
     saveReview() {
       console.log('saveReview!')
-      axios.post('http://i4d106.p.ssafy.io:8083/review/write', {
+      axios.post('https://i4d106.p.ssafy.io:8083/review/write', {
         review: {
           orderId: this.orderId,
           optionId: this.optionId,

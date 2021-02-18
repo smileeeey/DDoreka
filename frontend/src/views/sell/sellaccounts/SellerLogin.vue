@@ -46,10 +46,6 @@
           ></v-text-field> 
         </v-col>
         
-        <v-col style="padding-top: 0;">
-          <p style="text-align: right; cursor: pointer; color: #0275d8;">비밀번호 찾기 ></p>
-        </v-col>
-        
         <v-col cols="12">
           <v-btn style="background-color: #0275d8; color: white; 
             font-size: 1.5rem; font-weight: bold; 
@@ -113,7 +109,7 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+      axios.post('https://i4d106.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
@@ -122,7 +118,7 @@ export default {
           console.log(res.data)
           localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('seller-eureka-authorization')
-          axios.get(`http://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
+          axios.get(`https://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
             headers: {
               'eureka-authorization': token
             }
@@ -132,7 +128,7 @@ export default {
               console.log(response.data)
               this.$store.dispatch("SETSELLERINFO", response.data)
               console.log(response.data)
-              axios.get(`http://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
+              axios.get(`https://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
                 .then(resp => {
                   console.log('3rd')
                   console.log(resp.data)

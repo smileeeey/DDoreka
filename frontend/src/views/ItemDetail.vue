@@ -96,7 +96,7 @@ export default {
   //
   methods: {
     getItem() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
+      axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
         .then(res => {
           console.log(res.data.data)
           this.item = res.data.data
@@ -109,7 +109,7 @@ export default {
               this.mFileIds.push(image.fileId)
             }
           })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+          axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
             params: {
               fileIds: this.sFileIds.join(',')
             },
@@ -124,7 +124,7 @@ export default {
             .catch(err => {
               console.log(err)
             })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+          axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
             params: {
               fileIds: this.mFileIds.join(',')
             },

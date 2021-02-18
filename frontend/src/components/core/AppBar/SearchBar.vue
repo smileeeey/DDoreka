@@ -40,7 +40,7 @@ export default {
   }),
   methods: {
     getCategoryName() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
+      axios.get(`https://i4d106.p.ssafy.io:8081/category/mainCategory`)
       .then(res => {
         this.categoryNames = res.data.data
         this.categoryNames.unshift({

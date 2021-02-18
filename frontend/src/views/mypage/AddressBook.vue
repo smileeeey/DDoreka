@@ -44,7 +44,7 @@ export default {
     },
     deleteAddress: function (addressId) {
       // this.addresses.splice(idx, 1)
-      axios.delete(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}/${addressId}`)
+      axios.delete(`https://i4d106.p.ssafy.io:8080/user/address/${this.email}/${addressId}`)
         .then(res => {
           console.log(res)
           this.addresses = res.data.data
@@ -61,7 +61,7 @@ export default {
     ])
   },
   created() {
-    axios.get(`http://i4d106.p.ssafy.io:8080/user/address/${this.email}`)
+    axios.get(`https://i4d106.p.ssafy.io:8080/user/address/${this.email}`)
       .then(res => {
         this.addresses = res.data.data
       })

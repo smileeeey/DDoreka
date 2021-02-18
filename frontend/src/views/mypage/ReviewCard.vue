@@ -79,7 +79,7 @@ export default {
       })
     },
     getFiles() {
-      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
+      axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.fileIds.join(',')
         },

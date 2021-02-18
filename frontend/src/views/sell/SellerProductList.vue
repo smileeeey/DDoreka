@@ -167,7 +167,7 @@ export default {
     ])
   },
   created: function () {
-    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
+    axios.get(`https://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
       .then(res => {
         let productslist = res.data.data;
         const productsize = productslist.length
@@ -176,14 +176,14 @@ export default {
 
         for(let i=0; i<productsize; i++) {
           let ctid = productslist[i].category1Id
-          axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
+          axios.get(`https://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
             .then(r => {
               let data = r.data.data
               let sumdata = data.reduce(function(a, b) {
                 return a + b
               })
               if (productslist[i].images.length > 0) {
-                axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
+                axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
                   .then(res => {
                     let tmp = productslist[i].registerDate.split('T')
                     for (let j=0; j<productslist[i].options.length; j++) {
