@@ -76,6 +76,7 @@
               color="primary"
               @click="e1 = 3"
               style="margin-right: 2rem;"
+              :disabled="!productname || !options[0].name || !options[0].stockQuantity || !options[0].price || !options[0].discountPrice"
             >
               다음
             </v-btn>
@@ -106,6 +107,7 @@
               color="primary"
               @click="e1 = 4"
               style="margin-right: 2rem;"
+              :disabled="!simages || !mimages"
             >
               다음
             </v-btn>
@@ -131,6 +133,7 @@
               color="primary"
               style="margin-right: 2rem;"
               @click="registerItem"
+              :disabled="!detailInfo"
             >
               등록
             </v-btn>
@@ -164,6 +167,7 @@ export default {
   },
   created() {
     if (!this.sellerstore.id) {
+      alert('매장 등록 후 상품등록을 진행할 수 있습니다!')
       this.$router.push({ name: 'SellerProfile' })
     }
   },
@@ -232,8 +236,6 @@ export default {
               })
                 .then(r => {
                   console.log(r)
-                  console.log(r.data)
-                  console.log('router go')
                   this.$router.push({ name: 'SellerProductList' })
                 })
 

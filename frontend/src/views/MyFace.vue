@@ -111,7 +111,25 @@ export default {
         { text: '제품감상시간 (초)', value: 'face.time' },
       ],
       items: [
-
+        {
+                    img: 'ires.data.data.imageBytes',
+                    product: '상품',
+                    face: {
+                      createdAt: new Date(),
+                    },
+                    happyscore: 80,
+                    surprisescore: 20,
+                    doughnutChartdata: {
+                      labels: ['중립', '행복', '슬픔', '분노', '두려움', '역겨움', '놀람'],
+                      datasets: [
+                        {
+                          label: '표정',
+                          backgroundColor: ['#5DA5DA', '#FAA43A', '#F15854', '#F17CB0', '#B276B2', '#DECF3F', '#60BD68'],
+                          data: [1, 2, 3, 4, 5, 6, 7]
+                        }
+                      ]
+                    }
+                  }
       ],
       selectdata: null,
     }
@@ -123,9 +141,9 @@ export default {
     ]),
   },
   created () {
-    if (!this.login) {
-      this.$router.push({ name: 'Login' })
-    }
+    // if (!this.login) {
+    //   this.$router.push({ name: 'Login' })
+    // }
     let items = [];
     axios.get(`http://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
       .then(res => {
@@ -149,7 +167,7 @@ export default {
                       datasets: [
                         {
                           label: '표정',
-                          backgroundColor: ['yellow', 'green', 'pink', 'red', 'blue', 'black', 'purple'],
+                          backgroundColor: ['#5DA5DA', '#FAA43A', '#F15854', '#F17CB0', '#B276B2', '#DECF3F', '#60BD68'],
                           data: array
                         }
                       ]

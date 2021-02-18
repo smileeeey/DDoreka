@@ -238,9 +238,6 @@ export default {
     saveAddress: function () {
       this.store.zipcode = document.getElementById('zipcode').value
       this.store.main_address = document.getElementById('main_address').value
-      console.log('this is store')
-      console.log(this.store)
-      console.log(this.seller)
       axios.post('http://i4d106.p.ssafy.io:8088/store/add', {
         'sellerId': this.seller.id,
         'phone': this.store.phone,
@@ -250,8 +247,7 @@ export default {
         'zipcode': this.store.zipcode,
       })
         .then(res => {
-          console.log('store add')
-          console.log(res)
+          alert('매장 정보가 수정되었습니다.')
           this.$store.dispatch("SETSELLERSTORE", res.data)
         })
       
