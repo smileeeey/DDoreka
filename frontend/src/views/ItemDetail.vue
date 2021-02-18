@@ -81,6 +81,7 @@ export default {
     image: null,
     show: false,
     timer: 0,
+    faceCreatedAt: ""
   }),
   mounted(){
     this.init(this.getEmotion);
@@ -159,6 +160,7 @@ export default {
     async getEmotion() {
       var self = this;
       const image = this.$children[0].$children[0].webcam.webcamElement;
+      this.faceCreatedAt = new Date()
       this.polling = setInterval(async () => {
         const userExpression = await faceapi
           .detectSingleFace(image)
@@ -167,8 +169,7 @@ export default {
         if (typeof userExpression === "undefined") {
           this.show = false;
           this.$refs["error-modal"].show();
-        } else {
-          // console.log(this.timer);
+        } else {          
           this.show = false;
           var expression = Object.keys(userExpression.expressions).reduce(
             function(a, b) {
@@ -179,6 +180,7 @@ export default {
             }
           );
         }
+
         if(expression == 'neutral')
           expression = '😃 중립'
         else if(expression == 'happy')
@@ -193,6 +195,7 @@ export default {
           expression = '😵 역겨움'
         else 
           expression = '😲 놀람'
+
         this.setMood(expression);
         this.timer += 0.1;
         this.neutral += userExpression.expressions["neutral"];
@@ -202,7 +205,7 @@ export default {
         this.fearful += userExpression.expressions["fearful"];
         this.disgusted += userExpression.expressions["disgusted"];
         this.surprised += userExpression.expressions["surprised"];
-        if (this.timer >= 60) this.stopAnalysis();
+        if (this.timer >= 20) this.stopAnalysis();
       }, 100);
     },
     setMood(mood) {
@@ -217,8 +220,8 @@ export default {
     sendData: function() {
       axios
         .post("http://localhost:8088/face/add", {
-          product: 123,
-          username: "sskim",
+          product: 14,
+          user: 123,
           happy: this.happy.toFixed(2),
           neutral: this.neutral.toFixed(2),
           sad: this.sad.toFixed(2),
@@ -227,6 +230,7 @@ export default {
           disgusted: this.disgusted.toFixed(2),
           surprised: this.surprised.toFixed(2),
           time: Math.floor(this.timer),
+          createdAt: this.faceCreatedAt
         })
         .then((response) => {
           console.log(response);
@@ -237,24 +241,7 @@ export default {
     },
     stopAnalysis() {
       clearInterval(this.polling);
-      // alert(
-      //   this.happy.toFixed(2) +
-      //     "\n" +
-      //     this.neutral.toFixed(2) +
-      //     "\n" +
-      //     this.sad.toFixed(2) +
-      //     "\n" +
-      //     this.angry.toFixed(2) +
-      //     "\n" +
-      //     this.fearful.toFixed(2) +
-      //     "\n" +
-      //     this.disgusted.toFixed(2) +
-      //     "\n" +
-      //     this.surprised.toFixed(2)
-      // );
-      //axios call
-      this.sendData();
-      //this.timer = 0;
+      this.sendData();   
       this.mood = "감정분석 종료";
     },
   },
@@ -272,6 +259,9 @@ export default {
     ...mapState([
       'login',
     ])
+  },
+  beforeDestroy(){
+    this.stopAnalysis();
   }
 }
 </script>
