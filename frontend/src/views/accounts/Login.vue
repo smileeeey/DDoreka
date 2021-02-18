@@ -113,21 +113,21 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://localhost:8088/login', {
+      axios.post('https://localhost:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
           localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('eureka-authorization')
-          axios.post('http://localhost:8080/user/login', this.form, {
+          axios.post('https://localhost:8080/user/login', this.form, {
             headers: {
               'eureka-authorization': token,
             }
           })
             .then(response => {
               this.$store.dispatch("LOGIN", response.data.data)
-              axios.get(`http://localhost:8080/user/cart/${this.form.email}`, {
+              axios.get(`https://localhost:8080/user/cart/${this.form.email}`, {
                 headers: {
                   'eureka-authorization': token,
                 }
