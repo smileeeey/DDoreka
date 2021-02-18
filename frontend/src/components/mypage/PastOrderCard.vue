@@ -91,7 +91,7 @@ export default {
     },
     refund() {
       this.item.status = 'REFUND';
-      axios.put('https://i4d106.p.ssafy.io:8084/order', {
+      axios.put('http://i4d106.p.ssafy.io:8084/order', {
         orderId: this.item.orderId,
         checkDatetime: this.item.checkDatetime,
         orderStatus: 'REFUND',

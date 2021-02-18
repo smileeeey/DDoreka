@@ -80,6 +80,10 @@ export default new Vuex.Store({
     changephone(state, data) {
       state.phone = data
     },
+    sellerlogout(state) {
+      state.seller = {};
+      state.sellerstore = {};
+    },
   },
   actions: {
     LOGOUT({ commit }) {
@@ -113,6 +117,10 @@ export default new Vuex.Store({
     },
     CHANGEPHONE({ commit }, data) {
       commit("changephone", data)
+    },
+    SELLERLOGOUT({ commit }) {
+      commit("sellerlogout");
+      localStorage.removeItem("seller-eureka-authorization")
     },
   },
   modules: {

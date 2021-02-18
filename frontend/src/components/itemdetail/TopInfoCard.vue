@@ -117,7 +117,7 @@ export default {
       const quantity = this.quantity
       const token = localStorage.getItem('eureka-authorization')
       if (token) {
-        axios.post('https://i4d106.p.ssafy.io:8080/user/cart', {
+        axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
           userEmail: userEmail,
           productId: productId,
           optionId: optionId,
@@ -149,7 +149,7 @@ export default {
       const quantity = this.quantity
       const token = localStorage.getItem('eureka-authorization')
       if (token) {
-        axios.post('https://i4d106.p.ssafy.io:8080/user/cart', {
+        axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
           userEmail: userEmail,
           productId: productId,
           optionId: optionId,

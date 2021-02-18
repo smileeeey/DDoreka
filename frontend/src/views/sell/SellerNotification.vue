@@ -15,17 +15,18 @@
                 <div
                   class="box colorbox"
                 >
-                  <div>{{review.productname}}
+                  <p>{{review.review.createdDate|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
+                  <div>{{review.product.name}}
                     <v-rating
                       style="display: inline"
                       color="yellow"
                       readonly
-                      :value="review.rating"
+                      :value="review.review.rating"
                     ></v-rating>
                     <v-icon @click="deleteReview(idx)" style="position: absolute; right: 25px;">mdi-close</v-icon>
                   </div>
-                  
-                  <span>{{review.content}}</span>
+                  <p>제목 : {{review.review.title}}</p>
+                  <span>내용 : {{review.review.content}}</span>
                 </div>
               </div>
             </div>
@@ -84,48 +85,11 @@ export default {
   name: 'SellerNotification',
   data: () =>({
     reviews: [
-      {
-        color: 'success',
-        content: '잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다잘쓰고있습니다',
-        rating: 5,
-        productname: '루나걸 여성용 니트'
-      },
-      {
-        color: 'error',
-        content: 'ipsum lorem',
-        rating: 4,
-        productname: '캐럿 여성 와이드 밴딩 팬츠'
-      },
-      {
-        color: 'warning',
-        content: 'ㅋㅋ',
-        rating: 3,
-        productname: '루나걸 여성용 니트'
-      },
+
     ],
 
     orders: [
-      {
-        cancel: false,
-        productname: '루나걸 여성용 니트',
-        amount: 3,
-        time: new Date(),
-        ordercode: 'AC1398E0123E',
-      },
-      {
-        cancel: true,
-        productname: '루나걸 여성용 니트',
-        amount: 3,
-        time: new Date(),
-        ordercode: 'AC1398E0123E',
-      },
-      {
-        cancel: false,
-        productname: '캐럿 여성 와이드 밴딩 팬츠',
-        amount: 1,
-        time: new Date(),
-        ordercode: '92103EN1WE',
-      },
+
     ]
   }),
   computed: {
@@ -142,7 +106,7 @@ export default {
       let now = new Date()
       let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
       
-      axios.put('https://i4d106.p.ssafy.io:8084/order', {
+      axios.put('http://i4d106.p.ssafy.io:8084/order', {
         'orderId': this.orders[idx].orderDetail.orderId,
         'checkDatetime': nowv,
         'orderStatus': this.orders[idx].orderDetail.orderStatus,
@@ -161,7 +125,7 @@ export default {
   },
   created() {
     let dataArray = []
-    axios.get(`https://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
       .then(res => {
         res.data.data.forEach(order => {
           let csname = order.recipientName.substr(0, 1) + '*' + order.recipientName.substr(2, 1)
@@ -177,7 +141,7 @@ export default {
           let minute = order.datetime.substr(14, 2)
           let second = order.datetime.substr(17, 2)
           
-          axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${order.productId}`)
+          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${order.productId}`)
             .then(resp => {
               var productname = resp.data.data.name;
               for (let k=0; k < resp.data.data.options.length; k++) {
@@ -206,6 +170,29 @@ export default {
 
       })
       this.orders = dataArray
+    let reviewArray = []
+    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
+      .then(res => {
+        let A = '';
+        res.data.data.forEach(item => {
+          A += item.id,
+          A += ','
+        })
+        axios.get(`http://i4d106.p.ssafy.io:8083/review/getbyproductids?productIds=${A}`)
+          .then(resp => {
+            let reviewCnt = resp.data.data.length
+            for (let i=0; i<reviewCnt; i++) {
+              axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${resp.data.data[i].productId}`)
+                .then(pres => {
+                  reviewArray.push({
+                    product: pres.data.data,
+                    review: resp.data.data[i]
+                  })
+                })
+            }
+            this.reviews = reviewArray
+          })
+      })
   }
 }
 </script>

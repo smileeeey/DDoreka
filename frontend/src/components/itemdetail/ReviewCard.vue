@@ -84,7 +84,7 @@ export default {
       })
     },
     getFiles() {
-      axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe`, {
+      axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
         params: {
           fileIds: this.fileIds.join(',')
         },
@@ -106,7 +106,7 @@ export default {
     changeLike() {
       if (this.heartState === 'mdi-heart-outline') {
         this.heartState = 'mdi-heart'
-        axios.post('https://i4d106.p.ssafy.io:8083/review/like', {
+        axios.post('http://i4d106.p.ssafy.io:8083/review/like', {
           reviewId: this.review.id,
           userId: this.userId,
           likeox: '1'
@@ -120,7 +120,7 @@ export default {
         })
       } else {
         this.heartState = 'mdi-heart-outline'
-        axios.delete(`https://i4d106.p.ssafy.io:8083/review/dislike/${this.review.id}/${this.userId}`)
+        axios.delete(`http://i4d106.p.ssafy.io:8083/review/dislike/${this.review.id}/${this.userId}`)
         .then(res => {
           console.log(res)
           this.reviewlikeCnt--

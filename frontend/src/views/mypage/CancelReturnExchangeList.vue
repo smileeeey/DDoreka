@@ -37,7 +37,7 @@ export default {
   },
   created: function () {
     let dataArray = [];
-    axios.get(`https://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/3`)
+    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/3`)
       .then(res => {
         let array = res.data.data;
         for (let j=0; j<array.length; j++) {
@@ -46,7 +46,7 @@ export default {
           var m = date.substr(5, 2);
           var d = date.substr(8, 2);
           let newD = new Date(y, m-1, d)
-          axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
+          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
             .then(resp => {
               var categoryId = resp.data.data.category3Id
               for (let k=0; k<resp.data.data.options.length; k++) {
@@ -56,7 +56,7 @@ export default {
                   break;
                 }
               }
-              axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe/${resp.data.data.images[0].fileId}`)
+              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${resp.data.data.images[0].fileId}`)
                 .then(respo => {
                   dataArray.push({
                     img: respo.data.data.imageBytes,

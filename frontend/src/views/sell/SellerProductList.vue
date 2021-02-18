@@ -111,38 +111,7 @@ export default {
           { text: '총 매출', value: 'totalincome' },
         ],
         items: [
-          {
-            index: 1,
-            created_at: '2020-10-02',
-            totalincome: '1180000',
-            productname: '민트위니 여성용 미키기모셋',
-            cost: 22900,
-            amount: 132,
-            img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
-            chartdata: {
-              labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
-              datasets: [
-                {
-                  label: '주간 매출',
-                  backgroundColor: 'purple',
-                  borderColor: 'skyblue',
-                  data: [40, 20, 30, 60, 15, 30, 25],
-                  fill: false,
-                  lineTension: 0
-                }
-              ]
-            },
-            doughnutChartdata: {
-              labels: ['무슨', '내용을', '넣어볼까요'],
-              datasets: [
-                {
-                  label: 'Something',
-                  backgroundColor: ['yellow', 'green', 'pink'],
-                  data: [60, 10, 30]
-                }
-              ]
-            }
-          },
+        
         ],
         selectdata: null,
     }
@@ -167,7 +136,7 @@ export default {
     ])
   },
   created: function () {
-    axios.get(`https://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
+    axios.get(`http://i4d106.p.ssafy.io:8081/product/seller/all/${this.seller.id}`)
       .then(res => {
         let productslist = res.data.data;
         const productsize = productslist.length
@@ -176,82 +145,65 @@ export default {
 
         for(let i=0; i<productsize; i++) {
           let ctid = productslist[i].category1Id
-          axios.get(`https://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
+          axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
             .then(r => {
               let data = r.data.data
               let sumdata = data.reduce(function(a, b) {
                 return a + b
               })
-              if (productslist[i].images.length > 0) {
-                axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
-                  .then(res => {
-                    let tmp = productslist[i].registerDate.split('T')
-                    for (let j=0; j<productslist[i].options.length; j++) {
-                      if (productslist[i].options[j].stockQuantity - sumdata > -1) {
-                        var computedStock = productslist[i].options[j].stockQuantity - sumdata
-                      } else {
-                        var computedStock = 0
+
+              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${productslist[i].images[0].fileId}`)
+                .then(res => {
+                  let tmp = productslist[i].registerDate.split('T')
+                  for (let j=0; j<productslist[i].options.length; j++) {
+                    if (productslist[i].options[j].stockQuantity - sumdata > -1) {
+                      var computedStock = productslist[i].options[j].stockQuantity - sumdata
+                    } else {
+                      var computedStock = 0
+                    }
+                    newItems.push({
+                      index: idx,
+                      created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
+                      totalincome: sumdata * productslist[i].options[j].price,
+                      productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
+                      cost: productslist[i].options[j].price,
+                      amount: computedStock,
+                      img: res.data.data.imageBytes,
+                      rating: productslist[i].rating,
+                      reviewCnt: productslist[i].reviewCnt,
+                      pdid: productslist[i].id,
+                      ctid: ctid,
+                      chartdata: {
+                        labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
+                        datasets: [
+                          {
+                            label: '요일별 매출',
+                            backgroundColor: 'skyblue',
+                            borderColor: 'skyblue',
+                            data: data,
+                            fill: false,
+                            lineTension: 0
+                          }
+                        ],
+                      },
+                      doughnutChartdata: {
+                        labels: ['판매수', '재고'],
+                        datasets: [
+                          {
+                            label: 'Something',
+                            backgroundColor: ['#FF414D', '#D9ECF2'],
+                            data: [sumdata, computedStock]
+                          }
+                        ]
                       }
-                      newItems.push({
-                        index: idx,
-                        created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
-                        totalincome: sumdata * productslist[i].options[j].price,
-                        productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
-                        cost: productslist[i].options[j].price,
-                        amount: computedStock,
-                        img: res.data.data.imageBytes,
-                        rating: productslist[i].rating,
-                        reviewCnt: productslist[i].reviewCnt,
-                        pdid: productslist[i].id,
-                        ctid: ctid,
-                        chartdata: {
-                          labels: ['SUN', 'MON', 'TUE', 'WED', "THU", "FRI", 'SAT'],
-                          datasets: [
-                            {
-                              label: '주간 매출',
-                              backgroundColor: 'purple',
-                              borderColor: 'skyblue',
-                              data: data,
-                              fill: false,
-                              lineTension: 0
-                            }
-                          ],
-                        },
-                        doughnutChartdata: {
-                          labels: ['판매수', '재고'],
-                          datasets: [
-                            {
-                              label: 'Something',
-                              backgroundColor: ['red', 'green'],
-                              data: [sumdata, computedStock]
-                            }
-                          ]
-                        }
-                      })
-                      idx += 1
-                    }
-                    
-                  })
-                  .catch(res => {
-                    console.log(res)
-                  })
-              } else {
-                    let tmp = productslist[i].registerDate.split('T')
-                    for (let j=0; j<productslist[i].options.length; j++) {
-                      newItems.push({
-                        index: idx,
-                        created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
-                        totalincome: '1000000',
-                        productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
-                        cost: productslist[i].options[j].price,
-                        amount: productslist[i].options[j].stockQuantity,
-                        img: res.data.data.imageBytes,
-                        rating: productslist[i].rating,
-                        reviewCnt: productslist[i].reviewCnt,
-                      })
-                      idx += 1
-                    }
-              }
+                    })
+                    idx += 1
+                  }
+                  
+                })
+                .catch(res => {
+                  console.log(res)
+                })
             })
 
         }

@@ -232,7 +232,7 @@ export default {
         for (let i=0; i<this.items.length; i++) {
           if (this.items[i].select == true) {
             console.log('order')
-            axios.post('https://i4d106.p.ssafy.io:8084/order', {
+            axios.post('http://i4d106.p.ssafy.io:8084/order', {
               'userId': this.userId,
               'productId': sortwishlist[i].productId,
               'optionId': sortwishlist[i].optionId,
@@ -250,7 +250,7 @@ export default {
               .then(res => {
                 console.log(res)
                 console.log(res.data)
-                axios.delete(`https://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
+                axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
                   .then(r => {
                     console.log(r)
                     this.$store.dispatch('PAYWISHLIST', this.items[i].cartId)
@@ -266,7 +266,7 @@ export default {
     for (let i=0; i<this.wishlist.length; i++) {
       let cartId = this.wishlist[i].id
       let optionV = this.wishlist[i].optionId
-      axios.get(`https://i4d106.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
+      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
         .then(detailres => {
           let productName = detailres.data.data.name
           let optionName = null;
@@ -279,7 +279,7 @@ export default {
             }
           }
           if (detailres.data.data.images.length > 0) {
-            axios.get(`https://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
+            axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${detailres.data.data.images[0].fileId}`)
               .then(fileres => {
                 tmpitems.push({
                   sellerId: sellerId,

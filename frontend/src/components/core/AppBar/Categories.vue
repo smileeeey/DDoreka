@@ -18,7 +18,7 @@
         style="position: absolute; top: 0px; width: 150px; height: 492px; background-color: white;"
       >
         <div>
-          <ul @click="$router.push({ name: 'Category', params: { id: item.id, depth: 1 } })" v-for="(item, idx) in items" :key="idx" style="padding-left: 0px;" class="my-2" @mouseover="selectedItem=idx; SubShow=true">
+          <ul v-for="(item, idx) in items" :key="idx" style="padding-left: 0px;" class="my-2" @mouseover="selectedItem=idx; SubShow=true">
             <v-icon v-text="item.icon" class="mx-2" color="black"></v-icon>
             <span v-text="item.name" style="font-size: 14px; color: black; letter-spacing: -1px;" :class="{ select: idx === selectedItem }"></span>
           </ul>
@@ -29,7 +29,7 @@
         >
           <div v-if="selectedItem > -1">
             <div v-for="(subitem, idx) in items[selectedItem].subCategory" :key="idx" @mouseover="selectedSubitem=idx; ContentShow=true">
-              <ul @click="$router.push({ name: 'Category', params: { id: subitem.id, depth: 2 } })" style="padding-left: 0px;" class="my-2">
+              <ul style="padding-left: 0px;" class="my-2">
                 <p style="color: black; margin-left: 10px;" :class="{ select: idx === selectedSubitem }">{{subitem.name}}</p>
               </ul>
             </div>
@@ -70,7 +70,7 @@ export default {
       
     }),
     created: function () {
-      axios.get(`https://i4d106.p.ssafy.io:8081/category/mainCategory`)
+      axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
         .then(res => {
           this.items = res.data.data
         })
