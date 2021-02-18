@@ -35,11 +35,11 @@ export default {
     smallItems: [],
   }),
   created() {
-    this.bigItems = this.items.slice(0, 5)
-    const slide1 = this.items.slice(5, 11)
-    const slide2 = this.items.slice(11, 17)
-    const slide3 = this.items.slice(17, 23)
-    this.smallItems.push(slide1, slide2, slide3)
+    this.bigItems = this.items.slice(0, 3)
+    const slide1 = this.items.slice(3, 9)
+    const slide2 = this.items.slice(9, 15)
+    // const slide3 = this.items.slice(17, 23)
+    this.smallItems.push(slide1, slide2)
   }
 }
 </script>

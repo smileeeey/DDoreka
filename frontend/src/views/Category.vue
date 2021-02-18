@@ -170,7 +170,12 @@ export default {
     this.getId()
     this.getDepth()
     this.getItems()
-  }
+  },
+  // updated() {
+  //   this.getId()
+  //   this.getDepth()
+  //   this.getItems()
+  // },
 }
 </script>
 
