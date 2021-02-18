@@ -6,9 +6,3 @@ eureka:
     fetch-registry: false
 server:
   port: 8761
-  ssl:
-    enabled: true
-    key-store-type: PKCS12
-    key-sotre: keystore.p12
-    key-store-password: 123456
-    key-alias: tomcat
