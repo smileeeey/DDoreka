@@ -5,6 +5,7 @@ import com.eureka.face.repository.FaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,12 +16,20 @@ public class FaceService {
 
     public Face saveFace(Face face) {return repository.save(face);}
 
-    public List<Face> getFacesByUsername(String username) {return repository.findAllByUsername(username);}
 
-    public List<Face> getFacesByProduct(int product) {return repository.findAllByProduct(product);}
 
     public String deleteFaceById(int id){
         repository.deleteById(id);
         return "Face removed!!" + id;
+    }
+
+    public List<Face> getFacesByUser(int user) {
+        List<Integer> productIds = repository.findByUserGroupByProduct(user);
+
+        List<Face> faces = new ArrayList<>();
+        for (Integer productId : productIds) {
+            faces.add(repository.findTop1ByProductAndUserOrderByCreatedAtDesc(productId,user));
+        }
+        return faces;
     }
 }

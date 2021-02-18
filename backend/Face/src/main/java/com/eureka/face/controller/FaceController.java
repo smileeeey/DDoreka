@@ -21,15 +21,9 @@ public class FaceController {
         return service.saveFace(face);
     }
 
-    @GetMapping("/getAllByUsername/{username}")
-    public List<Face> findFacesByUsername(@PathVariable String username) {
-        return service.getFacesByUsername(username);
-    }
 
-    @GetMapping("/getAllByProduct/{product}")
-    public List<Face> findFacesByProduct(@PathVariable int product){
-        return service.getFacesByProduct(product);
-    }
+    @GetMapping("/getAllByUser/{user}")
+    public List<Face> getFacesByUser(@PathVariable int user) {return service.getFacesByUser(user);}
 
     @DeleteMapping("/deleteById/{id}")
     public String deleteFace(@PathVariable int id){
