@@ -3,13 +3,14 @@
     class="pa-0"
     cols="4"
     style="height: 200px;"
+    @click="moveItemDetail"
   >
     <v-img
       :src="sumnailUrl"
       style="height: 150px;"
     ></v-img>
     <v-card-text class="pa-0" style="height: 50px;">
-      <div class="black--text ml-3">
+      <div class="black--text ml-3 text-truncate">
         <!-- 상품이름 -->
         {{ smallItem.name }}
       </div>

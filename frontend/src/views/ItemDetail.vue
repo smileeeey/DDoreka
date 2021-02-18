@@ -81,6 +81,7 @@ export default {
     image: null,
     show: false,
     timer: 0,
+    faceCreatedAt: ""
   }),
   mounted(){
     this.init(this.getEmotion);
@@ -159,16 +160,15 @@ export default {
     async getEmotion() {
       var self = this;
       const image = this.$children[0].$children[0].webcam.webcamElement;
+      this.faceCreatedAt = new Date()
       this.polling = setInterval(async () => {
         const userExpression = await faceapi
           .detectSingleFace(image)
           .withFaceLandmarks()
           .withFaceExpressions();
         if (typeof userExpression === "undefined") {
-          this.show = false;
-          this.$refs["error-modal"].show();
-        } else {
-          // console.log(this.timer);
+          this.show = false;          
+        } else {          
           this.show = false;
           var expression = Object.keys(userExpression.expressions).reduce(
             function(a, b) {
@@ -179,6 +179,7 @@ export default {
             }
           );
         }
+
         if(expression == 'neutral')
           expression = '😃 중립'
         else if(expression == 'happy')
@@ -193,6 +194,7 @@ export default {
           expression = '😵 역겨움'
         else 
           expression = '😲 놀람'
+
         this.setMood(expression);
         this.timer += 0.1;
         this.neutral += userExpression.expressions["neutral"];
@@ -238,25 +240,9 @@ export default {
     },
     stopAnalysis() {
       clearInterval(this.polling);
-      // alert(
-      //   this.happy.toFixed(2) +
-      //     "\n" +
-      //     this.neutral.toFixed(2) +
-      //     "\n" +
-      //     this.sad.toFixed(2) +
-      //     "\n" +
-      //     this.angry.toFixed(2) +
-      //     "\n" +
-      //     this.fearful.toFixed(2) +
-      //     "\n" +
-      //     this.disgusted.toFixed(2) +
-      //     "\n" +
-      //     this.surprised.toFixed(2)
-      // );
-      //axios call
-      this.sendData();
-      //this.timer = 0;
+      this.sendData();   
       this.mood = "감정분석 종료";
+      this.timer = 9999;
     },
   },
   // -----------------위 내용 face app---------------------------------
@@ -274,7 +260,12 @@ export default {
       'login',
       'userId',
     ])
-  }
+  },
+  beforeDestroy(){
+    if(this.timer >= 5 && this.timer <= 60)
+      this.stopAnalysis();
+  },
+
 }
 </script>
 

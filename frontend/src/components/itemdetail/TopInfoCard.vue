@@ -61,10 +61,11 @@
 
     <v-card-title class="pb-0">상품주문</v-card-title>
 
-    <v-container>
+    <v-container class="ml-2">
       <v-row>
         <v-card-actions>
           <v-btn
+            class="mr-3"
             color="blue darken-1"
             @click="addWishList"
           >
@@ -115,26 +116,31 @@ export default {
       const optionId = this.selectOption.optionId
       const quantity = this.quantity
       const token = localStorage.getItem('eureka-authorization')
-      axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
-        userEmail: userEmail,
-        productId: productId,
-        optionId: optionId,
-        quantity: quantity,
-      }, {
-        headers: {
-          'eureka-authorization': token,
-        }
-      })
-      .then(res => {
-        console.log(res.data.response)
-        if (res.data.response == 'success') {
-          alert('상품이 장바구니에 추가되었습니다.')
-          this.$store.dispatch('SETWISHLIST', res.data.data)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      if (token) {
+        axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
+          userEmail: userEmail,
+          productId: productId,
+          optionId: optionId,
+          quantity: quantity,
+        }, {
+          headers: {
+            'eureka-authorization': token,
+          }
+        })
+        .then(res => {
+          console.log(res.data.response)
+          if (res.data.response == 'success') {
+            alert('상품이 장바구니에 추가되었습니다.')
+            this.$store.dispatch('SETWISHLIST', res.data.data)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        alert('장바구니에 담으시려면 로그인하세요')
+      }
+      
     },
     buyNow() {
       const userEmail = this.$store.state.email
@@ -142,26 +148,30 @@ export default {
       const optionId = this.selectOption.optionId
       const quantity = this.quantity
       const token = localStorage.getItem('eureka-authorization')
-      axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
-        userEmail: userEmail,
-        productId: productId,
-        optionId: optionId,
-        quantity: quantity,
-      }, {
-        headers: {
-          'eureka-authorization': token,
-        }
-      })
-      .then(res => {
-        console.log(res.data.response)
-        if (res.data.response == 'success') {
-          this.$store.dispatch('SETWISHLIST', res.data.data)
-          this.$router.push({name: 'Cart'})
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })      
+      if (token) {
+        axios.post('http://i4d106.p.ssafy.io:8080/user/cart', {
+          userEmail: userEmail,
+          productId: productId,
+          optionId: optionId,
+          quantity: quantity,
+        }, {
+          headers: {
+            'eureka-authorization': token,
+          }
+        })
+        .then(res => {
+          console.log(res.data.response)
+          if (res.data.response == 'success') {
+            this.$store.dispatch('SETWISHLIST', res.data.data)
+            this.$router.push({name: 'Cart'})
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })      
+      } else {
+        alert('구매하시려면 로그인 해주세요')
+      }
     }
   },
 }
