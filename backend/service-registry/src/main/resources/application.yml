@@ -6,3 +6,11 @@ eureka:
     fetch-registry: false
 server:
   port: 8761
+  ssl:
+    enabled: true
+    key-store: /home/test/eureka_keystore.jks
+    key-store-password: wndeowkd
+    key-password: wndeowkd
+    key-alias: eureka
+    trust-store: /home/test/eureka_truestore.ts
+    trust-store-password: wndeowkd
