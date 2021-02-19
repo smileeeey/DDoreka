@@ -2,6 +2,9 @@
   <div>
     <strong style="font-size: 1.5rem;">받는사람정보</strong
     ><button @click="changeAddress">배송지변경</button>
+    <div id="Address" style="display: none;">
+      <AddressPopup />
+    </div>
     <table class="simple_table" style="margin-top: 1rem; margin-bottom: 3rem;">
       <tbody>
         <tr>
@@ -34,9 +37,13 @@
 </template>
 
 <script>
+import AddressPopup from '../address/AddressPopup.vue';
 export default {
   name: 'DestinationInfo',
-  data() {
+  components: {
+    AddressPopup
+  },
+  data () {
     return {
       name: '',
       main_address: '',
@@ -44,15 +51,13 @@ export default {
       nickname: '',
       phonenumber: '',
       comment: '',
+
+
     };
   },
   methods: {
     changeAddress: function() {
-      window.open(
-        'http://i4d106.p.ssafy.io/popup/address',
-        'PopupWin',
-        'width=500, height=600'
-      );
+      document.getElementById('Address').style.display="inline"
     },
   },
 };

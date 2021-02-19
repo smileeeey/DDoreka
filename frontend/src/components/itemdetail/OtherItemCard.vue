@@ -86,7 +86,7 @@ export default {
     },
     moveItemDetail: function () {
       // 추후 Item Detail페이지 url을 입력
-      this.$router.push({name: 'ItemDetail', params: {id: this.item.category3Id, productid: this.item.id}})
+      this.$router.push({path: `/category/${this.item.category3Id}/detail/${this.item.id}`})
     },
   },
   created() {

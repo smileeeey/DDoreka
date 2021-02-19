@@ -11,14 +11,23 @@ import vueMoment from 'vue-moment'
 Vue.use(vueMoment)
 
 require("firebase/firestore");
+// var firebaseConfig = {
+//   apiKey: "AIzaSyCxsTzWbVyhonjACmIQ2LIuszBqiy_fvUw",
+//   authDomain: "vue-chat-46968.firebaseapp.com",
+//   projectId: "vue-chat-46968",
+//   storageBucket: "vue-chat-46968.appspot.com",
+//   messagingSenderId: "1034073840289",
+//   appId: "1:1034073840289:web:e96b6a96300eadbe2caee0",
+//   measurementId: "G-DHZVJ4ZFMC"
+// };
 var firebaseConfig = {
-  apiKey: "AIzaSyCxsTzWbVyhonjACmIQ2LIuszBqiy_fvUw",
-  authDomain: "vue-chat-46968.firebaseapp.com",
-  projectId: "vue-chat-46968",
-  storageBucket: "vue-chat-46968.appspot.com",
-  messagingSenderId: "1034073840289",
-  appId: "1:1034073840289:web:e96b6a96300eadbe2caee0",
-  measurementId: "G-DHZVJ4ZFMC"
+  apiKey: "AIzaSyC3kKewULtMzCWV2TNUYh17G5TxEyPgEHg",
+  authDomain: "chat-b5174.firebaseapp.com",
+  projectId: "chat-b5174",
+  storageBucket: "chat-b5174.appspot.com",
+  messagingSenderId: "267859312711",
+  appId: "1:267859312711:web:ef517cdef75843a2e1f162",
+  measurementId: "G-KWVN929F4Z"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

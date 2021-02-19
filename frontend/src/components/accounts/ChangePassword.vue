@@ -78,12 +78,13 @@ export default {
           'eureka-authorization': token,
         }
       })
-        .then(res => {
-          console.log(res)
+        .then(_ => {
+                this.$store
+                  .dispatch("LOGOUT")
+                  .then(() => {
+                    if (this.$route.path !== "/") this.$router.replace("/");
+                  })
         })
-      this.rePassword = '';
-      this.form.password = '';
-      this.form.newpassword = '';
     },
   },
   computed: {

@@ -2,7 +2,7 @@
   <v-app>
     <AppBar />
     <v-main class="in-layout mx-auto">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </v-main>
     <Footer />
   </v-app>
