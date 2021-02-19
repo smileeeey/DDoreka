@@ -78,17 +78,17 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(res => {
-        // console.log('success')
-        console.log(res.data.data)
-        alert('이미지 저장 성공')
-        res.data.data.forEach(image => {
-          this.images.push({ fileId: image.id })
+        .then(res => {
+          console.log('success')
+          console.log(res.data.data)
+          alert('이미지 저장 성공')
+          res.data.data.forEach(image => {
+            this.images.push({ fileId: image.id })
+          })
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch(err => {
+          console.log(err)
+        })
     },
     saveReview() {
       console.log('saveReview!')
@@ -106,6 +106,8 @@ export default {
       })
       .then(res => {
         console.log(res)
+        console.log(res.data)
+        console.log(res.data.data)
         alert('리뷰 등록 성공')
         this.$router.push({ name: 'ProductReview' })
       })

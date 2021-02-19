@@ -22,9 +22,8 @@
       >
         <v-img
           :src="imageUrl"
-          
-          height="100%"
-          width="100%"
+          height="275"
+          width="275"
         >
         </v-img>
       </v-carousel-item>
@@ -89,19 +88,19 @@ export default {
           fileIds: this.fileIds.join(',')
         },
       })
-      .then(res => {
-        // console.log(res.data.data)
-        this.files = res.data.data
-        this.files.forEach(file => {
-          // console.log(file)
-          let imageUrl = 'data:image/jpeg;base64,' + file.imageBytes
-          // console.log(imageUrl)
-          this.imageUrls.push(imageUrl)
+        .then(res => {
+          console.log(res.data.data)
+          this.files = res.data.data
+          this.files.forEach(file => {
+            // console.log(file)
+            let imageUrl = 'data:image/jpeg;base64,' + file.imageBytes
+            // console.log(imageUrl)
+            this.imageUrls.push(imageUrl)
+          })
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch(err => {
+          console.log(err)
+        })
     },
     changeLike() {
       if (this.heartState === 'mdi-heart-outline') {

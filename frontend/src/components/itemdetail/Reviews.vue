@@ -10,6 +10,7 @@
         <ReviewCard :review="review" />
       </v-col>
     </v-row> -->
+    {{reviews[0]}}
     <v-slide-group
       class="pa-2"
       show-arrows
@@ -44,14 +45,14 @@ export default {
       }
       // console.log(this.nowUserId)
       axios.get(`http://i4d106.p.ssafy.io:8083/review/get/${this.productId}/${this.nowUserId}`)
-      .then(res => {
-        // console.log(res.data.data)
-        this.reviews = res.data.data
-        // console.log(this.reviews)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .then(res => {
+          // console.log(res.data.data)
+          this.reviews = res.data.data
+          // console.log(this.reviews)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   computed: {

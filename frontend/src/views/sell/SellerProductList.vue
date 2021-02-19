@@ -161,10 +161,18 @@ export default {
                     } else {
                       var computedStock = 0
                     }
+
+                    var ti = sumdata * productslist[i].options[j].price
+
+                    if (j != 0) {
+                      computedStock += sumdata
+                      ti = 0
+                    } 
+
                     newItems.push({
                       index: idx,
                       created_at: tmp[0] + ' / ' + tmp[1].split('.')[0],
-                      totalincome: sumdata * productslist[i].options[j].price,
+                      totalincome: ti,
                       productname: productslist[i].name + '  [' + productslist[i].options[j].name + ']',
                       cost: productslist[i].options[j].price,
                       amount: computedStock,

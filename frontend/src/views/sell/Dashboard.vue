@@ -10,7 +10,7 @@
           <v-list-item>
             <v-list-item-content>
               <strong>총 매출</strong>
-              <span style="text-align: right">{{chartdata.datasets[0].data[0] + chartdata.datasets[0].data[1] + chartdata.datasets[0].data[2]
+              <span style="text-align: right; color: red;">+ {{chartdata.datasets[0].data[0] + chartdata.datasets[0].data[1] + chartdata.datasets[0].data[2]
                 + chartdata.datasets[0].data[3] + chartdata.datasets[0].data[4] + chartdata.datasets[0].data[5] + chartdata.datasets[0].data[6]
                 + chartdata.datasets[0].data[7] + chartdata.datasets[0].data[8] + chartdata.datasets[0].data[9] + chartdata.datasets[0].data[10]
                 + chartdata.datasets[0].data[11] | comma}}원</span>
@@ -27,7 +27,7 @@
           <v-list-item>
             <v-list-item-content>
               <strong>이번달 매출</strong>
-              <span style="text-align: right">{{linedata.datasets[0].data[todayDate] | comma}} 원</span>
+              <span style="text-align: right; color: red;">+ {{linedata.datasets[0].data[todayDate] | comma}} 원</span>
             </v-list-item-content>
           </v-list-item>
 
@@ -71,7 +71,7 @@
           <v-list-item>
             <v-list-item-content>
               <strong>오늘 매출</strong>
-              <span style="text-align: right" v-if="todayDate > -1 == true" >{{linedata.datasets[0].data[todayDate] - linedata.datasets[0].data[todayDate-1] | comma}} 원</span>
+              <span style="text-align: right; color: red;" v-if="todayDate > -1 == true">+ {{linedata.datasets[0].data[todayDate] - linedata.datasets[0].data[todayDate-1] | comma}} 원</span>
               <span style="text-align: right" v-else>{{linedata.datasets[0].data[todayDate] - linedata.datasets[0].data[todayDate-1] | comma}} 원</span>
             </v-list-item-content>
           </v-list-item>

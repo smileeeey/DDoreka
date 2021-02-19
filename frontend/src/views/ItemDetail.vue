@@ -118,7 +118,8 @@ export default {
             // }
           })
             .then(res => {
-              // console.log(res.data)
+              console.log('pd pic')
+              console.log(res.data)
               this.sFiles = res.data.data
             })
             .catch(err => {
