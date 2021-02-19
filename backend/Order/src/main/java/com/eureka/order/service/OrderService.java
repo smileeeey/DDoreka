@@ -31,12 +31,11 @@ public interface OrderService {
     List<OrderEntity> getOrdersBySellerIdBystatus(String sellerid, Integer status);
 
     List<OrderEntity> getOrdersByUserIdBystatus(String userid, Integer status);
-
     ////////////////////////   수민   /////////////////////////////
 
     List<Integer> getSteadySeller();
 
-    List<Integer> getHotProduct();
+    List<Integer> getHotProduct(int userId);
 
     List<Map<String,Object>> getTodayHot();
 }

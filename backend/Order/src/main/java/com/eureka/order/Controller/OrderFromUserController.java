@@ -58,6 +58,7 @@ public class OrderFromUserController {
         return response;
     }
 
+
     @PostMapping()
     public Response saveOrders( @RequestBody OrderEntity orderEntity) {
 
@@ -71,6 +72,7 @@ public class OrderFromUserController {
         }
         return response;
     }
+
 
     @PutMapping ()
     public Response updateOrders(@RequestBody OrderDetailEntity orderDetailEntity) {
@@ -101,14 +103,14 @@ public class OrderFromUserController {
         return response;
     }
 
-    //요즘 뜨는 상품
-    @GetMapping(value ="/recommend/hotproduct")
-    public Response hotProduct(){
+    //요즘 뜨는 상품 -> 사용자에게 맞는 추천
+    @GetMapping(value ="/recommend/hotproduct/{userId}")
+    public Response hotProduct(int userId){
         Response response;
         try {
-            response= new Response("success", "요즘 뜨는 상품 조회 성공", orderService.getHotProduct()) ;
+            response= new Response("success", "사용자 저격 상품 조회 성공", orderService.getHotProduct(userId)) ;
         } catch (Exception e) {
-            response= new Response("error", "요즘 뜨는 상품 조회 실패", e.getMessage()) ;
+            response= new Response("error", "사용자 저격 상품 조회 실패", e.getMessage()) ;
         }
         return response;
     }
