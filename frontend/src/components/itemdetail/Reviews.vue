@@ -10,7 +10,6 @@
         <ReviewCard :review="review" />
       </v-col>
     </v-row> -->
-    {{reviews[0]}}
     <v-slide-group
       class="pa-2"
       show-arrows
