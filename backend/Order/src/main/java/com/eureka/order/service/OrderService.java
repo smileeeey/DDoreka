@@ -35,7 +35,7 @@ public interface OrderService {
 
     List<Integer> getSteadySeller();
 
-    List<Integer> getHotProduct();
+    List<Integer> getHotProduct(int userId);
 
     List<Map<String,Object>> getTodayHot();
 }

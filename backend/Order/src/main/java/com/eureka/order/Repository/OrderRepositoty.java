@@ -34,4 +34,15 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
 
     @Query(value= "select product_id as id,count(*) as cnt from orders where datetime > DATE_ADD(now(),INTERVAL -1 day) group by product_id order by cnt DESC limit 0,6",nativeQuery = true)
     List<Map<String,Object>> findTodayHot();
+
+    @Query(value= "select DISTINCT user_id as id from  orders order by user_id",nativeQuery = true)
+    List<Integer> findDistinctUserId();
+
+    @Query(value= "select DISTINCT product_id as id from orders order by product_id",nativeQuery = true)
+    List<Integer> findDistinctProductId();
+
+    @Query(value= "select DISTINCT product_id as id from orders where user_id=?1 order by product_id",nativeQuery = true)
+    List<Integer> findByUserId(Integer id);
+
+
 }
