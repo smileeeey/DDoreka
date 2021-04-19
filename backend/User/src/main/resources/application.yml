@@ -1,6 +1,8 @@
+
+
 spring:
   application:
-    name: User
+    name: USER-SERVICE
   profiles:
     active:
       default
@@ -16,7 +18,7 @@ spring:
         ddl-auto: update #운영시에는 validate 추천s
 
       show-sql: true
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   # JWT Secret Key
   jwt:
     secret : kimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshilkimsungshil
@@ -25,14 +27,5 @@ spring:
 
 
 
-
-#server:
-#  servlet:
-#    contextPath:  /auth
-
-
-
-
-
-
-
+server:
+  port: 8081
