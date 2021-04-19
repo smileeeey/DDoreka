@@ -35,7 +35,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 }
 
 test {

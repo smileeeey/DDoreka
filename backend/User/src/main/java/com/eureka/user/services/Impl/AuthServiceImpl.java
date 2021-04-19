@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.beans.Transient;
 import java.util.List;
 
 
@@ -20,10 +19,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserRepository userRepository;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
     @Autowired
     private SaltUtil saltUtil;
 
@@ -43,14 +38,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
-    public void updateUserPhone(UserInfo user) {
-        UserEntity updateUser= userRepository.findTop1ByEmail(user.getEmail());
-        updateUser.setPhone(user.getPhone());
-        userRepository.save(updateUser);
-    }
-
-    @Override
     public UserInfo getUser(String userEmail, String pw) throws Exception {
         UserEntity user = userRepository.findTop1ByEmail(userEmail);
         if (user == null) throw new Exception("멤버 조회 되지 않음");
@@ -61,7 +48,6 @@ public class AuthServiceImpl implements AuthService {
         userInfo.setEmail(userEmail);
         userInfo.setName(user.getName());
         userInfo.setPhone(user.getPhone());
-        userInfo.setId(Integer.toString(user.getId()));
         return userInfo;
     }
 
@@ -101,13 +87,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-<<<<<<< HEAD
-    @Override
-    @Transactional
-    public void saveUser(UserEntity user) throws Exception {
-=======
 
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
 
 
 

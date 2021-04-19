@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.eureka'
-version = '20210215.2-user'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -50,7 +50,6 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 
 
 }
@@ -58,7 +57,6 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
     }
 }
 
