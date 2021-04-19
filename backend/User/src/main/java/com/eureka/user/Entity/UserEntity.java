@@ -21,11 +21,6 @@ public class UserEntity {
     private String name;
     private String phone;
     private String salt;
-<<<<<<< HEAD
-
-    private String enabled = "1";
-=======
     private String enabled="1";
 
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
 }
