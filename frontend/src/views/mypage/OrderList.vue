@@ -10,8 +10,10 @@
 <script>
 import PastOrderCard from '../../components/mypage/PastOrderCard.vue';
 import { mapState } from 'vuex';
+import order from "@/util/http-order.js";
 import file from '@/util/http-file.js';
 import product from '@/util/http-product.js';
+
 export default {
   name: 'OrderList',
   components: {
@@ -49,7 +51,7 @@ export default {
   },
   created: function() {
     let dataArray = [];
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/all`).then((res) => {
+    order.get(`/order/userid/${this.userId}/all`).then((res) => {
       let array = res.data.data;
       for (let j = 0; j < array.length; j++) {
         let date = array[j].datetime;

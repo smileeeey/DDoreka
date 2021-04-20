@@ -36,7 +36,9 @@
 </template>
 
 <script>
+import review from "@/util/http-review.js";
 import file from '@/util/http-file.js';
+
 export default {
   name: 'CreateReview',
   props: {
@@ -84,37 +86,32 @@ export default {
         });
     },
     saveReview() {
-      console.log('saveReview!');
-      axios
-        .post('http://i4d106.p.ssafy.io:8083/review/write', {
-          review: {
-            orderId: this.orderId,
-            optionId: this.optionId,
-            productId: this.productId,
-            userId: this.userId,
-            rating: this.rating,
-            title: "'" + this.title + "'",
-            content: "'" + this.content + "'",
-          },
-          image: this.images,
-        })
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          console.log(res.data.data);
-          alert('리뷰 등록 성공');
-          this.$router.push({ name: 'ProductReview' });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+      console.log('saveReview!')
+      review.post('/review/write', {
+        review: {
+          orderId: this.orderId,
+          optionId: this.optionId,
+          productId: this.productId,
+          userId: this.userId,
+          rating: this.rating,
+          title: "'" + this.title + "'",
+          content: "'" + this.content + "'",
+        },
+        image: this.images
+      })
+      .then(res => {
+        console.log(res)
+        console.log(res.data)
+        console.log(res.data.data)
+        alert('리뷰 등록 성공')
+        this.$router.push({ name: 'ProductReview' })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
   },
-  // watch: {
-  //   files() {
-  //     console.log(this.files)
-  //   }
-  // }
+
 };
 </script>
 

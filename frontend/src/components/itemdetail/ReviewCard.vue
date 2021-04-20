@@ -30,8 +30,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
+import review from "@/util/http-review.js";
 import file from '@/util/http-file.js';
+
 export default {
   name: 'ReviewCard',
   props: {
@@ -74,31 +76,29 @@ export default {
     },
     changeLike() {
       if (this.heartState === 'mdi-heart-outline') {
-        this.heartState = 'mdi-heart';
-        axios
-          .post('http://i4d106.p.ssafy.io:8083/review/like', {
-            reviewId: this.review.id,
-            userId: this.userId,
-            likeox: '1',
-          })
-          .then((res) => {
-            console.log(res);
-            this.reviewlikeCnt++;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this.heartState = 'mdi-heart'
+        review.post('/review/like', {
+          reviewId: this.review.id,
+          userId: this.userId,
+          likeox: '1'
+        })
+        .then(res => {
+          console.log(res)
+          this.reviewlikeCnt++
+        })
+        .catch(err => {
+          console.log(err)
+        })
       } else {
-        this.heartState = 'mdi-heart-outline';
-        axios
-          .delete(`http://i4d106.p.ssafy.io:8083/review/dislike/${this.review.id}/${this.userId}`)
-          .then((res) => {
-            console.log(res);
-            this.reviewlikeCnt--;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        this.heartState = 'mdi-heart-outline'
+        review.delete(`/review/dislike/${this.review.id}/${this.userId}`)
+        .then(res => {
+          console.log(res)
+          this.reviewlikeCnt--
+        })
+        .catch(err => {
+          console.log(err)
+        })
       }
     },
   },

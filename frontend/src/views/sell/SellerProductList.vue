@@ -38,11 +38,12 @@
 </template>
 
 <script>
+import order from "@/util/http-order.js";
+import { mapState } from 'vuex'
+import LineChart from '../../components/seller/chart/LineChart.js'
+import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
 import product from '@/util/http-product.js';
 import file from '@/util/http-file.js';
-import { mapState } from 'vuex';
-import LineChart from '../../components/seller/chart/LineChart.js';
-import DoughnutChart from '../../components/seller/chart/DoughnutChart.js';
 
 export default {
   name: 'SellerProductList',
@@ -97,13 +98,14 @@ export default {
       let newItems = [];
       let idx = 1;
 
-      for (let i = 0; i < productsize; i++) {
-        let ctid = productslist[i].category1Id;
-        axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`).then((r) => {
-          let data = r.data.data;
-          let sumdata = data.reduce(function(a, b) {
-            return a + b;
-          });
+        for(let i=0; i<productsize; i++) {
+          let ctid = productslist[i].category1Id
+          order.get(`/order/prodcut/${productslist[i].id}/dayofweek`)
+            .then(r => {
+              let data = r.data.data
+              let sumdata = data.reduce(function(a, b) {
+                return a + b
+              })
 
           file
             .get(`/file/fileServe/${productslist[i].images[0].fileId}`)

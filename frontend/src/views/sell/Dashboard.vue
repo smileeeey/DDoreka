@@ -130,8 +130,8 @@ import DBCalender from '../../components/seller/DBCalender.vue';
 import LineChart from '../../components/seller/chart/LineChart.js';
 import BarChart from '../../components/seller/chart/BarChart.js';
 
-import { mapState } from 'vuex';
-import axios from 'axios';
+import { mapState } from 'vuex'
+import order from "@/util/http-order.js";
 import product from '@/util/http-product.js';
 
 export default {
@@ -193,7 +193,7 @@ export default {
       let tmpdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       let tmpthismonthdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       for (let i = 1; i < 13; i++) {
-        axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`).then((res) => {
+        order.get(`/order/sellerid/${this.seller.id}/${i}/`).then((res) => {
           var monthtotal = 0;
           for (let j = 0; j < 30; j++) {
             if (res.data.data[j].length > 0) {
@@ -213,15 +213,18 @@ export default {
     },
 
     getOrderInfo() {
-      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`).then((res) => {
-        this.callCnt = res.data.data.length;
-        axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`).then((delres) => {
-          this.deliveryCnt = delres.data.data.length;
-          axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`).then((comres) => {
-            this.completeCnt = comres.data.data.length;
-          });
-        });
-      });
+      order.get(`/order/sellerid/${this.seller.id}/status/0`)
+        .then(res => {
+          this.callCnt = res.data.data.length
+          order.get(`/order/sellerid/${this.seller.id}/status/1`)
+            .then(delres => {
+              this.deliveryCnt = delres.data.data.length
+              order.get(`/order/sellerid/${this.seller.id}/status/2`)
+                .then(comres => {
+                  this.completeCnt = comres.data.data.length
+                })
+            })
+        })
     },
 
     getProductCnt() {

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import TodayItem from './TodayItem.vue'
 export default {
   name: 'TodayItems',
@@ -27,7 +27,7 @@ export default {
   }),
   methods: {
     getTodayItems() {
-      axios.get('http://i4d106.p.ssafy.io:8084/order/recommend/todayhot')
+      order.get('/order/recommend/todayhot')
       .then(res => {
         // console.log(res.data.data)
         this.todayItems = res.data.data

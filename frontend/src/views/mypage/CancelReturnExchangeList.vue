@@ -10,8 +10,10 @@
 <script>
 import CancelOrderCard from '../../components/mypage/CancelOrderCard.vue';
 import { mapState } from 'vuex';
+import order from "@/util/http-order.js";
 import product from '@/util/http-product.js';
 import file from '@/util/http-file.js';
+
 export default {
   name: 'CancelReturnExchangeList',
   components: {
@@ -35,44 +37,49 @@ export default {
   },
   created: function() {
     let dataArray = [];
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/3`).then((res) => {
-      let array = res.data.data;
-      for (let j = 0; j < array.length; j++) {
-        let date = array[j].datetime;
-        var y = date.substr(0, 4);
-        var m = date.substr(5, 2);
-        var d = date.substr(8, 2);
-        let newD = new Date(y, m - 1, d);
-        product.get(`/product/detail/${array[j].productId}`).then((resp) => {
-          var categoryId = resp.data.data.category3Id;
-          for (let k = 0; k < resp.data.data.options.length; k++) {
-            if (resp.data.data.options[k].optionId == array[j].optionId) {
-              var optionprice = resp.data.data.options[k].price;
-              var optionname = resp.data.data.options[k].name;
-              break;
-            }
-          }
-          file.get(`/file/fileServe/${resp.data.data.images[0].fileId}`).then((respo) => {
-            dataArray.push({
-              img: respo.data.data.imageBytes,
-              name: resp.data.data.name + '  ' + optionname,
-              cost: optionprice,
-              amount: array[j].quantity,
-              date: newD,
-              status: array[j].orderDetail.orderStatus,
-              productId: resp.data.data.id,
-              categoryId: categoryId,
-              optionId: array[j].optionId,
-              orderId: array[j].id,
-              userId: array[j].userId,
-            });
-          });
-        });
-      }
-      this.items = dataArray;
-    });
+    order.get(`/order/userid/${this.userId}/status/3`)
+      .then(res => {
+        let array = res.data.data;
+        for (let j=0; j<array.length; j++) {
+          let date = array[j].datetime
+          var y = date.substr(0, 4);
+          var m = date.substr(5, 2);
+          var d = date.substr(8, 2);
+          let newD = new Date(y, m-1, d)
+          product.get(`/product/detail/${array[j].productId}`)
+            .then(resp => {
+              var categoryId = resp.data.data.category3Id
+              for (let k=0; k<resp.data.data.options.length; k++) {
+                if (resp.data.data.options[k].optionId == array[j].optionId) {
+                  var optionprice = resp.data.data.options[k].price
+                  var optionname = resp.data.data.options[k].name
+                  break;
+                }
+              }
+              file.get(`/file/fileServe/${resp.data.data.images[0].fileId}`)
+                .then(respo => {
+                  dataArray.push({
+                    img: respo.data.data.imageBytes,
+                    name: resp.data.data.name + '  ' + optionname,
+                    cost: optionprice,
+                    amount: array[j].quantity,
+                    date: newD,
+                    status: array[j].orderDetail.orderStatus,
+                    productId: resp.data.data.id,
+                    categoryId: categoryId,
+                    optionId: array[j].optionId,
+                    orderId: array[j].id,
+                    userId: array[j].userId,
+                  })
+                })
+            })
+        }
+        this.items = dataArray
+
+      })
   },
-};
+}
+
 </script>
 
 <style></style>

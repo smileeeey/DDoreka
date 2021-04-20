@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import { mapState } from 'vuex'
 
 export default {
@@ -59,7 +59,7 @@ export default {
   methods: {
     getEvents ({ start, end }) {
       const orders = [];
-      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${start.month}/`)
+      order.get(`/order/sellerid/${this.seller.id}/${start.month}/`)
         .then(res => {
           const dayInfo = res.data.data;
           for (let i=0; i<30; i++) {

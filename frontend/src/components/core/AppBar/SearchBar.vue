@@ -58,15 +58,5 @@ export default {
 </script>
 
 <style scoped>
->>> .v-text-field__details {
-  display: none;
-}
 
->>> .v-input__slot {
-  margin: 0;
-}
-
->>> .mdi-magnify {
-  color: #0275d8 !important;
-}
 </style>

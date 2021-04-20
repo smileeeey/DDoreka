@@ -41,10 +41,12 @@
 </template>
 
 <script>
+import face from "@/util/http-face.js";
+import { mapState } from 'vuex'
 import DoughnutChart from '../components/seller/chart/DoughnutChart.js';
 import file from '@/util/http-file.js';
-import { mapState } from 'vuex';
 import product from '@/util/http-product.js';
+
 export default {
   name: 'MyFace',
   components: {
@@ -96,7 +98,7 @@ export default {
     //   this.$router.push({ name: 'Login' })
     // }
     let items = [];
-    axios.get(`http://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`).then((res) => {
+    face.get(`/face/getAllByUser/${this.userId}`).then((res) => {
       res.data.forEach((item) => {
         product.get(`/product/detail/${item.product}`).then((pres) => {
           file.get(`/file/fileServe/${pres.data.data.images[0].fileId}`).then((ires) => {

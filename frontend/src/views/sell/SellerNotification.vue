@@ -59,8 +59,9 @@
 </template>
 
 <script>
-import product from '@/util/http-product.js';
-import { mapState } from 'vuex';
+import httporder from "@/util/http-order.js";
+import review from "@/util/http-review.js";
+import { mapState } from 'vuex'
 export default {
   name: 'SellerNotification',
   data: () => ({
@@ -77,20 +78,22 @@ export default {
       this.reviews.splice(idx, 1);
     },
     deleteOrder(idx) {
-      let now = new Date();
-      let nowv =
-        now.getFullYear() + '-' + now.getMonth() + 1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds();
-
-      axios
-        .put('http://i4d106.p.ssafy.io:8084/order', {
-          orderId: this.orders[idx].orderDetail.orderId,
-          checkDatetime: nowv,
-          orderStatus: this.orders[idx].orderDetail.orderStatus,
-          courier: this.orders[idx].orderDetail.courier,
-          invoiceNum: this.orders[idx].orderDetail.invoiceNum,
-          deliveryStartDatatime: this.orders[idx].orderDetail.deliveryStartDatatime,
-          deliveryCompletionDatatime: this.orders[idx].orderDetail.deliveryCompletionDatatime,
-          cancelMsg: this.orders[idx].orderDetail.cancelMsg,
+      let now = new Date()
+      let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
+      
+      httporder.put('/order', {
+        'orderId': this.orders[idx].orderDetail.orderId,
+        'checkDatetime': nowv,
+        'orderStatus': this.orders[idx].orderDetail.orderStatus,
+        'courier': this.orders[idx].orderDetail.courier,
+        'invoiceNum': this.orders[idx].orderDetail.invoiceNum,
+        'deliveryStartDatatime': this.orders[idx].orderDetail.deliveryStartDatatime,
+        'deliveryCompletionDatatime': this.orders[idx].orderDetail.deliveryCompletionDatatime,
+        'cancelMsg': this.orders[idx].orderDetail.cancelMsg,
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
         })
         .then((res) => {
           console.log(res);
@@ -101,7 +104,7 @@ export default {
   },
   created() {
     let dataArray = [];
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`).then((res) => {
+    httporder.get(`/order/sellerid/${this.seller.id}/unchecked`).then((res) => {
       res.data.data.forEach((order) => {
         let csname = order.recipientName.substr(0, 1) + '*' + order.recipientName.substr(2, 1);
         let csphone = '';
@@ -149,7 +152,7 @@ export default {
       res.data.data.forEach((item) => {
         (A += item.id), (A += ',');
       });
-      axios.get(`http://i4d106.p.ssafy.io:8083/review/getbyproductids?productIds=${A}`).then((resp) => {
+      review.get(`/review/getbyproductids?productIds=${A}`).then((resp) => {
         let reviewCnt = resp.data.data.length;
         for (let i = 0; i < reviewCnt; i++) {
           product.get(`/product/detail/${resp.data.data[i].productId}`).then((pres) => {

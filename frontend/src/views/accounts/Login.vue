@@ -41,11 +41,7 @@
               @keypress.enter="login"
             ></v-text-field>
           </v-col>
-
-          <!-- <v-col style="padding-top: 0;">
-          <p style="text-align: right; cursor: pointer; color: #0275d8;">비밀번호 찾기 ></p>
-        </v-col> -->
-
+          
           <v-col cols="12">
             <v-btn
               style="background-color: #0275d8; color: white; 
@@ -81,6 +77,7 @@
 </template>
 
 <script>
+import auth from "@/util/http-auth.js";
 import user from '@/util/http-user.js';
 
 import AccountsFooter from '../../components/accounts/AccountsFooter.vue';
@@ -110,13 +107,12 @@ export default {
     },
   },
   methods: {
-    login: function() {
-      axios
-        .post('http://i4d106.p.ssafy.io:8088/login', {
-          username: this.form.email,
-          password: this.form.pw,
-        })
-        .then((res) => {
+    login: function () {
+      auth.post('/login', {
+        username: this.form.email,
+        password: this.form.pw
+      })
+        .then(res => {
           localStorage.setItem('eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('eureka-authorization');
           user
@@ -153,11 +149,5 @@ export default {
 </script>
 
 <style scoped>
->>> .v-text-field__slot {
-  margin: 10px;
-}
 
->>> .v-messages__message {
-  margin-top: 2px;
-}
 </style>

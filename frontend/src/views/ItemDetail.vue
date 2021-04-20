@@ -28,13 +28,13 @@
 
 <script>
 import { mapState } from 'vuex';
-// import { mapActions } from 'vuex'
+import face from "@/util/http-face.js";
+import Reviews from '@/components/itemdetail/Reviews.vue'
 import product from '@/util/http-product.js';
 import file from '@/util/http-file.js';
 import TopInfo from '@/components/itemdetail/TopInfo.vue';
 import OtherItems from '@/components/itemdetail/OtherItems.vue';
 import ProductDetail from '@/components/itemdetail/ProductDetail.vue';
-import Reviews from '@/components/itemdetail/Reviews.vue';
 // import ProductInquiry from '@/components/itemdetail/ProductInquiry.vue'
 //
 // --------- 아래 face app ---------------------------
@@ -208,8 +208,8 @@ export default {
       this.image = image;
     },
     sendData: function() {
-      axios
-        .post('http://i4d106.p.ssafy.io:8088/face/add', {
+      face
+        .post("/face/add", {
           product: this.productId,
           user: this.userId,
           happy: this.happy.toFixed(2),
