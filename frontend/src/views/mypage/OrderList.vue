@@ -10,7 +10,7 @@
 <script>
 import PastOrderCard from '../../components/mypage/PastOrderCard.vue';
 import { mapState } from 'vuex';
-import order from "@/util/http-order.js";
+import order from '@/util/http-order.js';
 import file from '@/util/http-file.js';
 import product from '@/util/http-product.js';
 

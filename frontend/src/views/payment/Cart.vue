@@ -131,12 +131,12 @@
 </template>
 
 <script>
-import order from "@/util/http-order.js";
-import DestinationInfo from '../../components/cart/DestinationInfo.vue'
-import BuyerInfo from '../../components/cart/BuyerInfo.vue'
-import CartList from '../../components/cart/CartList.vue'
-import PaymentTable from '../../components/cart/PaymentTable.vue'
-import Footer from '../../components/core/Footer.vue'
+import order from '@/util/http-order.js';
+import DestinationInfo from '../../components/cart/DestinationInfo.vue';
+import BuyerInfo from '../../components/cart/BuyerInfo.vue';
+import CartList from '../../components/cart/CartList.vue';
+import PaymentTable from '../../components/cart/PaymentTable.vue';
+import Footer from '../../components/core/Footer.vue';
 import user from '@/util/http-user.js';
 import file from '@/util/http-file.js';
 import product from '@/util/http-product.js';
@@ -214,30 +214,30 @@ export default {
 
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].select == true) {
-            console.log('order')
-            order.post('/order', {
-              'userId': this.userId,
-              'productId': sortwishlist[i].productId,
-              'optionId': sortwishlist[i].optionId,
-              'sellerId': this.items[i].sellerId,
-              'addressMain': document.getElementById("uniqueaddress").textContent.split(', ')[0],
-              'addressSub': document.getElementById("uniqueaddress").textContent.split(', ')[1],
-              'recipientName': document.getElementById("uniquename").textContent,
-              'zipcode': '0',
-              'deliveryMsg': document.getElementById("uniquecomment").textContent,
-              'recipientPhone': document.getElementById("uniquephonenumber").textContent,
-              'quantity': this.items[i].amount,
-              'price': Number(this.items[i].cost) * this.items[i].amount,
-              'paymentMethod': 'Online',
-            })
-              .then(res => {
-                console.log(res)
-                console.log(res.data)
-                axios.delete(`http://i4d106.p.ssafy.io:8080/user/cart/${this.items[i].cartId}`)
-                  .then(r => {
-                    console.log(r)
-                    this.$store.dispatch('PAYWISHLIST', this.items[i].cartId)
-                  })
+            console.log('order');
+            order
+              .post('/order', {
+                userId: this.userId,
+                productId: sortwishlist[i].productId,
+                optionId: sortwishlist[i].optionId,
+                sellerId: this.items[i].sellerId,
+                addressMain: document.getElementById('uniqueaddress').textContent.split(', ')[0],
+                addressSub: document.getElementById('uniqueaddress').textContent.split(', ')[1],
+                recipientName: document.getElementById('uniquename').textContent,
+                zipcode: '0',
+                deliveryMsg: document.getElementById('uniquecomment').textContent,
+                recipientPhone: document.getElementById('uniquephonenumber').textContent,
+                quantity: this.items[i].amount,
+                price: Number(this.items[i].cost) * this.items[i].amount,
+                paymentMethod: 'Online',
+              })
+              .then((res) => {
+                console.log(res);
+                console.log(res.data);
+                user.delete(`/user/cart/${this.items[i].cartId}`).then((r) => {
+                  console.log(r);
+                  this.$store.dispatch('PAYWISHLIST', this.items[i].cartId);
+                });
               })
               .then((res) => {
                 console.log(res);
@@ -317,7 +317,7 @@ export default {
   padding: 40px 39px;
   background: #fff;
 }
-
+/* 
 >>> .v-stepper {
   box-shadow: none !important;
 }
@@ -329,7 +329,7 @@ export default {
 >>> .v-divider {
   padding-top: 0;
   padding-bottom: 5%;
-}
+} */
 
 .v-footer >>> hr {
   padding: 0;

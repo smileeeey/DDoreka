@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import user from '@/util/http-user.js';
 import { mapState } from 'vuex';
 export default {
@@ -178,16 +177,4 @@ export default {
 };
 </script>
 
-<style scoped>
->>> .v-text-field__slot {
-  margin: 10px;
-}
-
->>> .v-messages__message {
-  margin-top: 2px;
-}
-
-#blueborder >>> fieldset {
-  border: 3px solid blue;
-}
-</style>
+<style scoped></style>

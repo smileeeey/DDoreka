@@ -28,8 +28,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import face from "@/util/http-face.js";
-import Reviews from '@/components/itemdetail/Reviews.vue'
+import face from '@/util/http-face.js';
+import Reviews from '@/components/itemdetail/Reviews.vue';
 import product from '@/util/http-product.js';
 import file from '@/util/http-file.js';
 import TopInfo from '@/components/itemdetail/TopInfo.vue';
@@ -209,7 +209,7 @@ export default {
     },
     sendData: function() {
       face
-        .post("/face/add", {
+        .post('/face/add', {
           product: this.productId,
           user: this.userId,
           happy: this.happy.toFixed(2),

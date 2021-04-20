@@ -105,7 +105,6 @@ export default {
       }
     },
     deleteCartitem(idx) {
-      // delete axios request
       console.log(this.items[idx].cartId);
       const token = localStorage.getItem('eureka-authorization');
       user

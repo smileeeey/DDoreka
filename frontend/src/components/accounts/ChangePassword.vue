@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState } from 'vuex';
 import user from '@/util/http-user.js';
 export default {

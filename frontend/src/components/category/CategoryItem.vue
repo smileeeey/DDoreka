@@ -76,8 +76,8 @@ export default {
     },
     getMFiles() {
       (this.mFiles = []),
-        axios
-          .file(`/file/fileServe`, {
+        file
+          .get(`/file/fileServe`, {
             params: {
               fileIds: this.mFileIds.join(','),
             },
