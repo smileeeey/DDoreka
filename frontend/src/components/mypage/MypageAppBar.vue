@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import { mapState } from 'vuex'
 export default {
   name: 'MypageAppBar',
@@ -55,15 +55,15 @@ export default {
     }
   },
   created() {
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/0`)
+    order.get(`/order/userid/${this.userId}/status/0`)
       .then(res => {
         this.prepareCnt = res.data.data.length
       })
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/1`)
+    order.get(`/order/userid/${this.userId}/status/1`)
       .then(res => {
         this.deliveryCnt = res.data.data.length
       })
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/2`)
+    order.get(`/order/userid/${this.userId}/status/2`)
       .then(res => {
         this.completeCnt = res.data.data.length
       })

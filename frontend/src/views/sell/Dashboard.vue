@@ -162,7 +162,7 @@ import LineChart from '../../components/seller/chart/LineChart.js'
 import BarChart from '../../components/seller/chart/BarChart.js'
 
 import { mapState } from 'vuex'
-import axios from 'axios'
+import order from "@/util/http-order.js";
 
 export default {
   components: { LineChart, BarChart, DBCalender },
@@ -238,7 +238,7 @@ export default {
             ];
           for (let i=1; i<13; i++) {
             
-            axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/${i}/`)
+            order.get(`/order/sellerid/${this.seller.id}/${i}/`)
               .then(res=> {
                 var monthtotal = 0;
                 for (let j=0; j<30; j++) {
@@ -260,13 +260,13 @@ export default {
     },
 
     getOrderInfo() {
-      axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
+      order.get(`/order/sellerid/${this.seller.id}/status/0`)
         .then(res => {
           this.callCnt = res.data.data.length
-          axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
+          order.get(`/order/sellerid/${this.seller.id}/status/1`)
             .then(delres => {
               this.deliveryCnt = delres.data.data.length
-              axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
+              order.get(`/order/sellerid/${this.seller.id}/status/2`)
                 .then(comres => {
                   this.completeCnt = comres.data.data.length
                 })

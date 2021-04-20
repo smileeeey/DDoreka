@@ -80,6 +80,7 @@
 
 <script>
 import axios from 'axios'
+import review from "@/util/http-review.js";
 import { mapState } from 'vuex'
 export default {
   name: 'SellerNotification',
@@ -106,7 +107,7 @@ export default {
       let now = new Date()
       let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
       
-      axios.put('http://i4d106.p.ssafy.io:8084/order', {
+      order.put('/order', {
         'orderId': this.orders[idx].orderDetail.orderId,
         'checkDatetime': nowv,
         'orderStatus': this.orders[idx].orderDetail.orderStatus,
@@ -125,7 +126,7 @@ export default {
   },
   created() {
     let dataArray = []
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/sellerid/${this.seller.id}/unchecked`)
+    order.get(`/order/sellerid/${this.seller.id}/unchecked`)
       .then(res => {
         res.data.data.forEach(order => {
           let csname = order.recipientName.substr(0, 1) + '*' + order.recipientName.substr(2, 1)
@@ -178,7 +179,7 @@ export default {
           A += item.id,
           A += ','
         })
-        axios.get(`http://i4d106.p.ssafy.io:8083/review/getbyproductids?productIds=${A}`)
+        review.get(`/review/getbyproductids?productIds=${A}`)
           .then(resp => {
             let reviewCnt = resp.data.data.length
             for (let i=0; i<reviewCnt; i++) {

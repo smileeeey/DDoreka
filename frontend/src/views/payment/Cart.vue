@@ -145,7 +145,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import DestinationInfo from '../../components/cart/DestinationInfo.vue'
 import BuyerInfo from '../../components/cart/BuyerInfo.vue'
 import CartList from '../../components/cart/CartList.vue'
@@ -232,7 +232,7 @@ export default {
         for (let i=0; i<this.items.length; i++) {
           if (this.items[i].select == true) {
             console.log('order')
-            axios.post('http://i4d106.p.ssafy.io:8084/order', {
+            order.post('/order', {
               'userId': this.userId,
               'productId': sortwishlist[i].productId,
               'optionId': sortwishlist[i].optionId,

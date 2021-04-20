@@ -29,7 +29,7 @@
 <script>
 import { mapState } from 'vuex'
 // import { mapActions } from 'vuex'
-import axios from 'axios'
+import face from "@/util/http-face.js";
 import TopInfo from '@/components/itemdetail/TopInfo.vue'
 import OtherItems from '@/components/itemdetail/OtherItems.vue'
 import ProductDetail from '@/components/itemdetail/ProductDetail.vue'
@@ -218,8 +218,8 @@ export default {
       this.image = image;
     },
     sendData: function() {
-      axios
-        .post("http://i4d106.p.ssafy.io:8088/face/add", {
+      face
+        .post("/face/add", {
           product: this.productId,
           user: this.userId,
           happy: this.happy.toFixed(2),
