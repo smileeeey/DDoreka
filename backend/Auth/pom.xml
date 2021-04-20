@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.eureka</groupId>
     <artifactId>auth</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>v 0.1.0</version>
     <name>auth</name>
     <description>MSA Architecture</description>
     <properties>
@@ -23,10 +23,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
          <!--common difference-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
+
          <!--common difference-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
