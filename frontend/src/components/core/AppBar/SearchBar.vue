@@ -4,14 +4,7 @@
     <v-row>
       <v-col class="" cols="3">
         <!-- return-object -->
-        <v-select
-          v-model="category1id"
-          :items="categoryNames"
-          solo
-          flat
-          item-text="name"
-          item-value="id"
-        ></v-select>
+        <v-select v-model="category1id" :items="categoryNames" solo flat item-text="name" item-value="id"></v-select>
       </v-col>
       <v-col class="" cols="9">
         <v-text-field
@@ -29,7 +22,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import product from '@/util/http-product.js';
 
 export default {
   name: 'SearchBar',
@@ -40,39 +33,30 @@ export default {
   }),
   methods: {
     getCategoryName() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/category/mainCategory`)
-      .then(res => {
-        this.categoryNames = res.data.data
-        this.categoryNames.unshift({
-          name: 'ALL',
+      product
+        .get(`/category/mainCategory`)
+        .then((res) => {
+          this.categoryNames = res.data.data;
+          this.categoryNames.unshift({
+            name: 'ALL',
+          });
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     searchItem() {
       // console.log('검색실행')
       // console.log(this.keyword)
-      this.$router.push({name:'Search', params: {category1id: this.category1id, keyword: this.keyword}})
-    }
+      this.$router.push({ name: 'Search', params: { category1id: this.category1id, keyword: this.keyword } });
+    },
   },
   created() {
-    this.getCategoryName()
+    this.getCategoryName();
   },
-}
+};
 </script>
 
 <style scoped>
-  >>> .v-text-field__details {
-    display: none;
-  }
 
-  >>> .v-input__slot {
-    margin: 0;
-  }
-
-  >>> .mdi-magnify {
-    color: #0275d8 !important;
-  }
 </style>

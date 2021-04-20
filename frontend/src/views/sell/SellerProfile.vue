@@ -265,12 +265,12 @@ export default {
 </script>
 
 <style scoped>
-  >>> .v-text-field__slot {
+  /* >>> .v-text-field__slot {
     margin: 10px;;
   }
 
   >>> .v-messages__message {
     margin-top: 2px;
   }
-  
+   */
 </style>
