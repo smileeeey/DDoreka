@@ -80,7 +80,7 @@ export default {
       const quantity = this.quantity;
       const token = localStorage.getItem('eureka-authorization');
       if (token) {
-        axios
+        user
           .post(
             '/user/cart',
             {

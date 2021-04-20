@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import face from "@/util/http-face.js";
-import { mapState } from 'vuex'
+import face from '@/util/http-face.js';
+import { mapState } from 'vuex';
 import DoughnutChart from '../components/seller/chart/DoughnutChart.js';
 import file from '@/util/http-file.js';
 import product from '@/util/http-product.js';

@@ -192,7 +192,7 @@ export default {
 </script>
 
 <style scoped>
->>> .v-stepper__header {
+/* >>> .v-stepper__header {
   box-shadow: none !important;
-}
+} */
 </style>

@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import httporder from "@/util/http-order.js";
-import review from "@/util/http-review.js";
-import { mapState } from 'vuex'
+import httporder from '@/util/http-order.js';
+import review from '@/util/http-review.js';
+import { mapState } from 'vuex';
 export default {
   name: 'SellerNotification',
   data: () => ({
@@ -74,26 +74,27 @@ export default {
   },
   methods: {
     deleteReview(idx) {
-      // delete noti axios request
       this.reviews.splice(idx, 1);
     },
     deleteOrder(idx) {
-      let now = new Date()
-      let nowv = now.getFullYear() + '-' + now.getMonth()+1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds()
-      
-      httporder.put('/order', {
-        'orderId': this.orders[idx].orderDetail.orderId,
-        'checkDatetime': nowv,
-        'orderStatus': this.orders[idx].orderDetail.orderStatus,
-        'courier': this.orders[idx].orderDetail.courier,
-        'invoiceNum': this.orders[idx].orderDetail.invoiceNum,
-        'deliveryStartDatatime': this.orders[idx].orderDetail.deliveryStartDatatime,
-        'deliveryCompletionDatatime': this.orders[idx].orderDetail.deliveryCompletionDatatime,
-        'cancelMsg': this.orders[idx].orderDetail.cancelMsg,
-      })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
+      let now = new Date();
+      let nowv =
+        now.getFullYear() + '-' + now.getMonth() + 1 + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes() + '-' + now.getSeconds();
+
+      httporder
+        .put('/order', {
+          orderId: this.orders[idx].orderDetail.orderId,
+          checkDatetime: nowv,
+          orderStatus: this.orders[idx].orderDetail.orderStatus,
+          courier: this.orders[idx].orderDetail.courier,
+          invoiceNum: this.orders[idx].orderDetail.invoiceNum,
+          deliveryStartDatatime: this.orders[idx].orderDetail.deliveryStartDatatime,
+          deliveryCompletionDatatime: this.orders[idx].orderDetail.deliveryCompletionDatatime,
+          cancelMsg: this.orders[idx].orderDetail.cancelMsg,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
         })
         .then((res) => {
           console.log(res);
