@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.eureka'
-version = '20210419.2-user'
+version = 'user-v0.1.0'
 sourceCompatibility = '1.8'
 
 repositories {
