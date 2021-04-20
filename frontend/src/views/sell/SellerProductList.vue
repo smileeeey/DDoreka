@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import { mapState } from 'vuex'
 import LineChart from '../../components/seller/chart/LineChart.js'
 import DoughnutChart from '../../components/seller/chart/DoughnutChart.js'
@@ -145,7 +145,7 @@ export default {
 
         for(let i=0; i<productsize; i++) {
           let ctid = productslist[i].category1Id
-          axios.get(`http://i4d106.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
+          order.get(`/order/prodcut/${productslist[i].id}/dayofweek`)
             .then(r => {
               let data = r.data.data
               let sumdata = data.reduce(function(a, b) {

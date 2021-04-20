@@ -16,6 +16,7 @@
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
+import review from "@/util/http-review.js";
 import ReviewCard from './ReviewCard'
 export default {
   name: 'ProductReview',
@@ -32,7 +33,7 @@ export default {
   },
   methods: {
     getReviews() {
-      axios.get(`http://i4d106.p.ssafy.io:8083/review/get/${this.userId}`)
+      review.get(`/review/get/${this.userId}`)
       .then(res => {
         console.log(res)
         this.reviews = res.data.data

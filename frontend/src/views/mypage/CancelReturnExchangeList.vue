@@ -10,7 +10,7 @@
 <script>
 import CancelOrderCard from '../../components/mypage/CancelOrderCard.vue'
 import { mapState } from 'vuex';
-import axios from 'axios'
+import order from "@/util/http-order.js";
 export default {
   name: 'CancelReturnExchangeList',
   components: {
@@ -37,7 +37,7 @@ export default {
   },
   created: function () {
     let dataArray = [];
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/3`)
+    order.get(`/order/userid/${this.userId}/status/3`)
       .then(res => {
         let array = res.data.data;
         for (let j=0; j<array.length; j++) {

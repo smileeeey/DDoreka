@@ -79,7 +79,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import seller from "@/util/http-seller.js";
+import auth from "@/util/http-auth.js";
 
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
@@ -109,21 +110,21 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+      auth.post('/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
           localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('seller-eureka-authorization')
-          axios.get(`http://i4d106.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
+          seller.get(`/seller/getByEmail/${this.form.email}`, {}, {
             headers: {
               'eureka-authorization': token
             }
           })
             .then(response=> {
               this.$store.dispatch("SETSELLERINFO", response.data)
-              axios.get(`http://i4d106.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
+              seller.get(`/store/getBySellerId/${response.data.id}`)
                 .then(resp => {
                   this.$store.dispatch('SETSELLERSTORE', resp.data)
                   this.$router.push({ name: 'Dashboard' });

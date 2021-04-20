@@ -45,6 +45,8 @@
 
 <script>
 import axios from 'axios'
+import review from "@/util/http-review.js";
+
 export default {
   name: 'CreateReview',
   props: {
@@ -92,7 +94,7 @@ export default {
     },
     saveReview() {
       console.log('saveReview!')
-      axios.post('http://i4d106.p.ssafy.io:8083/review/write', {
+      review.post('/review/write', {
         review: {
           orderId: this.orderId,
           optionId: this.optionId,

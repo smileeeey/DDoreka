@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import seller from "@/util/http-seller.js";
 import { mapState } from 'vuex'
 export default {
   name: 'SellerProfile',
@@ -238,7 +238,7 @@ export default {
     saveAddress: function () {
       this.store.zipcode = document.getElementById('zipcode').value
       this.store.main_address = document.getElementById('main_address').value
-      axios.post('http://i4d106.p.ssafy.io:8088/store/add', {
+      seller.post('/store/add', {
         'sellerId': this.seller.id,
         'phone': this.store.phone,
         'name': this.store.name,

@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import auth from "@/util/http-auth.js";
 
 import AccountsFooter from '../../components/accounts/AccountsFooter.vue'
 export default {
@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     login: function () {
-      axios.post('http://i4d106.p.ssafy.io:8088/login', {
+      auth.post('/login', {
         username: this.form.email,
         password: this.form.pw
       })

@@ -88,6 +88,7 @@
 
 <script>
 import DoughnutChart from '../components/seller/chart/DoughnutChart.js'
+import face from "@/util/http-face.js";
 
 import { mapState } from 'vuex'
 import axios from 'axios'
@@ -145,7 +146,7 @@ export default {
     //   this.$router.push({ name: 'Login' })
     // }
     let items = [];
-    axios.get(`http://i4d106.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
+    face.get(`/face/getAllByUser/${this.userId}`)
       .then(res => {
         res.data.forEach(item => {
           axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${item.product}`)
