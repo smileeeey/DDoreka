@@ -15,11 +15,11 @@
       </balloon>
     </div>
     <!-- 위 face app -->
-    
+
     <!-- 여기부터 ItemDetial -->
     <TopInfo v-if="Object.keys(item).length && sFiles.length" :item="item" :sFiles="sFiles" />
     <OtherItems v-if="storeId != ''" :storeId="storeId" />
-    <ProductDetail v-if="Object.keys(item).length  && mFiles.length" :item="item" :mFiles="mFiles" />
+    <ProductDetail v-if="Object.keys(item).length && mFiles.length" :item="item" :mFiles="mFiles" />
     <Reviews v-if="Object.keys(item).length" :item="item" />
     <!-- <ProductInquiry v-if="Object.keys(item).length" :item="item" /> -->
     <Guidance />
@@ -27,21 +27,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 // import { mapActions } from 'vuex'
-import axios from 'axios'
-import TopInfo from '@/components/itemdetail/TopInfo.vue'
-import OtherItems from '@/components/itemdetail/OtherItems.vue'
-import ProductDetail from '@/components/itemdetail/ProductDetail.vue'
-import Reviews from '@/components/itemdetail/Reviews.vue'
+import product from '@/util/http-product.js';
+import file from '@/util/http-file.js';
+import TopInfo from '@/components/itemdetail/TopInfo.vue';
+import OtherItems from '@/components/itemdetail/OtherItems.vue';
+import ProductDetail from '@/components/itemdetail/ProductDetail.vue';
+import Reviews from '@/components/itemdetail/Reviews.vue';
 // import ProductInquiry from '@/components/itemdetail/ProductInquiry.vue'
 //
 // --------- 아래 face app ---------------------------
-import Guidance from '@/components/itemdetail/Guidance.vue'
-import RwvCamera from "@/components/TheCamera.vue";
-import { Balloon } from "vue-balloon";
-import * as tf from "@tensorflow/tfjs";
-import * as faceapi from "face-api.js";
+import Guidance from '@/components/itemdetail/Guidance.vue';
+import RwvCamera from '@/components/TheCamera.vue';
+import { Balloon } from 'vue-balloon';
+import * as tf from '@tensorflow/tfjs';
+import * as faceapi from 'face-api.js';
 const params = {
   minConfidence: 0.5,
 };
@@ -66,8 +67,8 @@ export default {
     sFiles: [],
     mFiles: [],
     storeId: '',
-  // ----------- 아래 face app ----------------------
-    mood: "로딩중...",
+    // ----------- 아래 face app ----------------------
+    mood: '로딩중...',
     class: null,
     neutral: 0.0,
     happy: 0.0,
@@ -81,9 +82,9 @@ export default {
     image: null,
     show: false,
     timer: 0,
-    faceCreatedAt: ""
+    faceCreatedAt: '',
   }),
-  mounted(){
+  mounted() {
     this.init(this.getEmotion);
   },
   beforeDestroy() {
@@ -96,63 +97,64 @@ export default {
   //
   methods: {
     getItem() {
-      axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${this.productId}`)
-        .then(res => {
-          console.log(res.data.data)
-          this.item = res.data.data
-          this.storeId = this.item.storeId
-          this.$store.dispatch('SELECTITEM', this.item)
-          this.item.images.forEach(image => {
+      product
+        .get(`/product/detail/${this.productId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          this.item = res.data.data;
+          this.storeId = this.item.storeId;
+          this.$store.dispatch('SELECTITEM', this.item);
+          this.item.images.forEach((image) => {
             if (image.imageType === 'S') {
-              this.sFileIds.push(image.fileId)
+              this.sFileIds.push(image.fileId);
             } else {
-              this.mFileIds.push(image.fileId)
+              this.mFileIds.push(image.fileId);
             }
-          })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-            params: {
-              fileIds: this.sFileIds.join(',')
-            },
-            // paramsSerializer: params => {
-            //   return qs.stringify(params)
-            // }
-          })
-            .then(res => {
-              console.log('pd pic')
-              console.log(res.data)
-              this.sFiles = res.data.data
+          });
+          file
+            .get(`/file/fileServe`, {
+              params: {
+                fileIds: this.sFileIds.join(','),
+              },
+              // paramsSerializer: params => {
+              //   return qs.stringify(params)
+              // }
             })
-            .catch(err => {
-              console.log(err)
+            .then((res) => {
+              console.log('pd pic');
+              console.log(res.data);
+              this.sFiles = res.data.data;
             })
-          axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe`, {
-            params: {
-              fileIds: this.mFileIds.join(',')
-            },
-          })
-            .then(res => {
+            .catch((err) => {
+              console.log(err);
+            });
+          file
+            .get(`/file/fileServe`, {
+              params: {
+                fileIds: this.mFileIds.join(','),
+              },
+            })
+            .then((res) => {
               // console.log(res.data)
-              this.mFiles = res.data.data
+              this.mFiles = res.data.data;
             })
-            .catch(err => {
-              console.log(err)
-            })          
+            .catch((err) => {
+              console.log(err);
+            });
         })
-        .catch(err => {
-          console.log(err)
-        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // ----------------------- 아래 face app---------------------------------
     async init(callback) {
       var self = this;
       // load the face detection api & emotion detection model
-      await faceapi.loadSsdMobilenetv1Model("/models/features/");
-      await faceapi.loadFaceLandmarkModel("/models/features");
-      await faceapi.loadFaceExpressionModel("/models/features");
-      this.emotionModel = await tf.loadLayersModel(
-        "/models/emotion/model.json"
-      );
+      await faceapi.loadSsdMobilenetv1Model('/models/features/');
+      await faceapi.loadFaceLandmarkModel('/models/features');
+      await faceapi.loadFaceExpressionModel('/models/features');
+      this.emotionModel = await tf.loadLayersModel('/models/emotion/model.json');
       callback();
     },
     setLoading() {
@@ -161,50 +163,38 @@ export default {
     async getEmotion() {
       var self = this;
       const image = this.$children[0].$children[0].webcam.webcamElement;
-      this.faceCreatedAt = new Date()
+      this.faceCreatedAt = new Date();
       this.polling = setInterval(async () => {
         const userExpression = await faceapi
           .detectSingleFace(image)
           .withFaceLandmarks()
           .withFaceExpressions();
-        if (typeof userExpression === "undefined") {
-          this.show = false;          
-        } else {          
+        if (typeof userExpression === 'undefined') {
           this.show = false;
-          var expression = Object.keys(userExpression.expressions).reduce(
-            function(a, b) {
-              return userExpression.expressions[a] >
-                userExpression.expressions[b]
-                ? a
-                : b;
-            }
-          );
+        } else {
+          this.show = false;
+          var expression = Object.keys(userExpression.expressions).reduce(function(a, b) {
+            return userExpression.expressions[a] > userExpression.expressions[b] ? a : b;
+          });
         }
 
-        if(expression == 'neutral')
-          expression = '😃 중립'
-        else if(expression == 'happy')
-          expression = '😁 행복'
-        else if(expression == 'sad')
-          expression = '😭 슬픔'
-        else if(expression == 'angry')
-          expression = '😡 분노'
-        else if(expression == 'fearful')
-          expression = '😱 두려움'
-        else if(expression == 'disgusted')
-          expression = '😵 역겨움'
-        else 
-          expression = '😲 놀람'
+        if (expression == 'neutral') expression = '😃 중립';
+        else if (expression == 'happy') expression = '😁 행복';
+        else if (expression == 'sad') expression = '😭 슬픔';
+        else if (expression == 'angry') expression = '😡 분노';
+        else if (expression == 'fearful') expression = '😱 두려움';
+        else if (expression == 'disgusted') expression = '😵 역겨움';
+        else expression = '😲 놀람';
 
         this.setMood(expression);
         this.timer += 0.1;
-        this.neutral += userExpression.expressions["neutral"];
-        this.happy += userExpression.expressions["happy"];
-        this.sad += userExpression.expressions["sad"];
-        this.angry += userExpression.expressions["angry"];
-        this.fearful += userExpression.expressions["fearful"];
-        this.disgusted += userExpression.expressions["disgusted"];
-        this.surprised += userExpression.expressions["surprised"];
+        this.neutral += userExpression.expressions['neutral'];
+        this.happy += userExpression.expressions['happy'];
+        this.sad += userExpression.expressions['sad'];
+        this.angry += userExpression.expressions['angry'];
+        this.fearful += userExpression.expressions['fearful'];
+        this.disgusted += userExpression.expressions['disgusted'];
+        this.surprised += userExpression.expressions['surprised'];
         if (this.timer >= 60) this.stopAnalysis();
       }, 100);
     },
@@ -213,13 +203,13 @@ export default {
       this.mood = mood;
     },
     setImage(image) {
-      console.log("picture taken");
+      console.log('picture taken');
       var self = this;
       this.image = image;
     },
     sendData: function() {
       axios
-        .post("http://i4d106.p.ssafy.io:8088/face/add", {
+        .post('http://i4d106.p.ssafy.io:8088/face/add', {
           product: this.productId,
           user: this.userId,
           happy: this.happy.toFixed(2),
@@ -236,13 +226,13 @@ export default {
           console.log(response);
         })
         .catch((ex) => {
-          console.warn("ERROR!!!!!!!!!!! : ", ex);
+          console.warn('ERROR!!!!!!!!!!! : ', ex);
         });
     },
     stopAnalysis() {
       clearInterval(this.polling);
-      this.sendData();   
-      this.mood = "감정분석 종료";
+      this.sendData();
+      this.mood = '감정분석 종료';
       this.timer = 60;
     },
   },
@@ -251,23 +241,18 @@ export default {
   //
   //
   created() {
-    this.productId = this.$route.params.productid
+    this.productId = this.$route.params.productid;
     // console.log(this.productId)
-    this.getItem()
+    this.getItem();
     // this.getFileIds()
   },
   computed: {
-    ...mapState([
-      'login',
-      'userId',
-    ])
+    ...mapState(['login', 'userId']),
   },
-  beforeDestroy(){
-    if(this.timer >= 5 && this.timer < 60)
-      this.stopAnalysis();
+  beforeDestroy() {
+    if (this.timer >= 5 && this.timer < 60) this.stopAnalysis();
   },
-
-}
+};
 </script>
 
 <style scoped>
@@ -281,5 +266,4 @@ RwvRecommendations {
 #modal {
   opacity: 0.5 !important;
 }
-
 </style>
