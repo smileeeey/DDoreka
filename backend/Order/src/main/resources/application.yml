@@ -1,47 +1,24 @@
 server:
   port: 8084
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
 
 spring:
   application:
     name: ORDER-SERVICE
-  profiles:
-    active:
-      default
-  cloud:
-    config:
-      enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/eurekaorder?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: ssafy
-    password: ssafy
-    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/order?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: sumin
+    password: sumin
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate.jdbc.time_zone: Asia/Seoul
     show-sql: true
+    generate-ddl: true
 
-
-
-
-
-
-
-#server:
-#  servlet:
-#    contextPath:  /auth
-
-
-
-
-
-
-
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://i4d106.p.ssafy.io:8761/eureka/

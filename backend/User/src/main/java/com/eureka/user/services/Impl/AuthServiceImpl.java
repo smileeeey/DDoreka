@@ -20,10 +20,6 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserRepository userRepository;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
     @Autowired
     private SaltUtil saltUtil;
 
@@ -101,13 +97,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
-<<<<<<< HEAD
-    @Override
-    @Transactional
-    public void saveUser(UserEntity user) throws Exception {
-=======
 
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
 
 
 
