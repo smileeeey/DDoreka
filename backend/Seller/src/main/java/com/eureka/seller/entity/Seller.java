@@ -6,21 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import sun.reflect.CallerSensitive;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
 @Table
 public class Seller {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String pw;

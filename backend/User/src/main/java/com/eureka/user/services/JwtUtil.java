@@ -28,6 +28,7 @@ public class JwtUtil {
     private String SECRET_KEY;
 
 
+
     private Key getSigningKey(String secretKey) {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -50,6 +51,7 @@ public class JwtUtil {
         final Date expiration = extractAllClaims(token).getExpiration();
         return expiration.before(new Date());
     }
+
 
 
     public String generateRefreshToken(UserEntity user) {

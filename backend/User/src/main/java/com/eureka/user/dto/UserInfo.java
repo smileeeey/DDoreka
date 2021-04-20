@@ -15,8 +15,4 @@ public class UserInfo {
     private String phone;
     private String id;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a5d6b9746a8060369aa07a14ed58bd04ffdf5525
 }
