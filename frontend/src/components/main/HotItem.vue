@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import order from "@/util/http-order.js";
 import HotItemCard from './HotItemCard.vue'
 export default {
   name: 'HotItem',
@@ -34,7 +34,7 @@ export default {
   }),
   methods: {
     getItems() {
-      axios.get('http://i4d106.p.ssafy.io:8084/order/recommend/hotproduct')
+      order.get('/order/recommend/hotproduct')
       .then(res => {
         // console.log(res.data.data)
         this.productIds = res.data.data

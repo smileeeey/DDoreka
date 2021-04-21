@@ -8,79 +8,73 @@
 </template>
 
 <script>
-import CancelOrderCard from '../../components/mypage/CancelOrderCard.vue'
+import CancelOrderCard from '../../components/mypage/CancelOrderCard.vue';
 import { mapState } from 'vuex';
-import axios from 'axios'
+import order from '@/util/http-order.js';
+import product from '@/util/http-product.js';
+import file from '@/util/http-file.js';
+
 export default {
   name: 'CancelReturnExchangeList',
   components: {
-    CancelOrderCard
+    CancelOrderCard,
   },
   computed: {
-    ...mapState([
-      'userId',
-    ])
+    ...mapState(['userId']),
   },
-  data () {
+  data() {
     return {
       items: [
-      // {
-      //   img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
-      //   name: '민트위니 여성용 미키기모셋',
-      //   cost: '22900',
-      //   amount: 2,
-      //   date: new Date()
-      // },
-    ]
-  
-    }
+        // {
+        //   img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
+        //   name: '민트위니 여성용 미키기모셋',
+        //   cost: '22900',
+        //   amount: 2,
+        //   date: new Date()
+        // },
+      ],
+    };
   },
-  created: function () {
+  created: function() {
     let dataArray = [];
-    axios.get(`http://i4d106.p.ssafy.io:8084/order/userid/${this.userId}/status/3`)
-      .then(res => {
-        let array = res.data.data;
-        for (let j=0; j<array.length; j++) {
-          let date = array[j].datetime
-          var y = date.substr(0, 4);
-          var m = date.substr(5, 2);
-          var d = date.substr(8, 2);
-          let newD = new Date(y, m-1, d)
-          axios.get(`http://i4d106.p.ssafy.io:8081/product/detail/${array[j].productId}`)
-            .then(resp => {
-              var categoryId = resp.data.data.category3Id
-              for (let k=0; k<resp.data.data.options.length; k++) {
-                if (resp.data.data.options[k].optionId == array[j].optionId) {
-                  var optionprice = resp.data.data.options[k].price
-                  var optionname = resp.data.data.options[k].name
-                  break;
-                }
-              }
-              axios.get(`http://i4d106.p.ssafy.io:8082/file/fileServe/${resp.data.data.images[0].fileId}`)
-                .then(respo => {
-                  dataArray.push({
-                    img: respo.data.data.imageBytes,
-                    name: resp.data.data.name + '  ' + optionname,
-                    cost: optionprice,
-                    amount: array[j].quantity,
-                    date: newD,
-                    status: array[j].orderDetail.orderStatus,
-                    productId: resp.data.data.id,
-                    categoryId: categoryId,
-                    optionId: array[j].optionId,
-                    orderId: array[j].id,
-                    userId: array[j].userId,
-                  })
-                })
-            })
-        }
-        this.items = dataArray
-
-      })
-  }
-}
+    order.get(`/order/userid/${this.userId}/status/3`).then((res) => {
+      let array = res.data.data;
+      for (let j = 0; j < array.length; j++) {
+        let date = array[j].datetime;
+        var y = date.substr(0, 4);
+        var m = date.substr(5, 2);
+        var d = date.substr(8, 2);
+        let newD = new Date(y, m - 1, d);
+        product.get(`/product/detail/${array[j].productId}`).then((resp) => {
+          var categoryId = resp.data.data.category3Id;
+          for (let k = 0; k < resp.data.data.options.length; k++) {
+            if (resp.data.data.options[k].optionId == array[j].optionId) {
+              var optionprice = resp.data.data.options[k].price;
+              var optionname = resp.data.data.options[k].name;
+              break;
+            }
+          }
+          file.get(`/file/fileServe/${resp.data.data.images[0].fileId}`).then((respo) => {
+            dataArray.push({
+              img: respo.data.data.imageBytes,
+              name: resp.data.data.name + '  ' + optionname,
+              cost: optionprice,
+              amount: array[j].quantity,
+              date: newD,
+              status: array[j].orderDetail.orderStatus,
+              productId: resp.data.data.id,
+              categoryId: categoryId,
+              optionId: array[j].optionId,
+              orderId: array[j].id,
+              userId: array[j].userId,
+            });
+          });
+        });
+      }
+      this.items = dataArray;
+    });
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
