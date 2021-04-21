@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // axios 객체 생성
 export default axios.create({
-  baseURL: 'http://localhost:8084/springboot/',
+  baseURL: 'http://192.168.0.9:8084/',
   headers: {
     'Content-type': 'application/json',
   },
