@@ -1,2 +1,2 @@
 # ERD 
-[DB 설계도](https://www.notion.so/ERD-75b096f611084fa6989781ca42ed6b45)
+[DB 설계도](https://www.notion.so/ERD-3f7dd2bd6f5448eca5ebb51990177e8c)
