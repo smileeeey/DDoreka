@@ -24,7 +24,7 @@ pipeline {
 		stage('Docker run!') {
 			agent any
 			steps {
-				sh 'docker run -d --name review-server \ -v /volumes/back_home/profile:/volumes/profile ` \ review-server:1.0 -p 8083:8083'
+				sh 'docker run -d --name review-server -v /volumes/back_home/profile:/volumes/profile review-server:1.0 -p 8083:8083'
 			}
 		}
 	}
