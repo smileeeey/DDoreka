@@ -21,5 +21,11 @@ pipeline {
 				sh 'docker images -f "dangling=true" -q | xargs -r docker rmi'
 			}
 		}
+		stage('Docker run!') {
+			agent any
+			steps {
+				sh 'docker run -d --name review-server \ -v /volumes/back_home/profile:/volumes/profile ` \ review-server:1.0 -p 8083:8083'
+			}
+		}
 	}
 }
