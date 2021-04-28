@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: service-b
+server:
+  port: 8801
+eureka:
+  instance:
+    instance-id: inst001
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: zuul-service
+server:
+  port: 8762
+
+eureka:
+  instance:
+    instance-id: inst001
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+
+zuul:
+  routes:
+    service-a:
+      path: /hi/**
+      stripPrefix: true
+
+
