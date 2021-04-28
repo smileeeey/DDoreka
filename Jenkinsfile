@@ -6,7 +6,7 @@ pipeline {
 		stage('Build and Test') {
 			agent any
 			steps {
-				sh 'docker build --tag review-server:0.1'
+				sh 'docker build --tag review-server:1.0 .'
 			}
 		}
 	}
