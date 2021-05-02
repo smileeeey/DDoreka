@@ -141,6 +141,7 @@ import user from '@/util/http-user.js';
 import file from '@/util/http-file.js';
 import product from '@/util/http-product.js';
 import PaymentCompleteCard from '../../components/cart/PaymentCompleteCard.vue';
+import {mapState} from 'vuex';
 
 export default {
   components: { Footer, CartList, PaymentTable, BuyerInfo, DestinationInfo, PaymentCompleteCard },

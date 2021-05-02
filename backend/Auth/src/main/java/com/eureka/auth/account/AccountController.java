@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 public class AccountController {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
@@ -19,7 +19,7 @@ public class AccountController {
 
 
     @PostMapping("/add")
-    public Account createAccount (@RequestBody Account account){
+    public Account createAccount (@RequestBody Account account) {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
@@ -30,5 +30,4 @@ public class AccountController {
         existingAccount.setPassword(account.getPassword());
         return accountRepository.save(existingAccount);
     }
-
 }
