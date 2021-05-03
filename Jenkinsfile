@@ -14,6 +14,7 @@ pipeline {
 				sh 'docker build -t product-server:1.0  ./backend/Product'
 				sh 'docker build -t order-server:1.0  ./backend/Order'
 				sh 'docker build -t seller-server:1.0  ./backend/Seller'
+				
 
 			}
 		}
