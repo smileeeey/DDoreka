@@ -2,18 +2,18 @@
 pipeline {
 
 	agent none
-	options { skipDefaultCheckout(true) }
+	options { skipDefaultCheckout(false) }
 	stages {
 		stage('Build and Test') {
 			agent any
 			steps {
 				sh 'docker build -t review-server:1.0 ./backend/Review'
-	/*			sh 'docker build -t face-server:1.0 ./backend/Face'
+				sh 'docker build -t face-server:1.0 ./backend/Face'
 				sh 'docker build -t auth-server:1.0  ./backend/Auth'
 				sh 'docker build -t user-server:1.0  ./backend/User'
 				sh 'docker build -t product-server:1.0  ./backend/Product'
 				sh 'docker build -t order-server:1.0  ./backend/Order'
-				sh 'docker build -t seller-server:1.0  ./backend/Seller' */
+				sh 'docker build -t seller-server:1.0  ./backend/Seller' 
 				
 
 			}
