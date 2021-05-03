@@ -1,17 +1,14 @@
 package com.eureka.order.dto;
 
 import com.eureka.order.Entity.OrderDetailEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Data
 public class Order {
-
     private String id;
+
     private String userId;
     private String productId;
     private String optionId;

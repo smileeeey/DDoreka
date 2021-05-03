@@ -30,13 +30,16 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader("eureka-authorization");
+        System.out.println("authorizationHeader: "+authorizationHeader);
 
         if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Seungyun ")){
             filterChain.doFilter(request,response);
             return;
         }
         String token = authorizationHeader.replace("Seungyun ", "");
+        System.out.println("여기 토큰"+token);
         String secretKey = "seungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsome";
+
         try{
             Jws<Claims> claimsJws = Jwts.parser()
                     .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
@@ -45,13 +48,14 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Claims body = claimsJws.getBody();
 
             String username = body.getSubject();
-
+            System.out.println(username);
             var authorities = (List<Map<String, String>>) body.get("authorities");
 
             Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority")))
                     .collect(Collectors.toSet());
 
+            System.out.println("aaa");
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     username,
                     null,

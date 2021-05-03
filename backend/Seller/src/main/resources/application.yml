@@ -1,23 +1,27 @@
 server:
-  port: 8086
+  port: 9191
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 
 spring:
-  application:
-    name: SELLER-SERVICE
   datasource:
-    url: jdbc:mysql://localhost:3306/seller?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssafy?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: sumin
     password: sumin
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  application:
+    name: SELLER-SERVICE
+
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
-    generate-ddl: true
-
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://i4d106.p.ssafy.io:8761/eureka/
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect

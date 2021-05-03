@@ -38,10 +38,13 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public Response login(@RequestBody UserEntity user){
+
         try{
+            System.out.println("111user/loigin 들어옴"+user.toString());
             return new Response("success","로그인을 성공적으로 완료했습니다.",authService.getUser(user.getEmail(),user.getPw()));
         }
         catch (Exception e){
+            System.out.println("user/loigin 들어옴"+user.toString());
             return new Response("error","로그인중 오류",e.getMessage());
         }
     }
@@ -49,11 +52,14 @@ public class UserController {
 
     @PostMapping(value = "/signup")
     public Response saveUser(@RequestBody UserEntity user){
+
         try{
+            System.out.println("1111user/signup 들어옴"+user.toString());
             authService.saveUser(user);
             return new Response("success","회원가입을 성공적으로 완료했습니다.",null);
         }
         catch (Exception e){
+            System.out.println("user/signup 들어옴"+user.toString());
             return new Response("error","회원가입중 오류",e.getMessage());
         }
     }

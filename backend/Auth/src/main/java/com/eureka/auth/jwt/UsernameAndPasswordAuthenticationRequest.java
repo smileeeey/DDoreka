@@ -5,6 +5,7 @@ public class UsernameAndPasswordAuthenticationRequest {
     private String password;
 
     public UsernameAndPasswordAuthenticationRequest() {
+        System.out.println("UsernameAndPasswordAuthenticationRequest");
     }
 
     public String getUsername() {

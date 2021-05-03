@@ -29,7 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        System.out.println("configure들ㅇ아왕");
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -37,8 +37,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
                 .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/login/add/**").hasRole("ADMIN")
-                .antMatchers("/login/update/**").hasRole("ADMIN")
+                .antMatchers("/login/addAdmin").permitAll()
+                .antMatchers("/login/add/**").permitAll()
+                .antMatchers("/login/update/**").permitAll()
+//                .antMatchers("/login/add/**").hasRole("ADMIN")
+//                .antMatchers("/login/update/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated();
     }
@@ -50,6 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
+        System.out.println("daoAuthenticationProvider");
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(accountService);

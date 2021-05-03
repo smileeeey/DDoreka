@@ -9,6 +9,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("addCoorsMaapings");
         registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*");
     }
 }

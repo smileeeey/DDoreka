@@ -115,7 +115,7 @@ export default {
                 role: 'SELLER',
               }, {
                 headers: {
-                  'eureka-authorization': "Seungyun eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXVuZ3l1biIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE2MTM0MDI5MTIsImV4cCI6MTYxNDU1NjgwMH0.bbgvRGYbXv52BzwAFpIPq_WjkhpP2D1dYpByx6awEKZyj1j-WUMHFCor-4yn1VNML73JFieZpCDKtcBErqYgnA",                  
+                  //'eureka-authorization': "Seungyun eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXVuZ3l1biIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE2MTM0MDI5MTIsImV4cCI6MTYxNDU1NjgwMH0.bbgvRGYbXv52BzwAFpIPq_WjkhpP2D1dYpByx6awEKZyj1j-WUMHFCor-4yn1VNML73JFieZpCDKtcBErqYgnA",
                 }
               })
                 .then(response => {
@@ -138,8 +138,7 @@ export default {
                 },
                 {
                   headers: {
-                    'eureka-authorization':
-                      'Seungyun eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXVuZ3l1biIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE2MTM0MDI5MTIsImV4cCI6MTYxNDU1NjgwMH0.bbgvRGYbXv52BzwAFpIPq_WjkhpP2D1dYpByx6awEKZyj1j-WUMHFCor-4yn1VNML73JFieZpCDKtcBErqYgnA',
+                    //'eureka-authorization':'Seungyun eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXVuZ3l1biIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE2MTM0MDI5MTIsImV4cCI6MTYxNDU1NjgwMH0.bbgvRGYbXv52BzwAFpIPq_WjkhpP2D1dYpByx6awEKZyj1j-WUMHFCor-4yn1VNML73JFieZpCDKtcBErqYgnA',
                   },
                 }
               )

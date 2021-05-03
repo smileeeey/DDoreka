@@ -28,7 +28,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
+        System.out.println("attemptAuthentication");
         try{
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
@@ -48,7 +48,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-
+        System.out.println("successfulAuthentication");
         String key = "seungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsome";
 
         String token = Jwts.builder()

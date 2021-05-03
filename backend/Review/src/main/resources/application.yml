@@ -5,7 +5,7 @@ spring:
   application:
     name: REVIEW-SERVICE
   datasource:
-    url: jdbc:mysql://k4d104.p.ssafy.io:3306/review?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/review?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: sumin
     password: sumin
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,10 +14,9 @@ spring:
       ddl-auto: update
     show-sql: true
     generate-ddl: true
-
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://i4d106.p.ssafy.io:8761/eureka/
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

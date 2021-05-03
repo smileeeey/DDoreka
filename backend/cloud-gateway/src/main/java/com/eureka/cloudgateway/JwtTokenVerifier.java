@@ -30,11 +30,13 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader("eureka-authorization");
+        System.out.println("doFilterInternal 안"+authorizationHeader);
 
         if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
+
         String token = authorizationHeader.replace("Bearer ", "");
         String secretKey = "seungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsomeseungyunishandsome";
         try{
