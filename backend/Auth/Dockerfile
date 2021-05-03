@@ -2,8 +2,9 @@ FROM openjdk:8-jdk-alpine AS builder
 COPY mvnw .
 COPY mvnw.cmd .
 COPY src src
+COPY pom.xml .
 RUN chmod +x ./mvnw
-RUN mvn package
+RUN ./mvnw package
 
 FROM openjdk:8-jdk-alpine
 COPY --from=builder target/*.jar app.jar
