@@ -5,17 +5,15 @@ plugins {
 }
 
 group = 'com.eureka'
-version = 'v0.1.1'
+version = 'v0.0.26'
 sourceCompatibility = '1.8'
 
 // for Eureka client
-/*
 dependencyManagement {
     imports {
         mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
     }
 }
- */
 
 configurations {
     compileOnly {
@@ -47,7 +45,7 @@ dependencies {
     }
 
     // for Eureka client
-    //compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 }
 
 test {

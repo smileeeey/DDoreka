@@ -137,71 +137,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Integer> getHotProduct(int userId) {
-
-        if(userId==0)
-            return orderRepositoty.findHotProduct();
-        else{
-
-            //map 생성
-            List<Integer> userIds = orderRepositoty.findDistinctUserId();
-            List<Integer> productIds = orderRepositoty.findDistinctProductId();
-
-            int totalUser = userIds.size();
-            int totalProduct = productIds.size();
-            int[][] map = new int[totalUser][totalProduct];
-            int userIdx = 0;
-            for (Integer id : userIds) {
-
-                List<Integer> products = orderRepositoty.findByUserId(id);
-
-                int productlistIdx = 0;
-                for (Integer product : products) {
-                    while(productlistIdx<totalProduct){
-
-                        if(productIds.get(productlistIdx) == product) {
-                            map[userIdx][productlistIdx] = 1;
-                            ++productlistIdx;
-                            break;
-                        }
-                        ++productlistIdx;
-                    }
-                }
-                //이러면 터터지나/??
-
-                ++userIdx;
-            }
-
-            int targetUserIdx = 0;
-            for (int i = 0 ; i < totalUser ; ++i) {
-                if (userIds.get(i) == userId) {
-                    targetUserIdx = i;
-                    break;
-                }
-            }
-
-                int max=0;
-            int maxIdx = 0;
-
-            for (int i = 0 ; i < totalUser ; ++i){
-                if(i == targetUserIdx)    continue;
-
-                int cnt = 0;
-                for (int j = 0 ; j < totalProduct ; ++j){
-                    if(map[targetUserIdx][j]+map[i][j] == 2)    ++cnt;
-                }
-
-                if(cnt>max){
-                    max = cnt;
-                    maxIdx = i;
-                }
-            }
-
-            return orderRepositoty.findByUserId(userIds.get(maxIdx));
-        }
+    public List<Integer> getHotProduct() {
+        return orderRepositoty.findHotProduct();
     }
-
-
 
     @Override
     public List<Map<String,Object>> getTodayHot() {

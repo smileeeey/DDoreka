@@ -5,18 +5,15 @@ plugins {
 }
 
 group = 'com.eureka'
-version = 'v 0.1.0'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 // for Eureka client
-/*
 dependencyManagement {
     imports {
         mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR3'
     }
 }
-
- */
 
 configurations {
     compileOnly {
@@ -37,7 +34,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
     // for Eureka client
-    //compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 }
 
 test {

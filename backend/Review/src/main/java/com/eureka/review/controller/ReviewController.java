@@ -1,11 +1,11 @@
 package com.eureka.review.controller;
 
 import com.eureka.review.dto.Response;
+import com.eureka.review.dto.Review;
 import com.eureka.review.dto.Reviewlike;
 import com.eureka.review.service.ReviewService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -108,19 +108,6 @@ public class ReviewController {
         }
 
 
-        return response;
-    }
-
-
-    //관리자 id로 review 가져오기 최근 top5
-    @GetMapping(value="/getbyproductids")
-    public Response getReviewByProductIds(@RequestParam(value="productIds",required = true) List<Integer> productIds){
-        Response response;
-        try{
-            response = new Response("success", "상품아이디들중 최신 5개의 리뷰 조회 성공", service.getReviewsByProductIds(productIds));
-        }catch(Exception e){
-            response = new Response("error", "상품아이디들중 최신 5개의 리뷰 조회 실패", e.getMessage());
-        }
         return response;
     }
 

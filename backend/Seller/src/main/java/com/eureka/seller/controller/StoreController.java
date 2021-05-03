@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/store")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StoreController {
 
     @Autowired

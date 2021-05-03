@@ -13,17 +13,18 @@ import org.springframework.web.cors.CorsUtils;
 public class GatewaySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        System.out.println("configure");
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtTokenVerifier(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenVerifier(), UsernamePasswordAuthenticationFilter.class)  //얘는 안쓰는거같은뎅
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 
                 //role based logic below
 
-                .anyRequest()
-                .permitAll();
+                .anyRequest().permitAll();
     }
 }
