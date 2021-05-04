@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
+
+@Api(tags = {"1. File"})
 @RestController
 @RequestMapping("/review")
 @CrossOrigin(origins = "*")
