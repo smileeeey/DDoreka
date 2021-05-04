@@ -5,92 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/account/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtTokenVerifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtTokenVerifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtUsernameAndPasswordAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/JwtUsernameAndPasswordAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/UsernameAndPasswordAuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/jwt/UsernameAndPasswordAuthenticationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/java/com/eureka/auth/security/ApplicationSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../File/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../File/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Order/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Review/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Review/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Face/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Face/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../File/src/main/java/com/eureka/file/service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../File/src/main/java/com/eureka/file/service/FileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/seller-0.0.2-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/seller-0.0.2-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../User/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/build/libs/user-20210211-user.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/build/libs/user-20210215.2-user.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../User/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UseraddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/Entity/UseraddressEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/AddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/AddressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/dto/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/dto/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/AddressRepositoy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/AddressRepositoy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/CartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/CartRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/CookieUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/CookieUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/JwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/RedisUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/RedisUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/SaltUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/SaltUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../User/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/GatewaySecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/GatewaySecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/JwtTokenVerifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-gateway/src/main/java/com/eureka/cloudgateway/JwtTokenVerifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/accounts/ChangePassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/accounts/ChangePassword.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/accounts/SignupCheckbox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/accounts/SignupCheckbox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/address/AddForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/address/AddForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/address/AddressPopup.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/address/AddressPopup.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/cart/BuyerInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/cart/BuyerInfo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/cart/CartList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/cart/CartList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/category/CategoryItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/category/CategoryItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/core/AppBar/Categories.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/core/AppBar/Categories.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/core/AppBar/SearchBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/core/AppBar/SearchBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/OtherItemCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/OtherItemCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/OtherItems.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/OtherItems.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/ReviewCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/ReviewCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/Reviews.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/Reviews.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/TopInfoCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/itemdetail/TopInfoCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/CategoryRecommend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/CategoryRecommend.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/DetailBigItemOne.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/DetailBigItemOne.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/DetailSmallItemOne.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/DetailSmallItemOne.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/HotItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/HotItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/HotItemCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/HotItemCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/SteadySeller.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/SteadySeller.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/SteadySellerCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/SteadySellerCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/TodayItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/TodayItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/main/TodayItemsList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/main/TodayItemsList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/mypage/MypageAppBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/mypage/MypageAppBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/mypage/PastOrderCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/mypage/PastOrderCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/search/SearchItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/search/SearchItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/seller/DBCalender.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/seller/DBCalender.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/components/seller/RegisterComponent/RegisterCategory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/components/seller/RegisterComponent/RegisterCategory.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/Category.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/ItemDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/ItemDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/MyFace.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/MyFace.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/Search.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/Search.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/accounts/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/accounts/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/AddressBook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/AddressBook.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/CancelReturnExchangeList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/CancelReturnExchangeList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/CreateReview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/CreateReview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/OrderList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/OrderList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/ProductReview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/ProductReview.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/ReviewCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/ReviewCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/mypage/UserModify.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/mypage/UserModify.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/payment/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/payment/Cart.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerNotification.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerNotification.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProductDeliver.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProductDeliver.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProductList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProductList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerProfile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerRegister.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/SellerRegister.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/src/views/sell/sellaccounts/SellerLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/src/views/sell/sellaccounts/SellerLogin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../chat/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,17 +72,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../s04p31d104/backend/User" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Review" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager" selected="Spring Boot.SellerApplication">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -218,6 +143,7 @@
       <workItem from="1613551997383" duration="2269000" />
       <workItem from="1613616891233" duration="56000" />
       <workItem from="1619755000923" duration="2470000" />
+      <workItem from="1620006432229" duration="2664000" />
     </task>
     <servers />
   </component>
