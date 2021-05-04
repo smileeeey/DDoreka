@@ -5,15 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Auth/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Face/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../File/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Order/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Product/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Review/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../chat/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/faceSellerStoreLogin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/file.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/product.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/review.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/src/api/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../Jenkinsfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/mvnw" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Auth/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Face/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Face/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/src/main/java/com/eureka/file/service/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../File/src/main/java/com/eureka/file/service/FileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../chat/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../chat/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/target/libs/auth-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Auth/target/libs/auth-0.0.2-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../User/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +156,7 @@
       <workItem from="1613551997383" duration="2269000" />
       <workItem from="1613616891233" duration="56000" />
       <workItem from="1619755000923" duration="2470000" />
-      <workItem from="1620006432229" duration="2664000" />
+      <workItem from="1620006432229" duration="3261000" />
     </task>
     <servers />
   </component>
