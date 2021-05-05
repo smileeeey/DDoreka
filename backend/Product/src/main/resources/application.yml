@@ -5,7 +5,7 @@ spring:
   application:
     name: PRODUCT-SERVICE
   datasource:
-    url: jdbc:mysql://localhost:3306/product?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://k4d104.p.ssafy.io:3306/product?allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: sumin
     password: sumin
     driver-class-name: com.mysql.cj.jdbc.Driver

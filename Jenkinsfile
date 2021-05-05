@@ -4,13 +4,6 @@ pipeline {
 	agent none
 	options { skipDefaultCheckout(false) }
 	stages {
-		stage('Init config - make jar') {
-			agent any
-			steps {
-				sh 'cd ./backend/Review
-				sh './shell_script.sh'
-			}
-		}
 		stage('Build and Test') {
 			agent any
 			steps {
