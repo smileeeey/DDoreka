@@ -7,7 +7,8 @@ pipeline {
 		stage('Init config - make jar') {
 			agent any
 			steps {
-				sh './backend/Review/shell_script.sh'
+				sh 'cd ./backend/Review
+				sh './shell_script.sh'
 			}
 		}
 		stage('Build and Test') {
