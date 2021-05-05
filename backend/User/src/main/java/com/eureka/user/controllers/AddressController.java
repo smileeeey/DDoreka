@@ -6,6 +6,7 @@ import com.eureka.user.dto.Response;
 import com.eureka.user.services.*;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"2. Address"})
 @RestController
 @RequestMapping("/user/address")
 @CrossOrigin(origins = "*")
@@ -29,8 +30,9 @@ public class AddressController {
 
     }
 
+    @ApiOperation(value="구매자별 주소 조회", notes = "구매자가 등록한 주소 목록 조회", httpMethod = "GET")
     @GetMapping(value = "/{id}")
-    public Response getAddress(@PathVariable("id") String loginUser){
+    public Response getAddress(@ApiParam(value="구매자 고유값") @PathVariable("id") String loginUser){
         System.out.println("get address "+ loginUser);
         Response response;
         try {
@@ -41,8 +43,9 @@ public class AddressController {
         return response;
     }
 
+    @ApiOperation(value="주소 등록", notes = "구매자의 배송지 주소 등록", httpMethod = "POST")
     @PostMapping(value = "/{id}")
-    public Response saveAddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
+    public Response saveAddress(@ApiParam(value="구매자 고유값") @PathVariable("id") String email, @ApiParam(value="주소 데이터")  @RequestBody UseraddressEntity useraddressEntity ){
         System.out.println(" post address "+email+" "+useraddressEntity);
         Response response;
         try {
@@ -53,8 +56,9 @@ public class AddressController {
         return response;
     }
 
+    @ApiOperation(value="주소 수정", notes = "구매자의 배송지 주소 수정", httpMethod = "PUT")
     @PutMapping(value = "/{id}")
-    public Response updateAddress(@PathVariable("id") String email, @RequestBody UseraddressEntity useraddressEntity ){
+    public Response updateAddress(@ApiParam(value="구매자 고유값") @PathVariable("id") String email,@ApiParam(value="주소 데이터")  @RequestBody UseraddressEntity useraddressEntity ){
         System.out.println(" updateAddress "+email+" "+useraddressEntity);
         Response response;
         try {
@@ -65,8 +69,9 @@ public class AddressController {
         return response;
     }
 
+    @ApiOperation(value="주소 삭제", notes = "구매자의 배송지 주소 삭제", httpMethod = "DELETE")
     @DeleteMapping(value = "/{id}/{addressId}")
-    public Response deleteAddress(@PathVariable("id") String email, @PathVariable("addressId") String addressId){
+    public Response deleteAddress(@ApiParam(value="구매자 고유값") @PathVariable("id") String email,@ApiParam(value="주소 고유값")  @PathVariable("addressId") String addressId){
         System.out.println(" post address "+email+" "+addressId);
         Response response;
         try {

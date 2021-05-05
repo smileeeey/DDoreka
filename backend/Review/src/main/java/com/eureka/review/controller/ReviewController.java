@@ -107,7 +107,7 @@ public class ReviewController {
     }
 
     //review 수정
-    @ApiOperation(value="리뷰 수정", notes = "해당 reviewId에 해당하는 리뷰 데이터 수정", httpMethod = "UPDATE")
+    @ApiOperation(value="리뷰 수정", notes = "해당 reviewId에 해당하는 리뷰 데이터 수정", httpMethod = "PUT")
     @PutMapping(value="/update")
     public Response updaetReview(@ApiParam(value="리뷰 데이터") @RequestBody Map<String,Object> param){
         Response response;
