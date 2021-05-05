@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/s04p31d104.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.18.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.19.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.20.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.21.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.22.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.23.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.24.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.25.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/build/libs/product-v0.0.26.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Product/src/main/java/com/eureka/product/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Review/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Review/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Review/src/main/java/com/eureka/review/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Review/src/main/java/com/eureka/review/controller/ReviewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -154,7 +137,7 @@
       <workItem from="1613551997383" duration="2269000" />
       <workItem from="1613616891233" duration="56000" />
       <workItem from="1619755000923" duration="2470000" />
-      <workItem from="1620006432229" duration="4504000" />
+      <workItem from="1620006432229" duration="5475000" />
     </task>
     <servers />
   </component>
