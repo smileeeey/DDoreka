@@ -3,8 +3,10 @@ package com.eureka.order.Controller;
 
 import com.eureka.order.dto.Response;
 import com.eureka.order.service.OrderService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "1. order from seller")
 @RestController
 @RequestMapping("/order")
 @CrossOrigin
