@@ -8,6 +8,7 @@ import com.eureka.user.services.CartService;
 import com.eureka.user.services.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = {"3. Cart"})
 @RestController
 @RequestMapping(value = "user/cart")
 public class CartController {
@@ -25,9 +26,9 @@ public class CartController {
         this.authService = authService;
     }
 
-
+    @ApiOperation(value="장바구니 조회", notes = "구매자의 장바구니에 담긴 데이터 반환", httpMethod = "GET")
     @GetMapping(value="/{userid}")
-    public Response getcart(@PathVariable("userid") String UserEmail ){
+    public Response getcart(@ApiParam(value="구매자 고유값") @PathVariable("userid") String UserEmail ){
         System.out.println("getcart : "+UserEmail);
         try{
             String userid=authService.getUserId(UserEmail);
@@ -38,8 +39,9 @@ public class CartController {
         }
     }
 
+    @ApiOperation(value="장바구니 저장", notes = "구매자의 장바구니에 데이터 저장", httpMethod = "POST")
     @PostMapping()
-    public Response saveCart(@RequestBody Cart cart){
+    public Response saveCart(@ApiParam(value="장바구니 데이터") @RequestBody Cart cart){
         System.out.println(cart);
         try{
             return new Response("success","제품 장바구니 담기 성공",cartService.saveCart(cart));
@@ -49,8 +51,9 @@ public class CartController {
         }
     }
 
+    @ApiOperation(value="장바구니 수정", notes = "구매자의 장바구니에 데이터 수정", httpMethod = "PUT")
     @PutMapping()
-    public Response updateCart(@RequestBody CartEntity cart){
+    public Response updateCart(@ApiParam(value="장바구니 데이터") @RequestBody CartEntity cart){
         System.out.println("updateCart " +cart);
         try{
             return new Response("success","제품 장바구니 변경 성공",cartService.updateCart(cart));
@@ -60,8 +63,9 @@ public class CartController {
         }
     }
 
+    @ApiOperation(value="장바구니 비우기", notes = "구매자의 모든 장바구니 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value="/all/{UserEmail}")
-    public Response deleteAllCart(@PathVariable("UserEmail") String UserEmail){
+    public Response deleteAllCart(@ApiParam(value="구매자 고유값") @PathVariable("UserEmail") String UserEmail){
         System.out.println("deleteAllCart " +UserEmail);
         try{
             cartService.deleteAll(UserEmail);
@@ -72,8 +76,9 @@ public class CartController {
         }
     }
 
+    @ApiOperation(value="장바구니 개별 항목 삭제", notes = "장바구니 고유값에 해당하는 장바구니 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value="/{cartid}")
-    public Response deleteCart(@PathVariable("cartid") String cartId){
+    public Response deleteCart(@ApiParam(value="장바구니 고유값") @PathVariable("cartid") String cartId){
         System.out.println("deleteCart " +cartId);
         try{
             cartService.deleteCart(cartId);
