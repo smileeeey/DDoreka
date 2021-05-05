@@ -1,4 +1,4 @@
-package com.eureka.file.config.swagger;
+package com.eureka.face.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(this.swaggerInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.eureka.file.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.eureka.face.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(true); // 기본으로 세팅되는 200,401,403,404 메시지를 표시
