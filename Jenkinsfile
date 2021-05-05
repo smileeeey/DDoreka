@@ -7,7 +7,7 @@ pipeline {
 		stage('Init config - make jar') {
 			agent any
 			steps {
-				sh './gradlew ./backend/Review/bootjar'
+				sh './backend/Review/shell_script.sh'
 			}
 		}
 		stage('Build and Test') {
