@@ -4,6 +4,9 @@ package com.eureka.user.controllers;
 import com.eureka.user.Entity.UseraddressEntity;
 import com.eureka.user.dto.Response;
 import com.eureka.user.services.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = {"2. Address"})

@@ -2,6 +2,9 @@ package com.eureka.face.controller;
 
 import com.eureka.face.entity.Face;
 import com.eureka.face.service.FaceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.hibernate.usertype.UserVersionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
