@@ -12,7 +12,7 @@ module.exports = {
       // 프록시 요청을 보낼 api의 시작 부분
       '/auth': {
         // 프록시 요청을 보낼 서버의 주소
-        target: 'http://localhost:9999',
+        target: 'http://k4d104.p.ssafy.io:9999',
       },
     },
   },
