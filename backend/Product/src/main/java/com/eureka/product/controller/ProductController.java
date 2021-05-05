@@ -6,13 +6,16 @@ import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = {"1. Product"})
+@Api(tags = {"2. Product"})
 @RestController
 @RequestMapping("/product")
 @CrossOrigin(origins = "*")

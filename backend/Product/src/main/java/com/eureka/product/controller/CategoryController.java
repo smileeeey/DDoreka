@@ -3,6 +3,9 @@ package com.eureka.product.controller;
 import com.eureka.product.dto.Category;
 import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 
