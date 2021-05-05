@@ -6,7 +6,7 @@ const onUnauthorized = () => {
   router.push("/login");
 };
 
-export const request = (DOMAIN, method, url, data) => {
+export const request = (DOMAIN, method, url, data={}) => {
   return axios({
     method,
     url: DOMAIN + url,
