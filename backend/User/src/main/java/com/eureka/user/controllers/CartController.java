@@ -8,6 +8,11 @@ import com.eureka.user.services.CartService;
 import com.eureka.user.services.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
 @Api(tags = {"3. Cart"})
 @RestController
 @RequestMapping(value = "user/cart")
