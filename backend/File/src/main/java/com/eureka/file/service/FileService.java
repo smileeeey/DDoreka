@@ -57,6 +57,7 @@ public class FileService {
 
         StringBuilder pathRoot = new StringBuilder();
         pathRoot.append("/home/upload/image");
+        //pathRoot.append("C:\\Users\\sumin\\etc\\upload\\eureka");
 
         StringBuilder modulePath = new StringBuilder();
         modulePath.append(st.nextToken())
@@ -135,6 +136,7 @@ public class FileService {
 
         StringBuilder pathRoot = new StringBuilder();
         pathRoot.append("/home/upload/image");
+        //pathRoot.append("C:\\Users\\sumin\\etc\\upload\\eureka");
 
         pathRoot.append(fsl).append(image.getPath())
                 .append(fsl).append(image.getSystemName());

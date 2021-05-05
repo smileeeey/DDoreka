@@ -1,12 +1,25 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" md="4">
-        <v-card class="mx-auto" max-width="400">
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto"
+          max-width="400"
+        >
           <v-list>
             <!-- <v-list-title>대분류</v-list-title> -->
-            <v-list-item-group v-model="model" active-class="border" color="indigo">
-              <v-list-item v-for="(item, i) in items" :key="i">
+            <v-list-item-group
+              v-model="model"
+              active-class="border"
+              color="indigo"
+            >
+              <v-list-item
+                v-for="(item, i) in items"
+                :key="i"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
                 </v-list-item-icon>
@@ -19,12 +32,25 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="mx-auto" max-width="400">
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto"
+          max-width="400"
+        >
           <v-list>
             <!-- <v-list-title>대분류</v-list-title> -->
-            <v-list-item-group v-model="submodel" active-class="border" color="indigo">
-              <v-list-item v-for="(item, i) in items[model].subCategory" :key="i">
+            <v-list-item-group
+              v-model="submodel"
+              active-class="border"
+              color="indigo"
+            >
+              <v-list-item
+                v-for="(item, i) in items[model].subCategory"
+                :key="i"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
                 </v-list-item-icon>
@@ -37,12 +63,25 @@
           </v-list>
         </v-card>
       </v-col>
-      <v-col cols="12" md="4">
-        <v-card class="mx-auto" max-width="400">
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="mx-auto"
+          max-width="400"
+        >
           <v-list>
             <!-- <v-list-title>대분류</v-list-title> -->
-            <v-list-item-group v-model="detailmodel" active-class="border" color="indigo">
-              <v-list-item v-for="(item, i) in items[model].subCategory[submodel].subCategory" :key="i">
+            <v-list-item-group
+              v-model="detailmodel"
+              active-class="border"
+              color="indigo"
+            >
+              <v-list-item
+                v-for="(item, i) in items[model].subCategory[submodel].subCategory"
+                :key="i"
+              >
                 <v-list-item-icon>
                   <v-icon v-text="item.icon"></v-icon>
                 </v-list-item-icon>
@@ -60,7 +99,7 @@
 </template>
 
 <script>
-import product from '@/util/http-product.js';
+import axios from 'axios'
 export default {
   name: 'RegisterCategory',
   data: () => ({
@@ -79,49 +118,50 @@ export default {
       },
     ],
     model: 0,
-    submodel: 0,
+    submodel : 0,
     detailmodel: 0,
   }),
-  created: function() {
-    product.get(`/category/mainCategory`).then((res) => {
-      this.items = res.data.data;
-    });
+  created: function () {
+    axios.get(`http://k4d104.p.ssafy.io:8081/category/mainCategory`)
+      .then(res => {
+        this.items = res.data.data
+      })
   },
   watch: {
-    model: function() {
-      this.$emit('maincode', this.modelCode);
-      this.$emit('subcode', this.submodelCode);
-      this.$emit('detailcode', this.detailmodelCode);
+    model: function () {
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
 
-    submodel: function() {
-      this.$emit('maincode', this.modelCode);
-      this.$emit('subcode', this.submodelCode);
-      this.$emit('detailcode', this.detailmodelCode);
+    submodel: function () {
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
 
-    detailmodel: function() {
-      this.$emit('maincode', this.modelCode);
-      this.$emit('subcode', this.submodelCode);
-      this.$emit('detailcode', this.detailmodelCode);
+    detailmodel: function () {
+      this.$emit('maincode', this.modelCode)
+      this.$emit('subcode', this.submodelCode)
+      this.$emit('detailcode', this.detailmodelCode)
     },
   },
   computed: {
     modelCode() {
-      return this.items[this.model].id;
+       return this.items[this.model].id
     },
     submodelCode() {
-      return this.items[this.model].subCategory[this.submodel].id;
+      return this.items[this.model].subCategory[this.submodel].id
     },
     detailmodelCode() {
-      return this.items[this.model].subCategory[this.submodel].subCategory[this.detailmodel].id;
-    },
-  },
-};
+      return this.items[this.model].subCategory[this.submodel].subCategory[this.detailmodel].id
+    }
+  }
+}
 </script>
 
 <style scoped>
-.border {
-  border: 2px dashed red;
-}
+  .border {
+    border: 2px dashed red;
+  }
 </style>

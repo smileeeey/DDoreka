@@ -5,21 +5,14 @@
         style="text-align: right; color: black; width: 75%;"
         class="pa-2"
       >
-        <div style="display: flex; justify-content: space-between">
-          <div style="text-align: left;">
-            <a @click="$router.push({ name: 'Dashboard' })" style="color: black; text-decoration:none; word-break: keep-all; font-weight: bold;">판매자 페이지 이동 >></a>
-          </div>
-          <div>
-            <div v-if="!login">
-              <a @click="goLogin" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
-              <a @click="$router.push({ name: 'Signup' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
-            </div>
-            <div v-else>
-              <a @click="$router.push({ name: 'UserModify' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all; font-weight: bold;">{{name}}님</a>
-              <a @click="logout" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그아웃</a>
-              <a @click="$router.push({ name: 'Mypage' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">마이페이지</a>
-            </div>
-          </div>
+        <div v-if="!login">
+          <a @click="goLogin" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그인</a>
+          <a @click="$router.push({ name: 'Signup' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">회원가입</a>
+        </div>
+        <div v-else>
+          <a @click="$router.push({ name: 'UserModify' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all; font-weight: bold;">{{name}}님</a>
+          <a @click="logout" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">로그아웃</a>
+          <a @click="$router.push({ name: 'Mypage' })" class="mx-1" style="color: black; text-decoration:none; word-break: keep-all">마이페이지</a>
         </div>
       </v-card-text>
     </div>
@@ -36,7 +29,13 @@ import { mapState } from 'vuex'
 export default {
   name: 'StatusBar',
   data: () => ({
-
+    items: [
+      '자주 묻는 질문',
+      '1:1 채팅문의',
+      '고객의 소리',
+      '취소 / 반품 안내',
+    ],
+    CScenter: false,
   }),
   computed: {
     ...mapState([
@@ -50,6 +49,7 @@ export default {
         .dispatch("LOGOUT")
         .then(() => {
           if (this.$route.path !== "/") this.$router.replace("/");
+          localStorage.removeItem('seller-eureka-authorization');
         })
         .catch(() => {
           console.error("logout error occured!!");

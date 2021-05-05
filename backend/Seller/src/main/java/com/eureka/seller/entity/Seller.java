@@ -4,7 +4,6 @@ package com.eureka.seller.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sun.reflect.CallerSensitive;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

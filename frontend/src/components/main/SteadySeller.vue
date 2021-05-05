@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import order from "@/util/http-order.js";
+import axios from 'axios'
 import SteadySellerCard from './SteadySellerCard.vue'
 export default {
   name: 'SteadySeller',
@@ -34,7 +34,7 @@ export default {
   }),
   methods: {
     getItems() {
-      order.get('/order/recommend/steadyseller')
+      axios.get('http://k4d104.p.ssafy.io:8084/order/recommend/steadyseller')
       .then(res => {
         // console.log(res.data.data)
         this.productIds = res.data.data

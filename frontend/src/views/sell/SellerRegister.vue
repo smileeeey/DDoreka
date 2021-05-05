@@ -2,19 +2,28 @@
   <v-stepper v-model="e1">
     <v-col class="px-5" cols="8" offset="2">
       <v-stepper-header>
-        <v-stepper-step :complete="e1 > 1" step="1">
+        <v-stepper-step
+          :complete="e1 > 1"
+          step="1"
+        >
           카테고리 등록
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 2" step="2">
+        <v-stepper-step
+          :complete="e1 > 2"
+          step="2"
+        >
           상품명/재고 등록
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 3" step="3">
+        <v-stepper-step
+          :complete="e1 > 3"
+          step="3"
+        >
           이미지 등록
         </v-stepper-step>
 
@@ -28,28 +37,20 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <RegisterCategory @maincode="(val) => (maincode = val)" @subcode="(val) => (subcode = val)" @detailcode="(val) => (detailcode = val)" />
-        <v-col cols="12" class="text-right">
+        <RegisterCategory
+          @maincode="val => maincode = val"
+          @subcode="val => subcode = val"
+          @detailcode="val => detailcode = val"
+        />
+        <v-col
+          cols="12"
+          class="text-right"
+        >
           <div>
-            <v-btn color="primary" @click="e1 = 2" style="margin-right: 5rem;">
-              다음
-            </v-btn>
-          </div>
-        </v-col>
-      </v-stepper-content>
-
-      <v-stepper-content step="2">
-        <RegisterProductInfo @options="(val) => (options = val)" @productname="(val) => (productname = val)" />
-        <v-col cols="12" class="text-right">
-          <div>
-            <v-btn text style="border: 1px solid #1976d2" @click="e1 = 1" class="mx-5">
-              이전
-            </v-btn>
             <v-btn
               color="primary"
-              @click="e1 = 3"
-              style="margin-right: 2rem;"
-              :disabled="!productname || !options[0].name || !options[0].stockQuantity || !options[0].price || !options[0].discountPrice"
+              @click="e1 = 2"
+              style="margin-right: 5rem;"
             >
               다음
             </v-btn>
@@ -57,15 +58,55 @@
         </v-col>
       </v-stepper-content>
 
-      <v-stepper-content step="3">
-        <RegisterProductImage @simage="(val) => (simages = val)" @mimage="(val) => (mimages = val)" />
-
-        <v-col cols="12" class="text-right">
+      <v-stepper-content step="2">
+        <RegisterProductInfo @options="val => options=val" @productname="val => productname=val" />
+        <v-col
+          cols="12"
+          class="text-right"
+        >
           <div>
-            <v-btn text style="border: 1px solid #1976d2" @click="e1 = 2" class="mx-5">
+            <v-btn text
+              style="border: 1px solid #1976d2"
+              @click="e1 = 1"
+              class="mx-5"
+            >
               이전
             </v-btn>
-            <v-btn color="primary" @click="e1 = 4" style="margin-right: 2rem;" :disabled="!simages || !mimages">
+            <v-btn
+              color="primary"
+              @click="e1 = 3"
+              style="margin-right: 2rem;"
+            >
+              다음
+            </v-btn>
+          </div>
+        </v-col>
+
+        
+      </v-stepper-content>
+
+      <v-stepper-content step="3">
+        <RegisterProductImage
+          @simage="val => simages=val" @mimage="val => mimages=val"
+        />
+
+        <v-col
+          cols="12"
+          class="text-right"
+        >
+          <div>
+            <v-btn text
+              style="border: 1px solid #1976d2"
+              @click="e1 = 2"
+              class="mx-5"
+            >
+              이전
+            </v-btn>
+            <v-btn
+              color="primary"
+              @click="e1 = 4"
+              style="margin-right: 2rem;"
+            >
               다음
             </v-btn>
           </div>
@@ -73,13 +114,24 @@
       </v-stepper-content>
 
       <v-stepper-content step="4">
-        <RegisterDetailInfo @detailInfo="(val) => (detailInfo = val)" />
-        <v-col cols="12" class="text-right">
+        <RegisterDetailInfo @detailInfo="val => detailInfo=val" />
+        <v-col
+          cols="12"
+          class="text-right"
+        >
           <div>
-            <v-btn text style="border: 1px solid #1976d2" @click="e1 = 3" class="mx-5">
+            <v-btn text
+              style="border: 1px solid #1976d2"
+              @click="e1 = 3"
+              class="mx-5"
+            >
               이전
             </v-btn>
-            <v-btn color="primary" style="margin-right: 2rem;" @click="registerItem" :disabled="!detailInfo">
+            <v-btn
+              color="primary"
+              style="margin-right: 2rem;"
+              @click="registerItem"
+            >
               등록
             </v-btn>
           </div>
@@ -90,13 +142,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import product from '@/util/http-product.js';
-import file from '@/util/http-file.js';
-import RegisterCategory from '../../components/seller/RegisterComponent/RegisterCategory.vue';
-import RegisterDetailInfo from '../../components/seller/RegisterComponent/RegisterDetailInfo.vue';
-import RegisterProductImage from '../../components/seller/RegisterComponent/RegisterProductImage.vue';
-import RegisterProductInfo from '../../components/seller/RegisterComponent/RegisterProductInfo.vue';
+import axios from 'axios'
+import { mapState } from 'vuex'
+import RegisterCategory from '../../components/seller/RegisterComponent/RegisterCategory.vue'
+import RegisterDetailInfo from '../../components/seller/RegisterComponent/RegisterDetailInfo.vue'
+import RegisterProductImage from '../../components/seller/RegisterComponent/RegisterProductImage.vue'
+import RegisterProductInfo from '../../components/seller/RegisterComponent/RegisterProductInfo.vue'
 export default {
   name: 'SellerRegister',
   components: {
@@ -106,15 +157,17 @@ export default {
     RegisterDetailInfo,
   },
   computed: {
-    ...mapState(['seller', 'sellerstore']),
+    ...mapState([
+      'seller',
+      'sellerstore',
+    ])
   },
   created() {
     if (!this.sellerstore.id) {
-      alert('매장 등록 후 상품등록을 진행할 수 있습니다!');
-      this.$router.push({ name: 'SellerProfile' });
+      this.$router.push({ name: 'SellerProfile' })
     }
   },
-  data() {
+  data () {
     return {
       e1: 1,
       maincode: '001',
@@ -125,74 +178,76 @@ export default {
       mimages: null,
       productname: null,
       detailInfo: null,
-    };
+    }
   },
   methods: {
-    registerItem() {
+    registerItem () {
       var formData = new FormData();
       var images = [];
-      this.simages.forEach((file) => {
-        formData.append('files', file);
-      });
-      file
-        .post('/file/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          res.data.data.forEach((image) => {
+      this.simages.forEach(file => {
+        formData.append('files', file)
+      })
+      axios.post('http://k4d104.p.ssafy.io:8082/file/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(res => {
+          res.data.data.forEach(image => {
             images.push({
-              fileId: image.id,
-              imageType: 'S',
-            });
-          });
-          formData = new FormData();
-          this.mimages.forEach((file) => {
-            formData.append('files', file);
-          });
-          file
-            .post('/file/upload', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
+              'fileId': image.id,
+              'imageType': 'S'
             })
-            .then((resp) => {
-              resp.data.data.forEach((image) => {
+          })
+          formData = new FormData();
+          this.mimages.forEach(file => {
+            formData.append('files', file)
+          })
+          axios.post('http://k4d104.p.ssafy.io:8082/file/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+            .then(resp => {
+              resp.data.data.forEach(image => {
                 images.push({
-                  fileId: image.id,
-                  imageType: 'M',
-                });
-              });
-
-              product
-                .post('/product/add', {
-                  product: {
-                    storeId: this.seller.id,
-                    name: "'" + this.productname + "'",
-                    category1Id: this.maincode,
-                    category2Id: this.subcode,
-                    category3Id: this.detailcode,
-                    category4Id: this.detailcode,
-                    category5Id: this.detailcode,
-                    detailInfo: "'" + this.detailInfo + "'",
-                  },
-                  option: this.options,
-                  image: images,
+                  'fileId': image.id,
+                  'imageType': 'M'
                 })
-                .then((r) => {
-                  console.log(r);
-                  this.$router.push({ name: 'SellerProductList' });
-                });
-            });
-        });
-    },
-  },
-};
+              })
+
+              axios.post('http://k4d104.p.ssafy.io:8081/product/add', {
+                'product': {
+                  'storeId': this.seller.id,
+                  'name': "'" + this.productname + "'",
+                  'category1Id': this.maincode,
+                  'category2Id': this.subcode,
+                  'category3Id': this.detailcode,
+                  'category4Id': this.detailcode,
+                  'category5Id': this.detailcode,
+                  'detailInfo': "'" + this.detailInfo + "'",
+                },
+                'option': this.options,
+                'image': images
+              })
+                .then(r => {
+                  console.log(r)
+                  console.log(r.data)
+                  console.log('router go')
+                  this.$router.push({ name: 'SellerProductList' })
+                })
+
+            })
+        })
+      
+
+    }
+  }
+}
 </script>
 
 <style scoped>
-/* >>> .v-stepper__header {
-  box-shadow: none !important;
-} */
+  >>> .v-stepper__header {
+    box-shadow: none !important;
+  }
 </style>

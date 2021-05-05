@@ -13,9 +13,9 @@ spring:
     config:
       enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/eurekachat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://localhost:3306/chat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: sumin
+    password: sumin
     jpa:
       hibernate:
         ddl-auto: update

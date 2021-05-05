@@ -11,7 +11,7 @@
           판매자<span style="color: red;"> * </span>
           </span>
           <v-text-field 
-            :value="seller.name"
+            value="권세진"
             disabled
             outlined 
             style="display: inline-block; width: 50%;" 
@@ -98,7 +98,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'RegisterProductInfo',
   data: () => ({
@@ -148,12 +147,8 @@ export default {
   computed: {
     date () {
       let A = new Date()
-      A.setHours(A.getHours()+9)
       return A.getUTCFullYear() + '년 ' + (A.getUTCMonth()+1) + '월 ' + A.getUTCDate() + '일'
-    },
-    ...mapState([
-      'seller',
-    ])
+    }
   }
 }
 </script>

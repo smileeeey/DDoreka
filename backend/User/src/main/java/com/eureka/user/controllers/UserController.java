@@ -9,6 +9,11 @@ import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CookieUtil;
 import com.eureka.user.services.JwtUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Api(tags = {"1. User"})
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
@@ -36,8 +42,9 @@ public class UserController {
 
     }
 
+    @ApiOperation(value="로그인", notes = "email, password로 로그인", httpMethod = "POST")
     @PostMapping(value = "/login")
-    public Response login(@RequestBody UserEntity user){
+    public Response login(@ApiParam(value="로그인 데이터") @RequestBody UserEntity user){
 
         try{
             System.out.println("111user/loigin 들어옴"+user.toString());
@@ -50,8 +57,9 @@ public class UserController {
     }
 
 
+    @ApiOperation(value="회원가입", notes = "회원가입", httpMethod = "POST")
     @PostMapping(value = "/signup")
-    public Response saveUser(@RequestBody UserEntity user){
+    public Response saveUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){
 
         try{
             System.out.println("1111user/signup 들어옴"+user.toString());
@@ -106,8 +114,9 @@ public class UserController {
 
 
 
+    @ApiOperation(value="구매자 정보 수정", notes = "구매자 정보 수정", httpMethod = "PUT")
     @PutMapping(value = "/update")
-    public Response updateUser(@RequestBody UserEntity user){
+    public Response updateUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){
         try{
             authService.updateUser(user);
             return new Response("success","회원정보 수정을 성공적으로 완료했습니다.",null);
@@ -117,8 +126,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value="구매자 핸드폰번호 수정", notes = "구매자 핸드폰번호 수정", httpMethod = "PUT")
     @PutMapping(value = "/update/phone")
-    public Response updateUserPhone(@RequestBody UserInfo user){
+    public Response updateUserPhone(@ApiParam(value="회원 데이터") @RequestBody UserInfo user){
         System.out.println("updateUserPhone "+user);
         try{
             authService.updateUserPhone(user);
@@ -129,8 +139,9 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value="구매자 삭제", notes = "구매자 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value = "/delete")
-    public Response deleteUser(@RequestBody UserEntity user){
+    public Response deleteUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){
         try{
             authService.deleteUser(user);
             return new Response("success","회원정보 삭제을 성공적으로 완료했습니다.",null);
