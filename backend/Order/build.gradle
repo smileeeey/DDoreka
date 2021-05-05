@@ -31,6 +31,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
 //    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    //swagger
+    implementation 'io.springfox:springfox-swagger2:2.6.1'
+    implementation 'io.springfox:springfox-swagger-ui:2.6.1'
+
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'

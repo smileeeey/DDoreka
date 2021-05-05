@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Review/src/main/java/com/eureka/review/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Review/src/main/java/com/eureka/review/controller/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/config/swagger/SwaggerConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/config/swagger/SwaggerConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Order/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderFromUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderFromUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderfromSellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderfromSellerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/SellerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/StoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/controller/StoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/eureka/seller/entity/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eureka/seller/entity/Seller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +40,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="seller" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="seller" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="seller" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -66,23 +86,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Review" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Order" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager" selected="Spring Boot.SellerApplication">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Seller [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -99,9 +106,7 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <configuration name="SellerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -117,7 +122,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -143,5 +148,47 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="3177" y="532" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1620193894703">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state x="3177" y="532" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620193894703" />
+    <state x="3109" y="398" key="FileChooserDialogImpl" timestamp="1620196689212">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state x="3109" y="398" key="FileChooserDialogImpl/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620196689212" />
+    <state width="1493" height="154" key="GridCell.Tab.0.bottom" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.0.bottom/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.0.center" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.0.center/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.0.left" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.0.left/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.0.right" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.0.right/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.1.bottom" timestamp="1620197234805">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.1.bottom/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234805" />
+    <state width="1493" height="154" key="GridCell.Tab.1.center" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.1.center/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.1.left" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.1.left/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
+    <state width="1493" height="154" key="GridCell.Tab.1.right" timestamp="1620197234804">
+      <screen x="2560" y="231" width="1536" height="832" />
+    </state>
+    <state width="1493" height="154" key="GridCell.Tab.1.right/2560.231.1536.832/0.0.2560.1400@2560.231.1536.832" timestamp="1620197234804" />
   </component>
 </project>

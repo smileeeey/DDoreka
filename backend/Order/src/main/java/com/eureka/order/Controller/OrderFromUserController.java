@@ -4,8 +4,10 @@ import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.dto.Response;
 import com.eureka.order.service.OrderService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
+@Api(tags = "order from user")
 @RestController
 @RequestMapping(value = "/order")
 @CrossOrigin
