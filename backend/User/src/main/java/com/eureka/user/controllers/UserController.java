@@ -9,6 +9,11 @@ import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CookieUtil;
 import com.eureka.user.services.JwtUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;

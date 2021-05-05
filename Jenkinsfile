@@ -4,6 +4,12 @@ pipeline {
 	agent none
 	options { skipDefaultCheckout(false) }
 	stages {
+		stage('Init config - make jar') {
+			agent any
+			steps {
+				sh './gradlew ./backend/Review/bootjar'
+			}
+		}
 		stage('Build and Test') {
 			agent any
 			steps {
