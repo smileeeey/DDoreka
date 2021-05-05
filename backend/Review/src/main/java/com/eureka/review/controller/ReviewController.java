@@ -4,11 +4,12 @@ import com.eureka.review.dto.Response;
 import com.eureka.review.dto.Review;
 import com.eureka.review.dto.Reviewlike;
 import com.eureka.review.service.ReviewService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 
 @Api(tags = {"1. Review"})
 @RestController
@@ -25,7 +26,7 @@ public class ReviewController {
     // 상품id주면 리뷰 가져오기
     @ApiOperation(value="리뷰 정보 조회", notes = "상품id에 해당하는 리뷰 데이터 반환, 로그인 되어있다면 사용자가 리뷰들에 좋아요 누른 여부 true로 함께 반환", httpMethod = "GET")
     @GetMapping(value="/get/{productId}/{userId}")
-    public Response getReviewByProductId(@ApiParam(value="상품 고유값") @PathVariable int productId,@ApiParam(value="사용자 고유값") @PathVariable String userId){
+    public Response getReviewByProductId(@ApiParam(value="상품 고유값") @PathVariable int productId, @ApiParam(value="사용자 고유값") @PathVariable String userId){
         Response response;
         try{
             response = new Response("success", "리뷰 조회 성공", service.getReviews(productId,userId));
