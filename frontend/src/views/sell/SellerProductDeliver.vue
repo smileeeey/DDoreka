@@ -105,25 +105,67 @@
 </template>
 
 <script>
-import order from "@/util/http-order.js";
+import axios from 'axios'
 import { mapState } from 'vuex'
 export default {
   name: 'SellerProductDeliver',
   data: () => ({
     orderlist: [
-
+      {
+        recipientPhone: '01077269318',
+        recipientName: '권세진',
+        addressMain: '경북 구미시 진평4길 21',
+        addressSub: 'IWC 302호',
+        deliveryMsg: '#1133 입니다.',
+        invoiceNum: '1237821931',
+        deliveryStartDatetime: new Date()
+      },
+      {
+        recipientPhone: '01012345678',
+        recipientName: '권세진',
+        addressMain: '경북 구미시 어딘가',
+        addressSub: '내집',
+        deliveryMsg: '문앞에 두세요',
+        invoiceNum: '4894651665',
+        deliveryStartDatetime: new Date()
+      },
+      {
+        recipientPhone: '01098765432',
+        recipientName: '권세진',
+        addressMain: '대구 수성구 욱수동',
+        addressSub: '옆집',
+        deliveryMsg: '경비실 ㄱㄱ용',
+        invoiceNum: '4569199159',
+        deliveryStartDatetime: new Date()
+      },
     ],
     deliverList: [
-     
+      {
+        recipientPhone: '01098765432',
+        recipientName: '권세진',
+        addressMain: '대구 수성구 사월역',
+        addressSub: '옆옆옆집',
+        deliveryMsg: '경비실 ㄴㄴ용',
+        invoiceNum: '911591195',
+        deliveryStartDatetime: new Date()
+      },
     ],
     deliverComplete: [
-  
+      {
+        recipientPhone: '01019818996',
+        recipientName: '권세진',
+        addressMain: '대구 수성구 신매역',
+        addressSub: '윗윗집',
+        deliveryMsg: '안방에 갖다주세요',
+        invoiceNum: '191981953',
+        deliveryStartDatetime: new Date()
+      }
     ]
   }),
   methods: {
     deliveryStart: function (idx) {
       this.deliverList.push(this.orderlist[idx])
-      order.put('/order', {
+      axios.put('http://k4d104.p.ssafy.io:8084/order', {
         'orderId': this.orderlist[idx].orderDetail.orderId,
         'checkDatetime': this.orderlist[idx].orderDetail.checkDatetime,
         'orderStatus': 'SHIPPING',
@@ -141,7 +183,7 @@ export default {
     },
     deliveryComplete: function (idx) {
       this.deliverComplete.push(this.deliverList[idx])
-      order.put('/order', {
+      axios.put('http://k4d104.p.ssafy.io:8084/order', {
         'orderId': this.deliverList[idx].orderDetail.orderId,
         'checkDatetime': this.deliverList[idx].orderDetail.checkDatetime,
         'orderStatus': 'DONE',
@@ -164,13 +206,13 @@ export default {
     ])
   },
   created() {
-    order.get(`/order/sellerid/${this.seller.id}/status/0`)
+    axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
       .then(res => {
         this.orderlist = res.data.data
-        order.get(`/order/sellerid/${this.seller.id}/status/1`)
+        axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
           .then(delres => {
             this.deliverList = delres.data.data
-            order.get(`/order/sellerid/${this.seller.id}/status/2`)
+            axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
               .then(comres => {
                 this.deliverComplete = comres.data.data
               })

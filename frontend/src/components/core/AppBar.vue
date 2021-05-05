@@ -21,7 +21,7 @@
         </v-col>
         <v-col class="pa-0" cols="2" style="height: 115px;">
           <!-- logo(temporary) -->
-          <a @click="$router.push({ name: 'Main' })">
+          <a href="/">
             <v-img
               style="cursor: pointer; height: 115px;"
               src="@/assets/eureka_logo(blank).png"

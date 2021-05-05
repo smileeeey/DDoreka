@@ -62,11 +62,13 @@ export default {
   },
   methods: {
     selectAddress: function () {
-      document.getElementById("uniquename").textContent = this.address.recipientName
-      document.getElementById("uniqueaddress").textContent = this.address.mainAddress + ', ' + this.address.subAddress
-      document.getElementById("uniquephonenumber").textContent = this.address.recipientPhone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-      document.getElementById("uniquecomment").textContent = this.address.deliveryMsg;
-      document.getElementById('Address').style.display="none"
+      window.opener.document.getElementById("uniquename").textContent = this.address.recipientName
+      window.opener.document.getElementById("uniqueaddress").textContent = this.address.mainAddress + ', ' + this.address.subAddress
+      window.opener.document.getElementById("uniquephonenumber").textContent = this.address.recipientPhone.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      window.opener.document.getElementById("uniquecomment").textContent = this.address.deliveryMsg;
+      
+      
+      window.close()
     },
     deleteAddress: function () {
       this.$emit('deleteAddress', this.address.addressId)
