@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import seller from "@/util/http-seller.js";
+import axios from 'axios'
 import { mapState } from 'vuex'
 export default {
   name: 'SellerProfile',
@@ -187,8 +187,7 @@ export default {
     document.head.appendChild(recaptchaScript)
   },
   methods: {
-    searchAddress: function () {
-
+    searchAddress() {
       new window.daum.Postcode({
         popupName: 'postcodePopup',
         oncomplete: function(data) {
@@ -238,7 +237,10 @@ export default {
     saveAddress: function () {
       this.store.zipcode = document.getElementById('zipcode').value
       this.store.main_address = document.getElementById('main_address').value
-      seller.post('/store/add', {
+      console.log('this is store')
+      console.log(this.store)
+      console.log(this.seller)
+      axios.post('http://k4d104.p.ssafy.io:8088/store/add', {
         'sellerId': this.seller.id,
         'phone': this.store.phone,
         'name': this.store.name,
@@ -247,7 +249,8 @@ export default {
         'zipcode': this.store.zipcode,
       })
         .then(res => {
-          alert('매장 정보가 수정되었습니다.')
+          console.log('store add')
+          console.log(res)
           this.$store.dispatch("SETSELLERSTORE", res.data)
         })
       
@@ -265,12 +268,12 @@ export default {
 </script>
 
 <style scoped>
-  /* >>> .v-text-field__slot {
+  >>> .v-text-field__slot {
     margin: 10px;;
   }
 
   >>> .v-messages__message {
     margin-top: 2px;
   }
-   */
+  
 </style>

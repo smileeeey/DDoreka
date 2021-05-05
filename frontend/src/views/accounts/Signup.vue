@@ -68,7 +68,17 @@
             label="이름"
             v-model="form.name"
           ></v-text-field> 
-          
+          <!-- <v-text-field
+            solo
+            flat
+            dense
+            outlined
+            required
+            prepend-inner-icon="mdi-cellphone"
+            :rules="[required_phonenumber,]"
+            label="휴대폰 번호"
+            v-model="forms.phonenumber"
+          ></v-text-field>  -->
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
@@ -142,5 +152,12 @@ export default {
 </script>
 
 <style scoped>
+  >>> .v-text-field__slot {
+    margin: 10px;;
+  }
+
+  >>> .v-messages__message {
+    margin-top: 2px;
+  }
   
 </style>

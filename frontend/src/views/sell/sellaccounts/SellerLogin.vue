@@ -46,6 +46,10 @@
           ></v-text-field> 
         </v-col>
         
+        <v-col style="padding-top: 0;">
+          <p style="text-align: right; cursor: pointer; color: #0275d8;">비밀번호 찾기 ></p>
+        </v-col>
+        
         <v-col cols="12">
           <v-btn style="background-color: #0275d8; color: white; 
             font-size: 1.5rem; font-weight: bold; 
@@ -79,8 +83,7 @@
 </template>
 
 <script>
-import seller from "@/util/http-seller.js";
-import auth from "@/util/http-auth.js";
+import axios from 'axios'
 
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 export default {
@@ -110,22 +113,29 @@ export default {
   },
   methods: {
     login: function () {
-      auth.post('/login', {
+      axios.post('http://k4d104.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
+          console.log('1st')
+          console.log(res.data)
           localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
           const token = localStorage.getItem('seller-eureka-authorization')
-          seller.get(`/seller/getByEmail/${this.form.email}`, {}, {
+          axios.get(`http://k4d104.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
             headers: {
               'eureka-authorization': token
             }
           })
             .then(response=> {
+              console.log('2nd')
+              console.log(response.data)
               this.$store.dispatch("SETSELLERINFO", response.data)
-              seller.get(`/store/getBySellerId/${response.data.id}`)
+              console.log(response.data)
+              axios.get(`http://k4d104.p.ssafy.io:8088/store/getBySellerId/${response.data.id}`)
                 .then(resp => {
+                  console.log('3rd')
+                  console.log(resp.data)
                   this.$store.dispatch('SETSELLERSTORE', resp.data)
                   this.$router.push({ name: 'Dashboard' });
                 })
@@ -135,9 +145,6 @@ export default {
             })
 
         })
-        .catch(_ => {
-          alert('로그인에 실패했습니다. 비밀번호를 확인해 주세요.')
-        })
       
     }
   }
@@ -145,6 +152,12 @@ export default {
 </script>
 
 <style scoped>
+  >>> .v-text-field__slot {
+    margin: 10px;;
+  }
 
+  >>> .v-messages__message {
+    margin-top: 2px;
+  }
 
 </style>

@@ -7,8 +7,8 @@
     >
       <v-divider class="mb-1" />
       <v-list dense nav>
-        <v-list-item @click="gotoDashboard">
-          <v-img src="@/assets/eureka_logo(blank).png" />
+        <v-list-item>
+          <v-img src="@/assets/eureka_logo(blank).png"/>
         </v-list-item>
       </v-list>
       <v-divider class="mb-2" />
@@ -114,9 +114,6 @@ export default {
         children: item.children ? item.children.map(this.mapItem) : undefined,
         title: this.$t(item.title),
       }
-    },
-    gotoDashboard() {
-      this.$router.push({ name: 'Dashboard' })
     }
   }
 }

@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import order from "@/util/http-order.js";
+import axios from 'axios'
 export default {
   name: 'PastOrderCard',
   props: {
@@ -91,7 +91,7 @@ export default {
     },
     refund() {
       this.item.status = 'REFUND';
-      order.put('/order', {
+      axios.put('http://k4d104.p.ssafy.io:8084/order', {
         orderId: this.item.orderId,
         checkDatetime: this.item.checkDatetime,
         orderStatus: 'REFUND',
