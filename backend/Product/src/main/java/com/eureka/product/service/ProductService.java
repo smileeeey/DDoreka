@@ -91,8 +91,8 @@ public class ProductService {
         Product productResult = productRepository.save(product);
         System.out.println("상품 저장 완료. 아이디: " + productResult.getId());
 
-        List<Productoption> options = product.getOptions();
-        List<Productimage> images = product.getImages();
+        List<Productoption> options = productAndOptionAndImage.getOption();
+        List<Productimage> images = productAndOptionAndImage.getImage();
 
         for (int i = 0 ; i < options.size() ; ++i){
             options.get(i).setProduct(productResult);
