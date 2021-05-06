@@ -1,9 +1,6 @@
 package com.eureka.product.service;
 
-import com.eureka.product.dto.Category;
-import com.eureka.product.dto.Product;
-import com.eureka.product.dto.Productimage;
-import com.eureka.product.dto.Productoption;
+import com.eureka.product.dto.*;
 import com.eureka.product.repository.ImageRepository;
 import com.eureka.product.repository.ProductRepository;
 import com.eureka.product.repository.OptionRepository;
@@ -80,11 +77,12 @@ public class ProductService {
     }
 
     //상품 정보 입력하기
-    public void saveProduct(Map<String, Object> param) {
+    public void saveProduct(ProductAndOptionAndImage productAndOptionAndImage) {
 
         Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-        Product product = GSON.fromJson(param.get("product").toString(), Product.class);
+        //Product product = GSON.fromJson(param.get("product").toString(), Product.class);
+        Product product = productAndOptionAndImage.getProduct();
 
         Date cur = new Date();
         product.setRegisterDate(cur);
@@ -92,11 +90,11 @@ public class ProductService {
         Product productResult = productRepository.save(product);
         System.out.println("상품 저장 완료. 아이디: " + productResult.getId());
 
-        Productoption[] optionArr = GSON.fromJson(param.get("option").toString(), Productoption[].class);
-        List<Productoption> options = Arrays.asList(optionArr);
+        //Productoption[] optionArr = GSON.fromJson(param.get("option").toString(), Productoption[].class);
+        List<Productoption> options = productAndOptionAndImage.getOption();
 
-        Productimage[] imageArr = GSON.fromJson(param.get("image").toString(), Productimage[].class);
-        List<Productimage> images = Arrays.asList(imageArr);
+        //Productimage[] imageArr = GSON.fromJson(param.get("image").toString(), Productimage[].class);
+        List<Productimage> images = productAndOptionAndImage.getImage();
 
         for (int i = 0; i < options.size(); ++i) {
             options.get(i).setProduct(productResult);
