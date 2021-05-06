@@ -2,13 +2,12 @@ package com.eureka.product.controller;
 
 import com.eureka.product.dto.Category;
 import com.eureka.product.dto.Product;
+import com.eureka.product.dto.ProductAndOptionAndImage;
 import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -147,9 +146,9 @@ public class ProductController {
     // 상품 정보 입력
     @ApiOperation(value="상품 등록", notes = "상품 정보 등록", httpMethod = "POST")
     @PostMapping(value = "/add", produces = "application/json;charset=utf8")
-    public Response saveProductAll(@ApiParam(value="등록할 상품 정보")  @RequestBody Map<String, Object> param) {
+    public Response saveProductAll(@ApiParam(value="등록할 상품 정보")  @RequestBody ProductAndOptionAndImage productAndOptionAndImage) {
         try {
-            service.saveProduct(param);
+            service.saveProduct(productAndOptionAndImage);
             return new Response("success", "상품 정보 저장 완료", null);
         } catch (Exception e) {
             return new Response("error", "상품 정보 저장 오류", e.getMessage());
@@ -183,7 +182,4 @@ public class ProductController {
 
         return response;
     }
-
-
-
 }
