@@ -21,6 +21,14 @@ public class FileService {
     @Autowired
     private FileRepository repository;
 
+    private boolean isUbuntu = true;
+    private String fsl,rootPath;
+    //private String fsl = File.pathSeparator;
+    private String fslUbuntu = "/";
+    private String fslWindow = "\\";
+    private String rootPathUbuntu = "/home/upload/image";
+    private String rootPathWindow = "C:\\Users\\sumin\\etc\\upload\\eureka";
+
 
     public List<Image> addFiles(List<MultipartFile> files) throws Exception {
 
@@ -44,27 +52,28 @@ public class FileService {
             ext = originName.substring(index);
         }
 
-
         //저장할 이름
         String systemName = UUID.randomUUID().toString() + ext;
 
         String currentTime = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         StringTokenizer st = new StringTokenizer(currentTime,"/");
-        //저장될 경로
-        //String fsl = File.pathSeparator;
-        //String fsl = "\\";
-        String fsl="/";
 
-        StringBuilder pathRoot = new StringBuilder();
-        pathRoot.append("/home/upload/image");
-        //pathRoot.append("C:\\Users\\sumin\\etc\\upload\\eureka");
+        if(isUbuntu){
+            fsl = fslUbuntu;
+            rootPath = rootPathUbuntu;
+        }
+        else{
+            fsl = fslWindow;
+            rootPath = rootPathWindow;
+        }
+
 
         StringBuilder modulePath = new StringBuilder();
         modulePath.append(st.nextToken())
                 .append(fsl).append(st.nextToken())
                 .append(fsl).append(st.nextToken());
 
-        String totalPath = pathRoot.toString()+fsl+modulePath.toString();
+        String totalPath = rootPath+fsl+modulePath.toString();
         File pFile = new File(totalPath);
         //폴더 있는지 확인하고 폴더 생성
         if(pFile.exists()==false) {
@@ -104,13 +113,19 @@ public class FileService {
 
         Image image = repository.findById(fileId);
 
-        //String fsl = File.pathSeparator;
-        //String fsl = "\\";
-        String fsl="/";
 
         StringBuilder path = new StringBuilder();
-        path.append("/home/upload/image");
-        //path.append("C:\\Users\\sumin\\etc\\upload\\eureka");
+
+        if(isUbuntu){
+            fsl = fslUbuntu;
+            rootPath = rootPathUbuntu;
+        }
+        else{
+            fsl = fslWindow;
+            rootPath = rootPathWindow;
+        }
+
+        path.append(rootPath);
 
         path.append(fsl).append(image.getPath())
                 .append(fsl).append(image.getSystemName());
@@ -130,13 +145,19 @@ public class FileService {
         Image image = repository.findById(fileId);
         repository.deleteAllById(fileId);
 
-        //String fsl = File.pathSeparator;
-        //String fsl = "\\";
-        String fsl="/";
 
         StringBuilder pathRoot = new StringBuilder();
-        pathRoot.append("/home/upload/image");
-        //pathRoot.append("C:\\Users\\sumin\\etc\\upload\\eureka");
+
+        if(isUbuntu){
+            fsl = fslUbuntu;
+            rootPath = rootPathUbuntu;
+        }
+        else{
+            fsl = fslWindow;
+            rootPath = rootPathWindow;
+        }
+
+        pathRoot.append(rootPath);
 
         pathRoot.append(fsl).append(image.getPath())
                 .append(fsl).append(image.getSystemName());
