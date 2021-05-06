@@ -1,6 +1,6 @@
 package com.eureka.product.service;
 
-import com.eureka.product.dto.Category;
+import com.eureka.product.entity.Category;
 import com.eureka.product.dto.MainCategory;
 import com.eureka.product.dto.SubCategory;
 import com.eureka.product.repository.CategoryRepository;
