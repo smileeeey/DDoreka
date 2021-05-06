@@ -1,5 +1,6 @@
-package com.eureka.product.dto;
+package com.eureka.product.entity;
 
+import com.eureka.product.dto.SubCategory;
 import lombok.*;
 
 import javax.persistence.*;

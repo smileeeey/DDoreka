@@ -1,13 +1,11 @@
 package com.eureka.product.service;
 
-import com.eureka.product.dto.Category;
-import com.eureka.product.dto.Product;
+import com.eureka.product.entity.Category;
 import com.eureka.product.dto.Searchlog;
 import com.eureka.product.repository.SearchlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service

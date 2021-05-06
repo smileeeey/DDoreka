@@ -1,6 +1,6 @@
 package com.eureka.product.repository;
 
-import com.eureka.product.dto.Productimage;
+import com.eureka.product.entity.Productimage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

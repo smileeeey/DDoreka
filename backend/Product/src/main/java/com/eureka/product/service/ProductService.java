@@ -1,6 +1,11 @@
 package com.eureka.product.service;
 
-import com.eureka.product.dto.*;
+import com.eureka.product.dto.ProductAndOptionAndImage;
+import com.eureka.product.dto.ProductDTO;
+import com.eureka.product.entity.Category;
+import com.eureka.product.entity.Product;
+import com.eureka.product.entity.Productimage;
+import com.eureka.product.entity.Productoption;
 import com.eureka.product.repository.ImageRepository;
 import com.eureka.product.repository.ProductRepository;
 import com.eureka.product.repository.OptionRepository;
@@ -77,11 +82,8 @@ public class ProductService {
     }
 
     //상품 정보 입력하기
-    public void saveProduct(Product product) {
-
-        Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-        //Product product = GSON.fromJson(param.get("product").toString(), Product.class);
+    public void saveProduct(ProductAndOptionAndImage productAndOptionAndImage) {
+        Product product = productAndOptionAndImage.getProduct();
 
         Date cur = new Date();
         product.setRegisterDate(cur);
