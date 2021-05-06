@@ -187,6 +187,7 @@ export default {
 
               axios
                 .post("http://k4d104.p.ssafy.io:8081/product/add", {
+		product:{
                   storeId: this.seller.id,
                   name: "'" + this.productname + "'",
                   category1Id: this.maincode,
@@ -194,7 +195,8 @@ export default {
                   category3Id: this.detailcode,
                   category4Id: this.detailcode,
                   category5Id: this.detailcode,
-                  detailInfo: "'" + this.detailInfo + "'",
+                  detailInfo: "'" + this.detailInfo + "'"
+		},
                   option: this.options,
                   image: images,
                 })
