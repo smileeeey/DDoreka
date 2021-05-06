@@ -147,6 +147,7 @@ public class ProductController {
     @ApiOperation(value="상품 등록", notes = "상품 정보 등록", httpMethod = "POST")
     @PostMapping(value = "/add", produces = "application/json;charset=utf8")
     public Response saveProductAll(@ApiParam(value="등록할 상품 정보")  @RequestBody ProductAndOptionAndImage productAndOptionAndImage) {
+        System.out.println("여기는 왔음!");
         try {
             service.saveProduct(productAndOptionAndImage);
             return new Response("success", "상품 정보 저장 완료", null);
