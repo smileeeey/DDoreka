@@ -88,6 +88,19 @@ public class ProductService {
         product.setUpdateDate(cur);
         Product productResult = productRepository.save(product);
         System.out.println("상품 저장 완료. 아이디: " + productResult.getId());
+
+        List<Productoption> options = product.getOptions();
+        List<Productimage> images = product.getImages();
+
+        for (int i = 0 ; i < options.size() ; ++i){
+            options.get(i).setProduct(productResult);
+        }
+        for (int i = 0 ; i < images.size() ; ++i){
+            images.get(i).setProduct(productResult);
+        }
+
+        optionRepository.saveAll(options);
+        imageRepository.saveAll(images);
     }
 
     //상품 정보 수정하기
