@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "1. 판매자의 주문관리")
+@Api(tags = "1. Order from seller")
 @RestController
 @RequestMapping("/order")
 @CrossOrigin
