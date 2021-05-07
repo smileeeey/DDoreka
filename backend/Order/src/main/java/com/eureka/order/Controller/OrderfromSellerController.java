@@ -21,8 +21,8 @@ public class OrderfromSellerController {
 
 
     @ApiOperation(value="판매자의 id로 주문 찾기(세모)", notes = "판매자 id로 주문 찾기", httpMethod = "GET")
-    @GetMapping(value ="sellerid/{sellerid}")
-    public Response getOrdersBySellerId(@PathVariable("sellerid") String sellerid, @RequestParam Integer page, Integer size){
+    @GetMapping(value ="sellerid/{sellerid}/{page}/{size}")
+    public Response getOrdersBySellerId(@PathVariable("sellerid") String sellerid, @ApiParam(value="몇 번째 page인지") @PathVariable Integer page, @ApiParam(value="한 페이지에 포함될 데이터 개수") @PathVariable Integer size){
 
         System.out.println("getOrdersBySellerId : "+sellerid);
         Response response;

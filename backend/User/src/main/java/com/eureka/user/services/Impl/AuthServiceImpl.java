@@ -91,9 +91,10 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void deleteUser(UserEntity user) {
-        UserEntity userInfoChanged = userRepository.findTop1ByEmail(user.getEmail());
-        userRepository.delete(userInfoChanged);
+    public void deleteUser(String email) {
+
+        if(userRepository.findTop1ByEmail(email) == null)  return;
+        userRepository.deleteByEmail(userInfoChanged);
     }
 
 
