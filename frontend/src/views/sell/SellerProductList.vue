@@ -184,7 +184,7 @@ export default {
               console.log("#######")
               console.dir(productslist[i].id);
               console.log("#######")
-          axios.get(`http://k4d104.p.ssafy.io:8084/order/prodcut/${productslist[i].id}/dayofweek`)
+          axios.get(`http://k4d104.p.ssafy.io:8084/order/product/${productslist[i].id}/dayofweek`)
             .then(r => {
               let data = r.data.data
               // console.log("#######")
