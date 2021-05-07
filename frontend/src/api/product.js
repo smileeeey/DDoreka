@@ -5,9 +5,19 @@ const categoryDomin = "http://k4d104.p.ssafy.io/:8081/category/";
 
 export const product = { // crud
     //상품 등록
+     /*
+    image: [{fileId: 72, imageType: "S"}, {fileId: 73, imageType: "M"}]
+    option: [{name: "sdf", stockQuantity: "13", price: "123123", discountPrice: "12222"}]
+    product: {storeId: 3, name: "'asdf'", category1Id: "001", category2Id: "101", category3Id: "201",category4Id: "201",
+            category5Id: "201", detailInfo: "'dfdf&^%sdfs'", name: "'asdf'", storeId: 3}
+    
+    */ 
     create(product, option, image) {
     return request(productDomin ,"post", "add", { product, option, image });
     },
+  
+
+
     //전체 상품조회
     fetch() {
         return request(productDomin ,"get", "all");
@@ -17,8 +27,8 @@ export const product = { // crud
         return request(productDomin, 'get', `detail/${productId}`);
     },
     //카테고리별 상품 조회
-    fetchFindByCategory(categoryId, depth) {
-        return request(productDomin, 'get', `findByCategory/${categoryId}/${depth}`);
+    fetchFindByCategory(categoryId, depth, page, size) {
+        return request(productDomin, 'get', `findByCategory/${categoryId}/${depth}/${page}/${size}`);
     },
     //최근 등록된 상품 조회
     fetchRecommendLatestproduct() {
@@ -33,13 +43,16 @@ export const product = { // crud
         return request(productDomin, 'get', `recommend/realtimesearchword`);
     },
     //검색 상품 조회
-    fetchSearch(category1Id,keyword ) {
-        return request(productDomin, 'get', `search/,${category1Id}/${keyword}`);
+    fetchSearch(category1Id, keyword, page, size ) {
+        return request(productDomin, 'get', `search/,${category1Id}/${keyword}/${page}/${size}`);
     },
     //판매자 상품 조회
     fetchSellerAll(storeId) {
         return request(productDomin, 'get', `seller/all${storeId}`);
     },
+    // update() { 판매자 상품수정 넣어야 됨
+        
+    // }
 
 
 
