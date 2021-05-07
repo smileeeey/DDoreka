@@ -93,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void deleteUser(String email) {
 
-        if(!userRepository.findByEmail(email))  return;
+        if(userRepository.findTop1ByEmail(email) == null)  return;
         userRepository.deleteByEmail(userInfoChanged);
     }
 

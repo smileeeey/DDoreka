@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderFromUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderFromUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderfromSellerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Order/src/main/java/com/eureka/order/Controller/OrderfromSellerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../User/src/main/java/com/eureka/user/services/Impl/AuthServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
