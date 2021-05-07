@@ -31,7 +31,7 @@ public class FaceController {
     @GetMapping("/getAllByUser/{user}")
     public List<Face> getFacesByUser(@ApiParam(value="구매자 고유값") @PathVariable int user) {return service.getFacesByUser(user);}
 
-    @ApiOperation(value="감정분석 결과 삭제", notes = "구매자 감정분석 개별 데이터 삭제", httpMethod = "DELETE")
+    @ApiOperation(value="감정분석 결과 삭제(세모)", notes = "구매자 감정분석 개별 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping("/deleteById/{id}")
     public String deleteFace(@ApiParam(value="감정분석 고유값") @PathVariable int id){
         return service.deleteFaceById(id);

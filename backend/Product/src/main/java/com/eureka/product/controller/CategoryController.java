@@ -36,7 +36,7 @@ public class CategoryController {
     }
 
     // depth=3인 카테고리 id로 하위 카테고리 정보 가져오기
-    @ApiOperation(value="하위 카테고리 조회", notes = "depth=3의 카테고리 고유값으로 그에 포함된 depth 4~5 카테고리 정보", httpMethod = "GET")
+    @ApiOperation(value="하위 카테고리 조회x", notes = "depth=3의 카테고리 고유값으로 그에 포함된 depth 4~5 카테고리 정보", httpMethod = "GET")
     @GetMapping("/subCategory/{categoryId}")
     public Response findSubCategories(@ApiParam(value="depth=3인 카테고리 고유값") @PathVariable String categoryId) {
         Response response;
@@ -48,7 +48,7 @@ public class CategoryController {
         return response;
     }
 
-    @ApiOperation(value="카테고리 등록", notes = "카테고리 정보 등록", httpMethod = "POST")
+    @ApiOperation(value="카테고리 등록x", notes = "카테고리 정보 등록", httpMethod = "POST")
     @PostMapping("/add")
     public Response addCategory(@ApiParam(value="카테고리 정보") @RequestBody Category category) {
         Response response;

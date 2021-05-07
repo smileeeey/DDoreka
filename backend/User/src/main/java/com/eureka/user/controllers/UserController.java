@@ -139,7 +139,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value="구매자 삭제", notes = "구매자 데이터 삭제", httpMethod = "DELETE")
+    @ApiOperation(value="구매자 삭제x", notes = "구매자 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value = "/delete")
     public Response deleteUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){
         try{

@@ -4,9 +4,11 @@ package com.eureka.order.Controller;
 import com.eureka.order.dto.Response;
 import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "1. order from seller")
+@Api(tags = "1. 판매자의 주문관리")
 @RestController
 @RequestMapping("/order")
 @CrossOrigin
@@ -17,6 +19,8 @@ public class OrderfromSellerController {
         this.orderService = orderService;
     }
 
+
+    @ApiOperation(value="판매자의 id로 주문 찾기(세모)", notes = "판매자 id로 주문 찾기", httpMethod = "GET")
     @GetMapping(value ="sellerid/{sellerid}")
     public Response getOrdersBySellerId(@PathVariable("sellerid") String sellerid, @RequestParam Integer page, Integer size){
 
@@ -30,6 +34,7 @@ public class OrderfromSellerController {
         return response;
 
     }
+
 
     @GetMapping(value ="sellerid/{sellerid}/unchecked")
     public Response getOrdersBySellerIdWithUnchecked(@PathVariable("sellerid") String sellerid){
@@ -45,13 +50,13 @@ public class OrderfromSellerController {
 
     }
 
-    @GetMapping(value ="prodcut/{prodcutid}/dayofweek")
-    public Response getOrdersByProductIdSortedByDayofWeek(@PathVariable("prodcutid") String prodcutid){
+    @GetMapping(value ="product/{productid}/dayofweek")
+    public Response getOrdersByProductIdSortedByDayofWeek(@PathVariable("productid") String productid){
 
-        System.out.println("getOrdersByProductIdSortedByDay : "+prodcutid);
+        System.out.println("getOrdersByProductIdSortedByDay : "+productid);
         Response response;
         try {
-            response= new Response("success", "조회성공", orderService.getOrdersByProductIdSortedByDay(prodcutid)) ;
+            response= new Response("success", "조회성공", orderService.getOrdersByProductIdSortedByDay(productid)) ;
         } catch (Exception e) {
             response= new Response("error", e.getMessage(), null) ;
         }

@@ -23,19 +23,19 @@ public class StoreController {
         return service.saveStore(store);
     }
 
-    @ApiOperation(value="입력받은 스토어들 추가", notes = "입력받은 스토어의 정보를 저장하고, 리턴한다", httpMethod = "POST")
+    @ApiOperation(value="입력받은 스토어들 추가x", notes = "입력받은 스토어의 정보를 저장하고, 리턴한다", httpMethod = "POST")
     @PostMapping("/addAll")
     public List<Store> addStores(@RequestBody List<Store> stores) {
         return service.saveStores(stores);
     }
 
-    @ApiOperation(value = "모든 스토어 조회", notes="존재하는 모든 스토어 정보를 리턴한다", httpMethod = "GET")
+    @ApiOperation(value = "모든 스토어 조회x", notes="존재하는 모든 스토어 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getAll")
     public List<Store> findAllStores() {
         return service.getStores();
     }
 
-    @ApiOperation(value = "아이디로 스토어 조회", notes = "특정 아이디를 입력받아 해당 스토어의 정보를 리턴한다", httpMethod = "GET")
+    @ApiOperation(value = "아이디로 스토어 조회x", notes = "특정 아이디를 입력받아 해당 스토어의 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getById/{id}")
     public Store findStoreById(@PathVariable int id) {
         return service.getStoreById(id);
@@ -47,19 +47,19 @@ public class StoreController {
         return service.getStoreBySellerId(sellerId);
     }
 
-    @ApiOperation(value = "이름으로 스토어 조회", notes = "이름으로 해당 스토어의 정보를 리턴한다", httpMethod = "GET")
+    @ApiOperation(value = "이름으로 스토어 조회x", notes = "이름으로 해당 스토어의 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getByName/{name}")
     public Store findStoreByName(@PathVariable String name) {
         return service.getStoreByName(name);
     }
 
-    @ApiOperation(value = "스토어 수정", notes = "특정 스토어의 정보를 입력받아서 수정한다", httpMethod = "PUT")
+    @ApiOperation(value = "스토어 수정x", notes = "특정 스토어의 정보를 입력받아서 수정한다", httpMethod = "PUT")
     @PutMapping("/update")
     public Store updateStore(@RequestBody Store store) {
         return service.updateStore(store);
     }
 
-    @ApiOperation(value = "아이디로 스토어 삭제", notes = "아이디를 입력받고 해당 스토어를 삭제한다", httpMethod = "DELETE")
+    @ApiOperation(value = "아이디로 스토어 삭제x", notes = "아이디를 입력받고 해당 스토어를 삭제한다", httpMethod = "DELETE")
     @DeleteMapping("/deleteById/{id}")
     public String deleteStore(@PathVariable int id) {
         return service.deleteStore(id);

@@ -56,7 +56,7 @@ public class CartController {
         }
     }
 
-    @ApiOperation(value="장바구니 수정", notes = "구매자의 장바구니에 데이터 수정", httpMethod = "PUT")
+    @ApiOperation(value="장바구니 수정(세모)", notes = "구매자의 장바구니에 데이터 수정", httpMethod = "PUT")
     @PutMapping()
     public Response updateCart(@ApiParam(value="장바구니 데이터") @RequestBody CartEntity cart){
         System.out.println("updateCart " +cart);
@@ -68,7 +68,7 @@ public class CartController {
         }
     }
 
-    @ApiOperation(value="장바구니 비우기", notes = "구매자의 모든 장바구니 데이터 삭제", httpMethod = "DELETE")
+    @ApiOperation(value="장바구니 비우기x", notes = "구매자의 모든 장바구니 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value="/all/{UserEmail}")
     public Response deleteAllCart(@ApiParam(value="구매자 고유값") @PathVariable("UserEmail") String UserEmail){
         System.out.println("deleteAllCart " +UserEmail);

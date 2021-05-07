@@ -59,7 +59,7 @@ public class AddressController {
         return response;
     }
 
-    @ApiOperation(value="주소 수정", notes = "구매자의 배송지 주소 수정", httpMethod = "PUT")
+    @ApiOperation(value="주소 수정(세모)", notes = "구매자의 배송지 주소 수정", httpMethod = "PUT")
     @PutMapping(value = "/{id}")
     public Response updateAddress(@ApiParam(value="구매자 고유값") @PathVariable("id") String email,@ApiParam(value="주소 데이터")  @RequestBody UseraddressEntity useraddressEntity ){
         System.out.println(" updateAddress "+email+" "+useraddressEntity);

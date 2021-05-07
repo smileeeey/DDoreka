@@ -92,7 +92,7 @@ public class ReviewController {
     }
 
     //review 삭제
-    @ApiOperation(value="리뷰 삭제", notes = "해당 reviewId에 해당하는 리뷰 삭제(cascade로 삭제되는지 확인 필요)", httpMethod = "DELETE")
+    @ApiOperation(value="리뷰 삭제(세모)", notes = "해당 reviewId에 해당하는 리뷰 삭제(cascade로 삭제되는지 확인 필요)", httpMethod = "DELETE")
     @DeleteMapping(value = "/delete/{reviewId}")
     public Response addReview(@ApiParam(value="리뷰 고유값") @PathVariable int reviewId){
         Response response;
@@ -108,7 +108,7 @@ public class ReviewController {
     }
 
     //review 수정
-    @ApiOperation(value="리뷰 수정", notes = "해당 reviewId에 해당하는 리뷰 데이터 수정", httpMethod = "PUT")
+    @ApiOperation(value="리뷰 수정(세모)", notes = "해당 reviewId에 해당하는 리뷰 데이터 수정", httpMethod = "PUT")
     @PutMapping(value="/update")
     public Response updaetReview(@ApiParam(value="리뷰 데이터") @RequestBody Map<String,Object> param){
         Response response;

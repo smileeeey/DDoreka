@@ -42,7 +42,7 @@ public class AccountController {
     }
      */
 
-    @ApiOperation(value="회원정보 수정", notes = "회원 정보 입력받고, 수정한 값 반환", httpMethod = "PUT")
+    @ApiOperation(value="회원정보 수정x", notes = "회원 정보 입력받고, 수정한 값 반환", httpMethod = "PUT")
     @PutMapping("/update")
     public Account updateAccount(@ApiParam(value="사용자 입력 데이터") @RequestBody Account account) {
         Account existingAccount = accountRepository.findById(account.getUsername()).orElse(null);

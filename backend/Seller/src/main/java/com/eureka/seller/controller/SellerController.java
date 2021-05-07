@@ -24,19 +24,19 @@ public class SellerController {
         return service.saveSeller(seller);
     }
 
-    @ApiOperation(value="입력받은 모든 셀러 등록", notes = "입력받은 셀러의 정보를 저장하고, 리턴한다", httpMethod = "POST")
+    @ApiOperation(value="입력받은 모든 셀러 등록x", notes = "입력받은 셀러의 정보를 저장하고, 리턴한다", httpMethod = "POST")
     @PostMapping("/addAll")
     public List<Seller> addSellers(@RequestBody List<Seller> sellers) {
         return service.saveSellers(sellers);
     }
 
-    @ApiOperation(value="모든 셀러를 조회", notes = "존재하는 모든 셀러 정보를 리턴한다", httpMethod = "GET")
+    @ApiOperation(value="모든 셀러를 조회x", notes = "존재하는 모든 셀러 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getAll")
     public List<Seller> findAllSellers() {
         return service.getSellers();
     }
 
-    @ApiOperation(value="id로 셀러를 조회", notes="특정 아이디를 입력받아 해당 셀러의 정보를 리턴한다", httpMethod = "GET")
+    @ApiOperation(value="id로 셀러를 조회x", notes="특정 아이디를 입력받아 해당 셀러의 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getById/{id}")
     public Seller findSellerById(@PathVariable int id) {
         return service.getSellerById(id);
@@ -48,13 +48,13 @@ public class SellerController {
         return service.getSellerByEmail(email);
     }
 
-    @ApiOperation(value="셀러 정보 수정", notes="셀러 정보를 입력받아 해당 셀러 정보를 수정한다", httpMethod = "PUT")
+    @ApiOperation(value="셀러 정보 수정(세모)", notes="셀러 정보를 입력받아 해당 셀러 정보를 수정한다", httpMethod = "PUT")
     @PutMapping("/update")
     public Seller updateSeller(@RequestBody Seller seller) {
         return service.updateSeller(seller);
     }
 
-    @ApiOperation(value="id로 셀러 정보 삭제", notes="셀러 아이디를 입력받아 해당 셀러의 정보를 삭제한다", httpMethod = "DELETE")
+    @ApiOperation(value="id로 셀러 정보 삭제(세모)", notes="셀러 아이디를 입력받아 해당 셀러의 정보를 삭제한다", httpMethod = "DELETE")
     @DeleteMapping("/deleteById/{id}")
     public String deleteSeller(@PathVariable int id) {
         return service.deleteSeller(id);

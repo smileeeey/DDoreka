@@ -5,6 +5,8 @@ import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.dto.Response;
 import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "order from user")
@@ -19,6 +21,7 @@ public class OrderFromUserController {
         this.orderService = orderService;
     }
 
+    @ApiOperation(value="구매자의 id로 주문 찾기 with paging x", notes = "구매자 id로 주문 찾기", httpMethod = "GET")
     @GetMapping(value ="userid/{userId}")
     public Response getOrdersByUserId(@PathVariable("userId") String userId, @RequestParam Integer page,Integer size){
 

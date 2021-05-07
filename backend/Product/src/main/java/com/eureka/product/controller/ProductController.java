@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     /////////////////// 사용자 페이지  ///////////////////
-    @ApiOperation(value="전체 상품 조회", notes = "모든 상품 데이터를 반환", httpMethod = "GET")
+    @ApiOperation(value="전체 상품 조회x", notes = "모든 상품 데이터를 반환", httpMethod = "GET")
     @GetMapping("/all")
     public Response findAll() {
         Response response;
@@ -170,7 +170,7 @@ public class ProductController {
         return response;
     }
 
-    @ApiOperation(value="상품 정보 수정", notes = "판매자의 상품 정보 수정", httpMethod = "PUT")
+    @ApiOperation(value="상품 정보 수정(세모)", notes = "판매자의 상품 정보 수정", httpMethod = "PUT")
     @PutMapping(value="/seller/update")
     public Response updateProduct(@RequestBody Map<String,Object> param){
         Response response;
