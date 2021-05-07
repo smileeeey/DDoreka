@@ -140,10 +140,10 @@ public class UserController {
     }
 
     @ApiOperation(value="구매자 삭제x", notes = "구매자 데이터 삭제", httpMethod = "DELETE")
-    @DeleteMapping(value = "/delete")
-    public Response deleteUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){
+    @DeleteMapping(value = "/delete/{email}")
+    public Response deleteUser(@ApiParam(value="회원 이메일") @PathVariable String email){
         try{
-            authService.deleteUser(user);
+            authService.deleteUser(email);
             return new Response("success","회원정보 삭제을 성공적으로 완료했습니다.",null);
         }
         catch (Exception e){

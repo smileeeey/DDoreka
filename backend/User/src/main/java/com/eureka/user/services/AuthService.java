@@ -16,7 +16,7 @@ public interface AuthService {
 
     public void updateUser(UserEntity user) throws Exception;
 
-    public void deleteUser(UserEntity user);
+    public void deleteUser(String email);
 
 
 
