@@ -7,7 +7,7 @@ export const order = { // crud
 
     // getOrdersByProductIdSortedByDayofWeek
     fetchProductDayOfWeek(productId) {
-        return request(orderDomin, 'get', `prodcut/${productId}/dayofweek`);
+        return request(orderDomin, 'get', `product/${productId}/dayofweek`);
     },
     //getOrdersBySellerId
     fetchSellerid(sellerid) {
