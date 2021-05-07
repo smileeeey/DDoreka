@@ -7,7 +7,9 @@ import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,8 +49,8 @@ public class ProductController {
 
     // 카테고리 선택 시 상품 list 가져오기
     @ApiOperation(value="카테고리별 상품 조회", notes = "depth와 카테고리 id를 통해 조건을 만족하는 상품 데이터 반환", httpMethod = "GET")
-    @GetMapping("/findByCategory/{categoryId}/{depth}")
-    public Response findByCategory(@ApiParam(value="depth=1인 카테고리 고유값") @PathVariable String categoryId, @ApiParam(value="해당 카테고리의 depth 값") @PathVariable int depth, @RequestParam Integer page, Integer size) {
+    @GetMapping("/findByCategory/{categoryId}/{depth}/{page}/{size}")
+    public Response findByCategory(@ApiParam(value="depth=1인 카테고리 고유값") @PathVariable String categoryId, @ApiParam(value="해당 카테고리의 depth 값") @PathVariable int depth, @ApiParam(value="몇 번째 page인지") @PathVariable Integer page, @ApiParam(value="한 페이지에 포함될 데이터 개수") @PathVariable Integer size) {
         Response response;
         try {
             response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByCategory(categoryId, depth,page,size));
@@ -61,8 +63,8 @@ public class ProductController {
 
     // 상품 검색 시 상품 list 가져오기
     @ApiOperation(value="검색 상품 조회", notes = "depth = 1과 키워드를 입력하면 해당 조건을 만족하는 상품 데이터 반환", httpMethod = "GET")
-    @GetMapping("/search/{category1Id}/{keyword}")
-    public Response findBySearch(@ApiParam(value="depth=1인 카테고리 고유값") @PathVariable String category1Id, @ApiParam(value="검색할 키워드") @PathVariable String keyword,@ApiParam(value="페이징 처리를 위한 몇 번째 페이지인지") @RequestParam Integer page, @ApiParam(value="페이징 처리할 경우 한 페이지의의 데이터 수") @RequestParam Integer size) {
+    @GetMapping("/search/{category1Id}/{keyword}/{page}/{size}")
+    public Response findBySearch(@ApiParam(value="depth=1인 카테고리 고유값") @PathVariable String category1Id, @ApiParam(value="검색할 키워드") @PathVariable String keyword , @ApiParam(value="몇 번째 page인지") @PathVariable Integer page, @ApiParam(value="한 페이지에 포함될 데이터 개수") @PathVariable Integer size) {
         Response response;
         try {
             Page<Product> pages = service.getProductsByName(category1Id, keyword,page,size);
