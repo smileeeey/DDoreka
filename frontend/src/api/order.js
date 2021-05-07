@@ -5,13 +5,13 @@ const orderDomin = "http://k4d104.p.ssafy.io/:8084/order/";
 export const order = { // crud
     // order from seller
 
-    // getOrdersByProductIdSortedByDayofWeek
+    // 프로덕트 아이디를 가지고 와서 최근 일주일에 관한 7개의 상품을 가져온다
     fetchProductDayOfWeek(productId) {
         return request(orderDomin, 'get', `product/${productId}/dayofweek`);
     },
-    //getOrdersBySellerId
-    fetchSellerid(sellerid) {
-        return request(orderDomin, 'get', `sellerid/${sellerid}`);
+    //판매자의 id로 로 해당판매자의 상품을 구매한 사람들의 리스트 반환
+    fetchSellerid(sellerid, page, size) {
+        return request(orderDomin, 'get', `sellerid/${sellerid}/${page}/${size}`);
     },
     // getOrdersBySellerIdBystatus
     fetchSelleridStatus(sellerid, statusnum) {
