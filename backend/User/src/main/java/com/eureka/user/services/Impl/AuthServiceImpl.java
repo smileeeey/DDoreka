@@ -94,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
     public void deleteUser(String email) {
 
         if(userRepository.findTop1ByEmail(email) == null)  return;
-        userRepository.deleteByEmail(userInfoChanged);
+        userRepository.deleteByEmail(email);
     }
 
 

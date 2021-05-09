@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/file")
 @CrossOrigin(origins = "*")
-public class FileController {
+public class  FileController {
 
     private final FileService service;
 

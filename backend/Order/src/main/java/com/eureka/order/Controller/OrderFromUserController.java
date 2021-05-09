@@ -23,7 +23,7 @@ public class OrderFromUserController {
 
     @ApiOperation(value="구매자의 id로 주문 찾기 with paging x", notes = "구매자 id로 주문 찾기", httpMethod = "GET")
     @GetMapping(value ="userid/{userId}/{page}/{size}")
-    public Response getOrdersByUserId(@PathVariable("userId") String userId,  @ApiParam(value="몇 번째 page인지") @PathVariable Integer page, @ApiParam(value="한 페이지에 포함될 데이터 개수") @PathVariable Integer size){
+    public Response getOrdersByUserId(@ApiParam(value="구매자 id") @PathVariable("userId") String userId,  @ApiParam(value="몇 번째 page인지") @PathVariable Integer page, @ApiParam(value="한 페이지에 포함될 데이터 개수") @PathVariable Integer size){
 
         System.out.println("getorders : "+userId);
         Response response;
@@ -36,8 +36,9 @@ public class OrderFromUserController {
 
     }
 
+    @ApiOperation(value="해당 구매자의 모든 주문 정보", notes = "구매자 id의 모든 주문 찾기", httpMethod = "GET")
     @GetMapping(value ="userid/{userId}/all")
-    public Response getOrders(@PathVariable("userId") String userId){
+    public Response getOrders(@ApiParam(value="구매자 id") @PathVariable("userId") String userId){
 
         System.out.println("getorders : "+userId);
         Response response;
@@ -50,8 +51,9 @@ public class OrderFromUserController {
 
     }
 
+    @ApiOperation(value="구매자의 주문 상태별 조회", notes = "구매자의 주문 데이터 중 해당 상태인 주문 데이터 list로 반환(0:결제완료,1:배송중,2:배송완료,3:환불신청)", httpMethod = "GET")
     @GetMapping(value ="userid/{userid}/status/{statusnum}")
-    public Response getOrdersByUserIdBystatus(@PathVariable("userid") String userid,@PathVariable("statusnum") Integer status){
+    public Response getOrdersByUserIdBystatus(@ApiParam(value="구매자 id") @PathVariable("userid") String userid,@ApiParam(value="주문 상태") @PathVariable("statusnum") Integer status){
 
         System.out.println("getOrdersByUserIdBystatus : "+userid+" "+status);
         Response response;
@@ -63,8 +65,9 @@ public class OrderFromUserController {
         return response;
     }
 
+    @ApiOperation(value="구매자의 주문 데이터 저장", notes = "구매자의 주문 데이터 저장", httpMethod = "POST")
     @PostMapping()
-    public Response saveOrders( @RequestBody OrderEntity orderEntity) {
+    public Response saveOrders(@ApiParam(value="입력받은 주문 저장 데이터") @RequestBody OrderEntity orderEntity) {
 
         System.out.println("saveorders : "  +orderEntity);
         Response response;
@@ -77,8 +80,9 @@ public class OrderFromUserController {
         return response;
     }
 
+    @ApiOperation(value="구매자의 주문 데이터 수정", notes = "구매자의 주문 데이터 수정", httpMethod = "PUT")
     @PutMapping ()
-    public Response updateOrders(@RequestBody OrderDetailEntity orderDetailEntity) {
+    public Response updateOrders(@ApiParam(value="입력받은 주문 수정 데이터") @RequestBody OrderDetailEntity orderDetailEntity) {
 
         System.out.println("updateOrders : "  +orderDetailEntity);
         Response response;
@@ -94,6 +98,7 @@ public class OrderFromUserController {
 ////////////////////////   수민   /////////////////////////////
 
     //스테디 셀러
+    @ApiOperation(value="최근 한달간 주문이 가장 많았던 상품 top10", notes = "상품 id list로 반환", httpMethod = "GET")
     @GetMapping(value ="/recommend/steadyseller")
     public Response steadySeller(){
 
@@ -107,6 +112,7 @@ public class OrderFromUserController {
     }
 
     //요즘 뜨는 상품
+    @ApiOperation(value="최근 일주일간 주문이 가장 많았던 상품 top10", notes = "상품 id list로 반환", httpMethod = "GET")
     @GetMapping(value ="/recommend/hotproduct")
     public Response hotProduct(){
         Response response;
@@ -119,6 +125,7 @@ public class OrderFromUserController {
     }
 
     // 오늘의 상품
+    @ApiOperation(value="최근 24시간 동안 주문이 가장 많았던 상품 top6", notes = "상품 id list로 반환", httpMethod = "GET")
     @GetMapping(value ="/recommend/todayhot")
     public Response todayHot(){
         Response response;

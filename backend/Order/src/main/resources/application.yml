@@ -27,7 +27,7 @@ spring:
       properties:
         hibernate.jdbc.time_zone: Asia/Seoul
       show-sql: true
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 
