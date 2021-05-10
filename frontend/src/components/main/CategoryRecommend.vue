@@ -14,29 +14,16 @@ export default {
     CategoryRecommendDetail,
   },
   computed: {
-    ...mapState('mainStore', ['categories', 'categoryKeys']),
+    ...mapState('mainStore', ['categories', 'categoryKeys', 'keywords']),
   },
-  data: () => ({
-    categories: {},
-    categoryKeys: [],
-    keywords: {},
-  }),
   methods: {
-    ...mapActions(['FETCH_RECOMMEND_LATEST_PRODUCT']),
+    ...mapActions('mainStore', ['FETCH_RECOMMEND_LATEST_PRODUCT', 'FETCH_RECOMMEND_REALTIME_SEARCH_WORD']),
+
     getCategories() {
       this.FETCH_RECOMMEND_LATEST_PRODUCT();
     },
     getKeywords() {
-      axios
-        .get('http://k4d104.p.ssafy.io:8081/product/recommend/realtimesearchword')
-        .then((res) => {
-          // console.log('키워드 획득')
-          // console.log(res.data.data)
-          this.keywords = res.data.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.FETCH_RECOMMEND_REALTIME_SEARCH_WORD();
     },
   },
   created() {

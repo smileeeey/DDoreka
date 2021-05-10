@@ -12,6 +12,7 @@ const mainStore = {
     productIds: [],
     categories: {},
     categoryKeys: [],
+    keywords: {},
   },
   getters: {},
   mutations: {
@@ -37,6 +38,9 @@ const mainStore = {
     },
     SET_TODAY_ITEMS(todayItems) {
       state.todayItems = todayItems;
+    },
+    SET_KEYWORDS(keywords) {
+      state.keywords = keywords;
     },
   },
 
@@ -65,13 +69,15 @@ const mainStore = {
       return;
     },
     async FETCH_RECOMMEND_LATEST_PRODUCT() {
-      let res = await product.fetchRecommendSteadySeller();
+      let res = await product.fetchRecommendLatestproduct();
       commit('SET_CATEGORIES', res.data.data);
       return;
     },
-    // async FETCH_RECOMMEND_REALTIME_SEARCH_WORD() {
-    //
-    // },
+    async FETCH_RECOMMEND_REALTIME_SEARCH_WORD() {
+      let res = await product.fetchRecommendRealtimesearchword();
+      commit('SET_KEYWORDS', res.data.data);
+      return;
+    },
   },
 };
 
