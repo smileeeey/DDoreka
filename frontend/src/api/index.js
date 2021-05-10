@@ -1,12 +1,12 @@
-import axios from "axios";
-import router from "../router";
+import axios from 'axios';
+import router from '../router';
 
 const UNAUTHORIZED = 401;
 const onUnauthorized = () => {
-  router.push("/login");
+  router.push('/login');
 };
 
-export const request = (DOMAIN, method, url, data={}) => {
+export const request = (DOMAIN, method, url, data = {}) => {
   return axios({
     method,
     url: DOMAIN + url,
