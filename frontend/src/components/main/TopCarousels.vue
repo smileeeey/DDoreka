@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import '@/assets/css/common.scss'
 export default {
   name: "TopCarousels",
@@ -34,25 +33,12 @@ export default {
       },
     ],
   }),
-  methods: {
-    getTopCarousels: () => {
-      axios.get('url')
-      .then(res => {
-        console.log(res.data)
-        this.items = res.data
-      })
-      .catch(err => {
-        console.error(err)
-      })      
-    },
+  methods: { 
     moveItemDetail: function (item) {
       // 추후 Item Detail페이지 url을 입력
       this.$router.push({name: 'ItemDetail', params: {id: item.category3Id, productid: item.productId}})
     },
   },
-  created() {
-    
-  }
 }
 </script>
 
