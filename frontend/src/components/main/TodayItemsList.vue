@@ -17,6 +17,7 @@
 <script>
 import axios from 'axios'
 import TodayItem from './TodayItem.vue'
+import {mapActions} from 'vuex'
 export default {
   name: 'TodayItems',
   components: {
@@ -26,15 +27,13 @@ export default {
     todayItems: [],
   }),
   methods: {
+    ...mapActions(['FETCH_RECOMMEND_TODAYHOT']),
+
     getTodayItems() {
-      axios.get('http://k4d104.p.ssafy.io:8084/order/recommend/todayhot')
-      .then(res => {
-        // console.log(res.data.data)
-        this.todayItems = res.data.data
+      this.FETCH_RECOMMEND_TODAYHOT().then((res)=>{
+         this.todayItems = res.data.data
       })
-      .catch(err => {
-        console.error(err)
-      })      
+      .catch(err=>{console.log(err);});
     },
   },
   created() {
