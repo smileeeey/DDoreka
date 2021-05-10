@@ -15,10 +15,7 @@ export default {
     //
   }),
   created: function () {
-    const token = localStorage.getItem('jwt')
-    if (token) {
-      this.$store.dispatch('LOGIN')
-    }
+    // const token = localStorage.getItem('seller-eureka-authorization')
   }
 };
 </script>

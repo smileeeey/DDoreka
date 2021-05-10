@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'StatusBar',
@@ -44,6 +44,7 @@ export default {
     ])
   },
   methods: {
+    ...mapActions('accountStore',['LOGOUT']),
     logout() {
       this.$store
         .dispatch("LOGOUT")

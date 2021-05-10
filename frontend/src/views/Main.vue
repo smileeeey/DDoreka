@@ -186,7 +186,4 @@ export default {
 </script>
 
 <style scoped>
-  >>> .sc-chat-window {
-    z-index: 100;
-  }
 </style>

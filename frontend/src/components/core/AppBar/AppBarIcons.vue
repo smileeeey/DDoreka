@@ -7,22 +7,6 @@
         </v-icon>
         <p>마이유레카</p>
       </div>
-      <!-- <div style="display: relative;" >
-        <v-card
-          class="mx-auto"
-          width="110"
-          height="150"
-          tile
-          style="position: absolute; z-index: 1;"
-          v-show="MyEureka"
-        >
-          <v-list-item v-for="(item, idx) in items" :key="idx">
-            <v-list-item-content>
-              <v-list-item-title v-text="item"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </div> -->
     </div>
 
     <div class="mx-3" style="margin-top: 26px;">
@@ -40,22 +24,6 @@
         </v-badge>
         <p>장바구니</p>
       </div>
-      <!-- <div style="display: relative;" >
-        <v-card
-          class="mx-auto"
-          width="110"
-          height="150"
-          tile
-          style="position: absolute; z-index: 1;"
-          v-show="Bucket"
-        >
-          <v-list-item v-for="(item, idx) in carts" :key="idx">
-            <v-list-item-content>
-              <v-list-item-title v-text="item"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-      </div> -->
     </div>
   </div>
 </template>
@@ -111,7 +79,4 @@ export default {
 </script>
 
 <style scoped>
-  >>> p {
-    white-space: nowrap;
-  }
 </style>
