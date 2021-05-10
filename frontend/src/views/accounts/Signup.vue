@@ -68,17 +68,6 @@
             label="이름"
             v-model="form.name"
           ></v-text-field> 
-          <!-- <v-text-field
-            solo
-            flat
-            dense
-            outlined
-            required
-            prepend-inner-icon="mdi-cellphone"
-            :rules="[required_phonenumber,]"
-            label="휴대폰 번호"
-            v-model="forms.phonenumber"
-          ></v-text-field>  -->
         </v-col>
         <v-col cols="12">
           <v-divider></v-divider>
@@ -108,10 +97,6 @@ export default {
       pw: '',
       name: '',
     },
-    show1: false,
-    rules: {
-
-    },
   }),
   methods: {
     action() {
@@ -128,9 +113,6 @@ export default {
     required_name() {
       return () => !!this.form.name || '이름을 정확히 입력하세요.'
     },
-    // required_phonenumber() {
-    //   return () => !!this.form.phonenumber || '휴대폰 번호를 정확하게 입력하세요.'
-    // },
     min_pw() {
       return () => this.form.pw.length >= 8 || '비밀번호를 8자 이상 작성해주세요.'
     },
@@ -152,12 +134,4 @@ export default {
 </script>
 
 <style scoped>
-  >>> .v-text-field__slot {
-    margin: 10px;;
-  }
-
-  >>> .v-messages__message {
-    margin-top: 2px;
-  }
-  
 </style>

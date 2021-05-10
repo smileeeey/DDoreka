@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {mapActions} from 'vuex';
 
 import AccountsFooter from "../../components/accounts/AccountsFooter.vue";
 export default {
@@ -121,12 +121,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('accountStore', ['LOGIN']),
     login: function () {
-      this.$store
-        .dispatch("accountStore/LOGIN", {
-          email: this.form.email,
-          password: this.form.pw,
-        })
+      this.LOGIN({email: this.form.email, password: this.form.pw,})
         .then(() => {
           if (this.$route.query.next) {
             this.$router.push({ name: this.$route.query.next });
@@ -140,11 +137,4 @@ export default {
 </script>
 
 <style scoped>
->>> .v-text-field__slot {
-  margin: 10px;
-}
-
->>> .v-messages__message {
-  margin-top: 2px;
-}
 </style>
