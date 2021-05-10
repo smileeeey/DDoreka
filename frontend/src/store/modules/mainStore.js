@@ -9,6 +9,7 @@ const mainStore = {
     sFileIds: [],
     sumnailUrl: '',
     todayItems: [],
+    productIds: [],
   },
   getters: {},
   mutations: {

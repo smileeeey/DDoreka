@@ -1,55 +1,36 @@
 <template>
   <div>
-    <h3 class="my-5">스테디 셀러 | <span style="font-size: 70%">꾸준히 잘 팔리는 상품</span></h3>    
-    <v-sheet
-      class="mx-auto"
-      flat
-      outlined
-      rounded
-    >
-      <v-slide-group
-        class="pa-2"
-        show-arrows
-      >
-        <SteadySellerCard
-          v-for="(productId, idx) in productIds"
-          :productId="productId"
-          :key="idx"
-        />
+    <h3 class="my-5">스테디 셀러 | <span style="font-size: 70%">꾸준히 잘 팔리는 상품</span></h3>
+    <v-sheet class="mx-auto" flat outlined rounded>
+      <v-slide-group class="pa-2" show-arrows>
+        <SteadySellerCard v-for="(productId, idx) in productIds" :productId="productId" :key="idx" />
       </v-slide-group>
-    </v-sheet>    
+    </v-sheet>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import SteadySellerCard from './SteadySellerCard.vue'
+import { mapActions, mapState } from 'vuex';
+import SteadySellerCard from './SteadySellerCard.vue';
 export default {
   name: 'SteadySeller',
   components: {
     SteadySellerCard,
   },
-  data: () => ({
-    productIds: [],
-  }),
+  computed: {
+    ...mapState('mainStore', ['productIds']),
+  },
   methods: {
+    ...mapActions('mainStore', ['FETCH_RECOMMENDS_STEADY_SELLER']),
+
     getItems() {
-      axios.get('http://k4d104.p.ssafy.io:8084/order/recommend/steadyseller')
-      .then(res => {
-        // console.log(res.data.data)
-        this.productIds = res.data.data
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
+      this.FETCH_RECOMMENDS_STEADY_SELLER();
+    },
   },
   created() {
-    this.getItems()
-  }
-}
+    this.getItems();
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
