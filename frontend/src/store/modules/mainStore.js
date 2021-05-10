@@ -10,9 +10,18 @@ const mainStore = {
     sumnailUrl: '',
     todayItems: [],
     productIds: [],
+    categories: {},
+    categoryKeys: [],
   },
   getters: {},
   mutations: {
+    SET_CATEGORIES(categories) {
+      state.categories = categories;
+      state.categoryKeys = Object.keys(state.categories).sort();
+    },
+    SET_PRODUCT_IDS(productIds) {
+      state.productIds = productIds;
+    },
     SET_ITEM(item) {
       state.item = item;
       state.item.images.forEach((image) => {
@@ -50,6 +59,19 @@ const mainStore = {
       console.log('FETCH_RECOMMEND_HOTPRODUCT 실행');
       return order.fetchRecommendHotProduct();
     },
+    async FETCH_RECOMMENDS_STEADY_SELLER() {
+      let res = await order.fetchRecommendSteadySeller();
+      commit('SET_PRODUCT_IDS', res.data.data);
+      return;
+    },
+    async FETCH_RECOMMEND_LATEST_PRODUCT() {
+      let res = await product.fetchRecommendSteadySeller();
+      commit('SET_CATEGORIES', res.data.data);
+      return;
+    },
+    // async FETCH_RECOMMEND_REALTIME_SEARCH_WORD() {
+    //
+    // },
   },
 };
 
