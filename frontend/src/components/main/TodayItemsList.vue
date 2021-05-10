@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import TodayItem from './TodayItem.vue'
 import {mapActions} from 'vuex'
 export default {
@@ -27,9 +26,9 @@ export default {
     todayItems: [],
   }),
   methods: {
-    ...mapActions(['FETCH_RECOMMEND_TODAYHOT']),
+    ...mapActions("mainStore",['FETCH_RECOMMEND_TODAYHOT']),
 
-    getTodayItems() {
+    getTodayItems() { //  
       this.FETCH_RECOMMEND_TODAYHOT().then((res)=>{
          this.todayItems = res.data.data
       })

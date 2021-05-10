@@ -34,7 +34,8 @@ export default {
     sumnailUrl: '',
   }),
   methods: {
-    getItem() {
+    getItem() { // 상품 상세조회
+    //
       axios.get(`http://k4d104.p.ssafy.io:8081/product/detail/${this.todayItem.id}`)
       .then(res => {
         // console.log(res.data.data)

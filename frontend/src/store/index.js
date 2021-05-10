@@ -1,14 +1,22 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
-import accountStore from "./modules/accountStore";
-import commonStore from "./modules/commonStore";
-import mypageStore from "./modules/mypageStore";
-import paymentStore from "./modules/paymentStore";
-import sellStore from "./modules/sellStore";
+import accountStore from './modules/accountStore';
+import commonStore from './modules/commonStore';
+import mypageStore from './modules/mypageStore';
+import paymentStore from './modules/paymentStore';
+import sellStore from './modules/sellStore';
+import mainStore from './modules/mainStore';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+
+// const store = new Vuex.Store({
+//   state,
+//   mutations,
+//   actions,
+//   getters,
+// })
 
 export default new Vuex.Store({
   state: {
@@ -17,27 +25,27 @@ export default new Vuex.Store({
     wishlist: [],
     name: null,
     currentItem: {},
-    email: "",
-    phone: "",
+    email: '',
+    phone: '',
     seller: {},
     sellerstore: {},
     searchData: [],
     category1Name: {
-      "001": "패션의류/잡화",
-      "002": "뷰티",
-      "003": "출산/유아동",
-      "004": "식품",
-      "005": "주방용품",
-      "006": "생활용품",
-      "007": "홈인테리어",
-      "008": "가전디지털",
-      "009": "스포츠/레저",
-      "010": "자동차용품",
-      "011": "도서/음반/DVD",
-      "012": "완구/취미",
-      "013": "문구/오피스",
-      "014": "반려동물용품",
-      "015": "헬스/건강식품",
+      '001': '패션의류/잡화',
+      '002': '뷰티',
+      '003': '출산/유아동',
+      '004': '식품',
+      '005': '주방용품',
+      '006': '생활용품',
+      '007': '홈인테리어',
+      '008': '가전디지털',
+      '009': '스포츠/레저',
+      '010': '자동차용품',
+      '011': '도서/음반/DVD',
+      '012': '완구/취미',
+      '013': '문구/오피스',
+      '014': '반려동물용품',
+      '015': '헬스/건강식품',
     },
   },
   mutations: {
@@ -88,35 +96,35 @@ export default new Vuex.Store({
   },
   actions: {
     LOGOUT({ commit }) {
-      commit("logout");
-      localStorage.removeItem("eureka-authorization");
+      commit('logout');
+      localStorage.removeItem('eureka-authorization');
     },
     LOGIN({ commit }, data) {
-      commit("login", data);
+      commit('login', data);
     },
     SELECTITEM({ commit }, item) {
-      commit("selectItem", item);
+      commit('selectItem', item);
     },
     SETWISHLIST({ commit }, data) {
-      commit("setwishlist", data);
+      commit('setwishlist', data);
     },
     DELETEWISHLIST({ commit }, idx) {
-      commit("deletewishlist", idx);
+      commit('deletewishlist', idx);
     },
     SETSELLERINFO({ commit }, data) {
-      commit("setsellerinfo", data);
+      commit('setsellerinfo', data);
     },
     SETSELLERSTORE({ commit }, data) {
-      commit("setsellerstore", data);
+      commit('setsellerstore', data);
     },
     SEARCHDATA({ commit }, data) {
-      commit("searchData", data);
+      commit('searchData', data);
     },
     PAYWISHLIST({ commit }, data) {
-      commit("paywishlist", data);
+      commit('paywishlist', data);
     },
     CHANGEPHONE({ commit }, data) {
-      commit("changephone", data);
+      commit('changephone', data);
     },
   },
   modules: {
@@ -125,6 +133,7 @@ export default new Vuex.Store({
     mypageStore,
     paymentStore,
     sellStore,
+    mainStore,
   },
   plugins: [createPersistedState()],
 });

@@ -24,6 +24,7 @@
 <script>
 import axios from 'axios'
 import HotItemCard from './HotItemCard.vue'
+import {mapActions} from 'vuex';
 export default {
   name: 'HotItem',
   components: {
@@ -33,14 +34,10 @@ export default {
     productIds: [],
   }),
   methods: {
+    ...mapActions("mainStore",['FETCH_RECOMMEND_HOTPRODUCT']),
     getItems() {
-      axios.get('http://k4d104.p.ssafy.io:8084/order/recommend/hotproduct')
-      .then(res => {
-        // console.log(res.data.data)
-        this.productIds = res.data.data
-      })
-      .catch(err => {
-        console.log(err)
+      this.FETCH_RECOMMEND_HOTPRODUCT().then((res)=>{
+        this.productIds=res.data.data;
       })
     }
   },
