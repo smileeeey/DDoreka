@@ -28,19 +28,20 @@
       :disableUserListToggle="false"
       :messageStyling="messageStyling"
       @onType="handleOnType"
-      @edit="editMessage" ><template v-slot:header><div>🙋 Eureka의 상담원과 채팅중입니다.</div></template></beautiful-chat>
-      
+      @edit="editMessage"
+      ><template v-slot:header><div>🙋 Eureka의 상담원과 채팅중입니다.</div></template></beautiful-chat
+    >
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import TopCarousels from '@/components/main/TopCarousels.vue'
-import TodayItemsList from '@/components/main/TodayItemsList.vue'
-import HotItem from '@/components/main/HotItem.vue'
-import SteadySeller from '@/components/main/SteadySeller.vue'
-import CategoryRecommend from '@/components/main/CategoryRecommend.vue'
+import TopCarousels from '@/components/main/TopCarousels.vue';
+import TodayItemsList from '@/components/main/TodayItemsList.vue';
+import HotItem from '@/components/main/HotItem.vue';
+import SteadySeller from '@/components/main/SteadySeller.vue';
+import CategoryRecommend from '@/components/main/CategoryRecommend.vue';
 // @ is an alias to /src
 
 export default {
@@ -52,7 +53,7 @@ export default {
     SteadySeller,
     CategoryRecommend,
   },
-  created(){
+  created() {
     // let tmp = this.userId
     // this.fetchMessages();
     // let chk = true;
@@ -68,14 +69,14 @@ export default {
     //   db.collection('user').add({
     //     name: this.userId,
     //   })
-    // }       
+    // }
   },
-  methods:{
+  methods: {
     // deleteCollection() {
-    //   db.collection(this.userId).orderBy('createdAt').onSnapshot((querySnapshot)=>{          
+    //   db.collection(this.userId).orderBy('createdAt').onSnapshot((querySnapshot)=>{
     //       querySnapshot.forEach(doc =>{
     //         db.collection(this.userId).doc(doc.id).delete()
-    //       })          
+    //       })
     //   })
     // },
     // fetchMessages(){
@@ -94,7 +95,6 @@ export default {
     //     this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
     //   }
     //   */
-
     // },
     // onMessageWasSent (message) {
     //   // called when the user sends a message
@@ -103,9 +103,7 @@ export default {
     //     createdAt: new Date(),
     //     type:'text',
     //     data:message.data
-            
-    //     })   
-        
+    //     })
     //   //this.messageList = [ ...this.messageList, message ]
     // },
     // openChat () {
@@ -131,10 +129,7 @@ export default {
     // },
   },
   computed: {
-    ...mapState([
-      'login',
-      'userId',
-    ])
+    ...mapState(['login', 'userId']),
   },
   data() {
     return {
@@ -142,14 +137,12 @@ export default {
         {
           id: 'user1',
           name: 'Eureka',
-          imageUrl: 'browserIcon.ico'
-        },      
+          imageUrl: 'browserIcon.ico',
+        },
       ], // the list of all the participant of the conversation. `name` is the user name, `id` is used to establish the author of a message, `imageUrl` is supposed to be the user avatar.
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: [
-          
-          //{ type: 'text', author: `Eureka`, data: { text: `Say yes!` } },
-          
+        //{ type: 'text', author: `Eureka`, data: { text: `Say yes!` } },
       ], // the list of the messages to show, can be paginated and adjusted dynamically
       newMessagesCount: 0,
       isChatOpen: false, // to determine whether the chat window should be open or closed
@@ -157,36 +150,32 @@ export default {
       colors: {
         header: {
           bg: '#4e8cff',
-          text: '#ffffff',          
+          text: '#ffffff',
         },
         launcher: {
-          bg: '#4e8cff'
+          bg: '#4e8cff',
         },
         messageList: {
-          bg: '#ffffff'
+          bg: '#ffffff',
         },
         sentMessage: {
           bg: '#4e8cff',
-          text: '#ffffff'
+          text: '#ffffff',
         },
         receivedMessage: {
           bg: '#eaeaea',
-          text: '#222222'
+          text: '#222222',
         },
         userInput: {
           bg: '#f4f7f9',
-          text: '#565867'
-        }
+          text: '#565867',
+        },
       }, // specifies the color scheme for the component
       alwaysScrollToBottom: false, // when set to true always scrolls the chat to the bottom when new events are in (new message, user starts typing...)
-      messageStyling: true // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
-    }
-  }
-}
+      messageStyling: true, // enables *bold* /emph/ _underline_ and such (more info at github.com/mattezza/msgdown)
+    };
+  },
+};
 </script>
 
-<style scoped>
-  >>> .sc-chat-window {
-    z-index: 100;
-  }
-</style>
+<style scoped></style>

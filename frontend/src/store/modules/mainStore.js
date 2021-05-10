@@ -8,6 +8,7 @@ const mainStore = {
     item: {},
     sFileIds: [],
     sumnailUrl: '',
+    todayItems: [],
   },
   getters: {},
   mutations: {
@@ -24,6 +25,9 @@ const mainStore = {
         state.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`;
       }
     },
+    SET_TODAY_ITEMS(todayItems) {
+      state.todayItems = todayItems;
+    },
   },
 
   actions: {
@@ -36,17 +40,15 @@ const mainStore = {
       return;
     },
 
-    FETCH_RECOMMEND_TODAYHOT({ commit, dispatch, state }) {
-      console.log('FETCH_RECOMMEND_TODAYHOT 실행');
-      return order.fetchRecommendTodayHot();
+    async FETCH_RECOMMEND_TODAYHOT({ commit, dispatch, state }) {
+      let res = await order.fetchRecommendTodayHot();
+      commit('SET_TODAY_ITEMS', res.data.data);
+      return;
     },
     FETCH_RECOMMEND_HOTPRODUCT({ commit, dispatch, state }) {
       console.log('FETCH_RECOMMEND_HOTPRODUCT 실행');
       return order.fetchRecommendHotProduct();
     },
-
-    FETCH_FILE() {},
-    //file
   },
 };
 
