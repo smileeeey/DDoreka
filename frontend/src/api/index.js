@@ -12,10 +12,11 @@ export const request = (DOMAIN, method, url, data={}) => {
     url: DOMAIN + url,
     data,
   })
-    .then((result) => result.data)
+    .then((result) => {return result})
     .catch((err) => {
-      const status = err.response.status;
-      if (status === UNAUTHORIZED) return onUnauthorized();
+      console.log(err);
+      // const status = err.response.status;
+      // if (status === UNAUTHORIZED) return onUnauthorized();
       //  throw Error(result)
     });
 };
