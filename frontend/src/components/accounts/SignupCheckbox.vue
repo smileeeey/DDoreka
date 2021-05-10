@@ -155,7 +155,4 @@ export default {
 </script>
 
 <style scoped>
-  >>> .v-messages {
-    display: none;
-  }
 </style>
