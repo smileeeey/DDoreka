@@ -60,18 +60,14 @@ export default {
       this.depth = this.$route.params.depth  
     },
     getItems() {
-      axios.get(`http://k4d104.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
-        params: {
-          page: this.page - 1,
-          size: this.size,
-        }
-      })
+      axios.get(`http://k4d104.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}/${this.page - 1}/${this.size}`)
       .then(res => {
         // console.log(res.data.data.content)
         this.items = res.data.data.content
         this.originItems = this.items
         this.totalPages = res.data.data.totalPages
         this.totalElements = res.data.data.totalElements
+        console.log('페이지 변경')
       })
       .catch(err => {
         console.log(err)
@@ -139,7 +135,7 @@ export default {
   // },
   watch: {
     page: function() {
-      axios.get(`http://k4d104.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}`, {
+      axios.get(`http://k4d104.p.ssafy.io:8081/product/findByCategory/${this.id}/${this.depth}/${this.page - 1}/${this.size}`, {
         params: {
           page: this.page - 1,
           size: this.size,

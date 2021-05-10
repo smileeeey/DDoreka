@@ -56,12 +56,7 @@ export default {
   }),
   methods: {
     getItems() {
-      axios.get(`http://k4d104.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
-        params: {
-          page: this.page - 1,
-          size: this.size,
-        }
-      })
+      axios.get(`http://k4d104.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}/${this.page-1}/${this.size}`)
       .then(res => {
         // console.log(res.data.data.content)
         this.items = res.data.data.content
@@ -130,12 +125,7 @@ export default {
   },
   watch: {
     page: function() {
-      axios.get(`http://k4d104.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}`, {
-        params: {
-          page: this.page - 1,
-          size: this.size,
-        }
-      })
+      axios.get(`http://k4d104.p.ssafy.io:8081/product/search/${this.category1id}/${this.keyword}/${this.page-1}/${this.size}`)
       .then(res => {
         // console.log('페이지 변경')
         this.items = res.data.data.content
