@@ -5,10 +5,15 @@ import store from "../store";
 
 Vue.use(VueRouter);
 
-const requireAuth = (to, from, next) => {
+const requireUserAuth = (to, from, next) => {
   const loginPath = `/login?next=${to.name}`;
   store.state.accountStore.isLogin ? next() : next(loginPath);
 };
+
+// const requireSellerAuth = (to, from, next) => {
+//   const loginPath = `/sell/login?next=${to.name}`;
+//   store.state.accountStore.isLogin ? next() : next(loginPath);
+// };
 
 const routes = [
   // accounts
@@ -123,7 +128,7 @@ const routes = [
   {
     path: "/cart",
     name: "Cart",
-    beforeEnter: requireAuth,
+    beforeEnter: requireUserAuth,
     component: () => import("../views/payment/Cart.vue"),
   },
   // popup
