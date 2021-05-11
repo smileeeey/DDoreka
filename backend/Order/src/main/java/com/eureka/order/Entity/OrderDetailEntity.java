@@ -15,7 +15,7 @@ public class OrderDetailEntity {
 
     @Id
     @Column(name = "order_id")
-    private String orderId;
+    private int orderId;
     @Column(name = "check_datetime")
     private String checkDatetime;
     @Column(name = "order_status")

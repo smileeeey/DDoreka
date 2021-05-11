@@ -81,14 +81,14 @@ public class OrderFromUserController {
     }
 
     @ApiOperation(value="구매자의 주문 데이터 수정", notes = "구매자의 주문 데이터 수정", httpMethod = "PUT")
-    @PutMapping ()
-    public Response updateOrders(@ApiParam(value="입력받은 주문 수정 데이터") @RequestBody OrderDetailEntity orderDetailEntity) {
+    @PutMapping ("/update/user/{userId}")
+    public Response updateOrders(@ApiParam(value="구매자 id") @PathVariable("userId") String userId,@ApiParam(value="입력받은 주문 수정 데이터") @RequestBody OrderDetailEntity orderDetailEntity) {
 
         System.out.println("updateOrders : "  +orderDetailEntity);
         Response response;
         try {
             orderService.updateOrder(orderDetailEntity);
-            response= new Response("success", "변경성공", orderService.getOrdersByUserId(orderDetailEntity.getOrderId())) ;
+            response= new Response("success", "변경성공", orderService.getOrdersByUserId(userId)) ;
         } catch (Exception e) {
             response= new Response("error", e.getMessage(), null) ;
         }
