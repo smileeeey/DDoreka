@@ -1,196 +1,200 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "../store";
 // import Main from '../views/Main.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+
+const requireAuth = (to, from, next) => {
+  const loginPath = `/login?next=${to.name}`;
+  store.state.accountStore.isLogin ? next() : next(loginPath);
+};
 
 const routes = [
   // accounts
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/accounts/Login.vue')
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/accounts/Login.vue"),
   },
   {
-    path: '/signup',
-    name: 'Signup',
-    component: () => import('../views/accounts/Signup.vue')
+    path: "/signup",
+    name: "Signup",
+    component: () => import("../views/accounts/Signup.vue"),
   },
 
   // home
   {
-    path: '/',
-    component: () => import('../views/Home.vue'),
+    path: "/",
+    component: () => import("../views/Home.vue"),
     children: [
       {
-        path: '',
-        name: 'Main',
-        component: () => import('../views/Main.vue')
+        path: "",
+        name: "Main",
+        component: () => import("../views/Main.vue"),
       },
       {
-        path: '/myface',
-        name: 'MyFace',
-        component: () => import('../views/MyFace.vue')
+        path: "/myface",
+        name: "MyFace",
+        component: () => import("../views/MyFace.vue"),
       },
       // category
       {
-        path: '/category/:id/:depth',
-        name: 'Category',
-        component: () => import('../views/Category.vue'),
+        path: "/category/:id/:depth",
+        name: "Category",
+        component: () => import("../views/Category.vue"),
         props: true,
       },
       // ItemDetail
       {
-        path: '/category/:id/detail/:productid',
-        name: 'ItemDetail',
-        component: () => import('../views/ItemDetail.vue'),
+        path: "/category/:id/detail/:productid",
+        name: "ItemDetail",
+        component: () => import("../views/ItemDetail.vue"),
         props: true,
       },
       // search
       {
-        path: '/search/:category1id/:keyword',
-        name: 'Search',
-        component: () => import('../views/Search.vue'),
+        path: "/search/:category1id/:keyword",
+        name: "Search",
+        component: () => import("../views/Search.vue"),
         props: true,
       },
       // mypage
       {
-        path: '/mypage',
-        name: 'Mypage',
-        component: () => import('../views/Mypage.vue'),
-        redirect: { name: 'OrderList' },
+        path: "/mypage",
+        name: "Mypage",
+        component: () => import("../views/Mypage.vue"),
+        redirect: { name: "OrderList" },
         children: [
           {
-            path: 'orderlist',
-            name: 'OrderList',
-            component: () => import('../views/mypage/OrderList.vue'),
+            path: "orderlist",
+            name: "OrderList",
+            component: () => import("../views/mypage/OrderList.vue"),
           },
           {
-            path: 'createreview/:orderId/:optionId/:productId/:userId',
-            name: 'CreateReview',
-            component: () => import('../views/mypage/CreateReview.vue'),
+            path: "createreview/:orderId/:optionId/:productId/:userId",
+            name: "CreateReview",
+            component: () => import("../views/mypage/CreateReview.vue"),
             props: true,
           },
           {
-            path: 'cancel-return-exchange/list',
-            name: 'CancelReturnExchangeList',
-            component: () => import('../views/mypage/CancelReturnExchangeList.vue')
+            path: "cancel-return-exchange/list",
+            name: "CancelReturnExchangeList",
+            component: () => import("../views/mypage/CancelReturnExchangeList.vue"),
           },
           {
-            path: 'productreview',
-            name: 'ProductReview',
-            component: () => import('../views/mypage/ProductReview.vue')
+            path: "productreview",
+            name: "ProductReview",
+            component: () => import("../views/mypage/ProductReview.vue"),
           },
           {
-            path: 'wishlist',
-            name: 'WishList',
-            component: () => import('../views/mypage/WishList.vue')
+            path: "wishlist",
+            name: "WishList",
+            component: () => import("../views/mypage/WishList.vue"),
           },
           {
-            path: 'usermodify',
-            name: 'UserModify',
-            component: () => import('../views/mypage/UserModify.vue')
+            path: "usermodify",
+            name: "UserModify",
+            component: () => import("../views/mypage/UserModify.vue"),
           },
           {
-            path: 'addressbook',
-            name: 'AddressBook',
-            component: () => import('../views/mypage/AddressBook.vue')
+            path: "addressbook",
+            name: "AddressBook",
+            component: () => import("../views/mypage/AddressBook.vue"),
           },
-
-        ]
+        ],
       },
 
       {
-        path: '/cs-center/chat',
-        name: 'CSCenter',
-        component: () => import('../views/mypage/CSCenter.vue')
+        path: "/cs-center/chat",
+        name: "CSCenter",
+        component: () => import("../views/mypage/CSCenter.vue"),
       },
-
 
       // payment
       {
-        path: '/checkout',
-        name: 'Checkout',
-        component: () => import('../views/payment/Checkout.vue')
+        path: "/checkout",
+        name: "Checkout",
+        component: () => import("../views/payment/Checkout.vue"),
       },
-    ]
+    ],
   },
   // Cart
   {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('../views/payment/Cart.vue')
+    path: "/cart",
+    name: "Cart",
+    beforeEnter: requireAuth,
+    component: () => import("../views/payment/Cart.vue"),
   },
   // popup
   {
-    path: '/popup/address',
-    name: 'AddressPopup',
-    component: () => import('../components/address/AddressPopup.vue')
+    path: "/popup/address",
+    name: "AddressPopup",
+    component: () => import("../components/address/AddressPopup.vue"),
   },
 
   // seller page
   {
-    path: '/sell',
-    component: () => import('../views/sell/Index.vue'),
+    path: "/sell",
+    component: () => import("../views/sell/Index.vue"),
     children: [
       {
-        name: 'Dashboard',
-        path: '',
-        component: () => import('../views/sell/Dashboard.vue')
+        name: "Dashboard",
+        path: "",
+        component: () => import("../views/sell/Dashboard.vue"),
       },
       {
-        name: 'SellerProfile',
-        path: '/user/profile',
-        component: () => import('../views/sell/SellerProfile.vue')
+        name: "SellerProfile",
+        path: "/user/profile",
+        component: () => import("../views/sell/SellerProfile.vue"),
       },
       {
-        name: 'SellerProductList',
-        path: '/product/list',
-        component: () => import('../views/sell/SellerProductList.vue')
+        name: "SellerProductList",
+        path: "/product/list",
+        component: () => import("../views/sell/SellerProductList.vue"),
       },
       {
-        name: 'SellerRegister',
-        path: '/product/register',
-        component: () => import('../views/sell/SellerRegister.vue')
+        name: "SellerRegister",
+        path: "/product/register",
+        component: () => import("../views/sell/SellerRegister.vue"),
       },
       {
-        name: 'SellerProductDeliver',
-        path: '/product/deliver',
-        component: () => import('../views/sell/SellerProductDeliver.vue')
+        name: "SellerProductDeliver",
+        path: "/product/deliver",
+        component: () => import("../views/sell/SellerProductDeliver.vue"),
       },
       {
-        name: 'SellerNotification',
-        path: '/notification',
-        component: () => import('../views/sell/SellerNotification.vue')
+        name: "SellerNotification",
+        path: "/notification",
+        component: () => import("../views/sell/SellerNotification.vue"),
       },
-    ]
+    ],
   },
 
   // seller accounts (Login & Signup page)
   {
-    name: 'SellerLogin',
-    path: '/sell/login',
-    component: () => import('../views/sell/sellaccounts/SellerLogin.vue')
+    name: "SellerLogin",
+    path: "/sell/login",
+    component: () => import("../views/sell/sellaccounts/SellerLogin.vue"),
   },
   {
-    name: 'SellerSignup',
-    path: '/sell/signup',
-    component: () => import('../views/sell/sellaccounts/SellerSignup.vue')
+    name: "SellerSignup",
+    path: "/sell/signup",
+    component: () => import("../views/sell/sellaccounts/SellerSignup.vue"),
   },
-
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => {
-    if (err.name !== 'NavigationDuplicated') throw err;
+  return originalPush.call(this, location).catch((err) => {
+    if (err.name !== "NavigationDuplicated") throw err;
   });
 };
 
-export default router
+export default router;

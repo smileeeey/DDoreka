@@ -6,70 +6,62 @@ import { seller } from "../../api/seller.js";
 const accountStore = {
   namespaced: true,
   state: {
-    login: false,
+    isLogin: false,
+    userData: {
+      userId: "",
+      name: "",
+      email: "",
+      wishlist : [],
+    },
   },
-  getters: {},
+  getters: {
+    get_isLogin(state) {
+      console.log(state.isLogin);
+      return state.isLogin;
+    },
+  },
   mutations: {
     SET_LOGOUT(state) {
-      state.login = false;
-      state.userId = null;
-      state.wishlist = [];
-      state.name = null;
-      state.email = null;
-      state.phone = null;
+      state.isLogin = false;
+      state.userData.userId = "";
+      state.userData.name = "";
+      state.userData.email = "";
+      state.userData.wishlist = [];
     },
+
     SET_LOGIN(state, data) {
-      state.login = true;
-      state.userId = data.id;
-      state.name = data.name;
-      state.email = data.email;
-      state.phone = data.phone;
+      state.isLogin = true;
+      state.userData.userId = data.id;
+      state.userData.name = data.name;
+      state.userData.email = data.email;
     },
+
+    SET_CART(state, data){
+      state.userData.wishlist = data;
+    }
   },
   actions: {
-    async LOGIN({ commit, rootState }, { email, password }) {
-      let loginData = await auth.login(email, password);
-
+    async LOGIN({ state, commit}, { email, password }) {
+      let loginData = await auth.login(email, password).catch((res)=>{console.log("dd,",res)});
+      //error 처리 해줘라~
       localStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
 
       setAuthInHeader(loginData.headers["eureka-authorization"]);
-
+      
       loginData = await user.login(email, password);
 
-      // 추후 삭제~~!!!!
-      rootState.login = true;
-      rootState.userId = loginData.data.data.id;
-      rootState.name = loginData.data.data.name;
-      rootState.email = loginData.data.data.email;
-      rootState.phone = loginData.data.data.phone;
-
       commit("SET_LOGIN", loginData.data.data);
-
+      
       let cartData = await cart.fetch(email);
 
-      //추후 삭제~~~!!!!
-      rootState.wishlist = cartData.data.data;
-
-      return;
-    },
-
-    // 로그아웃
-    LOGOUT() {
-      this.$store
-        .dispatch("LOGOUT")
-        .then(() => {
-          if (this.$route.path !== "/") this.$router.replace("/");
-          localStorage.removeItem("seller-eureka-authorization");
-        })
-        .catch(() => {
-          console.error("logout error occured!!");
-        });
+      commit("SET_CART", cartData.data.data);
+      return state.isLogin;
     },
 
     // 판매자 회원 가입
     async SELLER_SIGNUP({}, { name, pw, email, phone, bank_company, bank_account }) {
       await seller.create(name, pw, email, phone, bank_company, bank_account);
-      await auth.loginAdd(pw, "SELLER" , email);
+      await auth.loginAdd(pw, "SELLER", email);
 
       return;
     },
@@ -77,7 +69,7 @@ const accountStore = {
     // 유저 회원가입
     async USER_SIGNUP({}, { email, pw, name }) {
       await user.create(email, pw, name);
-      await auth.loginAdd( pw, "USER", email );
+      await auth.loginAdd(pw, "USER", email);
 
       return;
     },
