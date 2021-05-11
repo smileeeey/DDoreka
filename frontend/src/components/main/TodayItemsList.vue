@@ -24,7 +24,7 @@ export default {
     ...mapActions('mainStore', ['FETCH_RECOMMEND_TODAYHOT']),
 
     getTodayItems() {
-      this.FETCH_RECOMMEND_TODAYHOT();
+      this.FETCH_RECOMMEND_TODAYHOT(); //todayitems 불러오기
     },
   },
   created() {
