@@ -2,6 +2,7 @@ package com.eureka.seller.controller;
 
 import com.eureka.seller.entity.Store;
 import com.eureka.seller.service.StoreService;
+import com.eureka.seller.service.StoreServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,12 @@ import java.util.List;
 @RequestMapping("/store")
 public class StoreController {
 
-    @Autowired
     private StoreService service;
+
+    @Autowired
+    public StoreController(StoreService service) {
+        this.service = service;
+    }
 
     @ApiOperation(value="스토어 추가", notes="스토어를 입력받아서 스토어를 추가하고 리턴한다", httpMethod = "POST")
     @PostMapping("/add")

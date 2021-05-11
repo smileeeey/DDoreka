@@ -2,9 +2,9 @@ package com.eureka.seller.controller;
 
 import com.eureka.seller.entity.Seller;
 import com.eureka.seller.service.SellerService;
+import com.eureka.seller.service.SellerServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.usertype.UserVersionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/seller")
 public class SellerController {
 
-    @Autowired
     private SellerService service;
+
+    @Autowired
+    public SellerController(SellerService service) {
+        this.service = service;
+    }
 
     @ApiOperation(value="셀러 등록", notes = "셀러의 정보를 등록하고 리턴한다", httpMethod = "POST")
     @PostMapping("/add")
