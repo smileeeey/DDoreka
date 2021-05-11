@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57cf900a-135c-4683-9c05-084d7dcaba1e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../User/src/test/java/com/eureka/user/controllers/AddressControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../User/src/test/java/com/eureka/user/controllers/CartControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../User/src/test/java/com/eureka/user/controllers/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Face/src/test/java/com/eureka/face/controller/FaceControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Face/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Face/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Face/src/test/java/com/eureka/face/FaceApplicationTests.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../User/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../User/src/test/java/com/eureka/user/UserEntityApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
