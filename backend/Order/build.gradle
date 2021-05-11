@@ -36,10 +36,6 @@ dependencies {
     implementation 'io.springfox:springfox-swagger2:2.6.1'
     implementation 'io.springfox:springfox-swagger-ui:2.6.1'
 
-    //junit 5
-    //testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
-    //testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
-
     // json-path for test
     implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
 
