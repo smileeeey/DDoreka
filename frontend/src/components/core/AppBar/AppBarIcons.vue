@@ -37,13 +37,13 @@ export default {
   name: "AppBarIcons",
   data: () => ({}),
   computed: {
-    ...mapState('accountStore',["userData"]),
+    ...mapState('accountStore',["userData","wishlist"]),
     
     cartLength() {
       let count = "0";
 
-      if (this.userData.wishlist.length > 0) {
-        count = this.userData.wishlist.length;
+      if (this.wishlist.length > 0) {
+        count = this.wishlist.length;
       }
 
       return count;

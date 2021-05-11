@@ -55,6 +55,8 @@
                 </div>
               </v-col>
             </v-row>
+
+            <!-- 1단계 -->
             <div v-show="e1==1">
 
               <CartList 
@@ -77,6 +79,8 @@
                 </v-btn>
               </div>
             </div>
+
+            <!-- 2단계 -->
             <div v-show="e1==2">
               <BuyerInfo />
               <DestinationInfo
@@ -102,6 +106,8 @@
                 </v-btn>
               </div>
             </div>
+
+            <!-- 결제 완료 창 -->
             <div v-show="e1==3">
               <v-card
                 class="mx-auto paymentcard"
@@ -152,9 +158,14 @@ import CartList from '../../components/cart/CartList.vue'
 import PaymentTable from '../../components/cart/PaymentTable.vue'
 import Footer from '../../components/core/Footer.vue'
 import PaymentCompleteCard from '../../components/cart/PaymentCompleteCard.vue'
+
 export default {
   components: { Footer, CartList, PaymentTable, BuyerInfo, DestinationInfo, PaymentCompleteCard },
   name: 'Cart',
+
+  computed:{
+    ...mapState("accountStore",["wishlist"])
+  },
   data () {
     return {
       e1: 1,
@@ -209,17 +220,9 @@ export default {
       );
     },
   },
-  computed: {
-    ...mapState([
-      'wishlist',
-      'email',
-      'name',
-      'phone',
-      'userId',
-    ])
-  },
   watch: {
     e1: function () {
+      console.log("ddd");
       console.log(this.wishlist)
       console.log(this.items)
       if (this.e1 == 3) {
@@ -266,6 +269,9 @@ export default {
     for (let i=0; i<this.wishlist.length; i++) {
       let cartId = this.wishlist[i].id
       let optionV = this.wishlist[i].optionId
+
+      // 사용자 아이디 
+
       axios.get(`http://k4d104.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
         .then(detailres => {
           let productName = detailres.data.data.name
