@@ -48,7 +48,7 @@ class OrderfromSellerControllerTest {
 
         List<OrderEntity> list = new ArrayList<>();
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         list.add(orderEntity);
         Page<OrderEntity> pages = new PageImpl<>(list);
 
@@ -75,7 +75,7 @@ class OrderfromSellerControllerTest {
 
         List<OrderEntity> list = new ArrayList<>();
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         list.add(orderEntity);
         BDDMockito.given(orderService.getOrdersBySellerIdWithUnchecked(sellerid)).willReturn(list);
 
@@ -123,7 +123,7 @@ class OrderfromSellerControllerTest {
         String month = "1";
 
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         List<OrderEntity> list = new ArrayList<>();
         list.add(orderEntity);
         List<List<OrderEntity>> motherList = new ArrayList<>();
@@ -153,7 +153,7 @@ class OrderfromSellerControllerTest {
         int status = 1;
 
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         List<OrderEntity> list = new ArrayList<>();
         list.add(orderEntity);
 

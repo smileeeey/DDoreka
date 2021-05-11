@@ -18,16 +18,17 @@ spring:
     config:
       enabled: true
   datasource:
-    url: jdbc:mysql://k4d104.p.ssafy.io:3306/order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://k4d104.p.ssafy.io:3306/order?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: sumin
     password: sumin
-    jpa:
-      hibernate:
-        ddl-auto: update
-      properties:
-        hibernate.jdbc.time_zone: Asia/Seoul
-      show-sql: true
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.time_zone: Asia/Seoul
+    show-sql: true
 
 
 
