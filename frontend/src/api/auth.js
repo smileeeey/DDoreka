@@ -1,6 +1,5 @@
 import { request } from './index.js';
 import axios from 'axios';
-import { user } from './user.js';
 
 const authDomin = 'http://k4d104.p.ssafy.io:8088/login';
 
@@ -20,6 +19,5 @@ export const auth = {
 };
 
 export const setAuthInHeader = (token) => {
-  console.log('토큰:' + token);
-  axios.defaults.headers.common['eureka-authorization'] = token ? `Bearer ${token}` : null;
+  axios.defaults.headers.common["eureka-authorization"] = token ? `Bearer ${token}` : null;
 };

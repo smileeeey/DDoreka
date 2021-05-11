@@ -89,12 +89,15 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import {mapState, mapActions} from 'vuex';
 
 import AccountsFooter from "../../components/accounts/AccountsFooter.vue";
 export default {
   components: { AccountsFooter },
-  name: "Login",
+  name: "Login",  
+  computed:{
+    ...mapState('accountStore',['isLogin'])
+  },
   data: () => ({
     form: {
       email: "",
@@ -124,7 +127,8 @@ export default {
     ...mapActions('accountStore', ['LOGIN']),
     login: function () {
       this.LOGIN({email: this.form.email, password: this.form.pw,})
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           if (this.$route.query.next) {
             this.$router.push({ name: this.$route.query.next });
           } else {

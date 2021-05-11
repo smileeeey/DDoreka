@@ -11,22 +11,9 @@ import mainStore from './modules/mainStore';
 
 Vue.use(Vuex);
 
-// const store = new Vuex.Store({
-//   state,
-//   mutations,
-//   actions,
-//   getters,
-// })
-
 export default new Vuex.Store({
   state: {
-    login: false,
-    userId: null,
-    wishlist: [],
-    name: null,
     currentItem: {},
-    email: '',
-    phone: '',
     seller: {},
     sellerstore: {},
     searchData: [],
@@ -49,21 +36,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    logout(state) {
-      state.login = false;
-      state.userId = null;
-      state.wishlist = [];
-      state.name = null;
-      state.email = null;
-      state.phone = null;
-    },
-    login(state, data) {
-      state.login = true;
-      state.userId = data.id;
-      state.name = data.name;
-      state.email = data.email;
-      state.phone = data.phone;
-    },
     selectItem(state, item) {
       state.currentItem = item;
     },
@@ -95,13 +67,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    LOGOUT({ commit }) {
-      commit('logout');
-      localStorage.removeItem('eureka-authorization');
-    },
-    LOGIN({ commit }, data) {
-      commit('login', data);
-    },
     SELECTITEM({ commit }, item) {
       commit('selectItem', item);
     },

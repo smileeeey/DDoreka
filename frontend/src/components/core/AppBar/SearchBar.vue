@@ -52,8 +52,6 @@ export default {
       })
     },
     searchItem() {
-      // console.log('검색실행')
-      // console.log(this.keyword)
       this.$router.push({name:'Search', params: {category1id: this.category1id, keyword: this.keyword}})
     }
   },
