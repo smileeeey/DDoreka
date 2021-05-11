@@ -12,7 +12,9 @@ export const request = (DOMAIN, method, url, data = {}) => {
     url: DOMAIN + url,
     data,
   })
-    .then((result) => {return result})
+    .then((result) => {
+      return result;
+    })
     .catch((err) => {
       console.log(err);
       // const status = err.response.status;

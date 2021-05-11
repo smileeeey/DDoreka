@@ -1,50 +1,29 @@
 <template>
-  <v-footer
-    color=white
-  >
-    <v-row
-      justify="center"
-      no-gutters
-    >
+  <v-footer color="white">
+    <v-row justify="center" no-gutters>
       <v-col cols="12">
         <v-divider></v-divider>
       </v-col>
-      <v-btn
-        v-for="(link, idx) in links"
-        :key="idx"
-        :to="link.to"
-        text
-        rounded
-        class="my-2 mx-5"
-      >
+      <v-btn v-for="(link, idx) in links" :key="idx" :to="link.to" text rounded class="my-2 mx-5">
         {{ link.text }}
       </v-btn>
 
       <v-col cols="12">
         <v-divider></v-divider>
       </v-col>
-      
+
       <v-row justify="center" class="my-3">
         <v-col cols="3">
-          <v-img
-            @click="$router.push({ name: 'Main' })"
-            style="cursor: pointer"
-            src="@/assets/eureka_logo(blank).png"
-            class="my-auto"
-            max-height="120"
-            max-width="400"
-          >
-          </v-img>
+          <v-img @click="$router.push({ name: 'Main' })" style="cursor: pointer" src="@/assets/eureka_logo(blank).png" class="my-auto" max-height="120" max-width="400"> </v-img>
         </v-col>
         <v-col cols="4">
           <div style="font-size: 15px;">
-            
-            EUREKA 유레카 | TEAM 중대장은 만족했다
-            <br>
+            EUREKA 유레카 | TEAM 또레카
+            <br />
             경상북도 구미시 진평4길 21
-            <br>
+            <br />
             등록번호 : 000-00-00000
-            <br>
+            <br />
             전화번호 : 000-0000-0000
           </div>
         </v-col>
@@ -55,10 +34,7 @@
         </v-col>
       </v-row>
 
-      <v-col
-        class="text-center"
-        cols="12"
-      >
+      <v-col class="text-center" cols="12">
         <v-card-text class="py-2 text-center" style="color: white; width=100%; background-color: #333333;">
           Copyright © <strong>EUREKA</strong> Team. 2021-{{ new Date().getFullYear() }} All Rights Reserved.
         </v-card-text>
@@ -74,26 +50,23 @@ export default {
     links: [
       {
         to: '#',
-        text: '공지사항'
+        text: '공지사항',
       },
       {
         to: '#',
-        text: '이용약관'
+        text: '이용약관',
       },
       {
         to: '#',
-        text: '개인정보 처리방침'
+        text: '개인정보 처리방침',
       },
       {
         to: '/sell',
-        text: '판매자 페이지'
+        text: '판매자 페이지',
       },
-      
-    ]
-  })
-}
+    ],
+  }),
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
