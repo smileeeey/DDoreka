@@ -11,12 +11,11 @@ const accountStore = {
       userId: "",
       name: "",
       email: "",
-      wishlist : [],
     },
+    wishlist : [],
   },
   getters: {
     get_isLogin(state) {
-      console.log(state.isLogin);
       return state.isLogin;
     },
   },
@@ -26,7 +25,7 @@ const accountStore = {
       state.userData.userId = "";
       state.userData.name = "";
       state.userData.email = "";
-      state.userData.wishlist = [];
+      state.wishlist = [];
     },
 
     SET_LOGIN(state, data) {
@@ -37,7 +36,7 @@ const accountStore = {
     },
 
     SET_CART(state, data){
-      state.userData.wishlist = data;
+      state.wishlist = data;
     }
   },
   actions: {

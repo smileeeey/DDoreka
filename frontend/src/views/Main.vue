@@ -1,9 +1,13 @@
 <template>
   <div class="in-layout mx-auto" style="width: 100%">
     <TopCarousels />
+    <!--완료-->
     <TodayItemsList />
+    <!-- 완료 -->
     <HotItem />
+    <!--완료-->
     <SteadySeller />
+    <!--완료-->
     <CategoryRecommend />
     <beautiful-chat
       v-if="login"
@@ -178,5 +182,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -7,6 +7,8 @@ const onUnauthorized = () => {
 };
 
 export const request = (DOMAIN, method, url, data = {}) => {
+  console.log(DOMAIN + url);
+  console.log(data);
   return axios({
     method,
     url: DOMAIN + url,
@@ -16,7 +18,8 @@ export const request = (DOMAIN, method, url, data = {}) => {
       return result;
     })
     .catch((err) => {
-      console.log(err);
+      return err;
+      // console.logs(err);
       // const status = err.response.status;
       // if (status === UNAUTHORIZED) return onUnauthorized();
       //  throw Error(result)

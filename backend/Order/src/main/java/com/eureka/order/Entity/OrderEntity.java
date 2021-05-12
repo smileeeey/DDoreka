@@ -9,6 +9,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * order entity
+ * @author refactored by shimjaehyuk, leesumin
+ * @since 1.0
+ */
 @Entity
 @Data
 @Table(name = "orders")

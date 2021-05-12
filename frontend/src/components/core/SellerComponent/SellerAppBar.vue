@@ -7,15 +7,6 @@
     flat
     height="75"
   >
-    <!-- <v-btn
-      class="mr-3"
-      elevation="1"
-      fab
-      small
-    >
-      <v-icon>mdi-dots-vertical</v-icon>
-    </v-btn> -->
-
     <v-toolbar-title 
       class="font-weight-light"
       v-text="$route.name"

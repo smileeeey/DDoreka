@@ -29,6 +29,7 @@ const mainStore = {
       state.steadySellerProductIds = productIds;
     },
     SET_ITEM(state, item) {
+      state.sFileIds.length = 0; //강제초기화
       state.item = item;
       state.item.images.forEach((image) => {
         if (image.imageType === 'S') {
@@ -38,7 +39,7 @@ const mainStore = {
     },
     SET_SUMNAILURL(state, sFiles) {
       if (sFiles.length > 0) {
-        state.sumnailUrl = `data:image/jpeg;base64,${this.sFiles[0].imageBytes}`;
+        state.sumnailUrl = `data:image/jpeg;base64,${sFiles[0].imageBytes}`;
       }
     },
     SET_TODAY_ITEMS(state, todayItems) {
@@ -50,18 +51,18 @@ const mainStore = {
   },
 
   actions: {
-    async FIND_DETAIL_PRODUCT_AND_FETCH_FILE({ commit, dispatch, state }, { productId }) {
+    async FIND_DETAIL_PRODUCT_AND_FETCH_FILE({ commit, dispatch, state }, productId) {
       let res = await product.find(productId);
       commit('SET_ITEM', res.data.data);
       let sFiles = await file.fetch(state.sFileIds.join(','));
-      commit('SET_SUMNAILURL', sFiles);
+      console.log(sFiles);
+      commit('SET_SUMNAILURL', sFiles.data.data); 
       return;
     },
 
     async FETCH_RECOMMEND_TODAYHOT({ commit, dispatch, state }) {
       //todayItemList
       let res = await order.fetchRecommendTodayHot();
-      console.log(res);
       commit('SET_TODAY_ITEMS', res.data.data);
       return;
     },
