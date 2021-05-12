@@ -137,6 +137,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * @deprecated NOT USED
      * get orders by seller id
      * @param sellerId
      * @return list of order
