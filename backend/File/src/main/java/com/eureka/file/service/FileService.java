@@ -1,17 +1,19 @@
 package com.eureka.file.service;
 
+import com.eureka.file.dto.ImageDTO;
 import com.eureka.file.repository.FileRepository;
 import com.eureka.file.dto.Image;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -21,7 +23,7 @@ public class FileService {
     @Autowired
     private FileRepository repository;
 
-    private boolean isUbuntu = true;
+    private boolean isUbuntu = false;
     private String fsl,rootPath;
     //private String fsl = File.pathSeparator;
     private String fslUbuntu = "/";
@@ -167,5 +169,78 @@ public class FileService {
         }
     }
 
+
+    public byte[] fileServeOne(int fileId) throws IOException {
+        System.out.println("fileId "+fileId);
+        ImageDTO imageDTO;
+
+        Image image = repository.findById(fileId);
+
+        StringBuilder path = new StringBuilder();
+
+        if(isUbuntu){
+            fsl = fslUbuntu;
+            rootPath = rootPathUbuntu;
+        }
+        else{
+            fsl = fslWindow;
+            rootPath = rootPathWindow;
+        }
+
+        path.append(rootPath);
+
+        path.append(fsl).append(image.getPath())
+                .append(fsl).append(image.getSystemName());
+
+        InputStream imgStream = new FileInputStream(path.toString());
+        byte[] imgByteArray = IOUtils.toByteArray(imgStream);
+        imgStream.close();
+        System.out.println("바이트: "+imgByteArray.length +" "+imgByteArray.toString());
+
+        return imgByteArray;
+    }
+
+//    public String fileServes(String imagesParam) throws IOException {
+//        System.out.println(imagesParam);
+//        Gson gson = new Gson();
+//
+//        Type listType = new TypeToken<ArrayList<ImageDTO>>(){}.getType();
+//        List<ImageDTO> images = gson.fromJson(imagesParam, listType);
+//
+//        System.out.println("넘겨받은 파라미터의 사이즈:"+images.size());
+//        for (int i = 0 ; i < images.size() ; ++i){
+//            images.get(i).setImageBytes(fileServeOne(images.get(i).getFileId()));
+//        }
+//
+//        System.out.println(images.size()+"완성");
+//        String result = gson.toJson(images);
+//        System.out.println(result.length());
+//
+//        return result;
+//    }
+
+    public String fileServes(String imagesParam) throws IOException {
+        System.out.println(imagesParam);
+        Gson gson = new Gson();
+
+        Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
+        List<Integer> fileIds = gson.fromJson(imagesParam, listType);
+
+        System.out.println(fileIds.size());
+        List<ImageDTO> images = new ArrayList<>();
+        ImageDTO imageDTO;
+        for (int i = 0 ; i < fileIds.size() ; ++i){
+            imageDTO = new ImageDTO();
+            imageDTO.setFileId(fileIds.get(i));
+            imageDTO.setImageBytes(fileServeOne(fileIds.get(i)));
+            images.add(imageDTO);
+        }
+
+        System.out.println(images.size()+"완성");
+        String result = gson.toJson(images);
+        System.out.println(result.length());
+
+        return result;
+    }
 
 }

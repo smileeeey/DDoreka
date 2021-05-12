@@ -1,8 +1,8 @@
 package com.eureka.product.service;
 
-import com.eureka.product.dto.ProductAndOptionAndImage;
-import com.eureka.product.dto.ProductDTO;
+import com.eureka.product.dto.*;
 import com.eureka.product.entity.Category;
+
 import com.eureka.product.entity.Product;
 import com.eureka.product.entity.Productimage;
 import com.eureka.product.entity.Productoption;
@@ -12,25 +12,46 @@ import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+import springfox.documentation.spring.web.json.Json;
+
+import java.awt.*;
+import java.lang.reflect.Type;
 import java.util.*;
+import java.util.List;
+
 
 @Service
 public class ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
-
-    @Autowired
     private OptionRepository optionRepository;
+    private ImageRepository imageRepository;
+    private RestTemplateService<JsonArray> restTemplateFile;
+    private RestTemplateService<JsonArray> restTemplateReview;
 
     @Autowired
-    private ImageRepository imageRepository;
+    public ProductService(ProductRepository productRepository, OptionRepository optionRepository, ImageRepository imageRepository, RestTemplateService<JsonArray> restTemplateService, RestTemplateService<JsonArray> restTemplateReview){
+        this.productRepository = productRepository;
+        this.optionRepository = optionRepository;
+        this.imageRepository = imageRepository;
+        this.restTemplateFile = restTemplateService;
+        this.restTemplateReview = restTemplateReview;
+    }
 
 
     public List<Product> getProducts() {
@@ -49,6 +70,117 @@ public class ProductService {
         }
         return null;
     }
+
+    //상품 id로 파일1개 rest로 가져오는거 성공한 코드
+//    public Product getProductAllById(int productId) {
+//
+//
+//        Product product = productRepository.findById(productId).orElse(null);
+//
+//        List<ImageDTO> images = new ArrayList<>();
+//
+//        //String getFileURL = "http://k4d104.p.ssafy.io:8082/file/";
+//        //String getFilesURL = "http://localhost:8082/file/fileServes";
+//        String getFileURL = "http://localhost:8082/file/fileServeOne/"+product.getImages().get(0).getFileId()+"/"+product.getImages().get(0).getImageType();
+//
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//
+//        System.out.println("file서버를 갔다왔는데 과연 값이 제대로 나왔을까???");
+//        System.out.println(restTemplateFile.get(getFileURL, httpHeaders).toString());
+//
+//        return product;
+//    }
+
+    //파일 여러개 가져오는 코드 만들기
+//    public Map<String,Object> getProductAllById(int productId) {
+//
+//        Product product = productRepository.findById(productId).orElse(null);
+//
+//        List<ImageDTO> images = new ArrayList<>();
+//
+//        for (int i = 0 ; i < product.getImages().size() ; ++i) {
+//            ImageDTO imageDTO = new ImageDTO();
+//
+//            imageDTO.setImageType(product.getImages().get(i).getImageType());
+//            imageDTO.setFileId(product.getImages().get(i).getFileId());
+//            images.add(imageDTO);
+//        }
+//
+//        //String getFileURL = "http://k4d104.p.ssafy.io:8082/file/";
+//        String getFilesURL = "http://localhost:8082/file/fileServesss";
+//        String getReviewsURL = "http://localhost:8082/revuew/getReviewsAll/"+Integer.toString(product.getId());
+//
+//        Gson gson = new Gson();
+//
+//        String imageJson = gson.toJson(images);
+//
+//        HttpHeaders FileHttpHeaders = new HttpHeaders();
+//        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//        FileHttpHeaders.set("imagesParam",imageJson);
+//
+//        HttpHeaders ReviewHttpHeaders = new HttpHeaders();
+//        ReviewHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        ReviewHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//
+//        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+//
+//        ResponseEntity<JsonArray> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
+//
+//
+//        Map<String,Object> answer = new HashMap<>();
+//
+//        answer.put("product",product);
+//        answer.put("images",responseEntityFile.getBody());
+//        //answer.put("reviews",)
+//
+//        return answer;
+//    }
+
+    public Map<String,Object> getProductAllById(int productId) {
+
+        Product product = productRepository.findById(productId).orElse(null);
+        List<ImageDTO> images = new ArrayList<>();
+
+        List<Integer> fileIds = new ArrayList<>();
+        for (int i = 0 ; i < product.getImages().size() ; ++i) {
+            fileIds.add(product.getImages().get(i).getFileId());
+        }
+
+        //String getFileURL = "http://k4d104.p.ssafy.io:8082/file/";
+        String getFilesURL = "http://localhost:8082/file/fileServesss";
+        String getReviewsURL = "http://localhost:8083/review/getReviewsAll/"+Integer.toString(product.getId());
+
+        Gson gson = new Gson();
+
+        String imageJson = gson.toJson(fileIds);
+
+        HttpHeaders FileHttpHeaders = new HttpHeaders();
+        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set("imagesParam",imageJson);
+
+        HttpHeaders ReviewHttpHeaders = new HttpHeaders();
+        ReviewHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        ReviewHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+
+        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+
+        ResponseEntity<JsonArray> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
+
+
+
+        Map<String,Object> answer = new HashMap<>();
+
+        answer.put("product",product);
+        answer.put("images",responseEntityFile.getBody());
+        answer.put("reviews",responseEntityReview.getBody());
+
+        return answer;
+    }
+
 
     //상품 id로 상세정보 가져오기
     public Product getProductById(int productId) {
