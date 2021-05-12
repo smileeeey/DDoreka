@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapActions, mapState } from 'vuex';
 export default {
   name: 'TodayItem',
@@ -17,10 +16,10 @@ export default {
     todayItem: Object,
   },
   computed: {
-    ...mapState('mainStore', ['item']),
+    ...mapState('mainStore', ['item', 'sumnailUrl']),
   },
   methods: {
-    ...mapActions(['FIND_DETAIL_PRODUCT', 'FETCH_FILE']),
+    ...mapActions('mainStore', ['FIND_DETAIL_PRODUCT', 'FETCH_FILE']),
 
     getItem() {
       // 상품 상세조회
