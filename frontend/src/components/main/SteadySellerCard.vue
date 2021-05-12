@@ -30,12 +30,15 @@ export default {
     productId: Number,
   },
   computed: {
-    ...mapState('mainStore', ['item']),
+    ...mapState('mainStore', ['item', 'sumnailUrl']),
   },
   methods: {
     ...mapActions('mainStore', ['FIND_DETAIL_PRODUCT_AND_FETCH_FILE']),
     getItem() {
+      console.log('FIND_DETAIL_PRODUCT_AND_FETCH_12312312312FILE');
       this.FIND_DETAIL_PRODUCT_AND_FETCH_FILE(this.productId);
+      console.log(sumnailUrl);
+      console.log('sumnailUrl');
     },
     moveItemDetail: function() {
       // 추후 Item Detail페이지 url을 입력

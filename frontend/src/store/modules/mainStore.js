@@ -21,7 +21,6 @@ const mainStore = {
       state.hotItemProductIds = productIds;
     },
     SET_CATEGORIES(state, categories) {
-      console.log(categories);
       state.categories = categories;
       state.categoryKeys = Object.keys(state.categories).sort();
     },
@@ -55,8 +54,7 @@ const mainStore = {
       let res = await product.find(productId);
       commit('SET_ITEM', res.data.data);
       let sFiles = await file.fetch(state.sFileIds.join(','));
-      console.log(sFiles);
-      commit('SET_SUMNAILURL', sFiles.data.data); 
+      commit('SET_SUMNAILURL', sFiles.data.data);
       return;
     },
 
@@ -67,7 +65,6 @@ const mainStore = {
       return;
     },
     FETCH_RECOMMEND_HOTPRODUCT({ commit, dispatch, state }) {
-      console.log('FETCH_RECOMMEND_HOTPRODUCT 실행');
       let res = order.fetchRecommendHotProduct();
       commit('SET_HOT_ITEM_PRODUCT_IDS', res.data.data);
       return;
