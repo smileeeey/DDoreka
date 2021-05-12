@@ -12,7 +12,7 @@ const accountStore = {
       name: "",
       email: "",
     },
-    wishlist : [],
+    wishlist: [],
   },
   getters: {
     get_isLogin(state) {
@@ -35,22 +35,28 @@ const accountStore = {
       state.userData.email = data.email;
     },
 
-    SET_CART(state, data){
+    SET_CART(state, data) {
       state.wishlist = data;
+    },
+
+    SET_UPDATE(state, data){
+      state.wishlist.push = data;
     }
   },
   actions: {
-    async LOGIN({ state, commit}, { email, password }) {
-      let loginData = await auth.login(email, password).catch((res)=>{console.log("dd,",res)});
+    async LOGIN({ state, commit }, { email, password }) {
+      let loginData = await auth.login(email, password).catch((res) => {
+        console.log("dd,", res);
+      });
       //error 처리 해줘라~
       localStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
 
       setAuthInHeader(loginData.headers["eureka-authorization"]);
-      
+
       loginData = await user.login(email, password);
 
       commit("SET_LOGIN", loginData.data.data);
-      
+
       let cartData = await cart.fetch(email);
 
       commit("SET_CART", cartData.data.data);
@@ -71,6 +77,15 @@ const accountStore = {
       await auth.loginAdd(pw, "USER", email);
 
       return;
+    },
+
+    // 장바구니 추가
+    async UPDATE_CART({ commit }, { userEmail, productId, optionId, quantity }) {
+      let cartData = await cart.create(userEmail, productId, optionId, quantity);
+      if (cartData.data.response == "error") return false;
+      
+      commit("SET_CART", cartData.data.data);
+      return true;
     },
   },
 };

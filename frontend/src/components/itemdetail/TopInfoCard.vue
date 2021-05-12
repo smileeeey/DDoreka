@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import axios from 'axios';
 export default {
   name: 'TopInfoCard',
@@ -63,89 +63,36 @@ export default {
     quantity: 0,
   }),
   computed: {
-    ...mapState('accountStore', [
-      'userData',
-      // 'currentItem'
-    ]),
+    ...mapState('accountStore', ['userData','isLogin']),
     discountRate: function() {
-      //할인율 ㄱ계싼
+      // 할인율 계산
       return Math.round(((this.item.options[0].price - this.item.options[0].discountPrice) / this.item.options[0].price) * 100);
     },
   },
   methods: {
+    ...mapActions('accountStore',['UPDATE_CART']),
     addWishList() {
-      console.log('장바구니 추가');
-      const userEmail = this.userData.email;
-      const productId = this.item.id;
-      const optionId = this.selectOption.optionId;
-      const quantity = this.quantity;
-      const token = localStorage.getItem('eureka-authorization');
-      console.log(localStorage.getItem('eureka-authorization'));
-      if (token) {
-        axios
-          .post(
-            'http://k4d104.p.ssafy.io:8085/user/cart',
-            {
-              userEmail: userEmail,
-              productId: productId,
-              optionId: optionId,
-              quantity: quantity,
-            },
-            {
-              headers: {
-                'eureka-authorization': token,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res.data.response);
-            if (res.data.response == 'success') {
-              alert('상품이 장바구니에 추가되었습니다.');
-              this.$store.dispatch('SETWISHLIST', res.data.data);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        alert('장바구니에 담으시려면 로그인하세요');
+      if(this.isLogin == false){
+        alert("로그인을 해주세요");
+        return;
       }
+
+      this.UPDATE_CART({
+      userEmail :this.userData.email, 
+      productId : this.item.id, 
+      optionId : this.selectOption.optionId, 
+      quantity : this.quantity
+      })
+      .then((res)=>{
+        if(res) alert("상품이 장바구니에 추가되었습니다.");
+        else alert("이미 있는 상품입니다.");
+      });
+
     },
     buyNow() {
-      const userEmail = this.$store.state.email;
-      const productId = this.item.id;
-      const optionId = this.selectOption.optionId;
-      const quantity = this.quantity;
-      const token = localStorage.getItem('eureka-authorization');
-      if (token) {
-        axios
-          .post(
-            'http://k4d104.p.ssafy.io:8085/user/cart',
-            {
-              userEmail: userEmail,
-              productId: productId,
-              optionId: optionId,
-              quantity: quantity,
-            },
-            {
-              headers: {
-                'eureka-authorization': token,
-              },
-            }
-          )
-          .then((res) => {
-            console.log(res.data.response);
-            if (res.data.response == 'success') {
-              this.$store.dispatch('SETWISHLIST', res.data.data);
-              this.$router.push({ name: 'Cart' });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        alert('구매하시려면 로그인 해주세요');
-      }
+      if(this.isLogin == false) this.$router.push({ name: 'Login' });
+      this.addWishList();
+      this.$router.push({ name: 'Cart' });
     },
   },
 };
