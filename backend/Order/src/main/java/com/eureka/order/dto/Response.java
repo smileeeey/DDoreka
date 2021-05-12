@@ -1,6 +1,10 @@
 package com.eureka.order.dto;
 
-
+/**
+ * Response Dto
+ * @author refactored by shimjaehyuk, leesumin
+ * @since 1.0
+ */
 public class Response {
     private String response;
     private String message;
