@@ -80,6 +80,21 @@ public class ProductController {
     }
 
     // 상품 상세 정보 가져오기
+    @ApiOperation(value="상품 상세 조회 (한번에 상품,옵션,리뷰,사진 다줘!)", notes = "상품id를 통해 상품 상세,옵션, 리뷰,사진의 모든 데이터 반환", httpMethod = "GET")
+    @GetMapping(value = "/detailAll/{productId}")
+    public Response findDetailAll(@ApiParam(value="조회할 상품 id") @PathVariable int productId) {
+        Response response;
+        try {
+            response = new Response("success", "상품 상세 조회 성공", service.getProductAllById(productId));
+        } catch (Exception e) {
+            response = new Response("error", "상품 상세 조회 실패", e.getMessage());
+        }
+
+        return response;
+    }
+
+
+    // 상품 상세 정보 가져오기
     @ApiOperation(value="상품 상세 조회", notes = "상품id를 통해 상품 상세 데이터 반환", httpMethod = "GET")
     @GetMapping(value = "/detail/{productId}")
     public Response findDetail(@ApiParam(value="조회할 상품 id") @PathVariable int productId) {

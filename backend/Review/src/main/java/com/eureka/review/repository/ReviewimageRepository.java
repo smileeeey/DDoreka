@@ -1,6 +1,6 @@
 package com.eureka.review.repository;
 
-import com.eureka.review.dto.Reviewimage;
+import com.eureka.review.entity.Reviewimage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

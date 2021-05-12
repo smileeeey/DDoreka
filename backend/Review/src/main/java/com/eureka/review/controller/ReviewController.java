@@ -1,12 +1,12 @@
 package com.eureka.review.controller;
 
 import com.eureka.review.dto.Response;
-import com.eureka.review.dto.Review;
-import com.eureka.review.dto.Reviewlike;
+import com.eureka.review.entity.Reviewlike;
 import com.eureka.review.service.ReviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -19,8 +19,22 @@ public class ReviewController {
 
     private final ReviewService service;
 
+    @Autowired
     public ReviewController(ReviewService service){
         this.service = service;
+    }
+
+    // 상품id주면 리뷰 가져오기 RestTemplate
+    @ApiOperation(value="리뷰 전부 가져오기 RestTemplate x", notes = "상품id에 해당하는 리뷰, 리뷰 좋아요, 리뷰 사진까지 한번에 똭!", httpMethod = "GET")
+    @GetMapping(value="/getReviewsAll/{productId}")
+    public Map<String,Object> getReviewsAll(@ApiParam(value="상품 고유값") @PathVariable int productId){
+        Map<String,Object> answer = null;
+        try{
+            answer =  service.getReviewsAll(productId);
+        }catch(Exception e){
+            answer = null;
+        }
+        return answer;
     }
 
     // 상품id주면 리뷰 가져오기
