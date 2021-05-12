@@ -8,6 +8,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * order detail entity
+ * @author refactored by shimjaehyuk, leesumin
+ * @since 1.0
+ */
 @Entity
 @Data
 @Table(name = "orderdetail")

@@ -5,6 +5,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Order Dto
+ * @author refactored by shimjaehyuk, leesumin
+ * @since 1.0
+ */
 @Data
 public class Order {
     private String id;
@@ -16,7 +21,7 @@ public class Order {
     private String addressMain;
     private String addressSub;
     private String recipientName;
-    private String zipcode;
+    private String zipCode;
     private String deliveryMsg;
     private String recipientPhone;
     private String quantity;

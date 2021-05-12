@@ -23,9 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.is;
 
 
-@WebMvcTest(OrderfromSellerController.class)
+@WebMvcTest(OrderFromSellerController.class)
 @DisplayName("셀러를 이용한 주문 통합 테스트")
-class OrderfromSellerControllerTest {
+class OrderFromSellerControllerTest {
 
     private MockMvc mockMvc;
     @Autowired

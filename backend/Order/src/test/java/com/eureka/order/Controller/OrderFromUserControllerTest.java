@@ -51,7 +51,7 @@ class OrderFromUserControllerTest {
 
         List<OrderEntity> list = new ArrayList<>();
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         list.add(orderEntity);
         Page<OrderEntity> pages = new PageImpl<>(list);
 
@@ -78,7 +78,7 @@ class OrderFromUserControllerTest {
 
         List<OrderEntity> list = new ArrayList<>();
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         list.add(orderEntity);
 
         BDDMockito.given(orderService.getOrdersByUserId(userId)).willReturn(list);
@@ -105,7 +105,7 @@ class OrderFromUserControllerTest {
 
         List<OrderEntity> list = new ArrayList<>();
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId("1");
+        orderEntity.setId(1);
         list.add(orderEntity);
 
         BDDMockito.given(orderService.getOrdersByUserIdBystatus(userid, status)).willReturn(list);
