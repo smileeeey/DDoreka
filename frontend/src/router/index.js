@@ -40,6 +40,7 @@ const routes = [
       {
         path: "/myface",
         name: "MyFace",
+        beforeEnter: requireUserAuth,
         component: () => import("../views/MyFace.vue"),
       },
       // category
@@ -90,11 +91,6 @@ const routes = [
             path: "productreview",
             name: "ProductReview",
             component: () => import("../views/mypage/ProductReview.vue"),
-          },
-          {
-            path: "wishlist",
-            name: "WishList",
-            component: () => import("../views/mypage/WishList.vue"),
           },
           {
             path: "usermodify",
