@@ -1,9 +1,6 @@
 <template>
   <v-container class="ma-0">
     <v-row>
-      <!-- <v-col class="pa-0" cols=2>
-        <SideBar />
-      </v-col> -->
       <v-col cols=12>
         <TopInfo
           :totalElements="totalElements"

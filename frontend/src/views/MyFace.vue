@@ -117,17 +117,11 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'login',
-      'userId'
-    ]),
+    ...mapState('accountStore',['userData']),
   },
   created () {
-    if (!this.login) {
-      this.$router.push({ name: 'Login' })
-    }
     let items = [];
-    axios.get(`http://k4d104.p.ssafy.io:8088/face/getAllByUser/${this.userId}`)
+    axios.get(`http://k4d104.p.ssafy.io:8088/face/getAllByUser/${this.userData.userId}`)
       .then(res => {
         res.data.forEach(item => {
           axios.get(`http://k4d104.p.ssafy.io:8081/product/detail/${item.product}`)
