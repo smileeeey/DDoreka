@@ -23,12 +23,12 @@ public class FileService {
     @Autowired
     private FileRepository repository;
 
-    private boolean isUbuntu = false;
+    private boolean isUbuntu = true;
     private String fsl,rootPath;
     //private String fsl = File.pathSeparator;
     private String fslUbuntu = "/";
     private String fslWindow = "\\";
-    private String rootPathUbuntu = "/home/upload/image";
+    private String rootPathUbuntu = "/var/www/folder/image";
     private String rootPathWindow = "C:\\Users\\sumin\\etc\\upload\\eureka";
 
 
