@@ -79,6 +79,29 @@ public class ProductController {
         return response;
     }
 
+    // 상품아이디, 상품명, 파일 가져와서 face 서버에 넘겨주기
+    @ApiOperation(value="상품 정보 face 서버에 전달 RestTemplate x", notes = "상품id를 통해 상품명, 상품 이미지 전달", httpMethod = "GET")
+    @GetMapping(value = "/call-by-face")
+    public String findProductNameAndThumbnail(@RequestHeader(value="productIdsParam") String productIdsParam ) {
+        //Map<String,Object> answer = null;
+        String answer = null;
+
+        System.out.println("컨트롤러드로왓");
+
+        try {
+            answer =  service.findProductNameAndThumbnail(productIdsParam);
+            System.out.println("띠용");
+            //result = service.findProductNameAndThumbnail(productIdsParam);
+        } catch(Exception e){
+            answer = null;
+            System.out.println("에러떴다");
+            e.printStackTrace();
+        }
+
+
+        return answer;
+    }
+
     // 상품 상세 정보 가져오기
     @ApiOperation(value="상품 상세 조회 (한번에 상품,옵션,리뷰,사진 다줘!)", notes = "상품id를 통해 상품 상세,옵션, 리뷰,사진의 모든 데이터 반환", httpMethod = "GET")
     @GetMapping(value = "/detailAll/{productId}")

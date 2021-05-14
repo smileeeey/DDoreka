@@ -295,4 +295,105 @@ public class ProductService {
 
         return map;
     }
+
+
+    public String findProductNameAndThumbnail(String productIdsParam) {
+        System.out.println(productIdsParam);
+
+        Gson gson = new Gson();
+
+        //json을 List<Integer> type으로 변경
+
+        Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
+        List<Integer> productIds = gson.fromJson(productIdsParam, listType);
+
+        System.out.println("productIDs 크기: "+productIds.size());
+        //아이디로 상품 정보 가져오기
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < productIds.size(); ++i) {
+            Product product = productRepository.findById(productIds.get(i)).orElse(null);
+            products.add(product);
+        }
+        System.out.println("products 크기: "+products.size());
+
+
+        List<Integer> fileIds = new ArrayList<>();
+        for (int i = 0; i < products.size(); ++i) {
+            for (int j = 0; j < products.get(i).getImages().size(); ++j) {
+                if (products.get(i).getImages().get(j).getImageType() == 'S') {
+                    fileIds.add(products.get(i).getImages().get(j).getFileId());
+                    break;
+                }
+            }
+        }
+        System.out.println("zz : "+fileIds.size());
+
+        //fileIds들로 file가져오기
+        String fileIdJson = gson.toJson(fileIds);
+        String getFilesURL = "http://localhost:8082/file/fileServesss";
+
+        HttpHeaders FileHttpHeaders = new HttpHeaders();
+        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set("imagesParam",fileIdJson);
+        System.out.println("파일아이디로제이슨ㅁㄴ들어서:"+fileIdJson);
+
+        ResponseEntity<?> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+
+        System.out.println("rest갔다왔지롱");
+
+
+        List<ImageDTO> listsss = (List<ImageDTO>)responseEntityFile.getBody();
+
+        System.out.println(listsss.get(0).getImageBytes());
+        System.out.println("testeset");
+
+
+        String filebyte = ((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes");
+
+        //System.out.println(((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes"));
+
+        System.out.println("성공!");
+        Map<Integer,byte[]> fileBytes = new HashMap<>();
+
+        System.out.println("바디깐다 사이즈는 ");
+//        for(int i = 0 ; i < ((JsonArray)responseEntityFile.getBody()).size() ;++i){
+//
+//            JsonObject jsonObject = (JsonObject)responseEntityFile.getBody().get(i);
+//            ImageDTO imageDTO = gson.fromJson(jsonObject,ImageDTO.class);
+//            fileBytes.put((Integer)imageDTO.getFileId(),imageDTO.getImageBytes());
+//            System.out.println("fileBytes만들기진행중 "+i);
+//        }
+
+
+//        Type listType2 = new TypeToken<ArrayList<ImageDTO>>(){}.getType();
+//        List<ImageDTO> gggg = gson.fromJson(responseEntityFile.getBody(), listType2);
+//
+//        System.out.println(gggg.get(0).toString());
+//
+
+        System.out.println("꺼내기성공!");
+
+
+
+
+
+        List<ProductNameAndThumbnailDTO> result = new ArrayList<>();
+
+        for (int i = 0; i < products.size(); ++i) {
+            ProductNameAndThumbnailDTO productNameAndThumbnailDTO = new ProductNameAndThumbnailDTO();
+            productNameAndThumbnailDTO.setProductId(products.get(i).getId());
+            productNameAndThumbnailDTO.setName(products.get(i).getName());
+            productNameAndThumbnailDTO.setThumbnail(filebyte);
+            result.add(productNameAndThumbnailDTO);
+        }
+
+
+        System.out.println(result.get(0).toString());
+        System.out.println(result.size()+":::");
+
+        String answer = gson.toJson(result);
+
+        return answer;
+    }
 }
