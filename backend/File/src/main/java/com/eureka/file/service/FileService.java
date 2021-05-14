@@ -23,7 +23,7 @@ public class FileService {
     @Autowired
     private FileRepository repository;
 
-    private boolean isUbuntu = false;
+    private boolean isUbuntu = true;
     private String fsl,rootPath;
     //private String fsl = File.pathSeparator;
     private String fslUbuntu = "/";
