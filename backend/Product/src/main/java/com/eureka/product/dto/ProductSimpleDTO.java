@@ -7,8 +7,12 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductNameAndThumbnailDTO {
+public class ProductSimpleDTO {
     private int productId;
     private String name;
+    private int price;
+    private int review_cnt;
+    private double rating;
+    private int fileId;
     private String thumbnail;
 }

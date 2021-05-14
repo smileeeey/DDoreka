@@ -10,7 +10,11 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -107,18 +111,21 @@ public class  FileController {
 
     @ApiOperation(value="RestTemplate 이미지 여러개 반환x", notes = "여러개의 이미지 불러오기", httpMethod = "GET")
     @GetMapping(value = "/fileServesss",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String fileServesss(@ApiParam(value="파일 고유값 리스트") @RequestHeader(value="imagesParam") String imagesParam) throws IllegalStateException {
-        String result = null;
+    public ResponseEntity<?> fileServesss(@ApiParam(value="파일 고유값 리스트") @RequestHeader(value="imagesParam") String imagesParam) throws IllegalStateException {
+        List<ImageDTO> result = null;
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
         System.out.println("ii");
         try {
             System.out.println("jj");
-
+            header.add("message", "no keywords");
             result = service.fileServes(imagesParam);
+            return new ResponseEntity(result, header, HttpStatus.OK);
+
         } catch(Exception e){
-            result = "fail";
+            result = null;
         }
 
-        return result;
+        return null;
     }
 
 

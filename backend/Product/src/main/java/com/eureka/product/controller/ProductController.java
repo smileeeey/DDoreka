@@ -1,6 +1,7 @@
 package com.eureka.product.controller;
 
 import com.eureka.product.dto.ProductAndOptionAndImage;
+import com.eureka.product.dto.ProductSimpleDTO;
 import com.eureka.product.entity.Category;
 import com.eureka.product.entity.Product;
 import com.eureka.product.dto.Response;
@@ -11,6 +12,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -82,38 +87,32 @@ public class ProductController {
     // 상품아이디, 상품명, 파일 가져와서 face 서버에 넘겨주기
     @ApiOperation(value="상품 정보 face 서버에 전달 RestTemplate x", notes = "상품id를 통해 상품명, 상품 이미지 전달", httpMethod = "GET")
     @GetMapping(value = "/call-by-face")
-    public String findProductNameAndThumbnail(@RequestHeader(value="productIdsParam") String productIdsParam ) {
-        //Map<String,Object> answer = null;
-        String answer = null;
-
-        System.out.println("컨트롤러드로왓");
+    public ResponseEntity<?> findProductNameAndThumbnail(@RequestHeader(value="productIdsParam") String productIdsParam ) {
+        List<ProductSimpleDTO> result = null;
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
 
         try {
-            answer =  service.findProductNameAndThumbnail(productIdsParam);
-            System.out.println("띠용");
-            //result = service.findProductNameAndThumbnail(productIdsParam);
+            result = service.findProductSimple(productIdsParam);
+            return new ResponseEntity(result,header, HttpStatus.OK);
         } catch(Exception e){
-            answer = null;
-            System.out.println("에러떴다");
             e.printStackTrace();
+            return new ResponseEntity(result,header,HttpStatus.BAD_REQUEST); //이거맞나?
         }
-
-
-        return answer;
     }
 
     // 상품 상세 정보 가져오기
     @ApiOperation(value="상품 상세 조회 (한번에 상품,옵션,리뷰,사진 다줘!)", notes = "상품id를 통해 상품 상세,옵션, 리뷰,사진의 모든 데이터 반환", httpMethod = "GET")
     @GetMapping(value = "/detailAll/{productId}")
-    public Response findDetailAll(@ApiParam(value="조회할 상품 id") @PathVariable int productId) {
-        Response response;
-        try {
-            response = new Response("success", "상품 상세 조회 성공", service.getProductAllById(productId));
-        } catch (Exception e) {
-            response = new Response("error", "상품 상세 조회 실패", e.getMessage());
-        }
+    public ResponseEntity<?> findDetailAll(@ApiParam(value="조회할 상품 id") @PathVariable int productId) {
+        Map<String,Object> result = null;
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
 
-        return response;
+        try {
+            result = service.getProductAllById(productId);
+            return new ResponseEntity(result,header, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(result,header, HttpStatus.BAD_REQUEST);
+        }
     }
 
 

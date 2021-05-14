@@ -11,11 +11,11 @@ import com.eureka.product.repository.ProductRepository;
 import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,10 +25,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-import springfox.documentation.spring.web.json.Json;
-
 import java.awt.*;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -36,6 +32,7 @@ import java.util.List;
 
 
 @Service
+@AllArgsConstructor
 public class ProductService {
 
     private ProductRepository productRepository;
@@ -43,16 +40,6 @@ public class ProductService {
     private ImageRepository imageRepository;
     private RestTemplateService<JsonArray> restTemplateFile;
     private RestTemplateService<JsonArray> restTemplateReview;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository, OptionRepository optionRepository, ImageRepository imageRepository, RestTemplateService<JsonArray> restTemplateService, RestTemplateService<JsonArray> restTemplateReview){
-        this.productRepository = productRepository;
-        this.optionRepository = optionRepository;
-        this.imageRepository = imageRepository;
-        this.restTemplateFile = restTemplateService;
-        this.restTemplateReview = restTemplateReview;
-    }
-
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -297,36 +284,45 @@ public class ProductService {
     }
 
 
-    public String findProductNameAndThumbnail(String productIdsParam) {
-        System.out.println(productIdsParam);
+    public List<ProductSimpleDTO> findProductSimple(String productIdsParam) {
+
+        List<ProductSimpleDTO> result = new ArrayList<>();
 
         Gson gson = new Gson();
 
         //json을 List<Integer> type으로 변경
-
         Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
         List<Integer> productIds = gson.fromJson(productIdsParam, listType);
 
-        System.out.println("productIDs 크기: "+productIds.size());
+        if(productIds.size()==0)    return null;
+
         //아이디로 상품 정보 가져오기
-        List<Product> products = new ArrayList<>();
-        for (int i = 0; i < productIds.size(); ++i) {
-            Product product = productRepository.findById(productIds.get(i)).orElse(null);
-            products.add(product);
-        }
-        System.out.println("products 크기: "+products.size());
+        List<Product> products = productRepository.findByIdIn(productIds);  //주의! productIds개수랑 products 개수가 다를 수 있다. 중복이 제거되는 경우
 
-
+        //상품의 썸네일 아이디 찾기
         List<Integer> fileIds = new ArrayList<>();
+        Map<Integer,ProductSimpleDTO> map = new HashMap<>();
+
+        int tmp;
         for (int i = 0; i < products.size(); ++i) {
+            tmp = -1;
+            ProductSimpleDTO productSimpleDTO = new ProductSimpleDTO();
+
+            productSimpleDTO.setProductId(products.get(i).getId());
+            productSimpleDTO.setName(products.get(i).getName());
+            productSimpleDTO.setPrice(products.get(i).getOptions().get(0).getDiscountPrice());
+            productSimpleDTO.setReview_cnt(products.get(i).getReviewCnt());
+            productSimpleDTO.setRating(products.get(i).getRating());
             for (int j = 0; j < products.get(i).getImages().size(); ++j) {
                 if (products.get(i).getImages().get(j).getImageType() == 'S') {
-                    fileIds.add(products.get(i).getImages().get(j).getFileId());
+                    tmp = products.get(i).getImages().get(j).getFileId();
+                    productSimpleDTO.setFileId(tmp);
+                    fileIds.add(tmp);
                     break;
                 }
             }
+            map.put((tmp==-1)?tmp*i:tmp,productSimpleDTO);
         }
-        System.out.println("zz : "+fileIds.size());
 
         //fileIds들로 file가져오기
         String fileIdJson = gson.toJson(fileIds);
@@ -336,64 +332,26 @@ public class ProductService {
         FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         FileHttpHeaders.set("imagesParam",fileIdJson);
-        System.out.println("파일아이디로제이슨ㅁㄴ들어서:"+fileIdJson);
 
         ResponseEntity<?> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+        //String filebyte = ((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes");
 
-        System.out.println("rest갔다왔지롱");
+        List<ImageDTO> images = (List<ImageDTO>)responseEntityFile.getBody();
 
+        //Map
+        int getFileId;
+        for (int i = 0 ; i < images.size() ; ++i){
+            Map<String,Object> imageMap = (Map<String,Object>)images.get(i);
 
-        List<ImageDTO> listsss = (List<ImageDTO>)responseEntityFile.getBody();
+            getFileId = (Integer)imageMap.get("fileId");
 
-        System.out.println(listsss.get(0).getImageBytes());
-        System.out.println("testeset");
-
-
-        String filebyte = ((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes");
-
-        //System.out.println(((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes"));
-
-        System.out.println("성공!");
-        Map<Integer,byte[]> fileBytes = new HashMap<>();
-
-        System.out.println("바디깐다 사이즈는 ");
-//        for(int i = 0 ; i < ((JsonArray)responseEntityFile.getBody()).size() ;++i){
-//
-//            JsonObject jsonObject = (JsonObject)responseEntityFile.getBody().get(i);
-//            ImageDTO imageDTO = gson.fromJson(jsonObject,ImageDTO.class);
-//            fileBytes.put((Integer)imageDTO.getFileId(),imageDTO.getImageBytes());
-//            System.out.println("fileBytes만들기진행중 "+i);
-//        }
-
-
-//        Type listType2 = new TypeToken<ArrayList<ImageDTO>>(){}.getType();
-//        List<ImageDTO> gggg = gson.fromJson(responseEntityFile.getBody(), listType2);
-//
-//        System.out.println(gggg.get(0).toString());
-//
-
-        System.out.println("꺼내기성공!");
-
-
-
-
-
-        List<ProductNameAndThumbnailDTO> result = new ArrayList<>();
-
-        for (int i = 0; i < products.size(); ++i) {
-            ProductNameAndThumbnailDTO productNameAndThumbnailDTO = new ProductNameAndThumbnailDTO();
-            productNameAndThumbnailDTO.setProductId(products.get(i).getId());
-            productNameAndThumbnailDTO.setName(products.get(i).getName());
-            productNameAndThumbnailDTO.setThumbnail(filebyte);
-            result.add(productNameAndThumbnailDTO);
+            map.get(getFileId).setThumbnail((String)imageMap.get("imageBytes"));
+            result.add(map.get(getFileId));
+            map.remove(getFileId);
         }
 
+        map.forEach((key,value)->result.add(value));
 
-        System.out.println(result.get(0).toString());
-        System.out.println(result.size()+":::");
-
-        String answer = gson.toJson(result);
-
-        return answer;
+        return result;
     }
 }

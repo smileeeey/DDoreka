@@ -23,7 +23,7 @@ public class FileService {
     @Autowired
     private FileRepository repository;
 
-    private boolean isUbuntu = true;
+    private boolean isUbuntu = false;
     private String fsl,rootPath;
     //private String fsl = File.pathSeparator;
     private String fslUbuntu = "/";
@@ -219,7 +219,7 @@ public class FileService {
 //        return result;
 //    }
 
-    public String fileServes(String imagesParam) throws IOException {
+    public List<ImageDTO> fileServes(String imagesParam) throws IOException {
         System.out.println(imagesParam);
         Gson gson = new Gson();
 
@@ -240,7 +240,7 @@ public class FileService {
         String result = gson.toJson(images);
         System.out.println(result.length());
 
-        return result;
+        return images;
     }
 
 }
