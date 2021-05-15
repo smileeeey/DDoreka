@@ -326,7 +326,7 @@ public class ProductService {
 
         //fileIds들로 file가져오기
         String fileIdJson = gson.toJson(fileIds);
-        String getFilesURL = "http://localhost:8082/file/fileServesss";
+        String getFilesURL = "http://k4d104.p.ssafy.io:8082/file/fileServesss";
 
         HttpHeaders FileHttpHeaders = new HttpHeaders();
         FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
@@ -337,7 +337,7 @@ public class ProductService {
         //String filebyte = ((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes");
 
         List<ImageDTO> images = (List<ImageDTO>)responseEntityFile.getBody();
-
+        System.out.println("images size : " + images.size());
         //Map
         int getFileId;
         for (int i = 0 ; i < images.size() ; ++i){
