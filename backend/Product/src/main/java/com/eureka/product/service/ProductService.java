@@ -284,15 +284,9 @@ public class ProductService {
     }
 
 
-    public List<ProductSimpleDTO> findProductSimple(String productIdsParam) {
+    public List<ProductSimpleDTO> findProductSimple(List<Integer> productIds) {
 
         List<ProductSimpleDTO> result = new ArrayList<>();
-
-        Gson gson = new Gson();
-
-        //json을 List<Integer> type으로 변경
-        Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
-        List<Integer> productIds = gson.fromJson(productIdsParam, listType);
 
         if(productIds.size()==0)    return null;
 
@@ -344,13 +338,35 @@ public class ProductService {
             Map<String,Object> imageMap = (Map<String,Object>)images.get(i);
 
             getFileId = (Integer)imageMap.get("fileId");
-
             map.get(getFileId).setThumbnail((String)imageMap.get("imageBytes"));
             result.add(map.get(getFileId));
             map.remove(getFileId);
         }
 
         map.forEach((key,value)->result.add(value));
+
+        return result;
+    }
+
+    public Map<String,List<ProductSimpleDTO>> findFoeMainPage() {
+        Map<String,List<ProductSimpleDTO>> result = new HashMap<>();
+
+        //Map<String,List<Integer>> getFromOrderService = new HashMap<>();
+
+
+
+
+        //오늘의 상품
+        //result.put("today-hot",)
+        // 요즘 뜨는 상품
+
+        // 스테디셀ㄹ러
+
+        //카테고리별 추천상품
+
+        // 카테고리별 실시간 키워드
+
+
 
         return result;
     }
