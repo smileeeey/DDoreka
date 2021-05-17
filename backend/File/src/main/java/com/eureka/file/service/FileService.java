@@ -170,9 +170,9 @@ public class FileService {
     }
 
 
-    public byte[] fileServeOne(int fileId) throws IOException {
+    public ImageDTO fileServeOne(int fileId) throws IOException {
         System.out.println("fileId "+fileId);
-        ImageDTO imageDTO;
+        ImageDTO imageDTO = new ImageDTO();
 
         Image image = repository.findById(fileId);
 
@@ -197,7 +197,10 @@ public class FileService {
         imgStream.close();
         System.out.println("바이트: "+imgByteArray.length +" "+imgByteArray.toString());
 
-        return imgByteArray;
+        imageDTO.setImageBytes(imgByteArray);
+        imageDTO.setFileId(fileId);
+        imageDTO.setImageType(image.getType().charAt(0));
+        return imageDTO;
     }
 
 //    public String fileServes(String imagesParam) throws IOException {
@@ -230,9 +233,7 @@ public class FileService {
         List<ImageDTO> images = new ArrayList<>();
         ImageDTO imageDTO;
         for (int i = 0 ; i < fileIds.size() ; ++i){
-            imageDTO = new ImageDTO();
-            imageDTO.setFileId(fileIds.get(i));
-            imageDTO.setImageBytes(fileServeOne(fileIds.get(i)));
+            imageDTO = fileServeOne(fileIds.get(i));
             images.add(imageDTO);
         }
 
