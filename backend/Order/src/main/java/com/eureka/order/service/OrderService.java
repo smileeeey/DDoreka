@@ -2,6 +2,7 @@ package com.eureka.order.service;
 
 import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
+import com.eureka.order.dto.Order;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -115,4 +116,22 @@ public interface OrderService {
      * @return List<Map<String,Object>>
      */
     List<Map<String,Object>> getTodayHot();
+
+    /**
+     * get today hot products
+     * @return List<String>
+     */
+    List<String> getTodayHotProducts();
+
+    /**
+     * get today hot products
+     * @return List<String>
+     */
+    List<String> getWeekHotProducts();
+
+    /**
+     * get today hot products
+     * @return List<String>
+     */
+    List<String> getMonthHotProducts();
 }
