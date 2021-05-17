@@ -1,5 +1,6 @@
 package com.eureka.product.repository;
 
+import com.eureka.product.dto.ProductSimpleDTO;
 import com.eureka.product.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findTop23ByCategory1IdOrderByRegisterDateDesc(String id);
 
     List<Product> findByIdIn(List<Integer> productIds);
+
+    List<Product> findIdTop10ByStoreIdOrderByRegisterDateDesc(int storeId);
 }
