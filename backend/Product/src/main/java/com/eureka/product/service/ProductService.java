@@ -416,4 +416,19 @@ public class ProductService {
 
         return result;
     }
+
+    public List<OptionPriceDTO> getPriceFromOptionId(List<String> optionIds) {
+        List<OptionPriceDTO> res = new ArrayList<>();
+        int len = res.size();
+
+        for(int i = 0; i < len; ++i) {
+            OptionPriceDTO optionPriceDTO = OptionPriceDTO.builder()
+                                            .optionId(optionIds.get(i))
+                                            .price(optionRepository.findDiscountPriceByOptionId(optionIds.get(i)))
+                                            .build();
+            res.add(optionPriceDTO);
+        }
+
+        return res;
+    }
 }

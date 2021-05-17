@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 public interface OptionRepository extends JpaRepository<Productoption, Integer> {
 
+    int findDiscountPriceByOptionId(String s);
 }
