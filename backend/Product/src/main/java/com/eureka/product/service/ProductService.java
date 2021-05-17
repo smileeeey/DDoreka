@@ -40,6 +40,8 @@ public class ProductService {
     private ImageRepository imageRepository;
     private RestTemplateService<JsonArray> restTemplateFile;
     private RestTemplateService<JsonArray> restTemplateReview;
+    private CategoryService categoryService;
+    private SearchlogService searchlogService;
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -362,22 +364,55 @@ public class ProductService {
         return findProductSimpleByProduct(products);
     }
 
-    public Map<String,List<ProductSimpleDTO>> findForMainPage() {
-        Map<String,List<ProductSimpleDTO>> result = new HashMap<>();
-        System.out.println("hihi");
-//        Map<String,List<Integer>> getFromOrderService = new HashMap<>();
-
-        //오늘의 상품 id들 필요
-        // 요즘 뜨는 상품
-        // 스테디셀ㄹ러
-
-
-
-
-        //카테고리별 추천상품
-        // 카테고리별 실시간 키워드
-
-
+    public Map<String,Object> findForMainPage() {
+        Map<String,Object> result = new HashMap<>();
+//        System.out.println("hihi");
+//
+//        String getOrdersURL = "http://k4d104.p.ssafy.io:8084/order/recommend/hots";
+//
+//        HttpHeaders FileHttpHeaders = new HttpHeaders();
+//        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//
+//        ResponseEntity<?> responseEntityFile = restTemplateFile.get(getOrdersURL, FileHttpHeaders);
+//
+//        Map<String,List<String>> productIds = (Map<String,List<String>>)responseEntityFile.getBody();
+//
+//        List<ProductSimpleDTO> dayHots = new ArrayList<>();
+//        List<ProductSimpleDTO> weekHots = new ArrayList<>();
+//        List<ProductSimpleDTO> monthHots = new ArrayList<>();
+//
+//        //해당하는 이미지 없을 때 뭔가 에러처리 해줘야 댐!! 지금은 그냥 5xx에러남!!!
+//        List<String> dayHotIdsTmp = productIds.get("day-hot");
+//        List<String> weekHotIdsTmp = productIds.get("week-hot");
+//        List<String> monthHotIdsTmp = productIds.get("month-hot");
+//
+//        List<Integer> dayHotIds = new ArrayList<>();
+//        List<Integer> weekHotIds = new ArrayList<>();
+//        List<Integer> monthHotIds = new ArrayList<>();
+//        for(String dayHotIdTmp : dayHotIdsTmp)  dayHotIds.add(Integer.valueOf(dayHotIdTmp));
+//        for(String weekHotIdTmp : weekHotIdsTmp)  weekHotIds.add(Integer.valueOf(weekHotIdTmp));
+//        for(String monthHotIdTmp : monthHotIdsTmp)  monthHotIds.add(Integer.valueOf(monthHotIdTmp));
+//
+//        if(dayHotIds.size()!=0 && dayHotIds!=null){
+//            dayHots = findProductSimple(dayHotIds);
+//        }
+//        if(weekHotIds.size()!=0 && weekHotIds!=null){
+//            weekHots = findProductSimple(weekHotIds);
+//        }
+//        if(monthHotIds.size()!=0 && monthHotIds!=null){
+//            monthHots = findProductSimple(monthHotIds);
+//        }
+//
+//
+//        List<Category> category1 = categoryService.getCategories1();
+//
+//
+//        result.put("day-hot",dayHots);
+//        result.put("week-hot",weekHots);
+//        result.put("month-hot",monthHots);
+//        result.put("category-keyword",searchlogService.getRealtimeSearchWord(category1));
+//        result.put("category-recommend",getLatestProduct(category1));
 
         return result;
     }
