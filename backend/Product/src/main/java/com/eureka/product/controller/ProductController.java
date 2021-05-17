@@ -84,15 +84,32 @@ public class ProductController {
         return response;
     }
 
+    // 메인페이지에 한번에 넘겨줄 데이터 : 오늘의 상품, 요즘뜨는상품, 스테디셀러, 카테고리별 추천상품, 카테고리별 실시간키워드
+    @ApiOperation(value="메인페이지에서 필요한 데이터 한번에 넘기기", notes = "메인페이지에 한번에 넘겨줄 데이터 : 오늘의 상품, 요즘뜨는상품, 스테디셀러, 카테고리별 추천상품, 카테고리별 실시간키워드에 해당하는 상품 기본정보 넘겨주기", httpMethod = "GET")
+    @GetMapping(value = "/mainPage")
+    public ResponseEntity<?> findForMainPage() {
+
+        Map<String,List<ProductSimpleDTO>> result = null;
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
+
+        try {
+            result = service.findForMainPage();
+            return new ResponseEntity(result,header, HttpStatus.OK);
+        } catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(result,header,HttpStatus.BAD_REQUEST); //이거맞나?
+        }
+    }
+
     // 상품아이디, 상품명, 파일 가져와서 face 서버에 넘겨주기
-    @ApiOperation(value="상품 정보 face 서버에 전달 RestTemplate x", notes = "상품id를 통해 상품명, 상품 이미지 전달", httpMethod = "GET")
+    @ApiOperation(value="상품 id들을 받아 상품 간단 정보(상품이름, 가격, review개수, 별점, 썸네일) 넘겨주기", notes = "상품id를 통해 상품명, 상품 이미지 전달", httpMethod = "GET")
     @GetMapping(value = "/call-by-face")
-    public ResponseEntity<?> findProductNameAndThumbnail(@RequestHeader(value="productIdsParam") String productIdsParam ) {
+    public ResponseEntity<?> findProductNameAndThumbnail(@RequestHeader(value="productIdsParam") List<Integer> productIds ) {
         List<ProductSimpleDTO> result = null;
         MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
 
         try {
-            result = service.findProductSimple(productIdsParam);
+            result = service.findProductSimple(productIds);
             return new ResponseEntity(result,header, HttpStatus.OK);
         } catch(Exception e){
             e.printStackTrace();
@@ -197,16 +214,19 @@ public class ProductController {
 
     // 판매자별 상품 리스트 가져오기
     @ApiOperation(value="판매자 상품 조회", notes = "판매자가 등록한 상품 정보 조회", httpMethod = "GET")
-    @GetMapping(value = "/seller/all/{storeId}")
-    public Response findByStoreId(@ApiParam(value="판매자 고유값")  @PathVariable int storeId) {
-        Response response;
-        try {
-            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByStore(storeId));
-        } catch (Exception e) {
-            response = new Response("error", "카테고리별 상품 조회 실패", e.getMessage());
-        }
+    @GetMapping(value = "/seller/latest10/{storeId}")
+    public ResponseEntity<?> findByStoreId(@ApiParam(value="판매자 고유값")  @PathVariable int storeId) {
 
-        return response;
+        List<ProductSimpleDTO> result = null;
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
+
+        try {
+            result = service.getProductsByStore(storeId);
+            return new ResponseEntity(result,header, HttpStatus.OK);
+        } catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(result,header,HttpStatus.BAD_REQUEST); //이거맞나?
+        }
     }
 
     @ApiOperation(value="상품 정보 수정(세모)", notes = "판매자의 상품 정보 수정", httpMethod = "PUT")
