@@ -89,7 +89,7 @@ public class ProductController {
     @GetMapping(value = "/mainPage")
     public ResponseEntity<?> findForMainPage() {
 
-        Map<String,List<ProductSimpleDTO>> result = null;
+        Map<String,Object> result = null;
         MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
 
         try {
