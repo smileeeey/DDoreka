@@ -18,4 +18,6 @@ public interface CartService {
     void deleteAll(String userid) throws Exception;
 
     void deleteCart(String cartId);
+
+    void deleteCarts(List<Integer> cartIds);
 }
