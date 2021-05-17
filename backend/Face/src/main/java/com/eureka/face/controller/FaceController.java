@@ -1,15 +1,22 @@
 package com.eureka.face.controller;
 
+import com.eureka.face.dto.ProductSimpleDTO;
 import com.eureka.face.entity.Face;
 import com.eureka.face.service.FaceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.hibernate.usertype.UserVersionType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = {"1. Face"})
 @RestController
@@ -35,6 +42,32 @@ public class FaceController {
     @DeleteMapping("/deleteById/{id}")
     public String deleteFace(@ApiParam(value="감정분석 고유값") @PathVariable int id){
         return service.deleteFaceById(id);
+    }
+
+    @ApiOperation(value="tmp module for product info with face info", notes = "test", httpMethod = "GET")
+    @GetMapping("/product/{userId}")
+    public ResponseEntity<?> getFaceProductByUse (@ApiParam(value="구매자 고유값") @PathVariable int userId) {
+
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
+
+        try {
+            List<Face> faces = service.getFacesByUser(userId);
+
+            List<Integer> productIds = new ArrayList<>();
+            for(Face f : faces) {
+                productIds.add(f.getProduct());
+            }
+            List<ProductSimpleDTO> productSimples = service.getProductSimpleByProductIds(productIds);
+            Map<String, Object> result = new HashMap<>();
+            result.put("faces", faces);
+            result.put("products", productSimples);
+
+            return new ResponseEntity(result, header, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(header, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 }
