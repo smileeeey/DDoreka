@@ -12,10 +12,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import java.util.List;
+
 
 @Api(tags = {"3. Cart"})
 @RestController
-@RequestMapping(value = "user/cart")
+@RequestMapping(value = "/user/cart")
 public class CartController {
 
 
@@ -84,7 +86,6 @@ public class CartController {
     @ApiOperation(value="장바구니 개별 항목 삭제", notes = "장바구니 고유값에 해당하는 장바구니 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value="/{cartid}")
     public Response deleteCart(@ApiParam(value="장바구니 고유값") @PathVariable("cartid") String cartId){
-        System.out.println("deleteCart " +cartId);
         try{
             cartService.deleteCart(cartId);
             return new Response("success","제품 장바구니 삭제 성공",null);
@@ -94,6 +95,16 @@ public class CartController {
         }
     }
 
-
+    @ApiOperation(value="장바구니 여러개 항목 삭제", notes = "넘겨받은 장바구니 고유값들에 해당하는 장바구니 데이터 삭제", httpMethod = "DELETE")
+    @DeleteMapping(value="/deletes")
+    public Response deleteCarts(@ApiParam(value="장바구니 고유값들") @RequestHeader(value="cartIdsParam") List<Integer> cartIds){
+        try{
+            cartService.deleteCarts(cartIds);
+            return new Response("success","제품 장바구니 삭제 성공",null);
+        }
+        catch (Exception e){
+            return new Response("error","제품 장바구니 삭제 실패",e.getMessage());
+        }
+    }
 
 }

@@ -78,5 +78,14 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+    @Override
+    public void deleteCarts(List<Integer> cartIds) {
+        try {
+            cartRepository.deleteAllByIdIn(cartIds);
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
 
 }
