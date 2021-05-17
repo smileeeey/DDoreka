@@ -4,6 +4,7 @@ import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.Repository.OrderDetailRepositoty;
 import com.eureka.order.Repository.OrderRepositoty;
+import com.eureka.order.dto.Order;
 import com.eureka.order.service.OrderService;
 import com.eureka.order.util.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,7 +212,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * get today hoy
+     * get today hot
      * @return List<Map<String,Object>>
      */
     @Override
@@ -219,4 +220,30 @@ public class OrderServiceImpl implements OrderService {
         return orderRepositoty.findTodayHot();
     }
 
+    /**
+     * get today hot products
+     * @return List<String>
+     */
+    @Override
+    public List<String> getTodayHotProducts() {
+        return orderRepositoty.todayHotProducts();
+    }
+
+    /**
+     * get weekHotProducts
+     * @return List<String>
+     */
+    @Override
+    public List<String> getWeekHotProducts() {
+        return orderRepositoty.weekHotProducts();
+    }
+
+    /**
+     * get monthHotProducts
+     * @return List<String>
+     */
+    @Override
+    public List<String> getMonthHotProducts() {
+        return orderRepositoty.monthHotProducts();
+    }
 }

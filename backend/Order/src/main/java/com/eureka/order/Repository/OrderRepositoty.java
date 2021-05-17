@@ -1,6 +1,7 @@
 package com.eureka.order.Repository;
 
 import com.eureka.order.Entity.OrderEntity;
+import com.eureka.order.dto.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -82,9 +83,28 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
     List<Integer> findHotProduct();
 
     /**
-     * get all list of product id and count of Today's hot produts(Top 6) sorted by count
+     * get all list of product id and count of Today's hot products(Top 6) sorted by count
      * @return
      */
     @Query(value= "select product_id as id,count(*) as cnt from orders where datetime > DATE_ADD(now(),INTERVAL -1 day) group by product_id order by cnt DESC limit 0,6",nativeQuery = true)
     List<Map<String,Object>> findTodayHot();
+
+    /**
+     * get all list of todayHotProducts(Top 6)
+     * @return List
+     */
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 day) order by datetime DESC limit 0,6",nativeQuery = true)
+    List<String> todayHotProducts();
+    /**
+     * get all list of weekHotProducts(Top 10)
+     * @return List
+     */
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -7 day) order by datetime DESC limit 0,10",nativeQuery = true)
+    List<String> weekHotProducts();
+    /**
+     * get all list of monthHotProducts(Top 10)
+     * @return List
+     */
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 month) order by datetime DESC limit 0,10",nativeQuery = true)
+    List<String> monthHotProducts();
 }

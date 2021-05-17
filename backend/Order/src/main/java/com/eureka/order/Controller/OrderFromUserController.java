@@ -2,13 +2,22 @@ package com.eureka.order.Controller;
 
 import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
+import com.eureka.order.dto.Order;
 import com.eureka.order.dto.Response;
 import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class to control order information by user
@@ -177,5 +186,29 @@ public class OrderFromUserController {
             response= new Response("error", "오늘 뜨는 상품 조회 실패", e.getMessage()) ;
         }
         return response;
+    }
+
+    /**
+     * get Top 6 of the products that have been ordered the most int the last 24 hours
+     * @return responseEntity
+     */
+    @ApiOperation(value="최근 24시간 동안 주문이 가장 많았던 상품 top6", notes = "상품 id list로 반환", httpMethod = "GET")
+    @GetMapping(value ="/recommend/hots")
+    public ResponseEntity hots() {
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
+        try {
+            Map<String, Object> hotProduts = new HashMap<>();
+            List<String> dayHotProducts = orderService.getTodayHotProducts();
+            List<String> weekHotProduct = orderService.getWeekHotProducts();
+            List<String> monthHotProduct = orderService.getMonthHotProducts();
+
+            hotProduts.put("day-hot", dayHotProducts);
+            hotProduts.put("week-hot", weekHotProduct);
+            hotProduts.put("month-hot",monthHotProduct);
+            return new ResponseEntity(hotProduts, header, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(header, HttpStatus.BAD_REQUEST);
+        }
     }
 }
