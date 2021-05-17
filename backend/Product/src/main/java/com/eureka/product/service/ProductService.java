@@ -351,7 +351,7 @@ public class ProductService {
     }
 
     public List<ProductSimpleDTO> findProductSimple(List<Integer> productIds) {
-
+        System.out.println("JUN");
         if(productIds.size()==0)    return null;
 
         //아이디로 상품 정보 가져오기

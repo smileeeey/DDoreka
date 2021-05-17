@@ -53,10 +53,13 @@ public class FaceService {
         System.out.println("product ids size : " + productIds.size());
         String getProductsURL = "http://localhost:8081/product/call-by-face";
 
+        String productIdsConvertedListOfInteger = productIds.toString().substring(1, productIds.toString().length()-1);
+        System.out.println(productIdsConvertedListOfInteger);
+
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("productIdsParam",productIdsParam);
+        httpHeaders.set("productIdsParam",productIdsConvertedListOfInteger);
 
         ResponseEntity<?> responseEntityFile = restTemplateService.get(getProductsURL, httpHeaders);
 
