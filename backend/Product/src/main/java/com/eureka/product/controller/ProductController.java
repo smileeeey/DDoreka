@@ -245,12 +245,13 @@ public class ProductController {
     }
 
     @ApiOperation(value="option-id, price를 제공", notes = "option-id로 price를 제공", httpMethod = "GET")
-    @PutMapping(value="/prices")
-    public ResponseEntity<?> getPrices(Map<String, Object> param) {
+    @GetMapping(value="/prices")
+    public ResponseEntity<?> getPrices(@RequestParam(value="option-ids") List<String> param) {
         MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
-
+        System.out.println("hihi");
         try {
-            List<OptionPriceDTO> result = service.getPriceFromOptionId((List<String>)param.get("option-ids"));
+            List<OptionPriceDTO> result = service.getPriceFromOptionId(param);
+            System.out.println("result 0 : " + result);
             return new ResponseEntity(result, header, HttpStatus.OK);
         } catch (Exception e ) {
             e.printStackTrace();
