@@ -267,9 +267,12 @@ public class ProductService {
 
     }
 
-    //판매자의 모든 상품 가져오기
-    public List<Product> getProductsByStore(int storeId) {
-        return productRepository.findByStoreId(storeId);
+    //판매자의 최근10개 상품 가져오기
+    public List<ProductSimpleDTO> getProductsByStore(int storeId) {
+        System.out.println("ㅎㅇㅎㅇ"+storeId);
+        List<Product> products =  productRepository.findIdTop10ByStoreIdOrderByRegisterDateDesc(storeId);
+
+        return findProductSimpleByProduct(products);
     }
 
 
@@ -283,21 +286,9 @@ public class ProductService {
         return map;
     }
 
-
-    public List<ProductSimpleDTO> findProductSimple(String productIdsParam) {
-
+    public List<ProductSimpleDTO> findProductSimpleByProduct(List<Product> products){
+        System.out.println("222:"+products.size());
         List<ProductSimpleDTO> result = new ArrayList<>();
-
-        Gson gson = new Gson();
-
-        //json을 List<Integer> type으로 변경
-        Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
-        List<Integer> productIds = gson.fromJson(productIdsParam, listType);
-
-        if(productIds.size()==0)    return null;
-
-        //아이디로 상품 정보 가져오기
-        List<Product> products = productRepository.findByIdIn(productIds);  //주의! productIds개수랑 products 개수가 다를 수 있다. 중복이 제거되는 경우
 
         //상품의 썸네일 아이디 찾기
         List<Integer> fileIds = new ArrayList<>();
@@ -324,6 +315,8 @@ public class ProductService {
             map.put((tmp==-1)?tmp*i:tmp,productSimpleDTO);
         }
 
+        Gson gson = new Gson();
+
         //fileIds들로 file가져오기
         String fileIdJson = gson.toJson(fileIds);
         String getFilesURL = "http://localhost:8082/file/fileServesss";
@@ -338,19 +331,53 @@ public class ProductService {
 
         List<ImageDTO> images = (List<ImageDTO>)responseEntityFile.getBody();
 
-        //Map
-        int getFileId;
-        for (int i = 0 ; i < images.size() ; ++i){
-            Map<String,Object> imageMap = (Map<String,Object>)images.get(i);
+        //해당하는 이미지 없을 때 뭔가 에러처리 해줘야 댐!! 지금은 그냥 5xx에러남!!!
+        if(!images.isEmpty() && images != null){
+            //Map
+            int getFileId;
+            for (int i = 0 ; i < images.size() ; ++i){
+                Map<String,Object> imageMap = (Map<String,Object>)images.get(i);
 
-            getFileId = (Integer)imageMap.get("fileId");
-
-            map.get(getFileId).setThumbnail((String)imageMap.get("imageBytes"));
-            result.add(map.get(getFileId));
-            map.remove(getFileId);
+                getFileId = (Integer)imageMap.get("fileId");
+                map.get(getFileId).setThumbnail((String)imageMap.get("imageBytes"));
+                result.add(map.get(getFileId));
+                map.remove(getFileId);
+            }
         }
 
+
         map.forEach((key,value)->result.add(value));
+        return result;
+    }
+
+    public List<ProductSimpleDTO> findProductSimple(List<Integer> productIds) {
+
+        if(productIds.size()==0)    return null;
+
+        //아이디로 상품 정보 가져오기
+        List<Product> products = productRepository.findByIdIn(productIds);  //주의! productIds개수랑 products 개수가 다를 수 있다. 중복이 제거되는 경우
+
+        System.out.println("111:"+products.size());
+
+        return findProductSimpleByProduct(products);
+    }
+
+    public Map<String,List<ProductSimpleDTO>> findForMainPage() {
+        Map<String,List<ProductSimpleDTO>> result = new HashMap<>();
+        System.out.println("hihi");
+//        Map<String,List<Integer>> getFromOrderService = new HashMap<>();
+
+        //오늘의 상품 id들 필요
+        // 요즘 뜨는 상품
+        // 스테디셀ㄹ러
+
+
+
+
+        //카테고리별 추천상품
+        // 카테고리별 실시간 키워드
+
+
 
         return result;
     }
