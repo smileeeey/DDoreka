@@ -5,6 +5,7 @@ import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.dto.Order;
 import com.eureka.order.dto.OrderDTO;
 import com.eureka.order.dto.ShoppingDTO;
+import com.eureka.order.dto.UserOrderListDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public interface OrderService {
      * @return list of order entity
      */
     List<OrderEntity> getOrdersByUserId(String userId);
+
+
+    List<UserOrderListDTO> getAllOrdersByUserId(String userId);
 
     /**
      * update order

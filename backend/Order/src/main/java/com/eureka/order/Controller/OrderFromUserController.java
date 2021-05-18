@@ -82,6 +82,21 @@ public class OrderFromUserController {
 
     }
 
+    @ApiOperation(value="해당 구매자의 모든 주문 정보를 상품, 사진과 함께 반환(rest)", notes = "구매자 id의 모든 주문 찾기", httpMethod = "GET")
+    @GetMapping(value ="userid/orders/{userId}")
+    public Response getOrdersByUser(@ApiParam(value="구매자 id") @PathVariable("userId") String userId){
+
+        System.out.println("getorders : "+userId);
+        Response response;
+        try {
+            response= new Response("success", "조회성공", orderService.getAllOrdersByUserId(userId)) ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response= new Response("error", e.getMessage(), null) ;
+        }
+        return response;
+    }
+
     /**
      * get user's order by status
      * @param userid
