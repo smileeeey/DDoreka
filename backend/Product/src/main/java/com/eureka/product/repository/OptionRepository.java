@@ -17,4 +17,6 @@ public interface OptionRepository extends JpaRepository<Productoption, Integer> 
     List<Productoption> findAllByOptionIdIn(List<Integer> optionIdsInt);
 
     String findNameByOptionId(int optionId);
+
+    Productoption findTop1ByOptionId(Integer integer);
 }
