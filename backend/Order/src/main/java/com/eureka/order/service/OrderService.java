@@ -3,6 +3,8 @@ package com.eureka.order.service;
 import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.dto.Order;
+import com.eureka.order.dto.OrderDTO;
+import com.eureka.order.dto.ShoppingDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -134,4 +136,7 @@ public interface OrderService {
      * @return List<String>
      */
     List<String> getMonthHotProducts();
+
+    void saveOrderAll(OrderDTO orders, List<ShoppingDTO> shoppings);
+    void saveOrderAll(List<ShoppingDTO> shoppings);
 }

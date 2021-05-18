@@ -4,6 +4,8 @@ import com.eureka.order.dto.Order;
 import com.eureka.order.util.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ import javax.persistence.*;
  */
 @Entity
 @Data
+@Builder
 @Table(name = "orderdetail")
 public class OrderDetailEntity {
 

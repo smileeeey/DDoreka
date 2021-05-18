@@ -4,19 +4,30 @@ import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.Repository.OrderDetailRepositoty;
 import com.eureka.order.Repository.OrderRepositoty;
+import com.eureka.order.dto.OptionPriceDTO;
 import com.eureka.order.dto.Order;
+import com.eureka.order.dto.OrderDTO;
+import com.eureka.order.dto.ShoppingDTO;
 import com.eureka.order.service.OrderService;
+import com.eureka.order.service.RestTemplateService;
 import com.eureka.order.util.OrderStatus;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * order serviceimpl
@@ -24,6 +35,7 @@ import java.util.Map;
  * @since 1.0
  */
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
     /**
@@ -32,11 +44,7 @@ public class OrderServiceImpl implements OrderService {
      */
     private  OrderRepositoty orderRepositoty;
     private  OrderDetailRepositoty orderDetailRepositoty;
-    @Autowired
-    public OrderServiceImpl(OrderRepositoty orderRepositoty, OrderDetailRepositoty orderDetailRepositoty) {
-        this.orderRepositoty = orderRepositoty;
-        this.orderDetailRepositoty = orderDetailRepositoty;
-    }
+    private RestTemplateService<?> restTemplateProduct;
 
     /**
      * get orders by user id
@@ -184,10 +192,15 @@ public class OrderServiceImpl implements OrderService {
     public void saveOrder(OrderEntity orderEntity) {
         try {
             OrderEntity savedOrderEntity=orderRepositoty.save(orderEntity);
-            OrderDetailEntity detail= new OrderDetailEntity();
-            detail.setOrderId(savedOrderEntity.getId());
-            detail.setOrderStatus(OrderStatus.PAY);
-            orderDetailRepositoty.save(detail );
+//            OrderDetailEntity detail= new OrderDetailEntity();
+//            detail.setOrderId(savedOrderEntity.getId());
+//            detail.setOrderStatus(OrderStatus.PAY);
+            orderDetailRepositoty.save(
+                    OrderDetailEntity.builder()
+                    .orderId(savedOrderEntity.getId())
+                    .orderStatus(OrderStatus.PAY)
+                    .build()
+            );
         }catch (Exception e){
             throw  e;
         }
@@ -245,5 +258,203 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<String> getMonthHotProducts() {
         return orderRepositoty.monthHotProducts();
+    }
+
+    @Override
+    public void saveOrderAll(OrderDTO orders, List<ShoppingDTO> shoppings) {
+        //List<String>를  으로 넘기고 map<"option-id",List<option_id,price = OptionPriceDTO> :
+
+        if(shoppings.isEmpty() || shoppings == null){
+            System.out.println("shoppings 데이터 없음!!");
+            return;
+        }
+
+//        List<String> optionIds = new ArrayList<>();
+//        for (int i = 0 ; i < shoppings.size() ; ++i){
+//            optionIds.add(shoppings.get(i).getOptionId());
+//        }
+
+        List<Integer> optionIds = new ArrayList<>();
+        for (int i = 0 ; i < shoppings.size() ; ++i){
+            optionIds.add(Integer.parseInt(shoppings.get(i).getOptionId()));
+        }
+
+        Gson gson = new Gson();
+        String reqProduct = gson.toJson(optionIds);
+
+        //set을 list로 변환하는 과정!!!
+//        Set<String> optionIdSet = new HashSet<>(); // 무야호
+//        shoppings.forEach((shopping)-> optionIdSet.add(shopping.getOptionId()));
+//        List<String> optionIds = new ArrayList<>(optionIdSet);
+//        정준영이 틀렸을 경우
+//        Iterator<String> iter = optionIdSet.iterator(); // set을 Iterator 안에 담기
+//        while(iter.hasNext()) { // iterator에 다음 값이 있다면
+//            optionIds.add(iter.next());
+//        }
+
+        String getProductURL = "http://k4d104.p.ssafy.io:8081/product/prices";
+
+        HttpHeaders productHttpHeaders = new HttpHeaders();
+        productHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        productHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+
+        reqProduct = reqProduct.toString().substring(1, reqProduct.toString().length()-1);
+        System.out.println(reqProduct);
+
+        productHttpHeaders.set("option-ids",reqProduct);
+
+//        ResponseEntity<?> responseEntityFile = restTemplateProduct.get(getProductURL, productHttpHeaders);
+
+        System.out.println("rest 갔다옴!");
+//        List<OptionPriceDTO> optionPriceDTOS = (List<OptionPriceDTO>)responseEntityFile.getBody();
+//
+//        if(optionPriceDTOS.size() == 0 || optionPriceDTOS == null){
+//            System.out.println("shopping에 해당하는 option 정보가 productOption 테이블에 없다!");
+//            return;
+//        }
+//
+//        System.out.println("옵션에 맞는 가격값 가져왔는데 그 크기는!"+optionPriceDTOS.size());
+
+        //넘겨받은 option - price 매칭해서 order 생성
+
+        List<OrderEntity> orderEntities = new ArrayList<>();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = new Date();
+
+        String curTime = format.format(time);
+        System.out.println("현재시간 "+curTime);
+        for (int i = 0 ; i < shoppings.size() ; ++i){
+
+            int price = 0;
+            OrderEntity orderEntity= OrderEntity.builder()
+                    .userId(orders.getUserId())
+                    .productId(shoppings.get(i).getProductId())
+                    .optionId(shoppings.get(i).getOptionId())
+                    .sellerId(shoppings.get(i).getSellerId())
+                    .addressMain(orders.getAddressMain())
+                    .addressSub(orders.getAddressSub())
+                    .recipientName(orders.getRecipientName())
+                    .zipcode(orders.getZipcode())
+                    .deliveryMsg(orders.getDeliveryMsg())
+                    .recipientPhone(orders.getRecipientPhone())
+                    .quantity(shoppings.get(i).getQuantity())
+                    .price(Integer.toString(price))
+//                    .datetime(curTime)
+                    .paymentMethod(orders.getPaymentMethod())
+                    .build();
+
+            System.out.println("엔티티 잘만듬!!");
+            orderEntities.add(
+                    orderEntity
+            );
+        }
+
+
+        System.out.println("orderEntities 잘만들어짐 사이즈는 "+orderEntities.size());
+
+        List<OrderEntity> saveOrderEntities = orderRepositoty.saveAll(orderEntities);
+
+        System.out.println("저장하고난 사이즈 " + saveOrderEntities.size());
+
+        List<OrderDetailEntity> orderDetailEntities = new ArrayList<>();
+
+        for (int i = 0 ; i < saveOrderEntities.size() ; ++i){
+            OrderDetailEntity orderDetailEntity = OrderDetailEntity.builder()
+                    .orderId(saveOrderEntities.get(i).getId())
+                    .orderStatus(OrderStatus.PAY)
+                    .build();
+
+            orderDetailEntities.add(
+                orderDetailEntity
+            );
+        }
+
+        System.out.println("오더디테일 저장할꺼 만듬 "+orderDetailEntities.size());
+        orderDetailRepositoty.saveAll(orderDetailEntities);
+
+        System.out.println("오더디테일 저장완료!");
+        //장바구니 삭제
+        List<Integer> cartIds = new ArrayList<>();
+
+        for (int i = 0 ; i < shoppings.size() ; ++i){
+            cartIds.add(shoppings.get(i).getCartId());
+        }
+
+        String cartIdStr = gson.toJson(cartIds);
+
+        String deleteCartURL = "http://localhost:8085/user/cart/deletes";
+
+        HttpHeaders cartHttpHeaders = new HttpHeaders();
+        cartHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        cartHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        cartHttpHeaders.set("cartIdsParam", cartIdStr);
+
+
+        restTemplateProduct.delete(deleteCartURL, cartHttpHeaders);
+
+        System.out.println("삭제 성공!");
+
+
+    }
+
+    @Override
+    public void saveOrderAll( List<ShoppingDTO> shoppings) {
+
+        //List<String>를  으로 넘기고 map<"option-id",List<option_id,price = OptionPriceDTO> :
+
+        if(shoppings.isEmpty() || shoppings == null){
+            System.out.println("shoppings 데이터 없음!!");
+            return;
+        }
+
+//        List<String> optionIds = new ArrayList<>();
+//        for (int i = 0 ; i < shoppings.size() ; ++i){
+//            optionIds.add(shoppings.get(i).getOptionId());
+//        }
+
+        List<Integer> optionIds = new ArrayList<>();
+        for (int i = 0 ; i < shoppings.size() ; ++i){
+            optionIds.add(Integer.parseInt(shoppings.get(i).getOptionId()));
+        }
+
+        Gson gson = new Gson();
+        String reqProduct = gson.toJson(optionIds);
+
+        //set을 list로 변환하는 과정!!!
+//        Set<String> optionIdSet = new HashSet<>(); // 무야호
+//        shoppings.forEach((shopping)-> optionIdSet.add(shopping.getOptionId()));
+//        List<String> optionIds = new ArrayList<>(optionIdSet);
+//        정준영이 틀렸을 경우
+//        Iterator<String> iter = optionIdSet.iterator(); // set을 Iterator 안에 담기
+//        while(iter.hasNext()) { // iterator에 다음 값이 있다면
+//            optionIds.add(iter.next());
+//        }
+
+        String getProductURL = "http://k4d104.p.ssafy.io:8081/product/prices";
+
+        HttpHeaders productHttpHeaders = new HttpHeaders();
+        productHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        productHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+
+        reqProduct = reqProduct.toString().substring(1, reqProduct.toString().length()-1);
+        System.out.println(reqProduct);
+
+        productHttpHeaders.set("option-ids",reqProduct);
+
+        ResponseEntity<?> responseEntityFile = restTemplateProduct.get(getProductURL, productHttpHeaders);
+
+        System.out.println("rest 갔다옴!");
+        List<OptionPriceDTO> optionPriceDTOS = (List<OptionPriceDTO>)responseEntityFile.getBody();
+
+        if(optionPriceDTOS.size() == 0 || optionPriceDTOS == null){
+            System.out.println("shopping에 해당하는 option 정보가 productOption 테이블에 없다!");
+            return;
+        }
+
+        System.out.println("옵션에 맞는 가격값 가져왔는데 그 크기는!"+optionPriceDTOS.size());
+
+
+
     }
 }

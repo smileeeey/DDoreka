@@ -2,8 +2,7 @@ package com.eureka.order.Controller;
 
 import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
-import com.eureka.order.dto.Order;
-import com.eureka.order.dto.Response;
+import com.eureka.order.dto.*;
 import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +14,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,6 +119,24 @@ public class OrderFromUserController {
         return response;
     }
 
+
+    // 주문 정보 입력
+    @ApiOperation(value="주문 정보 저장(rest)", notes = "넘겨받은 배송정보와 각 장바구니별 데이터로 주문 저장하고, 장바구니 데이터 갱신까지 한번에!", httpMethod = "POST")
+    @PostMapping(value = "/saveorder", produces = "application/json;charset=utf8")
+    public Response saveOrderAll(@ApiParam(value="배송 정보")  OrderDTO orders,@ApiParam(value="옵션정보들")  List<ShoppingDTO> shoppings) {
+//    public Response saveOrderAll(@ApiParam(value="옵션정보들") @RequestBody List<ShoppingDTO> shoppings) {
+        System.out.println("여기는 왔음!");
+        try {
+
+            orderService.saveOrderAll(orders,shoppings);
+//            orderService.saveOrderAll(shoppings);
+            return new Response("success", "상품 정보 저장 완료", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response("error", "상품 정보 저장 오류", e.getMessage());
+        }
+    }
+
     /**
      * put user's order information
      * @param userId
@@ -209,6 +227,33 @@ public class OrderFromUserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(header, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value="/hihi")
+    public void hihi(){
+        try{
+            System.out.println("hihi안녕");
+
+            OrderDTO orderDTO = OrderDTO.builder()
+                                        .userId("1")
+                                        .addressMain("1")
+                                        .addressSub("1")
+                                        .recipientName("1")
+                                        .zipcode("1")
+                                        .deliveryMsg("1")
+                                        .recipientPhone("1")
+                                        .paymentMethod("1")
+                                    .build();
+            List<ShoppingDTO> shoppings = new ArrayList<>();
+            System.out.println(orderDTO.toString());
+            shoppings.add(ShoppingDTO.builder().cartId(17).optionId("2").productId("1").quantity("2").sellerId("1").build());
+            System.out.println("잘만들어짐!");
+            orderService.saveOrderAll(orderDTO,shoppings);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("에러발생에러발생!");
+            return;
         }
     }
 }
