@@ -138,5 +138,5 @@ public interface OrderService {
     List<String> getMonthHotProducts();
 
     void saveOrderAll(OrderDTO orders, List<ShoppingDTO> shoppings);
-    void saveOrderAll(List<ShoppingDTO> shoppings);
+//    void saveOrderAll(List<ShoppingDTO> shoppings);
 }

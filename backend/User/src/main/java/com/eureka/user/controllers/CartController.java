@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import javax.print.attribute.IntegerSyntax;
 import java.util.List;
 
 
@@ -97,12 +98,13 @@ public class CartController {
 
     @ApiOperation(value="장바구니 여러개 항목 삭제", notes = "넘겨받은 장바구니 고유값들에 해당하는 장바구니 데이터 삭제", httpMethod = "DELETE")
     @DeleteMapping(value="/deletes")
-    public Response deleteCarts(@ApiParam(value="장바구니 고유값들") @RequestHeader(value="cartIdsParam") List<Integer> cartIds){
+    public Response deleteCarts(@ApiParam(value="장바구니 고유값들") @RequestHeader(value="cartIdsParam") String cartIdsParam){
         try{
-            cartService.deleteCarts(cartIds);
+            cartService.deleteCarts(cartIdsParam);
             return new Response("success","제품 장바구니 삭제 성공",null);
         }
         catch (Exception e){
+            System.out.println("삭제 실패!");
             return new Response("error","제품 장바구니 삭제 실패",e.getMessage());
         }
     }

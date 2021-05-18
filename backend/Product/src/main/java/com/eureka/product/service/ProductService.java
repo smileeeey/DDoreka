@@ -417,7 +417,13 @@ public class ProductService {
         return result;
     }
 
-    public List<OptionPriceDTO> getPriceFromOptionId(List<String> optionIds) {
+    public List<OptionPriceDTO> getPriceFromOptionId(String param) {
+
+        Gson gson = new Gson();
+
+        Type listType = new TypeToken<ArrayList<String>>(){}.getType();
+        List<String> optionIds = gson.fromJson(param, listType);
+
         List<OptionPriceDTO> res = new ArrayList<>();
         int len = optionIds.size();
 

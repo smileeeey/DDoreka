@@ -75,6 +75,7 @@ public class OrderFromUserController {
         try {
             response= new Response("success", "조회성공", orderService.getOrdersByUserId(userId)) ;
         } catch (Exception e) {
+            e.printStackTrace();
             response= new Response("error", e.getMessage(), null) ;
         }
         return response;
@@ -119,15 +120,17 @@ public class OrderFromUserController {
         return response;
     }
 
-
     // 주문 정보 입력
     @ApiOperation(value="주문 정보 저장(rest)", notes = "넘겨받은 배송정보와 각 장바구니별 데이터로 주문 저장하고, 장바구니 데이터 갱신까지 한번에!", httpMethod = "POST")
     @PostMapping(value = "/saveorder", produces = "application/json;charset=utf8")
-    public Response saveOrderAll(@ApiParam(value="배송 정보")  OrderDTO orders,@ApiParam(value="옵션정보들")  List<ShoppingDTO> shoppings) {
+    //OrderDTO orders,@ApiParam(value="옵션정보들") @RequestBody List<ShoppingDTO> shoppings
+    public Response saveOrderAll(@ApiParam(value="배송 정보") @RequestBody Map<String,Object> param) {
 //    public Response saveOrderAll(@ApiParam(value="옵션정보들") @RequestBody List<ShoppingDTO> shoppings) {
         System.out.println("여기는 왔음!");
         try {
+            List<ShoppingDTO> shoppings = makeShoppings((List<Map<String,Object>>)param.get("shoppings"));
 
+            OrderDTO orders = makeOrders((Map<String,Object>)param.get("orders"));
             orderService.saveOrderAll(orders,shoppings);
 //            orderService.saveOrderAll(shoppings);
             return new Response("success", "상품 정보 저장 완료", null);
@@ -136,6 +139,7 @@ public class OrderFromUserController {
             return new Response("error", "상품 정보 저장 오류", e.getMessage());
         }
     }
+
 
     /**
      * put user's order information
@@ -255,5 +259,35 @@ public class OrderFromUserController {
             System.out.println("에러발생에러발생!");
             return;
         }
+    }
+
+    private List<ShoppingDTO> makeShoppings(List<Map<String,Object>> param) {
+        List<ShoppingDTO> list = new ArrayList<>();
+        int len = param.size();
+
+        for(int i = 0; i < len; ++i) {
+            ShoppingDTO dto = ShoppingDTO.builder()
+                    .cartId(Integer.parseInt((String)param.get(i).get("cartId")))
+                    .optionId((String)param.get(i).get("optionId"))
+                    .productId((String)param.get(i).get("productId"))
+                    .quantity((String)param.get(i).get("quantity"))
+                    .sellerId((String)param.get(i).get("sellerId"))
+                    .build();
+            list.add(dto);
+        }
+        return list;
+    }
+    private OrderDTO makeOrders(Map<String, Object> param) {
+        OrderDTO orders = OrderDTO.builder()
+                .addressMain((String)param.get("addressMain"))
+                .addressSub((String)param.get("addressSub"))
+                .deliveryMsg((String)param.get("deliveryMsg"))
+                .paymentMethod((String)param.get("paymentMethod"))
+                .recipientName((String)param.get("recipientName"))
+                .recipientPhone((String)param.get("recipientPhone"))
+                .userId((String)param.get("userId"))
+                .zipcode((String)param.get("zipcode"))
+                .build();
+        return orders;
     }
 }
