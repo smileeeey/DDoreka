@@ -467,4 +467,28 @@ public class ProductService {
 
         return res;
     }
+
+    public List<ProductOptionInfoDTO> getPriceOptionInfo(List<Integer> productIds, List<Integer> optionIds) {
+
+        List<ProductOptionInfoDTO> poInfo = new ArrayList<>();
+        int len = productIds.size();
+        for(int i = 0; i < len; ++i) {
+            String productName = productRepository.findNameById(productIds.get(i));
+            String optionName = optionRepository.findNameByOptionId(optionIds.get(i));
+            int price = optionRepository.findDiscountPriceByOptionId(optionIds.get(i));
+            int productId = productIds.get(i);
+            int optionId = optionIds.get(i);
+
+            ProductOptionInfoDTO dto = ProductOptionInfoDTO.builder()
+                                    .productId(productId)
+                                    .optionId(optionId)
+                                    .productName(productName)
+                                    .optionName(optionName)
+                                    .price(price)
+                                    .build();
+            poInfo.add(dto);
+        }
+
+        return poInfo;
+    }
 }

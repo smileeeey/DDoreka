@@ -1,14 +1,12 @@
 package com.eureka.product.controller;
 
-import com.eureka.product.dto.OptionPriceDTO;
-import com.eureka.product.dto.ProductAndOptionAndImage;
-import com.eureka.product.dto.ProductSimpleDTO;
+import com.eureka.product.dto.*;
 import com.eureka.product.entity.Category;
 import com.eureka.product.entity.Product;
-import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,6 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -251,6 +250,19 @@ public class ProductController {
         try {
             return service.getPriceFromOptionId(param);
         } catch (Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @ApiOperation(value="product id, option id로 주문 내역 정보 제공 (이름과 가격 제공)", notes = "이름과 가격 제공", httpMethod = "GET")
+    @GetMapping(value="/name")
+    //@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="") String param
+    public List<ProductOptionInfoDTO> getProductInfo(@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="product-ids") List<Integer> productIds, @RequestHeader(value="option-ids") List<Integer> optionIds) {
+
+        try {
+            return service.getPriceOptionInfo(productIds, optionIds);
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
