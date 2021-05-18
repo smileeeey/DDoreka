@@ -416,4 +416,49 @@ public class ProductService {
 
         return result;
     }
+
+    public List<OptionPriceDTO> getPriceFromOptionId(List<String> optionIds) {
+        List<OptionPriceDTO> res = new ArrayList<>();
+        int len = optionIds.size();
+
+        List<Productoption> productoptions = new ArrayList<>();
+
+        List<Integer> optionIdsInt = new ArrayList<>();
+        for (int i = 0 ; i < optionIds.size() ; ++i){
+            optionIdsInt.add(Integer.parseInt(optionIds.get(i)));
+        }
+
+        productoptions = optionRepository.findAllByOptionIdIn(optionIdsInt);
+
+        for (int i = 0 ; i < productoptions.size() ; ++i){
+            OptionPriceDTO optionPriceDTO = OptionPriceDTO.builder()
+                                            .optionId(String.valueOf(productoptions.get(i).getOptionId()))
+                                            .price(productoptions.get(i).getPrice())
+                                            .build();
+            res.add(optionPriceDTO);
+        }
+
+        //        for(int i = 0; i < len; ++i) {
+//
+//            Productoption productoption = new Productoption();
+//
+//            int optionId = Integer.parseInt(optionIds.get(i));
+//            productoption = optionRepository.findAllByOptionId(optionId);
+//            System.out.println(optionIds.get(i));
+//
+//            productoptions.add(productoption);
+//            //String price = optionRepository.findDiscountPriceByOptionId(optionId);
+////            Integer price = optionRepository.findDiscountPriceByOptionId(2);
+////            System.out.println("price : " + price);
+////            OptionPriceDTO optionPriceDTO = OptionPriceDTO.builder()
+////                                            .optionId(optionIds.get(i))
+////                                            .price(price)
+////                                            .build();
+////            System.out.println("price :" + optionPriceDTO.getPrice());
+////            res.add(optionPriceDTO);
+//        }
+//        System.out.println(productoptions.size());
+
+        return res;
+    }
 }

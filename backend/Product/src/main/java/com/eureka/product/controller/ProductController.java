@@ -1,5 +1,6 @@
 package com.eureka.product.controller;
 
+import com.eureka.product.dto.OptionPriceDTO;
 import com.eureka.product.dto.ProductAndOptionAndImage;
 import com.eureka.product.dto.ProductSimpleDTO;
 import com.eureka.product.entity.Category;
@@ -241,5 +242,20 @@ public class ProductController {
 
 
         return response;
+    }
+
+    @ApiOperation(value="option-id, price를 제공", notes = "option-id로 price를 제공", httpMethod = "GET")
+    @GetMapping(value="/prices")
+    public ResponseEntity<?> getPrices(@RequestParam(value="option-ids") List<String> param) {
+        MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
+        System.out.println("hihi");
+        try {
+            List<OptionPriceDTO> result = service.getPriceFromOptionId(param);
+            System.out.println("result 0 : " + result);
+            return new ResponseEntity(result, header, HttpStatus.OK);
+        } catch (Exception e ) {
+            e.printStackTrace();
+            return new ResponseEntity(header, HttpStatus.BAD_REQUEST);
+        }
     }
 }
