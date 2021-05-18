@@ -14,4 +14,5 @@ public class ProductOptionInfoDTO {
     private int optionId;
     private String optionName;
     private int price;
+    private String thumbnail;
 }

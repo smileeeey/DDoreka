@@ -472,15 +472,30 @@ public class ProductService {
 
         List<ProductOptionInfoDTO> poInfo = new ArrayList<>();
         int len = productIds.size();
+
+        List<ProductSimpleDTO> productSimpleDTOS = findProductSimple(productIds);
+
+        Map<Integer,ProductSimpleDTO> productSimpleDTOMap = new HashMap<>();
+
+        for (int i = 0; i < productSimpleDTOS.size(); i++) {
+            productSimpleDTOMap.put(productSimpleDTOS.get(i).getProductId(), productSimpleDTOS.get(i));
+        }
+
         for(int i = 0; i < len; ++i) {
-            String productName = productRepository.findNameById(productIds.get(i));
-            String optionName = optionRepository.findNameByOptionId(optionIds.get(i));
-            int price = optionRepository.findDiscountPriceByOptionId(optionIds.get(i));
+
+            ProductSimpleDTO productSimpleDTO = productSimpleDTOMap.get(productIds.get(i));
+            Productoption productoption = optionRepository.findTop1ByOptionId(optionIds.get(i));
+
+            String productName = productSimpleDTO.getName();
+            String thumbnail = productSimpleDTO.getThumbnail();
+            String optionName = productoption.getName();
+            int price = productoption.getDiscountPrice();
             int productId = productIds.get(i);
             int optionId = optionIds.get(i);
 
             ProductOptionInfoDTO dto = ProductOptionInfoDTO.builder()
                                     .productId(productId)
+                                    .thumbnail(thumbnail)
                                     .optionId(optionId)
                                     .productName(productName)
                                     .optionName(optionName)

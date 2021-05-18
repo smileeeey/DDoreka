@@ -259,7 +259,7 @@ public class ProductController {
     @GetMapping(value="/name")
     //@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="") String param
     public List<ProductOptionInfoDTO> getProductInfo(@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="product-ids") List<Integer> productIds, @RequestHeader(value="option-ids") List<Integer> optionIds) {
-
+        System.out.println("!1");
         try {
             return service.getPriceOptionInfo(productIds, optionIds);
         } catch (Exception e) {
