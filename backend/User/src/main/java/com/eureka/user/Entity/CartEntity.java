@@ -23,7 +23,4 @@ public class CartEntity {
     private String optionId;
 
     private String quantity;
-
-
-
 }

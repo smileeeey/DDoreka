@@ -7,10 +7,14 @@ import com.eureka.user.repository.CartRepository;
 import com.eureka.user.repository.UserRepository;
 import com.eureka.user.services.AuthService;
 import com.eureka.user.services.CartService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,10 +83,19 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void deleteCarts(List<Integer> cartIds) {
+    public void deleteCarts(String cartIdsParam) {
+        System.out.println("cart 여러개 지우자");
         try {
+            Gson gson = new Gson();
+
+            Type listType = new TypeToken<ArrayList<String>>(){}.getType();
+            List<String> cartIds = gson.fromJson(cartIdsParam, listType);
+
+            System.out.println(cartIds.size());
             cartRepository.deleteAllByIdIn(cartIds);
+            System.out.println("삭제 완료!");
         }catch (Exception e){
+            e.printStackTrace();
             throw e;
         }
     }
