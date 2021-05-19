@@ -9,22 +9,12 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
 export default {
   name: 'TodayItem',
   props: {
-    todayItem: Object,
-  },
-  computed: {
-    ...mapState('mainStore', ['item', 'sumnailUrl']),
+    sumnailUrl: { type: String },
   },
   methods: {
-    ...mapActions('mainStore', ['FIND_DETAIL_PRODUCT', 'FETCH_FILE']),
-
-    getItem() {
-      // 상품 상세조회
-      this.FIND_DETAIL_PRODUCT_AND_FETCH_FILE(this.todayItem.id);
-    },
     moveItemDetail: function() {
       // 추후 Item Detail페이지 url을 입력
       this.$router.push({
@@ -32,9 +22,6 @@ export default {
         params: { id: this.item.category3Id, productid: this.item.id },
       });
     },
-  },
-  created() {
-    this.getItem();
   },
 };
 </script>
