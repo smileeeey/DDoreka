@@ -6,13 +6,14 @@ const onUnauthorized = () => {
   router.push('/login');
 };
 
-export const request = (DOMAIN, method, url, data = {}) => {
+export const request = (DOMAIN, method, url, data = {}, headers={}  ) => {
   console.log(DOMAIN + url);
   console.log(data);
   return axios({
     method,
     url: DOMAIN + url,
     data,
+    headers,
   })
     .then((result) => {
       return result;
