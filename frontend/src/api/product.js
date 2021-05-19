@@ -13,8 +13,16 @@ export const product = {
             category5Id: "201", detailInfo: "'dfdf&^%sdfs'", name: "'asdf'", storeId: 3}
     
     */
+  fetchDetailSellerOtherProduct(storeId) {
+    return request(productDomin, 'get', `/seller/latest10/${storeId}`);
+  },
+
+  fetchDetailProduct(productId) {
+    return request(productDomin, 'get', `/detailAll/${productId}`);
+  },
 
   fetchMainInfo() {
+    //메인페이지
     return request(productDomin, 'get', '/mainPage');
   },
 
