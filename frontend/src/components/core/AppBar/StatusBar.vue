@@ -79,7 +79,7 @@ export default {
     ...mapActions("accountStore", ["LOGOUT"]),
     logout() {
       this.SET_LOGOUT();
-      localStorage.removeItem("seller-eureka-authorization");
+      sessionStorage.removeItem("seller-eureka-authorization");
       if(this.$route.path !='/') this.$router.push({name : "Main"});
     },
     goLogin() {

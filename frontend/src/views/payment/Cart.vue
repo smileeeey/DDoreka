@@ -29,8 +29,6 @@
                 <p style="font-size: 1.75rem; margin-top: 1rem; margin-bottom: 0; font-weight: bold;">{{article[e1]}}</p>
               </v-col>
 
-
-
               <v-col cols="5" offset="3" style="padding-left: 0; padding-right: 0;">
                 <div>
                 <v-stepper style="margin-top: 0.25rem;" v-model="e1">
@@ -133,7 +131,6 @@
                 </v-list-item>
 
 
-
               </v-card>
               
               <v-divider></v-divider>
@@ -222,7 +219,6 @@ export default {
   },
   watch: {
     e1: function () {
-      console.log("ddd");
       console.log(this.wishlist)
       console.log(this.items)
       if (this.e1 == 3) {
@@ -264,14 +260,13 @@ export default {
       }
     }
   },
-  created: function () {
+  created() {
     let tmpitems = [];
     for (let i=0; i<this.wishlist.length; i++) {
       let cartId = this.wishlist[i].id
       let optionV = this.wishlist[i].optionId
 
       // 사용자 아이디 
-
       axios.get(`http://k4d104.p.ssafy.io:8081/product/detail/${this.wishlist[i].productId}`)
         .then(detailres => {
           let productName = detailres.data.data.name

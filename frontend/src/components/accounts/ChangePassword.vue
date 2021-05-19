@@ -67,7 +67,7 @@ export default {
   }),
   methods: {
     changepassword() {
-      const token = localStorage.getItem('eureka-authorization')
+      const token = sessionStorage.getItem('eureka-authorization')
       axios.put('http://k4d104.p.ssafy.io:8085/user/update', {
         email: this.email,
         pw: this.form.newpassword,

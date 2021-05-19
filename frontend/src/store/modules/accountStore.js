@@ -39,17 +39,16 @@ const accountStore = {
       state.wishlist = data;
     },
 
-    SET_UPDATE(state, data){
+    SET_UPDATE(state, data) {
       state.wishlist.push = data;
-    }
+    },
   },
   actions: {
     async LOGIN({ state, commit }, { email, password }) {
-      let loginData = await auth.login(email, password).catch((res) => {
-        console.log("dd,", res);
-      });
+      let loginData = await auth.login(email, password);
+      console.log(loginData);
       //error 처리 해줘라~
-      localStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
+      sessionStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
 
       setAuthInHeader(loginData.headers["eureka-authorization"]);
 
@@ -64,26 +63,26 @@ const accountStore = {
     },
 
     // 판매자 회원 가입
-    async SELLER_SIGNUP({}, { name, pw, email, phone, bank_company, bank_account }) {
+    async SELLER_SIGNUP({ commit }, { name, pw, email, phone, bank_company, bank_account }) {
       await seller.create(name, pw, email, phone, bank_company, bank_account);
       await auth.loginAdd(pw, "SELLER", email);
 
-      return;
+      return 0;
     },
 
     // 유저 회원가입
-    async USER_SIGNUP({}, { email, pw, name }) {
-      await user.create(email, pw, name);
+    async USER_SIGNUP({ commit }, { email, pw, name }) {
+      await user.signUp(email, pw, name);
       await auth.loginAdd(pw, "USER", email);
 
-      return;
+      return 0;
     },
 
     // 장바구니 추가
     async UPDATE_CART({ commit }, { userEmail, productId, optionId, quantity }) {
       let cartData = await cart.create(userEmail, productId, optionId, quantity);
       if (cartData.data.response == "error") return false;
-      
+
       commit("SET_CART", cartData.data.data);
       return true;
     },

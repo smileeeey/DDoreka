@@ -1,10 +1,12 @@
 import { product } from '../../api/product.js';
 import { order } from '../../api/order.js';
 import { file } from '../../api/file.js';
+import { cos } from '@tensorflow/tfjs';
 
 const mainStore = {
   namespaced: true,
   state: {
+    todayItemSumnailUrlList: [], //오늘의 상품 썸네일
     item: {},
     sFileIds: [],
     sumnailUrl: '',
@@ -47,6 +49,12 @@ const mainStore = {
     SET_KEYWORDS(state, keywords) {
       state.keywords = keywords;
     },
+    SET_TODAY_ITEM_LIST(state, todayItemList) {
+      //오늘의 상품
+      todayItemList.forEach((todayItem) => {
+        state.todayItemSumnailUrlList.push(`data:image/jpeg;base64,${todayItem.thumbnail}`);
+      });
+    },
   },
 
   actions: {
@@ -83,6 +91,12 @@ const mainStore = {
       let res = await product.fetchRecommendRealtimesearchword();
       commit('SET_KEYWORDS', res.data.data);
       return;
+    },
+
+    async FETCH_MAIN_INFO({ commit, dispatch, state }) {
+      //오늘의 상품
+      let res = await product.fetchMainInfo();
+      commit('SET_TODAY_ITEM_LIST', res.data['day-hot']);
     },
   },
 };
