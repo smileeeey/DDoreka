@@ -2,8 +2,8 @@
   <div>
     <h3 class="my-5">오늘의 상품 | <span style="font-size: 70%">우리가 오늘 추천하는 상품!</span></h3>
     <v-row>
-      <v-col v-for="(sumnailUrl, idx) in todayItemSumnailUrlList" :key="idx" class="d-flex child-flex" cols="4">
-        <TodayItem :sumnailUrl="sumnailUrl" />
+      <v-col v-for="(todayItem, idx) in todayItemsList" :key="idx" class="d-flex child-flex" cols="4">
+        <TodayItem :todayItem="todayItem" />
       </v-col>
     </v-row>
   </div>
@@ -18,7 +18,7 @@ export default {
     TodayItem,
   },
   computed: {
-    ...mapState('mainStore', ['todayItemSumnailUrlList']),
+    ...mapState('mainStore', ['todayItemsList']),
   },
 };
 </script>
