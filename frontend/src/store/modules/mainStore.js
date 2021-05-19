@@ -1,16 +1,16 @@
 import { product } from '../../api/product.js';
 import { order } from '../../api/order.js';
 import { file } from '../../api/file.js';
-import { cos } from '@tensorflow/tfjs';
 
 const mainStore = {
   namespaced: true,
   state: {
-    todayItemSumnailUrlList: [], //오늘의 상품 썸네일
+    todayItemsList: [], //오늘의 상품
+    hotItemsList: [], //요즘 뜨는 상품
+    steadySellerList: [], //스테디 셀러
     item: {},
     sFileIds: [],
     sumnailUrl: '',
-    todayItems: [], //todayItemList
     steadySellerProductIds: [],
     hotItemProductIds: [],
     categories: {},
@@ -51,9 +51,20 @@ const mainStore = {
     },
     SET_TODAY_ITEM_LIST(state, todayItemList) {
       //오늘의 상품
-      todayItemList.forEach((todayItem) => {
-        state.todayItemSumnailUrlList.push(`data:image/jpeg;base64,${todayItem.thumbnail}`);
-      });
+      state.todayItemsList = [];
+      state.todayItemsList = todayItemList;
+    },
+    SET_HOT_ITEM_LIST(state, hotItemsList) {
+      //요즘 뜨는 상품
+      console.log('요즘 뜨는 상품 ');
+      console.log(hotItemsList);
+      state.hotItemsList = [];
+      state.hotItemsList = hotItemsList;
+    },
+    SET_STEADY_SELLER_ITEM_LIST(state, steadySellerList) {
+      //스테디 셀러
+      state.steadySellerList = [];
+      state.steadySellerList = steadySellerList;
     },
   },
 
@@ -96,7 +107,12 @@ const mainStore = {
     async FETCH_MAIN_INFO({ commit, dispatch, state }) {
       //오늘의 상품
       let res = await product.fetchMainInfo();
+      console.log('MainInfo');
+      console.log(res);
+      console.log(res.data['month-hot']);
       commit('SET_TODAY_ITEM_LIST', res.data['day-hot']);
+      commit('SET_HOT_ITEM_LIST', res.data['week-hot']);
+      commit('SET_STEADY_SELLER_ITEM_LIST', res.data['month-hot']);
     },
   },
 };
