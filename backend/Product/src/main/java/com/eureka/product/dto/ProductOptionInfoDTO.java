@@ -15,4 +15,5 @@ public class ProductOptionInfoDTO {
     private String optionName;
     private int price;
     private String thumbnail;
+    private int storeId;
 }

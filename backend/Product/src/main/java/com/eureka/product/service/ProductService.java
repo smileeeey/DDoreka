@@ -493,6 +493,8 @@ public class ProductService {
             int price = productoption.getDiscountPrice();
             int productId = productIds.get(i);
             int optionId = optionIds.get(i);
+            Product product = productRepository.findTop1ById(productId);
+            int sellerId = product.getStoreId();
 
             ProductOptionInfoDTO dto = ProductOptionInfoDTO.builder()
                                     .productId(productId)
@@ -501,6 +503,7 @@ public class ProductService {
                                     .productName(productName)
                                     .optionName(optionName)
                                     .price(price)
+                                    .storeId(sellerId)
                                     .build();
             poInfo.add(dto);
         }
