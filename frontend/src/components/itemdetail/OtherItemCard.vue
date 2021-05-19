@@ -23,15 +23,23 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'OtherItemCard',
   props: {
     detailProductSellerOtherProduct: Object,
   },
   methods: {
+    ...mapActions('mainStore', ['FETCH_DETAIL_PRODUCT']),
     moveItemDetail: function() {
       // 추후 Item Detail페이지 url을 입력
-      this.$router.push({ name: 'ItemDetail', params: { id: this.item.category3Id, productid: this.item.id } });
+      this.FETCH_DETAIL_PRODUCT(this.detailProductSellerOtherProduct.productId);
+      // console.log(this.$route.path.indexOf('detail'));
+      // if (this.$route.path.indexOf('detail') != -1) {
+      //   window.location.reload();
+      //   return;
+      // }
+      this.$router.push({ name: 'ItemDetail', params: { id: 1, productid: this.detailProductSellerOtherProduct.productId } });
     },
   },
 };
