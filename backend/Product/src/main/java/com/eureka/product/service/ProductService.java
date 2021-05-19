@@ -278,11 +278,12 @@ public class ProductService {
     }
 
 
-    public Map<String,List<Product>> getLatestProduct(List<Category> category1) {
-        Map<String,List<Product>> map = new HashMap<>();
+    public Map<String,List<ProductSimpleDTO>> getLatestProduct(List<Category> category1) {
+        Map<String,List<ProductSimpleDTO>> map = new HashMap<>();
 
         for (Category category : category1) {
-            map.put(category.getId(),productRepository.findTop23ByCategory1IdOrderByRegisterDateDesc(category.getId()));
+
+            map.put(category.getId(),findProductSimpleByProduct(productRepository.findTop23ByCategory1IdOrderByRegisterDateDesc(category.getId())));
         }
 
         return map;

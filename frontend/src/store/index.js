@@ -100,5 +100,5 @@ export default new Vuex.Store({
     sellStore,
     mainStore,
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({ paths: ['accountStore'] })],
 });

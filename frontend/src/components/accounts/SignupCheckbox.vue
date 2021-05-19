@@ -48,7 +48,6 @@
       >
         동의하고 가입하기
       </v-btn>
-      <v-btn @click="signup">동의하기</v-btn>
     </v-col>
   </div>
 </template>
@@ -88,7 +87,7 @@ export default {
     form: Object,
   },
   methods: {
-    ...mapActions("accountStore", ["SELLER_SIGNUP", " USER_SIGNUP"]),
+    ...mapActions("accountStore", ["SELLER_SIGNUP", "USER_SIGNUP"]),
     checkedAll() {
       for (let i in this.boxes) {
         this.boxes[i].checkbox = this.boxAll;
@@ -129,6 +128,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

@@ -5,15 +5,17 @@ import { file } from '../../api/file.js';
 const mainStore = {
   namespaced: true,
   state: {
+    todayItemsList: [], //오늘의 상품
+    hotItemsList: [], //요즘 뜨는 상품
+    steadySellerList: [], //스테디 셀러
+    categories: {}, //카테고리별 추천 상품
+    categoryKeys: [], //카테고리별 추천 상품
+    keywords: {}, //일주일 내 다수 검색어
     item: {},
     sFileIds: [],
     sumnailUrl: '',
-    todayItems: [], //todayItemList
     steadySellerProductIds: [],
     hotItemProductIds: [],
-    categories: {},
-    categoryKeys: [],
-    keywords: {},
   },
   getters: {},
   mutations: {
@@ -46,6 +48,32 @@ const mainStore = {
     },
     SET_KEYWORDS(state, keywords) {
       state.keywords = keywords;
+    },
+    SET_TODAY_ITEM_LIST(state, todayItemList) {
+      //오늘의 상품
+      state.todayItemsList = [];
+      state.todayItemsList = todayItemList;
+    },
+    SET_HOT_ITEM_LIST(state, hotItemsList) {
+      //요즘 뜨는 상품
+      console.log('요즘 뜨는 상품 ');
+      console.log(hotItemsList);
+      state.hotItemsList = [];
+      state.hotItemsList = hotItemsList;
+    },
+    SET_STEADY_SELLER_ITEM_LIST(state, steadySellerList) {
+      //스테디 셀러
+      state.steadySellerList = [];
+      state.steadySellerList = steadySellerList;
+    },
+    SET_CATEGORY_KEYWORD_ITEM_LIST(state, keywords) {
+      //카테고리 검색어
+      state.keywords = keywords;
+    },
+    SET_CATEGORY_RECOMMEND_ITEM_LIST(state, recommendItem) {
+      //카데고리 추천 상품
+      state.categories = recommendItem;
+      state.categoryKeys = Object.keys(state.categories).sort();
     },
   },
 
@@ -83,6 +111,19 @@ const mainStore = {
       let res = await product.fetchRecommendRealtimesearchword();
       commit('SET_KEYWORDS', res.data.data);
       return;
+    },
+
+    async FETCH_MAIN_INFO({ commit, dispatch, state }) {
+      //오늘의 상품
+      let res = await product.fetchMainInfo();
+      console.log('MainInfo');
+      console.log(res);
+      console.log(res.data['month-hot']);
+      commit('SET_TODAY_ITEM_LIST', res.data['day-hot']);
+      commit('SET_HOT_ITEM_LIST', res.data['week-hot']);
+      commit('SET_STEADY_SELLER_ITEM_LIST', res.data['month-hot']);
+      commit('SET_CATEGORY_KEYWORD_ITEM_LIST', res.data['category-keyword']);
+      commit('SET_CATEGORY_RECOMMEND_ITEM_LIST', res.data['category-recommend']);
     },
   },
 };

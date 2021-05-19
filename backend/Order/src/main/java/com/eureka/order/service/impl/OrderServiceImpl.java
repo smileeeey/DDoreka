@@ -4,10 +4,7 @@ import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
 import com.eureka.order.Repository.OrderDetailRepositoty;
 import com.eureka.order.Repository.OrderRepositoty;
-import com.eureka.order.dto.OptionPriceDTO;
-import com.eureka.order.dto.Order;
-import com.eureka.order.dto.OrderDTO;
-import com.eureka.order.dto.ShoppingDTO;
+import com.eureka.order.dto.*;
 import com.eureka.order.service.OrderService;
 import com.eureka.order.service.RestTemplateService;
 import com.eureka.order.util.OrderStatus;
@@ -55,6 +52,117 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderEntity> getOrdersByUserId(String userId) {
         return orderRepositoty.findAllByUserId(userId);
+    }
+
+    private List<ProductOptionInfoDTO> getOptionNamePrice(List<Integer> productIds, List<Integer> optionIds){
+        Gson gson = new Gson();
+
+        String reqProducts = gson.toJson(productIds);
+        String reqOptions = gson.toJson(optionIds);
+
+        reqProducts = reqProducts.substring(1, reqProducts.length()-1);
+        reqOptions = reqOptions.substring(1, reqOptions.length()-1);
+
+        String getProductURL = "http://k4d104.p.ssafy.io:8081/product/name";
+
+        HttpHeaders productHttpHeaders = new HttpHeaders();
+        productHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        productHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        productHttpHeaders.set("product-ids", reqProducts);
+        productHttpHeaders.set("option-ids", reqOptions);
+
+        ResponseEntity<?> responseEntityProduct = restTemplateProduct.get(getProductURL, productHttpHeaders);
+
+        System.out.println("rest 갔다옴!");
+        return (List<ProductOptionInfoDTO>)responseEntityProduct.getBody();
+    }
+
+    @Override
+    public List<UserOrderListDTO> getAllOrdersByUserId(String userId) {
+
+        //리턴할 result
+        List<UserOrderListDTO> result = new ArrayList<>();
+
+        //userId의 주문 정보 가져오기
+        List<OrderEntity> orderEntities = orderRepositoty.findAllByUserId(userId);
+
+        //주문 정보가 없으면 null 반환
+        if(orderEntities.isEmpty() || orderEntities == null){
+            System.out.println("해당 유저 아이디에 해당하는 주문이 없네용!");
+            return null;
+        }
+
+        //해당 주문 정보의 productId와 optionId를 list에 저장
+        List<Integer> productIds = new ArrayList<>();
+        List<Integer> optionIds = new ArrayList<>();
+
+        for (int i = 0; i < orderEntities.size(); i++) {
+            productIds.add(Integer.parseInt(orderEntities.get(i).getProductId()));
+            optionIds.add(Integer.parseInt(orderEntities.get(i).getOptionId()));
+        }
+
+        //product 서버에서 product와 option에 대한 정보를 받아온다.
+        List<ProductOptionInfoDTO> responseProducts = getOptionNamePrice(productIds,optionIds);
+
+        if( responseProducts == null || responseProducts.isEmpty() ){
+            System.out.println("product 서버 다녀왔는데 있어야 할 값이 없다..!");
+            return null;
+        }
+
+        Map<Integer,ProductOptionInfoDTO> optionMaps = new HashMap<>();
+
+        //Map
+        int getFileId;
+        for (int i = 0 ; i < responseProducts.size() ; ++i){
+            Map<String,Object> optionMap = (Map<String,Object>)responseProducts.get(i);
+
+            ProductOptionInfoDTO productOptionInfoDTO = ProductOptionInfoDTO.builder()
+                    .productId((Integer)optionMap.get("productId"))
+                    .productName((String)optionMap.get("productName"))
+                    .optionId((Integer)optionMap.get("optionId"))
+                    .optionName((String)optionMap.get("optionName"))
+                    .price((Integer)optionMap.get("price"))
+                    .thumbnail((String)optionMap.get("thumbnail"))
+                    .build();
+
+//            System.out.println(productOptionInfoDTO.toString());
+            optionMaps.put((Integer)optionMap.get("optionId"),productOptionInfoDTO);
+        }
+
+
+        for (int i = 0; i < orderEntities.size(); i++) {
+
+            int optionId = Integer.parseInt(orderEntities.get(i).getOptionId());
+            ProductOptionInfoDTO productOptionInfoDTO = optionMaps.get(optionId);
+
+            int productId = productOptionInfoDTO.getProductId();
+
+            //productId를 가지고 product 서버 가서 가지고온 데이터 넣기
+            String productName = productOptionInfoDTO.getProductName();
+            //optionId를 가지고 product 서버 가서 데이터 가지고오기!
+            String optionName = productOptionInfoDTO.getOptionName();
+            int price = productOptionInfoDTO.getPrice() * Integer.parseInt(orderEntities.get(i).getQuantity());
+
+            //productId를 가지고 썸네일 가지고오는 코드 실행하기
+            String thumbnail = productOptionInfoDTO.getThumbnail();
+
+            UserOrderListDTO userOrderListDTO  = UserOrderListDTO.builder()
+                    .orderId(orderEntities.get(i).getId())
+                    .userId(orderEntities.get(i).getUserId())
+                    .optionId(optionId)
+                    .quantity(orderEntities.get(i).getQuantity())
+                    .datetime(orderEntities.get(i).getDatetime())
+                    .productId(productId)
+                    .productName(productName)
+                    .optionId(optionId)
+                    .optionName(optionName)
+                    .price(price)
+                    .thumbnail(thumbnail)
+                    .build();
+            result.add(userOrderListDTO);
+        }
+
+        return result;
     }
 
     /**

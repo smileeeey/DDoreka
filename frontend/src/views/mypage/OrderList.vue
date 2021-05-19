@@ -30,6 +30,7 @@ export default {
       .get(`http://k4d104.p.ssafy.io:8084/order/userid/${this.userData.email}/all`)
       .then((res) => {
         let array = res.data.data;
+        console.log(res);
         for (let j = 0; j < array.length; j++) {
           let date = array[j].datetime;
           var y = date.substr(0, 4);

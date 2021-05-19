@@ -14,12 +14,12 @@ export default {
   data: () => ({
     //
   }),
-  created: function () {
-    // const token = localStorage.getItem('seller-eureka-authorization')
+  created(){
+    // const token = sessionStorage.getItem('seller-eureka-authorization')
   },
   beforeDestroy() {
-    localStorage.removeItem("seller-eureka-authorization");
-    localStorage.removeItem("eureka-authorization");
+    sessionStorage.removeItem("seller-eureka-authorization");
+    sessionStorage.removeItem("eureka-authorization");
   },
 };
 </script>

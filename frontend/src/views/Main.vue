@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 import TopCarousels from '@/components/main/TopCarousels.vue';
 import TodayItemsList from '@/components/main/TodayItemsList.vue';
@@ -58,79 +58,13 @@ export default {
     CategoryRecommend,
   },
   created() {
-    // let tmp = this.userId
-    // this.fetchMessages();
-    // let chk = true;
-    // db.collection('user').get().then(function(querySnapshot) {
-    //   querySnapshot.forEach(function(doc){
-    //     if(doc.data().name == tmp) {
-    //       chk = false
-    //     }
-    //   })
-    // });
-    // console.log(chk)
-    // if(chk){
-    //   db.collection('user').add({
-    //     name: this.userId,
-    //   })
-    // }
+    this.fetchMainInfo();
   },
   methods: {
-    // deleteCollection() {
-    //   db.collection(this.userId).orderBy('createdAt').onSnapshot((querySnapshot)=>{
-    //       querySnapshot.forEach(doc =>{
-    //         db.collection(this.userId).doc(doc.id).delete()
-    //       })
-    //   })
-    // },
-    // fetchMessages(){
-    //   db.collection(this.userId).orderBy('createdAt').onSnapshot((querySnapshot)=>{
-    //       let allMessages = [];
-    //       querySnapshot.forEach(doc =>{
-    //         allMessages.push(doc.data())
-    //       })
-    //       this.messageList = allMessages;
-    //   })
-    // },
-    // sendMessage (text) {
-    //   /*
-    //   if (text.length > 0) {
-    //     this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-    //     this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
-    //   }
-    //   */
-    // },
-    // onMessageWasSent (message) {
-    //   // called when the user sends a message
-    //   db.collection(this.userId).add({
-    //     author:'me',
-    //     createdAt: new Date(),
-    //     type:'text',
-    //     data:message.data
-    //     })
-    //   //this.messageList = [ ...this.messageList, message ]
-    // },
-    // openChat () {
-    //   // called when the user clicks on the fab button to open the chat
-    //   this.isChatOpen = true
-    //   this.newMessagesCount = 0
-    // },
-    // closeChat () {
-    //   // called when the user clicks on the botton to close the chat
-    //   this.isChatOpen = false
-    // },
-    // handleScrollToTop () {
-    //   // called when the user scrolls message list to top
-    //   // leverage pagination for loading another page of messages
-    // },
-    // handleOnType () {
-    //   console.log('Emit typing event')
-    // },
-    // editMessage(message){
-    //   const m = this.messageList.find(m=>m.id === message.id);
-    //   m.isEdited = true;
-    //   m.data.text = message.data.text;
-    // },
+    ...mapActions('mainStore', ['FETCH_MAIN_INFO']),
+    fetchMainInfo() {
+      this.FETCH_MAIN_INFO();
+    },
   },
   computed: {
     ...mapState(['login', 'userId']),

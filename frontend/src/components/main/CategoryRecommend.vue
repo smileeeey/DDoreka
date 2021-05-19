@@ -17,18 +17,14 @@ export default {
     ...mapState('mainStore', ['categories', 'categoryKeys', 'keywords']),
   },
   methods: {
-    ...mapActions('mainStore', ['FETCH_RECOMMEND_LATEST_PRODUCT', 'FETCH_RECOMMEND_REALTIME_SEARCH_WORD']),
+    ...mapActions('mainStore', ['FETCH_RECOMMEND_LATEST_PRODUCT']),
 
-    getCategories() {
-      this.FETCH_RECOMMEND_LATEST_PRODUCT();
-    },
-    getKeywords() {
-      this.FETCH_RECOMMEND_REALTIME_SEARCH_WORD();
-    },
+    // getCategories() {
+    // this.FETCH_RECOMMEND_LATEST_PRODUCT();
+    // },
   },
   created() {
-    this.getCategories();
-    this.getKeywords();
+    // this.getCategories();
   },
 };
 </script>
