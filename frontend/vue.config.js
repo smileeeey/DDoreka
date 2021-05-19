@@ -9,13 +9,6 @@ module.exports = {
     hot: true, // 바뀐 모듈만 리로드
     disableHostCheck: true,
     // 프록시 설정
-    proxy: {
-      // 프록시 요청을 보낼 api의 시작 부분
-      '/auth': {
-        // 프록시 요청을 보낼 서버의 주소
-        target: 'http://k4d104.p.ssafy.io:9999',
-      },
-    },
   },
   css: {
     loaderOptions: {

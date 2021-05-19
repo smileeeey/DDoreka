@@ -45,10 +45,14 @@ const accountStore = {
   },
   actions: {
     async LOGIN({ state, commit }, { email, password }) {
-      let loginData = await auth.login(email, password);
-      console.log(loginData);
+      let loginData = await auth.login(email, password)
       //error 처리 해줘라~
-      sessionStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
+      if(loginData.status === undefined) {
+        alert("아이디 비밀번호가 틀립니다.");
+        return false;
+      }
+
+      localStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
 
       setAuthInHeader(loginData.headers["eureka-authorization"]);
 
@@ -65,7 +69,8 @@ const accountStore = {
     // 판매자 회원 가입
     async SELLER_SIGNUP({ commit }, { name, pw, email, phone, bank_company, bank_account }) {
       await seller.create(name, pw, email, phone, bank_company, bank_account);
-      await auth.loginAdd(pw, "SELLER", email);
+      let a = await auth.loginAdd(pw, "SELLER", email);
+      console.log("dd");
 
       return 0;
     },
