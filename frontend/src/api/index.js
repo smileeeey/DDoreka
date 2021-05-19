@@ -20,9 +20,5 @@ export const request = (DOMAIN, method, url, data = {}, headers={}  ) => {
     })
     .catch((err) => {
       return err;
-      // console.logs(err);
-      // const status = err.response.status;
-      // if (status === UNAUTHORIZED) return onUnauthorized();
-      //  throw Error(result)
     });
 };

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
-import accountStore from "./modules/accountStore";
+import accountStore from './modules/accountStore';
 import commonStore from './modules/commonStore';
 import mypageStore from './modules/mypageStore';
 import paymentStore from './modules/paymentStore';

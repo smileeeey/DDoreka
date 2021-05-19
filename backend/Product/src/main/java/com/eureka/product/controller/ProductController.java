@@ -7,6 +7,7 @@ import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -262,6 +263,23 @@ public class ProductController {
         System.out.println("!1");
         try {
             return service.getPriceOptionInfo(productIds, optionIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @ApiOperation(value="product id, option id로 주문 내역 정보 제공 (이름과 가격 제공)", notes = "이름과 가격 제공", httpMethod = "GET")
+    @GetMapping(value="/name/info")
+    //@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="") String param
+    public List<ProductOptionInfoDTO> getProductInfoForFront(@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="productIds") String productIds, @RequestHeader(value="optionIds") String optionIds) {
+
+        Gson gson = new Gson();
+        List<Integer> productIdList = gson.fromJson(productIds, new TypeToken<List<Integer>>(){}.getType());
+        List<Integer> optionIdList = gson.fromJson(optionIds, new TypeToken<List<Integer>>(){}.getType());
+        System.out.println("!1");
+        try {
+            return service.getPriceOptionInfo(productIdList, optionIdList);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

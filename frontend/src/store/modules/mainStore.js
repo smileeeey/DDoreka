@@ -5,15 +5,22 @@ import { file } from '../../api/file.js';
 const mainStore = {
   namespaced: true,
   state: {
+    todayItemsList: [], //오늘의 상품
+    hotItemsList: [], //요즘 뜨는 상품
+    steadySellerList: [], //스테디 셀러
+    categories: {}, //카테고리별 추천 상품
+    categoryKeys: [], //카테고리별 추천 상품
+    keywords: {}, //일주일 내 다수 검색어
+    detailThumbnailImages: [], //디테일 페이지 썸네일
+    detailMainImages: [], //디테일 페이지 메인 이미지
+    detailProductInfo: {}, //디테일 페이지 상품정보
+    detailProductStoreId: '', //디테일 페이지 판매자 번호
+    detailProductSellerOtherProducts: [],
     item: {},
     sFileIds: [],
     sumnailUrl: '',
-    todayItems: [], //todayItemList
     steadySellerProductIds: [],
     hotItemProductIds: [],
-    categories: {},
-    categoryKeys: [],
-    keywords: {},
   },
   getters: {},
   mutations: {
@@ -46,6 +53,52 @@ const mainStore = {
     },
     SET_KEYWORDS(state, keywords) {
       state.keywords = keywords;
+    },
+    SET_TODAY_ITEM_LIST(state, todayItemList) {
+      //오늘의 상품
+      state.todayItemsList = [];
+      state.todayItemsList = todayItemList;
+    },
+    SET_HOT_ITEM_LIST(state, hotItemsList) {
+      //요즘 뜨는 상품
+      console.log('요즘 뜨는 상품 ');
+      console.log(hotItemsList);
+      state.hotItemsList = [];
+      state.hotItemsList = hotItemsList;
+    },
+    SET_STEADY_SELLER_ITEM_LIST(state, steadySellerList) {
+      //스테디 셀러
+      state.steadySellerList = [];
+      state.steadySellerList = steadySellerList;
+    },
+    SET_CATEGORY_KEYWORD_ITEM_LIST(state, keywords) {
+      //카테고리 검색어
+      state.keywords = keywords;
+    },
+    SET_CATEGORY_RECOMMEND_ITEM_LIST(state, recommendItem) {
+      //카데고리 추천 상품
+      state.categories = recommendItem;
+      state.categoryKeys = Object.keys(state.categories).sort();
+    },
+    SET_DETAIL_TOP_INFO_IMAGE_LIST(state, { imagesTypeList, imagesUrl }) {
+      //이미지 타입 골라내기
+      state.detailThumbnailImages = [];
+      state.detailMainImages = [];
+      imagesTypeList.forEach((imageType, idx) => {
+        if (imageType.imageType == 'S') state.detailThumbnailImages.push(`data:image/jpeg;base64,${imagesUrl[idx].imageBytes}`);
+        else state.detailMainImages.push(`data:image/jpeg;base64,${imagesUrl[idx].imageBytes}`);
+      });
+    },
+    SET_DETAIL_PRODUCT_INFO(state, detailProductInfo) {
+      //디테일 페이지 상품정보 입력
+      state.detailProductStoreId = detailProductInfo.storeId;
+      state.detailProductInfo = detailProductInfo;
+    },
+
+    SET_DETAIL_PRODUCT_SELLER_OTHER_PRODUCTS(state, detailProductSellerOtherProducts) {
+      //디테일 판매자의다른 상품
+      console.log('판매자다른상품뮤테이션');
+      state.detailProductSellerOtherProducts = detailProductSellerOtherProducts;
     },
   },
 
@@ -83,6 +136,34 @@ const mainStore = {
       let res = await product.fetchRecommendRealtimesearchword();
       commit('SET_KEYWORDS', res.data.data);
       return;
+    },
+
+    async FETCH_MAIN_INFO({ commit, dispatch, state }) {
+      //오늘의 상품
+      let res = await product.fetchMainInfo();
+      commit('SET_TODAY_ITEM_LIST', res.data['day-hot']);
+      commit('SET_HOT_ITEM_LIST', res.data['week-hot']);
+      commit('SET_STEADY_SELLER_ITEM_LIST', res.data['month-hot']);
+      commit('SET_CATEGORY_KEYWORD_ITEM_LIST', res.data['category-keyword']);
+      commit('SET_CATEGORY_RECOMMEND_ITEM_LIST', res.data['category-recommend']);
+    },
+
+    async FETCH_DETAIL_PRODUCT({ commit, dispatch, state }, productId) {
+      //상품 디테일
+      let res = await product.fetchDetailProduct(productId);
+      // console.log('상품 디테일');
+      // console.log(res);
+      // console.log(res.data);
+      // console.log(res.data.images);
+      commit('SET_DETAIL_TOP_INFO_IMAGE_LIST', { imagesTypeList: res.data.product.images, imagesUrl: res.data.images });
+      commit('SET_DETAIL_PRODUCT_INFO', res.data.product);
+      dispatch('FETCH_DETAIL_SELLER_OTHER_PRODUCT', state.detailProductStoreId);
+    },
+    async FETCH_DETAIL_SELLER_OTHER_PRODUCT({ commit, dispatch, state }, storeId) {
+      let res = await product.fetchDetailSellerOtherProduct(storeId);
+      console.log('판매자의 다른상품');
+      console.log(res);
+      commit('SET_DETAIL_PRODUCT_SELLER_OTHER_PRODUCTS', res.data);
     },
   },
 };
