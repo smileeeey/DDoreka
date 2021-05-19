@@ -17,17 +17,16 @@
     <!-- 위 face app -->
 
     <!-- 여기부터 ItemDetial -->
-    <TopInfo v-if="Object.keys(item).length && sFiles.length" :item="item" :sFiles="sFiles" />
+    <TopInfo />
     <OtherItems v-if="storeId != ''" :storeId="storeId" />
-    <ProductDetail v-if="Object.keys(item).length && mFiles.length" :item="item" :mFiles="mFiles" />
-    <Reviews v-if="Object.keys(item).length" :item="item" />
-    <!-- <ProductInquiry v-if="Object.keys(item).length" :item="item" /> -->
+    <ProductDetail />
     <Guidance />
+    <Reviews v-if="Object.keys(item).length" :item="item" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 // import { mapActions } from 'vuex'
 import axios from 'axios';
 import TopInfo from '@/components/itemdetail/TopInfo.vue';
@@ -95,7 +94,11 @@ export default {
   //
   //
   methods: {
+    ...mapActions('mainStore', ['FETCH_DETAIL_PRODUCT']),
     getItem() {
+      console.log('프로덕트아이디!!!');
+      console.log(this.productId);
+      this.FETCH_DETAIL_PRODUCT(this.productId);
       //프로덕트 아이디 보내서  -> 하나의 프로덕트정보 가지고옴
       axios
         .get(`http://k4d104.p.ssafy.io:8081/product/detail/${this.productId}`)
@@ -239,10 +242,17 @@ export default {
   //
   created() {
     this.productId = this.$route.params.productid; // 시작하면서 라우터에서 아이디 뽑아오고
+    console.log('프로덕트 아이디!!!');
+    console.log(this.productId);
     this.getItem();
   },
   computed: {
     ...mapState(['login', 'userId']),
+  },
+  watch: {
+    productId: function() {
+      console.log(this.productId);
+    },
   },
   beforeDestroy() {
     if (this.timer >= 5 && this.timer <= 60) this.stopAnalysis();

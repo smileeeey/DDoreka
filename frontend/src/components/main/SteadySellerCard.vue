@@ -31,7 +31,7 @@ export default {
   methods: {
     moveItemDetail: function() {
       // 추후 Item Detail페이지 url을 입력
-      this.$router.push({ name: 'ItemDetail', params: { id: 1, productid: this.steadySeller.prodicutId } });
+      this.$router.push({ name: 'ItemDetail', params: { id: 1, productid: this.steadySeller.productId } });
     },
   },
 };
