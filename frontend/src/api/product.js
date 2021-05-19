@@ -14,6 +14,10 @@ export const product = {
     
     */
 
+  fetchMainInfo() {
+    return request(productDomin, 'get', '/mainPage');
+  },
+
   create(product, option, image) {
     return request(productDomin, 'post', '/add', { product, option, image });
   },
