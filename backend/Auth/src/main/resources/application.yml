@@ -1,5 +1,5 @@
 server:
-  port: 8089
+  port: 9999
 eureka:
   client:
     register-with-eureka: true
