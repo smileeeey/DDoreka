@@ -171,7 +171,7 @@ public class OrderFromUserController {
             orderService.updateOrder(orderDetailEntity);
             response= new Response("success", "변경성공", orderService.getOrdersByUserId(userId)) ;
         } catch (Exception e) {
-            response= new Response("error", e.getMessage(), null) ;
+            response= new  Response("error", e.getMessage(), null) ;
         }
         return response;
     }
