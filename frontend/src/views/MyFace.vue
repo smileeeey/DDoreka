@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1" @click:row="handleClick">
+        <v-data-table :headers="headers" :items="tableItems" :items-per-page="5" class="elevation-1" @click:row="handleClick">
           <template v-slot:item.happyscore="{ item }"> {{ item.happyscore }}% </template>
           <template v-slot:item.surprisescore="{ item }"> {{ item.surprisescore }}% </template>
           <template v-slot:item.face.createdAt="{ item }">
@@ -44,7 +44,6 @@
 import DoughnutChart from '../components/seller/chart/DoughnutChart.js';
 
 import { mapActions, mapState } from 'vuex';
-import axios from 'axios';
 export default {
   name: 'MyFace',
   components: {
@@ -70,40 +69,10 @@ export default {
   },
   computed: {
     ...mapState('accountStore', ['userData']),
+    ...mapState('mypageStore', ['faces', 'products','tableItems']),
   },
   created() {
     this.start();
-    let items = [];
-    axios.get(`http://k4d104.p.ssafy.io:8088/face/getAllByUser/${this.userData.userId}`).then((res) => {
-      res.data.forEach((item) => {
-        axios.get(`http://k4d104.p.ssafy.io:8081/product/detail/${item.product}`).then((pres) => {
-          axios.get(`http://k4d104.p.ssafy.io:8082/file/fileServe/${pres.data.data.images[0].fileId}`).then((ires) => {
-            let array = [item.neutral, item.happy, item.sad, item.angry, item.fearful, item.disgusted, item.surprised];
-            let sumscore = array.reduce(function(a, b) {
-              return a + b;
-            });
-            items.push({
-              img: ires.data.data.imageBytes,
-              product: pres.data.data,
-              face: item,
-              happyscore: Math.round((item.happy / sumscore).toFixed(2) * 100),
-              surprisescore: Math.round((item.surprised / sumscore).toFixed(2) * 100),
-              doughnutChartdata: {
-                labels: ['중립', '행복', '슬픔', '분노', '두려움', '역겨움', '놀람'],
-                datasets: [
-                  {
-                    label: '표정',
-                    backgroundColor: ['yellow', 'green', 'pink', 'red', 'blue', 'black', 'purple'],
-                    data: array,
-                  },
-                ],
-              },
-            });
-          });
-        });
-      });
-      this.items = items;
-    });
   },
   methods: {
     ...mapActions('mypageStore', ['FETCH_EMOTION']),
@@ -111,17 +80,17 @@ export default {
       console.log('start');
       this.FETCH_EMOTION(this.userData.userId);
     },
-    handleClick: function(value) {
+    handleClick(value) {
       this.selectdata = null;
       this.selectdata = value;
       this.componentKey += 1;
     },
-    gotoDetailpage: function() {
+    gotoDetailpage() {
       let routeData = this.$router.resolve({
         name: 'ItemDetail',
         params: {
           id: this.selectdata.product.category3Id,
-          productid: this.selectdata.product.id,
+          productid: this.selectdata.product.productId,
         },
       });
       window.open(routeData.href, '_blank');

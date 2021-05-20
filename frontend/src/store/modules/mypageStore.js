@@ -22,6 +22,11 @@ const mypageStore = {
 
     doneList: [],
     reFundList: [],
+
+    faces: [],
+    products: [],
+
+    tableItems: [],
   },
   getters: {},
   mutations: {
@@ -42,8 +47,14 @@ const mypageStore = {
       state.reFundList = data;
     },
 
-    SET_ORDER_LIST(state, data) {
-      state.orderList = data;
+    SET_TABLE_ITEMS(state, data) {
+      state.tableItems = data;
+    },
+    SET_FACES(state, data) {
+      state.faces = data;
+    },
+    SET_PRODUCTS(state, data) {
+      state.products = data;
     },
   },
   actions: {
@@ -75,7 +86,40 @@ const mypageStore = {
     async FETCH_EMOTION({ commit }, userId) {
       let res = await face.fetchEmotion(userId);
       console.log("겟 이모션");
-      console.log(res);
+
+      let faces = res.data.faces;
+      let products = res.data.products;
+
+      let tableItems = [];
+
+      for (let i = 0; i < faces.length; i++) {
+        let array = [faces[i].neutral, faces[i].happy, faces[i].sad, faces[i].angry, faces[i].fearful, faces[i].disgusted, faces[i].surprised];
+        let sumscore = array.reduce(function(a, b) {
+          return a + b;
+        });
+
+        tableItems.push({
+          img: products[i].thumbnail,
+          product: products[i],
+          face: faces[i],
+          happyscore: Math.round((faces[i].happy / sumscore).toFixed(2) * 100),
+          surprisescore: Math.round((faces[i].surprised / sumscore).toFixed(2) * 100),
+          doughnutChartdata: {
+            labels: ["중립", "행복", "슬픔", "분노", "두려움", "역겨움", "놀람"],
+            datasets: [
+              {
+                label: "표정",
+                backgroundColor: ["yellow", "green", "pink", "red", "blue", "black", "purple"],
+                data: array,
+              },
+            ],
+          },
+        });
+      }
+
+      commit("SET_FACES", res.data.faces);
+      commit("SET_PRODUCTS", res.data.products);
+      commit("SET_TABLE_ITEMS", tableItems);
     },
   },
 };
