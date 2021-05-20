@@ -6,6 +6,7 @@ import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/order")
 @CrossOrigin
+@AllArgsConstructor
 public class OrderFromSellerController {
 
     /**
      * OrderService Bean created by Spring Boot constructor injection
      */
-    private OrderService orderService;
     @Autowired
-    public OrderFromSellerController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+    private OrderService orderService;
+//    @Autowired
+//    public OrderFromSellerController(OrderService orderService) {
+//        this.orderService = orderService;
+//    }
 
     /**
      * get order information by seller id
@@ -62,6 +65,7 @@ public class OrderFromSellerController {
         try {
             response= new Response("success", "조회성공", orderService.getOrdersBySellerIdWithUnchecked(sellerid)) ;
         } catch (Exception e) {
+            e.printStackTrace();
             response= new Response("error", e.getMessage(), null) ;
         }
         return response;
