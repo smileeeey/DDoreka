@@ -411,7 +411,6 @@ public class ProductService {
 
         List<Category> category1 = categoryService.getCategories1();
 
-
         result.put("day-hot",dayHots);
         result.put("week-hot",weekHots);
         result.put("month-hot",monthHots);

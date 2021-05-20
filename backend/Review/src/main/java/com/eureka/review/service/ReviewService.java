@@ -269,7 +269,7 @@ public class ReviewService {
             }
         }
 
-        //필요한 이미지 정보 모두 가져왔어!
+        //필요한 이미지 정보 모두 가져왔어!1
         Map<Integer,ImageDTO> images = getFilesFromFileServer(fileIds);
 
         List<ImageDTO> curImageList;

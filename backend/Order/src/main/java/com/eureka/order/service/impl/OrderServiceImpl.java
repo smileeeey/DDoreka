@@ -39,7 +39,9 @@ public class OrderServiceImpl implements OrderService {
      * OrderRepository Bean created by Spring Boot constructor injection
      * OrderDetailRepository Bean created by Spring Boot constructor injection
      */
+    @Autowired
     private OrderRepositoty orderRepositoty;
+    @Autowired
     private OrderDetailRepositoty orderDetailRepositoty;
     private RestTemplateService<?> restTemplateProduct;
 
@@ -296,7 +298,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetailEntity> orderDetailEntityList = orderDetailRepositoty.findAllByCheckDatetime(null);
         List<OrderEntity> orderEntityList = new ArrayList<>();
         for (OrderDetailEntity o : orderDetailEntityList) {
-            if (o.getOrderEntity().getSellerId().equals(sellerId)) orderEntityList.add(o.getOrderEntity());
+            orderEntityList.add(o.getOrderEntity());
         }
         return orderEntityList;
     }
