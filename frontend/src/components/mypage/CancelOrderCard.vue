@@ -4,13 +4,13 @@
     max-width="100%"
   >
     <v-card-title class="pb-0" style="font-weight: bold;">
-      {{item.date|moment('YYYY년 MM월 DD일')}} 주문 취소
+      {{item.datetime|moment('YYYY년 MM월 DD일')}} 주문 취소
     </v-card-title>
 
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="`data:image/jpeg;base64,${item.img}`"
+          :src="`data:image/jpeg;base64,${item.thumbnail}`"
           max-height="120"
           max-width="120"
         ></v-img>
@@ -18,11 +18,11 @@
       <div>
         <v-card-title
           style="font-size: 1.25rem; color: black; text-decoration: line-through;"
-        >{{item.name}}</v-card-title>
+        >{{item.productName + " " + item.optionName}}</v-card-title>
         <v-card-subtitle
           style="font-size: 1rem; text-decoration: line-through;"
         >
-          {{item.cost|comma}}원 · {{item.amount}}개
+          {{item.price|comma}}원 · {{item.quantity}}개
         </v-card-subtitle>
       </div>
       

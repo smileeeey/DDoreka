@@ -2,7 +2,6 @@
   <v-card
     class="mx-auto"
     max-width="100%"
-    :class="{cancel: item.status=='REFUND'}"
   >
     <v-card-title class="pb-0" style="font-weight: bold;">
       {{item.datetime|moment('YYYY년 MM월 DD일')}} 주문

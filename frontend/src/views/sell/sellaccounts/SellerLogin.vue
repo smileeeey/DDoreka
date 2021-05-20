@@ -120,8 +120,8 @@ export default {
         .then(res => {
           console.log('1st')
           console.log(res.data)
-          sessionStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
-          const token = sessionStorage.getItem('seller-eureka-authorization')
+          localStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
+          const token = localStorage.getItem('seller-eureka-authorization')
           axios.get(`http://k4d104.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
             headers: {
               'eureka-authorization': token

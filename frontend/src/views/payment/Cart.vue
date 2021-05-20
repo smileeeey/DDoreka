@@ -305,7 +305,7 @@ export default {
       let comment = document.getElementById("uniquecomment").textContent;
       let phonenumber = document.getElementById("uniquephonenumber").textContent;
       
-      orders.userId = this.userData.id;
+      orders.userId = this.userData.userId;
       orders.addressMain = address.split(", ")[0];
       orders.addressSub = address.split(", ")[0];
       orders.recipientName = name;

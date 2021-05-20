@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>주문목록</h2>
-    <div v-for="(item, idx) in orderList" :key="idx">
+    <div v-for="(item, idx) in payList.concat(this.shippingList)" :key="idx">
       <PastOrderCard :item="item" />
     </div>
   </div>
@@ -9,26 +9,18 @@
 
 <script>
 import PastOrderCard from "../../components/mypage/PastOrderCard.vue";
-import { mapActions, mapState } from "vuex";
-
+import { mapState } from "vuex";
 export default {
   name: "OrderList",
   components: {
     PastOrderCard,
   },
   computed: {
-    ...mapState('accountStore',["userData"]),
-    ...mapState('mypageStore',["orderList"]),
+    ...mapState('mypageStore',["payList","shippingList"]),
   },
   data() {
     return {
     };
-  },
-  methods: {
-    ...mapActions('mypageStore',['FETCH_ORDER_LIST'])
-  },
-  created() {
-    this.FETCH_ORDER_LIST({userId : this.userData.userId});
   },
 };
 </script>

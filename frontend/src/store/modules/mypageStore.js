@@ -5,10 +5,6 @@ import { face } from '../../api/face';
 const mypageStore = {
   namespaced: true,
   state: {
-    prepareCnt: 0,
-    deliveryCnt: 0,
-    completeCnt: 0,
-
     orderList: [],
     // orderId: 19,
     // userId: "20",
@@ -20,17 +16,30 @@ const mypageStore = {
     // price: 345000,
     // datetime: "2021-05-18T07:10:01.513+0000",
     // thumbnail: "iVBORw0KGgoAAAANSUh~~~~",
+
+    payList: [],
+    shippingList: [],
+
+    doneList: [],
+    reFundList: [],
   },
   getters: {},
   mutations: {
-    SET_PREPARE_CNT(state, cnt) {
-      state.prepareCnt = cnt;
+    SET_ORDER_LIST(state, data) {
+      state.orderList = data;
     },
-    SET_DELIVERY_CNT(state, cnt) {
-      state.deliveryCnt = cnt;
+
+    SET_PAY_LIST(state, data) {
+      state.payList = data;
     },
-    SET_COMPLETE_CNT(state, cnt) {
-      state.completeCnt = cnt;
+    SET_SHIPPING_LIST(state, data) {
+      state.shippingList = data;
+    },
+    SET_DONE_LIST(state, data) {
+      state.doneList = data;
+    },
+    SET_REFUND_LIST(state, data) {
+      state.reFundList = data;
     },
 
     SET_ORDER_LIST(state, data) {
@@ -38,19 +47,35 @@ const mypageStore = {
     },
   },
   actions: {
-    FIND_MYPAGE_CNT({ commit }, userId) {
-      console.log(userId);
-      order.fetchUserStatus(userId, 0).then((res) => {
-        commit('SET_PREPARE_CNT', res.data.data != null ? res.data.data.length : 0);
-      });
+    async FETCH_ORDER_LIST({ commit }, { userId }) {
+      //categoryId: categoryId, 없다 ㅠㅠ
+      let payList = [];
+      let shippingList = [];
+      let doneList = [];
+      let reFundList = [];
 
-      order.fetchUserStatus(userId, 1).then((res) => {
-        commit('SET_DELIVERY_CNT', res.data.data != null ? res.data.data.length : 0);
-      });
+      let orderData = await order.fetchOrderList(userId);
 
-      order.fetchUserStatus(userId, 2).then((res) => {
-        commit('SET_COMPLETE_CNT', res.data.data != null ? res.data.data.length : 0);
-      });
+      let list = orderData.data.data;
+      console.log(list);
+
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].status === "PAY") payList.push(list[i]);
+        if (list[i].status === "SHIPPING") shippingList.push(list[i]);
+        if (list[i].status === "DONE") doneList.push(list[i]);
+        if (list[i].status === "REFUND") reFundList.push(list[i]);
+      }
+
+      commit("SET_PAY_LIST", payList);
+      commit("SET_SHIPPING_LIST", shippingList);
+      commit("SET_DONE_LIST", doneList);
+      commit("SET_REFUND_LIST", reFundList);
+    },
+
+    async FETCH_EMOTION({ commit }, userId) {
+      let res = await face.fetchEmotion(userId);
+      console.log("겟 이모션");
+      console.log(res);
     },
 
     async FETCH_ORDER_LIST({ commit }, { userId }) {

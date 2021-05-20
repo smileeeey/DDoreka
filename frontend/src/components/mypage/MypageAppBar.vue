@@ -12,7 +12,7 @@
             <v-col cols="3" style="padding-bottom: 0; padding-right: 0">
               <div style="" class="box2">
                 <p>결제완료</p>
-                <p>{{ prepareCnt + deliveryCnt + completeCnt }}개</p>
+                <p>{{ payList.length }}개</p>
               </div>
             </v-col>
             <v-col
@@ -21,7 +21,7 @@
             >
               <div style="" class="box2">
                 <p>상품준비중</p>
-                <p>{{ prepareCnt }}개</p>
+                <p>{{ 0 }}개</p>
               </div>
             </v-col>
             <v-col
@@ -30,7 +30,7 @@
             >
               <div style="" class="box2">
                 <p>배송시작</p>
-                <p>{{ deliveryCnt }}개</p>
+                <p>{{ shippingList.length }}개</p>
               </div>
             </v-col>
             <v-col
@@ -39,7 +39,7 @@
             >
               <div style="" class="box2">
                 <p>배송완료</p>
-                <p>{{ completeCnt }}개</p>
+                <p>{{ doneList.length }}개</p>
               </div>
             </v-col>
           </v-row>
@@ -50,19 +50,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "MypageAppBar",
   computed: {
-    ...mapState("mypageStore", ["prepareCnt", "deliveryCnt", "completeCnt"]),
+    ...mapState("mypageStore", ["payList", "shippingList","doneList", "reFundList"]),
     ...mapState("accountStore", ["userData"]),
-  },
-  methods: {
-    ...mapActions("mypageStore", ["FIND_MYPAGE_CNT"]),
-  },
-  created() {
-    console.log(this.userData.userId);
-    this.FIND_MYPAGE_CNT(this.userData.userId);
   },
 };
 </script>

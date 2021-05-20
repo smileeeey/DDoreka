@@ -17,11 +17,21 @@
 <script>
 import MypageAppBar from "../components/mypage/MypageAppBar.vue";
 import MypageNav from "../components/mypage/MypageNav.vue";
+import {mapState, mapActions} from 'vuex';
+
 export default {
   components: { MypageNav, MypageAppBar },
-  name: "Mypage",
-  created: function () {},
-};
+  computed: {
+    ...mapState("accountStore", ["userData"]),
+  },
+  methods: {
+    ...mapActions("mypageStore", ["FETCH_ORDER_LIST"]),
+  },
+  created() {
+    console.log("마이페이지 시작")
+    this.FETCH_ORDER_LIST({ userId: this.userData.userId });
+  },
+}
 </script>
 
 <style>
