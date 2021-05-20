@@ -47,6 +47,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login/addAdmin").permitAll()
                 .antMatchers("/login/add/**").permitAll()
+                .antMatchers("/login/email-check").permitAll()
                 .antMatchers("/login/update/**").permitAll()
 //                .antMatchers("/login/add/**").hasRole("ADMIN")
 //                .antMatchers("/login/update/**").hasRole("ADMIN")
