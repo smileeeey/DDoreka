@@ -19,8 +19,6 @@ export const face = {
   },
 
   fetchEmotion(userId) {
-    console.log('userId');
-    console.group(userId);
     return request(faceDomain, 'get', `/product/${userId}`);
   },
 };
