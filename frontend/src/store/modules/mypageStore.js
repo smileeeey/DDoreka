@@ -1,5 +1,6 @@
 // actions에 맡게 import 하세요~~~
-import { order } from "../../api/order";
+import { order } from '../../api/order';
+import { face } from '../../api/face';
 
 const mypageStore = {
   namespaced: true,
@@ -7,7 +8,7 @@ const mypageStore = {
     prepareCnt: 0,
     deliveryCnt: 0,
     completeCnt: 0,
-    
+
     orderList: [],
     // orderId: 19,
     // userId: "20",
@@ -40,22 +41,28 @@ const mypageStore = {
     FIND_MYPAGE_CNT({ commit }, userId) {
       console.log(userId);
       order.fetchUserStatus(userId, 0).then((res) => {
-        commit("SET_PREPARE_CNT", res.data.data != null ? res.data.data.length : 0);
+        commit('SET_PREPARE_CNT', res.data.data != null ? res.data.data.length : 0);
       });
 
       order.fetchUserStatus(userId, 1).then((res) => {
-        commit("SET_DELIVERY_CNT", res.data.data != null ? res.data.data.length : 0);
+        commit('SET_DELIVERY_CNT', res.data.data != null ? res.data.data.length : 0);
       });
 
       order.fetchUserStatus(userId, 2).then((res) => {
-        commit("SET_COMPLETE_CNT", res.data.data != null ? res.data.data.length : 0);
+        commit('SET_COMPLETE_CNT', res.data.data != null ? res.data.data.length : 0);
       });
     },
 
     async FETCH_ORDER_LIST({ commit }, { userId }) {
       //categoryId: categoryId, 없다 ㅠㅠ
       let orderData = await order.fetchOrderList(userId);
-      commit("SET_ORDER_LIST", orderData.data.data);
+      commit('SET_ORDER_LIST', orderData.data.data);
+    },
+
+    async FETCH_EMOTION({ commit }, userId) {
+      let res = await face.fetchEmotion(userId);
+      console.log('겟 이모션');
+      console.log(res);
     },
   },
 };
