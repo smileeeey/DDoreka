@@ -194,6 +194,7 @@ export default {
     },
   },
   created() {
+    window.scrollTo(0, 0);
     this.productId = this.$route.params.productid; // 시작하면서 라우터에서 아이디 뽑아오고
     this.getItem();
   },

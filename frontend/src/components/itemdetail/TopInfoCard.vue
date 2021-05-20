@@ -22,8 +22,8 @@
       <div class="my-4 subtitle-1">무료배송</div>
       <div>
         <!-- 선택한 옵션이 object로 리턴된다. -->
-        <v-select v-model="selectOption" :items="detailProductInfo.options" label="옵션선택" item-text="name" solo return-object></v-select>
-        <v-select v-model="quantity" :items="numbers" label="수량" solo></v-select>
+        <v-select v-model="selectOption" :items="detailProductInfo.options" label="옵션선택" item-text="name" solo return-object ref="selectOption"></v-select>
+        <v-select v-model="quantity" :items="numbers" label="수량" solo ref="quantity"></v-select>
       </div>
     </v-card-text>
 
@@ -69,6 +69,16 @@ export default {
     addWishList(type) {
       if (this.isLogin == false) {
         alert('로그인을 해주세요');
+        return;
+      }
+
+      // 장바구니 전처리
+      if(this.$refs.selectOption.value == ""){
+        alert("옵션을 선택해주세요.")
+        return;
+      }
+      if(this.$refs.quantity.vlaue == 0){
+        alert("수량을 선택해주세요.")
         return;
       }
       

@@ -6,19 +6,24 @@
         <TodayItem :todayItem="todayItem" />
       </v-col>
     </v-row>
+    <div class="loadingDiv">
+      <spinner :loading="loding"></spinner>
+    </div>
   </div>
 </template>
 
 <script>
 import TodayItem from './TodayItem.vue';
 import { mapState } from 'vuex';
+import Spinner from '../Spinner.vue';
 export default {
   name: 'TodayItems',
   components: {
     TodayItem,
+    Spinner
   },
   computed: {
-    ...mapState('mainStore', ['todayItemsList']),
+    ...mapState('mainStore', ['todayItemsList', 'loding']),
   },
 };
 </script>

@@ -15,7 +15,7 @@
           <v-rating :value="detailProductSellerOtherProduct.rating" color="warning" background-color="warning lighten-1" dense half-increments readonly size="16"></v-rating>
 
           <!-- 평균평점, 리뷰개수 -->
-          <div class="ml-1">({{ detailProductSellerOtherProduct.reviewCnt }})</div>
+          <div class="ml-1">({{ detailProductSellerOtherProduct.review_cnt }})</div>
         </v-row>
       </v-card-text>
     </v-card>
@@ -39,6 +39,7 @@ export default {
       //   window.location.reload();
       //   return;
       // }
+      window.scrollTo(0, 0);
       this.$router.push({ name: 'ItemDetail', params: { id: 1, productid: this.detailProductSellerOtherProduct.productId } });
     },
   },
