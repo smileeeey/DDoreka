@@ -223,9 +223,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderEntity> getOrdersBySellerIdByStatus(String sellerId, Integer status) {
         OrderStatus orderStatus = OrderStatus.valueOf(status);
+        System.out.println(orderStatus.toString());
         List<OrderDetailEntity> orderDetailEntityList = orderDetailRepositoty.findAllByOrderStatus(orderStatus);
+        System.out.println("사이즈:"+orderDetailEntityList.size());
         List<OrderEntity> orderEntityList = new ArrayList<>();
         for (OrderDetailEntity o : orderDetailEntityList) {
+            System.out.println(o.toString());
+            if(o == null || o.getOrderEntity() == null || o.getOrderEntity().getSellerId() == null)   continue;
             if (o.getOrderEntity().getSellerId().equals(sellerId)) orderEntityList.add(o.getOrderEntity());
         }
         return orderEntityList;
@@ -298,6 +302,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetailEntity> orderDetailEntityList = orderDetailRepositoty.findAllByCheckDatetime(null);
         List<OrderEntity> orderEntityList = new ArrayList<>();
         for (OrderDetailEntity o : orderDetailEntityList) {
+            if(o == null || o.getOrderEntity() == null) continue;
             orderEntityList.add(o.getOrderEntity());
         }
         return orderEntityList;
