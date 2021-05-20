@@ -231,6 +231,12 @@ export default {
       this.totalCost = cost;
     },
     buyitems() {
+      let address = document.getElementById("uniqueaddress");
+      if(address.innerText == ""){
+        alert("배송지를 설정해주세요");
+        return;
+      }
+
       const IMP = window.IMP;
       IMP.request_pay(
         {

@@ -18,7 +18,7 @@
           >
           </v-img>
           <strong>회원정보를 입력해주세요</strong>
-          
+          <div style="display : flex">
           <v-text-field
             style="margin-top: 1rem;"
             solo
@@ -29,7 +29,8 @@
             :rules="[required_id, emailRules,]"
             label="아이디(이메일)"
             v-model="form.email"
-          ></v-text-field> 
+          ></v-text-field><v-btn class="mt-4 ml-2" color="primary">중복확인</v-btn>
+          </div>
           
           <v-text-field
             v-model="form.pw"

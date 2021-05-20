@@ -26,6 +26,8 @@ const accountStore = {
       state.userData.name = "";
       state.userData.email = "";
       state.wishlist = [];
+      sessionStorage.removeItem("eureka-authorization");
+      sessionStorage.removeItem("seller-eureka-authorization");
     },
 
     SET_LOGIN(state, data) {
@@ -66,12 +68,12 @@ const accountStore = {
         return false;
       }
 
-      localStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
+      sessionStorage.setItem("eureka-authorization", loginData.headers["eureka-authorization"]);
 
       setAuthInHeader(loginData.headers["eureka-authorization"]);
 
       loginData = await user.login(email, password);
-      console.log("1111");
+      console.log("로그인 정보");
       console.log(loginData);
       commit("SET_LOGIN", loginData.data.data);
 
