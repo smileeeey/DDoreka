@@ -26,7 +26,7 @@
         </td>
         <td>
           <div style="display: flex; justify-content: space-between;">
-            {{item.productName + item.optionId}}
+            {{item.productName + " "+item.optionName}}
             <div style="display: flex;">
               <span style="color: #888; vertical-aling: top; font-size: 16px;">{{item.price | comma}}원</span>
               <select
