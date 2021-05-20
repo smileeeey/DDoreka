@@ -24,15 +24,15 @@ const mypageStore = {
     FIND_MYPAGE_CNT({commit}, userId) {
       console.log(userId);
       order.fetchUserStatus(userId, 0).then((res) => {
-        commit("SET_PREPARE_CNT", res.data.data.length);
+        commit("SET_PREPARE_CNT", res.data.data != null ? res.data.data.length : 0);
       });
 
       order.fetchUserStatus(userId, 1).then((res) => {
-        commit("SET_DELIVERY_CNT", res.data.data.length);
+        commit("SET_DELIVERY_CNT", res.data.data != null ? res.data.data.length : 0);
       });
 
       order.fetchUserStatus(userId, 2).then((res) => {
-        commit("SET_COMPLETE_CNT", res.data.data.length);
+        commit("SET_COMPLETE_CNT", res.data.data != null ? res.data.data.length : 0);
       });
     },
   },

@@ -34,7 +34,7 @@
     <v-container class="ml-2">
       <v-row>
         <v-card-actions>
-          <v-btn class="mr-3" color="blue darken-1" @click="addWishList">
+          <v-btn class="mr-3" color="blue darken-1" @click="addWishList('list')">
             장바구니 담기
           </v-btn>
           <!-- 바로 구매 가능하게 할지 고민 -->
@@ -57,7 +57,7 @@ export default {
     quantity: 0,
   }),
   computed: {
-    ...mapState('accountStore', ['userData', 'isLogin']),
+    ...mapState('accountStore', ['userData', 'isLogin', 'wishlist']),
     ...mapState('mainStore', ['detailProductInfo']),
     discountRate: function() {
       // 할인율 계산
@@ -66,12 +66,12 @@ export default {
   },
   methods: {
     ...mapActions('accountStore', ['UPDATE_CART']),
-    addWishList() {
+    addWishList(type) {
       if (this.isLogin == false) {
         alert('로그인을 해주세요');
         return;
       }
-
+      
       this.UPDATE_CART({
         userEmail: this.userData.email,
         productId: this.detailProductInfo.id,
@@ -80,12 +80,15 @@ export default {
       }).then((res) => {
         if (res) alert('상품이 장바구니에 추가되었습니다.');
         else alert('이미 있는 상품입니다.');
+
+        if(type == 'buy')this.$router.push({ name: 'Cart' });
       });
+
+      return 0;
     },
     buyNow() {
       if (this.isLogin == false) this.$router.push({ name: 'Login' });
-      this.addWishList();
-      this.$router.push({ name: 'Cart' });
+      this.addWishList('buy');
     },
   },
 };

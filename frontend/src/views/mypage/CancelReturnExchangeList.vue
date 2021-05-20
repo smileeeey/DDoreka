@@ -23,16 +23,7 @@ export default {
   },
   data () {
     return {
-      items: [
-      // {
-      //   img: 'https://thumbnail6.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/4fcd/162c5d78b17078cfb5c2759e809c320b051b2989d2e6256bbab43cee3393.jpg',
-      //   name: '민트위니 여성용 미키기모셋',
-      //   cost: '22900',
-      //   amount: 2,
-      //   date: new Date()
-      // },
-    ]
-  
+      items: []
     }
   },
   created: function () {

@@ -7,7 +7,7 @@
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="`data:image/jpeg;base64,${item.img}`"
+          :src="`data:image/jpeg;base64,${item.thumbnail}`"
           height="120"
           width="120"
         ></v-img>
@@ -15,11 +15,11 @@
       <div>
         <v-card-title
           style="font-size: 1.25rem; color: black;"
-        >{{item.name}}</v-card-title>
+        >{{item.productName + item.optionName}}</v-card-title>
         <v-card-subtitle
           style="font-size: 1rem;"
         >
-          {{item.cost|comma}}원 · {{item.amount}}개
+          {{item.price|comma}}원 · {{item.amount}}개
         </v-card-subtitle>
       </div>
       
