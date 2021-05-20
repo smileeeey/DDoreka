@@ -157,6 +157,7 @@ public class OrderServiceImpl implements OrderService {
                     .optionId(optionId)
                     .optionName(optionName)
                     .price(price)
+                    .status(orderEntities.get(i).getOrderDetail().getOrderStatus().name())
                     .thumbnail(thumbnail)
                     .build();
             result.add(userOrderListDTO);
