@@ -77,18 +77,6 @@ const mypageStore = {
       console.log("겟 이모션");
       console.log(res);
     },
-
-    async FETCH_ORDER_LIST({ commit }, { userId }) {
-      //categoryId: categoryId, 없다 ㅠㅠ
-      let orderData = await order.fetchOrderList(userId);
-      commit('SET_ORDER_LIST', orderData.data.data);
-    },
-
-    async FETCH_EMOTION({ commit }, userId) {
-      let res = await face.fetchEmotion(userId);
-      console.log('겟 이모션');
-      console.log(res);
-    },
   },
 };
 
