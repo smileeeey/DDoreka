@@ -13,7 +13,7 @@
 
     <!-- 여기부터 ItemDetial -->
     <TopInfo />
-    <OtherItems v-if="storeId != ''" :storeId="storeId" />
+    <OtherItems />
     <ProductDetail />
     <Guidance />
     <Reviews v-if="Object.keys(item).length" :item="item" />
