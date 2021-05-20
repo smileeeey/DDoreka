@@ -1,50 +1,33 @@
 package com.eureka.review.service;
 
 import com.eureka.review.dto.ImageDTO;
-import com.eureka.review.dto.RestResponse;
-import com.eureka.review.dto.ReviewDTO;
+import com.eureka.review.dto.ReviewAndImageDTO;
 import com.eureka.review.entity.Review;
 import com.eureka.review.entity.Reviewimage;
 import com.eureka.review.entity.Reviewlike;
 import com.eureka.review.repository.ReviewRepository;
 import com.eureka.review.repository.ReviewimageRepository;
 import com.eureka.review.repository.ReviewlikeRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
-import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ReviewService {
 
     private ReviewRepository reviewRepository;
     private ReviewimageRepository reviewimageRepository;
     private ReviewlikeRepository reviewlikeRepository;
-    private RestTemplateService<JsonArray> restTemplateFile;
-
-
-    @Autowired
-    public ReviewService(ReviewRepository reviewRepository, ReviewimageRepository reviewimageRepository, ReviewlikeRepository reviewlikeRepository, RestTemplateService<JsonArray> restTemplateFile){
-        this.reviewRepository = reviewRepository;
-        this.reviewimageRepository = reviewimageRepository;
-        this.reviewlikeRepository = reviewlikeRepository;
-        this.restTemplateFile = restTemplateFile;
-    }
+    private RestTemplateService<?> restTemplateFile;
 
     public Review saveReview(Map<String,Object> param){
 
@@ -188,13 +171,95 @@ public class ReviewService {
 //
 //    }
 
-    public Map<String,Object> getReviewsAll(int productId) throws IOException {
-        System.out.println(productId);
+//    rest로 수정한건데 review list 따로, review image list 따로 주고있었다.
+//    public Map<String,Object> getReviewsAll(int productId) throws IOException {
+//
+//        List<Review> reviews =  reviewRepository.findByProductId(productId);
+//
+//        List<Integer> fileIds = new ArrayList<>();
+//
+//        for (int i = 0 ; i < reviews.size() ; ++i){
+//            for (int j = 0 ; j < reviews.get(i).getImages().size() ; ++j){
+//                fileIds.add(reviews.get(i).getImages().get(j).getFileId());
+//            }
+//        }
+//
+//        String getFilesURL = "http://localhost:8082/file/fileServesss";
+//
+//        Gson gson = new Gson();
+//
+//        String imageJson = gson.toJson(fileIds);
+//
+//        HttpHeaders FileHttpHeaders = new HttpHeaders();
+//        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+//        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+//        FileHttpHeaders.set("imagesParam",imageJson);
+//
+//        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+//
+//
+//        Map<String,Object> answer = new HashMap<>();
+//        answer.put("reviews",reviews);
+//        answer.put("reviewImages",responseEntityFile.getBody());
+//
+//
+//
+//        return answer;
+//
+//
+//    }
 
 
+    private Map<Integer,ImageDTO> getFilesFromFileServer(List<Integer> fileIds){
+
+        Map<Integer,ImageDTO> result = new HashMap<>();
+
+        Gson gson = new Gson();
+
+        //fileIds들로 file가져오기
+        String fileIdJson = gson.toJson(fileIds);
+        String getFilesURL = "http://k4d104.p.ssafy.io:8082/file/fileServesss";
+
+        HttpHeaders FileHttpHeaders = new HttpHeaders();
+        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        FileHttpHeaders.set("imagesParam",fileIdJson);
+
+        ResponseEntity<?> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+        //String filebyte = ((Map<String, String>)((List<ImageDTO>)responseEntityFile.getBody()).get(0)).get("imageBytes");
+        List<ImageDTO> images = (List<ImageDTO>)responseEntityFile.getBody();
+
+        System.out.println("images 받아왔어!");
+
+        if(images == null || images.size() == 0) return null;
+
+        System.out.println(images.size());
+
+        ImageDTO imageDTO;
+        int fileId;
+        //여기 곷야대
+        for (int i = 0; i < images.size(); i++) {
+
+            Map<String,Object> imageMap = (Map<String,Object>)images.get(i);
+            fileId = (Integer)imageMap.get("fileId");
+
+            imageDTO = ImageDTO.builder()
+                    .fileId(fileId)
+                    .imageBytes((String)imageMap.get("imageBytes"))
+                    .build();
+
+            result.put(fileId,imageDTO);
+        }
+
+        return result;
+    }
+
+
+    public List<ReviewAndImageDTO> getReviewsAll(int productId) throws IOException {
+
+        List<ReviewAndImageDTO> result = new ArrayList<>();
 
         List<Review> reviews =  reviewRepository.findByProductId(productId);
-
 
         List<Integer> fileIds = new ArrayList<>();
 
@@ -204,28 +269,43 @@ public class ReviewService {
             }
         }
 
-        String getFilesURL = "http://localhost:8082/file/fileServesss";
+        //필요한 이미지 정보 모두 가져왔어!
+        Map<Integer,ImageDTO> images = getFilesFromFileServer(fileIds);
 
-        Gson gson = new Gson();
-
-        String imageJson = gson.toJson(fileIds);
-
-        HttpHeaders FileHttpHeaders = new HttpHeaders();
-        FileHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
-        FileHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        FileHttpHeaders.set("imagesParam",imageJson);
-
-        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+        List<ImageDTO> curImageList;
 
 
-        Map<String,Object> answer = new HashMap<>();
-        answer.put("reviews",reviews);
-        answer.put("reviewImages",responseEntityFile.getBody());
+        for (int i = 0 ; i < reviews.size() ; ++i){
+
+            curImageList = new ArrayList<>();
+
+            //현재 review에 해당하는 리뷰 이미지를 받아와서 넣기!
+            //널체크 해줘야될꺼같음!
+            for (int j = 0 ; j < reviews.get(i).getImages().size() ; ++j){
+                curImageList.add(images.get(reviews.get(i).getImages().get(j).getFileId()));
+            }
+
+            ReviewAndImageDTO reviewAndImageDTO = ReviewAndImageDTO.builder()
+                    .id(reviews.get(i).getId())
+                    .orderId(reviews.get(i).getOrderId())
+                    .optionId(reviews.get(i).getOptionId())
+                    .productId(reviews.get(i).getProductId())
+                    .userId(reviews.get(i).getUserId())
+                    .rating(reviews.get(i).getRating())
+                    .createdDate(reviews.get(i).getCreatedDate())
+                    .edited(reviews.get(i).getEdited())
+                    .title(reviews.get(i).getTitle())
+                    .content(reviews.get(i).getContent())
+                    .reviewlikeCnt(reviews.get(i).getReviewlikeCnt())
+                    .liked(reviews.get(i).isLiked())
+                    .reviewImages(curImageList)
+                    .build();
+
+            result.add(reviewAndImageDTO);
+        }
 
 
-
-        return answer;
-
-
+        return result;
     }
+
 }

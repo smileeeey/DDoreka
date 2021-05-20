@@ -12,11 +12,8 @@ import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
 
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -38,8 +35,8 @@ public class ProductService {
     private ProductRepository productRepository;
     private OptionRepository optionRepository;
     private ImageRepository imageRepository;
-    private RestTemplateService<JsonArray> restTemplateFile;
-    private RestTemplateService<JsonArray> restTemplateReview;
+    private RestTemplateService<?> restTemplateFile;
+    private RestTemplateService<?> restTemplateReview;
     private CategoryService categoryService;
     private SearchlogService searchlogService;
 
@@ -128,6 +125,7 @@ public class ProductService {
 //        return answer;
 //    }
 
+
     public Map<String,Object> getProductAllById(int productId) {
 
         Product product = productRepository.findById(productId).orElse(null);
@@ -155,9 +153,9 @@ public class ProductService {
         ReviewHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         ReviewHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+        ResponseEntity<?> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
 
-        ResponseEntity<JsonArray> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
+        ResponseEntity<?> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
 
 
 

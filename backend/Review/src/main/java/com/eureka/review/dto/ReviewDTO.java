@@ -1,10 +1,7 @@
 package com.eureka.review.dto;
 
-import com.eureka.review.entity.Reviewimage;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
