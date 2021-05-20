@@ -84,7 +84,7 @@
 
 <script>
 import axios from 'axios'
-
+import {mapMutations} from 'vuex';
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
 
 import {setAuthInHeader} from '../../../api/auth.js'
@@ -114,9 +114,9 @@ export default {
     }
   },
   methods: {
-    login () {
-      console.log("ddddd");
-      // this.$router.push({ name: 'Dashboard' });
+    ...mapMutations("accountStore", ["SET_LOGOUT"]),
+    login: function () {
+      this.SET_LOGOUT();
       axios.post('http://k4d104.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
