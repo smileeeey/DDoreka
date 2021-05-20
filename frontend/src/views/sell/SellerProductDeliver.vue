@@ -1,10 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col
-        cols="12"
-        md="4"
-      >
+      <v-col cols="12" md="4">
         <v-card>
           <v-card-text>
             <v-card-title>주문접수</v-card-title>
@@ -12,15 +9,12 @@
               <div v-for="(item, idx) in orderlist" :key="idx">
                 <div class="box orderbox">
                   <div>
-                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
-                    <p>{{item.recipientName}} {{item.recipientPhone}}</p>
-                    <p>{{item.addressMain}}, {{item.addressSub}}</p>
-                    <p>{{item.deliveryMsg}}</p>
+                    <p>주문시간 : {{ item.datetime | moment('YYYY년 MM월 DD일 HH시 mm분 ss초') }}</p>
+                    <p>{{ item.recipientName }} {{ item.recipientPhone }}</p>
+                    <p>{{ item.addressMain }}, {{ item.addressSub }}</p>
+                    <p>{{ item.deliveryMsg }}</p>
                   </div>
-                  <v-col
-                    cols="12"
-                    class="text-right"
-                  >
+                  <v-col cols="12" class="text-right">
                     <v-btn color="primary" class="mr-0" @click="deliveryStart(idx)">
                       배송시작
                     </v-btn>
@@ -36,10 +30,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col
-        cols="12"
-        md="4"
-      >
+      <v-col cols="12" md="4">
         <v-card>
           <v-card-text>
             <v-card-title>배송시작</v-card-title>
@@ -47,15 +38,12 @@
               <div v-for="(item, idx) in deliverList" :key="idx">
                 <div class="box deliverbox">
                   <div>
-                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
-                    <p>{{item.recipientName}} {{item.recipientPhone}}</p>
-                    <p>{{item.addressMain}}, {{item.addressSub}}</p>
-                    <p>{{item.deliveryMsg}}</p>
+                    <p>주문시간 : {{ item.datetime | moment('YYYY년 MM월 DD일 HH시 mm분 ss초') }}</p>
+                    <p>{{ item.recipientName }} {{ item.recipientPhone }}</p>
+                    <p>{{ item.addressMain }}, {{ item.addressSub }}</p>
+                    <p>{{ item.deliveryMsg }}</p>
                   </div>
-                  <v-col
-                    cols="12"
-                    class="text-right"
-                  >
+                  <v-col cols="12" class="text-right">
                     <v-btn color="primary" class="mr-0" @click="deliveryComplete(idx)">
                       배송완료
                     </v-btn>
@@ -71,10 +59,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col
-        cols="12"
-        md="4"
-      >
+      <v-col cols="12" md="4">
         <v-card>
           <v-card-text>
             <v-card-title>배송완료</v-card-title>
@@ -82,10 +67,10 @@
               <div v-for="(item, idx) in deliverComplete" :key="idx">
                 <div class="box completebox">
                   <div>
-                    <p>주문시간 : {{item.datetime|moment('YYYY년 MM월 DD일 HH시 mm분 ss초')}}</p>
-                    <p>{{item.recipientName}} {{item.recipientPhone}}</p>
-                    <p>{{item.addressMain}}, {{item.addressSub}}</p>
-                    <p>{{item.deliveryMsg}}</p>
+                    <p>주문시간 : {{ item.datetime | moment('YYYY년 MM월 DD일 HH시 mm분 ss초') }}</p>
+                    <p>{{ item.recipientName }} {{ item.recipientPhone }}</p>
+                    <p>{{ item.addressMain }}, {{ item.addressSub }}</p>
+                    <p>{{ item.deliveryMsg }}</p>
                   </div>
                 </div>
               </div>
@@ -98,154 +83,149 @@
           </v-card-text>
         </v-card>
       </v-col>
-
-
     </v-row>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState } from 'vuex'
+import axios from 'axios';
+import { mapState } from 'vuex';
 export default {
   name: 'SellerProductDeliver',
   data: () => ({
     orderlist: [
       {
         recipientPhone: '01077269318',
-        recipientName: '권세진',
+        recipientName: '정준영',
         addressMain: '경북 구미시 진평4길 21',
         addressSub: 'IWC 302호',
         deliveryMsg: '#1133 입니다.',
         invoiceNum: '1237821931',
-        deliveryStartDatetime: new Date()
+        deliveryStartDatetime: new Date(),
       },
       {
         recipientPhone: '01012345678',
-        recipientName: '권세진',
+        recipientName: '정준영',
         addressMain: '경북 구미시 어딘가',
         addressSub: '내집',
         deliveryMsg: '문앞에 두세요',
         invoiceNum: '4894651665',
-        deliveryStartDatetime: new Date()
+        deliveryStartDatetime: new Date(),
       },
       {
         recipientPhone: '01098765432',
-        recipientName: '권세진',
+        recipientName: '정준영',
         addressMain: '대구 수성구 욱수동',
         addressSub: '옆집',
         deliveryMsg: '경비실 ㄱㄱ용',
         invoiceNum: '4569199159',
-        deliveryStartDatetime: new Date()
+        deliveryStartDatetime: new Date(),
       },
     ],
     deliverList: [
       {
         recipientPhone: '01098765432',
-        recipientName: '권세진',
+        recipientName: '정준영',
         addressMain: '대구 수성구 사월역',
         addressSub: '옆옆옆집',
         deliveryMsg: '경비실 ㄴㄴ용',
         invoiceNum: '911591195',
-        deliveryStartDatetime: new Date()
+        deliveryStartDatetime: new Date(),
       },
     ],
     deliverComplete: [
       {
         recipientPhone: '01019818996',
-        recipientName: '권세진',
+        recipientName: '정준영',
         addressMain: '대구 수성구 신매역',
         addressSub: '윗윗집',
         deliveryMsg: '안방에 갖다주세요',
         invoiceNum: '191981953',
-        deliveryStartDatetime: new Date()
-      }
-    ]
+        deliveryStartDatetime: new Date(),
+      },
+    ],
   }),
   methods: {
-    deliveryStart: function (idx) {
-      this.deliverList.push(this.orderlist[idx])
-      axios.put('http://k4d104.p.ssafy.io:8084/order', {
-        'orderId': this.orderlist[idx].orderDetail.orderId,
-        'checkDatetime': this.orderlist[idx].orderDetail.checkDatetime,
-        'orderStatus': 'SHIPPING',
-        'courier': this.orderlist[idx].orderDetail.courier,
-        'invoiceNum': this.orderlist[idx].orderDetail.invoiceNum,
-        'deliveryStartDatatime': this.orderlist[idx].orderDetail.deliveryStartDatatime,
-        'deliveryCompletionDatatime': this.orderlist[idx].orderDetail.deliveryCompletionDatatime,
-        'cancelMsg': this.orderlist[idx].orderDetail.cancelMsg,
-      })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
+    deliveryStart: function(idx) {
+      this.deliverList.push(this.orderlist[idx]);
+      axios
+        .put('http://k4d104.p.ssafy.io:8084/order', {
+          orderId: this.orderlist[idx].orderDetail.orderId,
+          checkDatetime: this.orderlist[idx].orderDetail.checkDatetime,
+          orderStatus: 'SHIPPING',
+          courier: this.orderlist[idx].orderDetail.courier,
+          invoiceNum: this.orderlist[idx].orderDetail.invoiceNum,
+          deliveryStartDatatime: this.orderlist[idx].orderDetail.deliveryStartDatatime,
+          deliveryCompletionDatatime: this.orderlist[idx].orderDetail.deliveryCompletionDatatime,
+          cancelMsg: this.orderlist[idx].orderDetail.cancelMsg,
         })
-      this.orderlist.splice(idx, 1)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
+      this.orderlist.splice(idx, 1);
     },
-    deliveryComplete: function (idx) {
-      this.deliverComplete.push(this.deliverList[idx])
-      axios.put('http://k4d104.p.ssafy.io:8084/order', {
-        'orderId': this.deliverList[idx].orderDetail.orderId,
-        'checkDatetime': this.deliverList[idx].orderDetail.checkDatetime,
-        'orderStatus': 'DONE',
-        'courier': this.deliverList[idx].orderDetail.courier,
-        'invoiceNum': this.deliverList[idx].orderDetail.invoiceNum,
-        'deliveryStartDatatime': this.deliverList[idx].orderDetail.deliveryStartDatatime,
-        'deliveryCompletionDatatime': this.deliverList[idx].orderDetail.deliveryCompletionDatatime,
-        'cancelMsg': this.deliverList[idx].orderDetail.cancelMsg,
-      })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
+    deliveryComplete: function(idx) {
+      this.deliverComplete.push(this.deliverList[idx]);
+      axios
+        .put('http://k4d104.p.ssafy.io:8084/order', {
+          orderId: this.deliverList[idx].orderDetail.orderId,
+          checkDatetime: this.deliverList[idx].orderDetail.checkDatetime,
+          orderStatus: 'DONE',
+          courier: this.deliverList[idx].orderDetail.courier,
+          invoiceNum: this.deliverList[idx].orderDetail.invoiceNum,
+          deliveryStartDatatime: this.deliverList[idx].orderDetail.deliveryStartDatatime,
+          deliveryCompletionDatatime: this.deliverList[idx].orderDetail.deliveryCompletionDatatime,
+          cancelMsg: this.deliverList[idx].orderDetail.cancelMsg,
         })
-      this.deliverList.splice(idx, 1)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+        });
+      this.deliverList.splice(idx, 1);
     },
   },
   computed: {
-    ...mapState([
-      'seller',
-    ])
+    ...mapState(['seller']),
   },
   created() {
-    axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`)
-      .then(res => {
-        this.orderlist = res.data.data
-        axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`)
-          .then(delres => {
-            this.deliverList = delres.data.data
-            axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`)
-              .then(comres => {
-                this.deliverComplete = comres.data.data
-              })
-          })
-      })
-  }
-}
+    axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/0`).then((res) => {
+      this.orderlist = res.data.data;
+      axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/1`).then((delres) => {
+        this.deliverList = delres.data.data;
+        axios.get(`http://k4d104.p.ssafy.io:8084/order/sellerid/${this.seller.id}/status/2`).then((comres) => {
+          this.deliverComplete = comres.data.data;
+        });
+      });
+    });
+  },
+};
 </script>
 
 <style scoped>
-  .box {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 16px;
-    padding: 16px;
-    position: relative;
-    transition: .3s cubic-bezier(.25, .8, .5, 1);
-    border-radius: 4px;
-  }
+.box {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  position: relative;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  border-radius: 4px;
+}
 
-  .orderbox {
-    background-color: #f8f8f8;
-    color: black;
-  }
+.orderbox {
+  background-color: #f8f8f8;
+  color: black;
+}
 
-  .deliverbox {
-    background-color:#f1f1f1;
-    color: black;
-  }
+.deliverbox {
+  background-color: #f1f1f1;
+  color: black;
+}
 
-  .completebox {
-    background-color: #C7FFD8;
-    color: black;
-    text-decoration: line-through;
-  }
+.completebox {
+  background-color: #c7ffd8;
+  color: black;
+  text-decoration: line-through;
+}
 </style>
