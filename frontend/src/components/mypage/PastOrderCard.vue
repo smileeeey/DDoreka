@@ -2,16 +2,15 @@
   <v-card
     class="mx-auto"
     max-width="100%"
-    :class="{cancel: item.status=='REFUND'}"
   >
     <v-card-title class="pb-0" style="font-weight: bold;">
-      {{item.date|moment('YYYY년 MM월 DD일')}} 주문
+      {{item.datetime|moment('YYYY년 MM월 DD일')}} 주문
     </v-card-title>
 
     <v-card-text class="my-3" style="display: flex; margin-bottom: 0 !important;">
       <div>
         <v-img
-          :src="`data:image/jpeg;base64,${item.img}`"
+          :src="`data:image/jpeg;base64,${item.thumbnail}`"
           height="120"
           width="120"
         ></v-img>
@@ -19,11 +18,11 @@
       <div>
         <v-card-title
           style="font-size: 1.25rem; color: black;"
-        >{{item.name}}</v-card-title>
+        >{{item.productName + " " + item.optionName}}</v-card-title>
         <v-card-subtitle
           style="font-size: 1rem;"
         >
-          {{item.cost|comma}}원 · {{item.amount}}개
+          {{item.price|comma}}원 · {{item.quantity}}개
         </v-card-subtitle>
       </div>
       

@@ -77,4 +77,8 @@ export const order = {
   saveOrder(orders, shoppings) {
     return request(orderDomin, "post", `/saveorder`, { orders, shoppings });
   },
+
+  fetchOrderList(userId) {
+    return request(orderDomin, "get", `/userid/orders/${userId}`);
+  },
 };
