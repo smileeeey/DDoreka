@@ -15,7 +15,7 @@
           <v-rating :value="hotItem.rating" color="warning" background-color="warning lighten-1" dense half-increments readonly size="16"></v-rating>
 
           <!-- 평균평점, 리뷰개수 -->
-          <div class="ml-1">({{ hotItem.reviewCnt }})</div>
+          <div class="ml-1">({{ hotItem.review_cnt }})</div>
         </v-row>
       </v-card-text>
     </v-card>
