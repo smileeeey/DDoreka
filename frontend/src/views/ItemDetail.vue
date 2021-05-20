@@ -100,51 +100,6 @@ export default {
       console.log(this.productId);
       this.FETCH_DETAIL_PRODUCT(this.productId);
       //프로덕트 아이디 보내서  -> 하나의 프로덕트정보 가지고옴
-      axios
-        .get(`http://k4d104.p.ssafy.io:8081/product/detail/${this.productId}`)
-        .then((res) => {
-          console.log(res.data.data);
-          this.item = res.data.data; // 전체 내용
-          this.storeId = this.item.storeId; //판매자 아이디
-          this.$store.dispatch('SELECTITEM', this.item); // state.currentItem에 현재 item채워주기
-          this.item.images.forEach((image) => {
-            if (image.imageType === 'S') {
-              this.sFileIds.push(image.fileId);
-            } else {
-              this.mFileIds.push(image.fileId);
-            }
-          });
-          axios
-            .get(`http://k4d104.p.ssafy.io:8082/file/fileServe`, {
-              //썸네일 사진
-              params: {
-                fileIds: this.sFileIds.join(','),
-              },
-            })
-            .then((res) => {
-              this.sFiles = res.data.data;
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          axios
-            .get(`http://k4d104.p.ssafy.io:8082/file/fileServe`, {
-              //그 밑에 사진들
-              params: {
-                fileIds: this.mFileIds.join(','),
-              },
-            })
-            .then((res) => {
-              // console.log(res.data)
-              this.mFiles = res.data.data;
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
 
     // ----------------------- 아래 face app---------------------------------

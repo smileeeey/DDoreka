@@ -238,7 +238,7 @@ export default {
           pay_method: "card",
           merchant_uid: "merchant_" + new Date().getTime(),
           name: "EUREKA: 주문",
-          amount: 100,
+          amount: this.totalCost/100,
           buyer_email: this.userData.email,
           buyer_name: this.userData.name,
           buyer_tel: this.userData.phone,
