@@ -93,57 +93,9 @@ import { mapState } from 'vuex';
 export default {
   name: 'SellerProductDeliver',
   data: () => ({
-    orderlist: [
-      {
-        recipientPhone: '01077269318',
-        recipientName: '정준영',
-        addressMain: '경북 구미시 진평4길 21',
-        addressSub: 'IWC 302호',
-        deliveryMsg: '#1133 입니다.',
-        invoiceNum: '1237821931',
-        deliveryStartDatetime: new Date(),
-      },
-      {
-        recipientPhone: '01012345678',
-        recipientName: '정준영',
-        addressMain: '경북 구미시 어딘가',
-        addressSub: '내집',
-        deliveryMsg: '문앞에 두세요',
-        invoiceNum: '4894651665',
-        deliveryStartDatetime: new Date(),
-      },
-      {
-        recipientPhone: '01098765432',
-        recipientName: '정준영',
-        addressMain: '대구 수성구 욱수동',
-        addressSub: '옆집',
-        deliveryMsg: '경비실 ㄱㄱ용',
-        invoiceNum: '4569199159',
-        deliveryStartDatetime: new Date(),
-      },
-    ],
-    deliverList: [
-      {
-        recipientPhone: '01098765432',
-        recipientName: '정준영',
-        addressMain: '대구 수성구 사월역',
-        addressSub: '옆옆옆집',
-        deliveryMsg: '경비실 ㄴㄴ용',
-        invoiceNum: '911591195',
-        deliveryStartDatetime: new Date(),
-      },
-    ],
-    deliverComplete: [
-      {
-        recipientPhone: '01019818996',
-        recipientName: '정준영',
-        addressMain: '대구 수성구 신매역',
-        addressSub: '윗윗집',
-        deliveryMsg: '안방에 갖다주세요',
-        invoiceNum: '191981953',
-        deliveryStartDatetime: new Date(),
-      },
-    ],
+    orderlist: [],
+    deliverList: [],
+    deliverComplete: [],
   }),
   methods: {
     deliveryStart: function(idx) {
