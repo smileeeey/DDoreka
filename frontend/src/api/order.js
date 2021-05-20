@@ -78,6 +78,7 @@ export const order = {
     return request(orderDomin, "post", `/saveorder`, { orders, shoppings });
   },
 
+  //해당 구매자의 모든 주문 정보를 상품, 사진과 함께 반환
   fetchOrderList(userId) {
     return request(orderDomin, "get", `/userid/orders/${userId}`);
   },

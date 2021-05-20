@@ -71,12 +71,9 @@ const accountStore = {
       setAuthInHeader(loginData.headers["eureka-authorization"]);
 
       loginData = await user.login(email, password);
-
+      console.log("1111");
+      console.log(loginData);
       commit("SET_LOGIN", loginData.data.data);
-
-      let cartData = await cart.fetch(email);
-      console.log(cartData);
-      commit("SET_CART", cartData.data.data);
 
       dispatch("FETCH_CART", { email });
 
@@ -115,6 +112,12 @@ const accountStore = {
       commit("SET_PHONE", phone);
 
       return 0;
+    },
+
+    // 사용자 정보 변경
+    async UPDATE_USER_DATA({}, { email, pw, name, phone}) {
+      let userData = await user.update(email, pw, name, phone);
+      console.log(userData);
     },
 
     // 장바구니 가져오기

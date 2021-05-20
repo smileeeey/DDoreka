@@ -3,7 +3,7 @@
     <h2>주문취소목록</h2>
     <div v-for="(item, idx) in reFundList" :key="idx">
       <CancelOrderCard :item="item" />
-    </div>
+    </div> -->
   </div>
 </template>
 
