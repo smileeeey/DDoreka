@@ -54,8 +54,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'ChangePassword',
   data: () => ({
@@ -66,21 +65,15 @@ export default {
     }
   }),
   methods: {
+    ...mapActions('accountStore',['UPDATE_USER_DATA']),
     changepassword() {
-      const token = sessionStorage.getItem('eureka-authorization')
-      axios.put('http://k4d104.p.ssafy.io:8085/user/update', {
-        email: this.email,
+      this.UPDATE_USER_DATA({
+        email: this.userData.email,
         pw: this.form.newpassword,
-        name: this.name,
-        phone: this.phone
-      }, {
-        headers: {
-          'eureka-authorization': token,
-        }
-      })
-        .then(res => {
-          console.log(res)
+        name: this.userData.name,
+        phone: this.userData.phone
         })
+
       this.rePassword = '';
       this.form.password = '';
       this.form.newpassword = '';
@@ -103,11 +96,7 @@ export default {
         return false
       }
     },
-    ...mapState([
-      'email',
-      'name',
-      'phone',
-    ])
+    ...mapState('accountStore',['userData']),
   }
 }
 </script>
