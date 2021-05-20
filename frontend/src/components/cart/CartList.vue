@@ -18,7 +18,7 @@
         </th>
         <td>
           <v-img
-            :src="`data:image/jpeg;base64,${item.img}`"
+            :src="`data:image/jpeg;base64,${item.thumbnail}`"
             height="120"
             width="120"
           >
@@ -26,9 +26,9 @@
         </td>
         <td>
           <div style="display: flex; justify-content: space-between;">
-            {{item.name}}
+            {{item.productName + item.optionId}}
             <div style="display: flex;">
-              <span style="color: #888; vertical-aling: top; font-size: 16px;">{{item.cost | comma}}원</span>
+              <span style="color: #888; vertical-aling: top; font-size: 16px;">{{item.price | comma}}원</span>
               <select
                 class="quantity-select"
                 style="margin-left: 1rem; margin-right: 3rem;"
@@ -50,8 +50,8 @@
         </td>
         <td class="rightborder">
           <div style="display: flex; justify-content: space-between;">
-            <span style="font-weight: bold; margin-left: 0.5rem;">{{item.cost*item.amount | comma}}원</span>
-            <a @click="deleteCartitem(idx)"><v-icon>mdi-close</v-icon></a>
+            <span style="font-weight: bold; margin-left: 0.5rem;">{{item.price*item.amount | comma}}원</span>
+            <a @click="deleteCartitem(item.cartId)"><v-icon>mdi-close</v-icon></a>
           </div>
         </td>
         <td v-if="idx==0" :rowspan="items.length" style="text-align: center; font-weight: bold;">무료</td>
@@ -71,12 +71,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions, mapMutations } from 'vuex';
+
 export default {
   name: 'CartList',
   data: () => ({
     selectAll: true,
-    quantity: [1, 2, 3, 4, 5],
   }),
   props: {
     items: Array,
@@ -84,10 +84,9 @@ export default {
   computed: {
     totalCost() {
       let cost = 0;
-      
       for (let i in this.items) {
         if (this.items[i].select) {
-          cost += (this.items[i].cost * this.items[i].amount)
+          cost += (this.items[i].price * this.items[i].amount)
         }
       }
       this.$emit('updateTotalCost', cost)
@@ -95,6 +94,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions('paymentStore',['DELETE_CART_ITEM']),
+    ...mapMutations('accountStore',['SET_DELETE_CART']),
     checkedAll() {
       for (let i in this.items) {
         this.items[i].select = this.selectAll
@@ -110,20 +111,10 @@ export default {
         }
       }
     },
-    deleteCartitem(idx) {
-      // delete axios request
-      console.log(this.items[idx].cartId)
-      const token = sessionStorage.getItem('eureka-authorization')
-      axios.delete(`http://k4d104.p.ssafy.io:8085/user/cart/${this.items[idx].cartId}`, {}, {
-        headers: {
-          'eureka-authorization': token,
-        }
-      })
-        .then(res => {
-          console.log(res)
-          this.$store.dispatch("DELETEWISHLIST", idx)
-        })
-      this.items.splice(idx, 1)
+    deleteCartitem(cartId) {
+      this.DELETE_CART_ITEM(cartId);
+      //accountStore에서 관리하고 있는 장바구니 정보도 삭제
+      this.SET_DELETE_CART(cartId);
     }
   }
 }
