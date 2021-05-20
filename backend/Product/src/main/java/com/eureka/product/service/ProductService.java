@@ -275,6 +275,11 @@ public class ProductService {
         return findProductSimpleByProduct(products);
     }
 
+    //판매자의 모든 상품 가져오기
+    public List<Product> getProductsByStorePrew(int storeId) {
+        return productRepository.findByStoreId(storeId);
+    }
+
 
     public Map<String,List<ProductSimpleDTO>> getLatestProduct(List<Category> category1) {
         Map<String,List<ProductSimpleDTO>> map = new HashMap<>();

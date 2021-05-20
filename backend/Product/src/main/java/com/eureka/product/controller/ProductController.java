@@ -200,6 +200,8 @@ public class ProductController {
 
     /////////////////// 판매자 페이지  ///////////////////
 
+
+
     // 상품 정보 입력
     @ApiOperation(value="상품 등록", notes = "상품 정보 등록", httpMethod = "POST")
     @PostMapping(value = "/add", produces = "application/json;charset=utf8")
@@ -211,6 +213,19 @@ public class ProductController {
         } catch (Exception e) {
             return new Response("error", "상품 정보 저장 오류", e.getMessage());
         }
+    }
+
+    // 관리자별 상품 리스트 가져오기
+    @GetMapping(value = "/seller/all/{storeId}")
+    public Response findByStoreIdPrev(@PathVariable int storeId) {
+        Response response;
+        try {
+            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByStorePrew(storeId));
+        } catch (Exception e) {
+            response = new Response("error", "카테고리별 상품 조회 실패", e.getMessage());
+        }
+
+        return response;
     }
 
     // 판매자별 상품 리스트 가져오기
