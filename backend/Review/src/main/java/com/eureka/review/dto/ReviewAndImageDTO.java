@@ -1,9 +1,8 @@
 package com.eureka.review.dto;
 
-import com.eureka.review.entity.Review;
-import com.eureka.review.entity.Reviewimage;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -11,7 +10,19 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Builder
 public class ReviewAndImageDTO {
-    Review review;
-    List<Reviewimage> images;
+    private int id;
+    private int orderId;
+    private int optionId;
+    private int productId;
+    private int userId;
+    private float rating;
+    private Date createdDate;
+    private int edited;
+    private String title;
+    private String content;
+    private int reviewlikeCnt;
+    private boolean liked;
+    private List<ImageDTO> reviewImages;
 }
