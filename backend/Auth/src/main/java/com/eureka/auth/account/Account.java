@@ -1,8 +1,6 @@
 package com.eureka.auth.account;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.checkerframework.checker.units.qual.Length;
 import org.checkerframework.common.value.qual.StringVal;
 
@@ -12,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Data
 @Table
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Account {
     @Id
     @Column(length = 50)
