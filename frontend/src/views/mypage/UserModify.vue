@@ -5,11 +5,11 @@
         <tbody>
           <tr>
             <th scope="row">아이디(이메일)</th>
-            <td><strong>{{email}}</strong></td>
+            <td><strong>{{userData.email}}</strong></td>
           </tr>
           <tr>
             <th scope="row">이름</th>
-            <td><strong>{{name}}</strong></td>
+            <td><strong>{{userData.name}}</strong></td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
@@ -30,40 +30,32 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 import ChangePassword from '../../components/accounts/ChangePassword.vue'
+
 export default {
   name: 'UserModify',
   components: {
     ChangePassword,
   },
-  methods: {
-    changePhone: function () {
-      axios.put('http://k4d104.p.ssafy.io:8085/user/update/phone', {
-        email: this.email,
-        phone: this.newphone
-      })
-        .then(res => {
-          console.log(res.data)
-          this.$store.dispatch('CHANGEPHONE', this.newphone)
-        })
-    }
-  },
   computed: {
-    ...mapState([
-      'name',
-      'email',
-      'phone'
-    ]),
+    ...mapState('accountStore',['userData']),
   },
   data() {
     return {
       newphone: '',
     }
   },
-  created: function () {
-    this.newphone = this.phone
+
+  methods: {
+    ...mapActions('accountStore',['UPDATE_PHONE']),
+    changePhone: function () {
+      this.UPDATE_PHONE({email : this.userData.email, phone : this.newphone})
+    }
+  },
+
+  created() {
+    this.newphone = this.userData.phone
   }
 }
 </script>
