@@ -123,6 +123,7 @@ public class OrderFromSellerController {
         try {
             response= new Response("success", "조회성공", orderService.getOrdersBySellerIdByStatus(sellerid, status)) ;
         } catch (Exception e) {
+            e.printStackTrace();
             response= new Response("error", e.getMessage(), null) ;
         }
         return response;

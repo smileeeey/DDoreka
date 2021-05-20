@@ -2,8 +2,10 @@ package com.eureka.order.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 @AllArgsConstructor
 public enum OrderStatus {
     PAY(0,"결제완료"),

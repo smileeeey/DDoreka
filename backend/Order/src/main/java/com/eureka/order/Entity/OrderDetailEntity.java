@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orderdetail")
