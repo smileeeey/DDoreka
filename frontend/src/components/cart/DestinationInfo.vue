@@ -42,8 +42,8 @@ export default {
   methods: {
     changeAddress: function() {
       console.log('체인지어드레스');
-      window.open('http://localhost:8080/popup/address', 'PopupWin', 'width=500, height=600');
-      // window.open("http://k4d104.p.ssafy.io:8080/popup/address", "PopupWin", "width=500, height=600");
+      // window.open('http://localhost:8080/popup/address', 'PopupWin', 'width=500, height=600');
+      window.open("http://k4d104.p.ssafy.io:8080/popup/address", "PopupWin", "width=500, height=600");
     },
   },
 };
