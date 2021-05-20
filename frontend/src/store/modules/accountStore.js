@@ -35,6 +35,10 @@ const accountStore = {
       state.userData.email = data.email;
     },
 
+    SET_PHONE(state, data) {
+      state.userData.phone = data;
+    },
+
     SET_CART(state, data) {
       state.wishlist = data;
     },
@@ -42,12 +46,22 @@ const accountStore = {
     SET_UPDATE(state, data) {
       state.wishlist.push = data;
     },
+
+    SET_DELETE_CART(state, data) {
+      let wishlist = state.wishlist;
+
+      for (let i = 0; i < wishlist.length; i++) {
+        if (wishlist[i].id === data) {
+          wishlist.splice(i, 1);
+        }
+      }
+    },
   },
   actions: {
-    async LOGIN({ state, commit }, { email, password }) {
-      let loginData = await auth.login(email, password)
+    async LOGIN({ state, commit, dispatch }, { email, password }) {
+      let loginData = await auth.login(email, password);
       //error 처리 해줘라~
-      if(loginData.status === undefined) {
+      if (loginData.status === undefined) {
         alert("아이디 비밀번호가 틀립니다.");
         return false;
       }
@@ -61,8 +75,11 @@ const accountStore = {
       commit("SET_LOGIN", loginData.data.data);
 
       let cartData = await cart.fetch(email);
-
+      console.log(cartData);
       commit("SET_CART", cartData.data.data);
+
+      dispatch("FETCH_CART", { email });
+
       return state.isLogin;
     },
 
@@ -84,12 +101,29 @@ const accountStore = {
     },
 
     // 장바구니 추가
-    async UPDATE_CART({ commit }, { userEmail, productId, optionId, quantity }) {
+    async UPDATE_CART({ commit, dispatch }, { userEmail, productId, optionId, quantity }) {
       let cartData = await cart.create(userEmail, productId, optionId, quantity);
       if (cartData.data.response == "error") return false;
-
       commit("SET_CART", cartData.data.data);
+
       return true;
+    },
+
+    // 휴대폰 번호 변경
+    UPDATE_PHONE({ commit }, { email, phone }) {
+      user.phoneUpdate(email, phone);
+      commit("SET_PHONE", phone);
+
+      return 0;
+    },
+
+    // 장바구니 가져오기
+    async FETCH_CART({ commit }, { email }) {
+      let cartData = await cart.fetch(email);
+      console.log(cartData);
+      commit("SET_CART", cartData.data.data);
+
+      return 0;
     },
   },
 };

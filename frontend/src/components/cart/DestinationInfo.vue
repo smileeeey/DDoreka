@@ -6,7 +6,7 @@
         <tr>
           <th scope="row">이름</th>
           <td>
-            <span id="uniquename" :v-model="name"></span>
+            <span id="uniquename"></span>
           </td>
         </tr>
         <tr>
@@ -18,7 +18,7 @@
         <tr>
           <th scope="row">연락처</th>
           <td>
-            <span id="uniquephonenumber">{{ phonenumber | phone }}</span>
+            <span id="uniquephonenumber"></span>
           </td>
         </tr>
         <tr>
@@ -37,12 +37,6 @@ export default {
   name: 'DestinationInfo',
   data() {
     return {
-      name: '',
-      main_address: '',
-      sub_address: '',
-      nickname: '',
-      phonenumber: '',
-      comment: '',
     };
   },
   methods: {
