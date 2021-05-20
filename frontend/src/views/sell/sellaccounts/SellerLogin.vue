@@ -84,8 +84,10 @@
 
 <script>
 import axios from 'axios'
-
+import {mapMutations} from 'vuex';
 import AccountsFooter from '@/components/accounts/AccountsFooter.vue'
+
+import {setAuthInHeader} from '../../../api/auth.js'
 export default {
   components: { AccountsFooter },
   name: 'SellerLogin',
@@ -112,20 +114,20 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("accountStore", ["SET_LOGOUT"]),
     login: function () {
+      this.SET_LOGOUT();
       axios.post('http://k4d104.p.ssafy.io:8088/login', {
         username: this.form.email,
         password: this.form.pw
       })
         .then(res => {
           console.log('1st')
-          console.log(res.data)
+          console.log(res.headers['eureka-authorization'])
           sessionStorage.setItem('seller-eureka-authorization', res.headers['eureka-authorization']);
-          const token = sessionStorage.getItem('seller-eureka-authorization')
+          // 헤더값 넣어주기
+          setAuthInHeader(res.headers['eureka-authorization']);
           axios.get(`http://k4d104.p.ssafy.io:8088/seller/getByEmail/${this.form.email}`, {}, {
-            headers: {
-              'eureka-authorization': token
-            }
           })
             .then(response=> {
               console.log('2nd')
@@ -136,10 +138,10 @@ export default {
                 .then(res => {
                   console.log(res.data)
                   this.$store.dispatch('SETSELLERSTORE', res.data)
-                  this.$router.push({ name: 'Dashboard' });
+                  this.$router.push({ name: 'Sell' });
                 })
                 .catch(err => {
-                  this.$router.push({ name: 'Dashboard' })
+                  this.$router.push({ name: 'Sell' })
                 })
             })
 
