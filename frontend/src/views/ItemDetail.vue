@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="login">
+    <div v-if="isLogin">
       <!-- 아래 face app -->
       <link
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -162,6 +162,10 @@ export default {
     },
     async getEmotion() {
       var self = this;
+      console.log('칠드런');
+      console.log(this);
+      console.log(this.$children[0]);
+      console.log(this.$children[0].$children[0]);
       const image = this.$children[0].$children[0].webcam.webcamElement;
       this.faceCreatedAt = new Date();
       this.polling = setInterval(async () => {
@@ -211,7 +215,7 @@ export default {
       axios
         .post('http://k4d104.p.ssafy.io:8088/face/add', {
           product: this.productId,
-          user: this.userId,
+          user: this.userData.userId,
           happy: this.happy.toFixed(2),
           neutral: this.neutral.toFixed(2),
           sad: this.sad.toFixed(2),
@@ -242,17 +246,10 @@ export default {
   //
   created() {
     this.productId = this.$route.params.productid; // 시작하면서 라우터에서 아이디 뽑아오고
-    console.log('프로덕트 아이디!!!');
-    console.log(this.productId);
     this.getItem();
   },
   computed: {
-    ...mapState(['login', 'userId']),
-  },
-  watch: {
-    productId: function() {
-      console.log(this.productId);
-    },
+    ...mapState('accountStore', ['isLogin', 'userData']),
   },
   beforeDestroy() {
     if (this.timer >= 5 && this.timer <= 60) this.stopAnalysis();
