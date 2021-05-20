@@ -14,8 +14,9 @@ const mainStore = {
     detailThumbnailImages: [], //디테일 페이지 썸네일
     detailMainImages: [], //디테일 페이지 메인 이미지
     detailProductInfo: {}, //디테일 페이지 상품정보
-    detailProductStoreId: "", //디테일 페이지 판매자 번호
-    detailProductSellerOtherProducts: [],
+    detailProductStoreId: '', //디테일 페이지 판매자 번호
+    detailProductSellerOtherProducts: [], //디테일 페이지 판매자의 다른상품
+    detailproductReviewList: [], //디테일 페이지 리뷰
     item: {},
     sFileIds: [],
     sumnailUrl: "",
@@ -106,6 +107,11 @@ const mainStore = {
     SET_LODING(state, data) {
       state.loding = data;
     },
+    
+    SET_DETAIL_PRODUCT_REVIEW_LIST(state, detailproductReviewList) {
+      //디테일 상품리뷰
+      state.detailproductReviewList = detailproductReviewList;
+    },
   },
 
   actions: {
@@ -159,19 +165,17 @@ const mainStore = {
     async FETCH_DETAIL_PRODUCT({ commit, dispatch, state }, productId) {
       //상품 디테일
       let res = await product.fetchDetailProduct(productId);
-      // console.log('상품 디테일');
-      // console.log(res);
-      // console.log(res.data);
-      // console.log(res.data.images);
-      commit("SET_DETAIL_TOP_INFO_IMAGE_LIST", { imagesTypeList: res.data.product.images, imagesUrl: res.data.images });
-      commit("SET_DETAIL_PRODUCT_INFO", res.data.product);
-      dispatch("FETCH_DETAIL_SELLER_OTHER_PRODUCT", state.detailProductStoreId);
+      console.log('상품 디테일');
+      console.log(res);
+      console.log(res.data);
+      commit('SET_DETAIL_TOP_INFO_IMAGE_LIST', { imagesTypeList: res.data.product.images, imagesUrl: res.data.images });
+      commit('SET_DETAIL_PRODUCT_INFO', res.data.product);
+      commit('SET_DETAIL_PRODUCT_REVIEW_LIST', res.data.reviews);
+      dispatch('FETCH_DETAIL_SELLER_OTHER_PRODUCT', state.detailProductStoreId);
     },
     async FETCH_DETAIL_SELLER_OTHER_PRODUCT({ commit, dispatch, state }, storeId) {
       let res = await product.fetchDetailSellerOtherProduct(storeId);
-      console.log("판매자의 다른상품");
-      console.log(res);
-      commit("SET_DETAIL_PRODUCT_SELLER_OTHER_PRODUCTS", res.data);
+      commit('SET_DETAIL_PRODUCT_SELLER_OTHER_PRODUCTS', res.data);
     },
   },
 };
