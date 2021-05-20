@@ -39,6 +39,7 @@ export default {
       //   window.location.reload();
       //   return;
       // }
+      window.scrollTo(0, 0);
       this.$router.push({ name: 'ItemDetail', params: { id: 1, productid: this.detailProductSellerOtherProduct.productId } });
     },
   },
