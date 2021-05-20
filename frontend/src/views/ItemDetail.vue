@@ -8,11 +8,6 @@
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous"
       />
-      <balloon :title="mood" position="bottom-right" :zooming="true">
-        <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
-        <template slot="header">Custom Header</template>
-        <RwvCamera @pictureTaken="setImage($event)" />
-      </balloon>
     </div>
     <!-- 위 face app -->
 
@@ -22,6 +17,12 @@
     <ProductDetail />
     <Guidance />
     <Reviews v-if="Object.keys(item).length" :item="item" />
+
+    <balloon :title="mood" position="bottom-right" :zooming="true">
+      <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
+      <template slot="header">Custom Header</template>
+      <RwvCamera @pictureTaken="setImage($event)" />
+    </balloon>
   </div>
 </template>
 
@@ -96,10 +97,7 @@ export default {
   methods: {
     ...mapActions('mainStore', ['FETCH_DETAIL_PRODUCT']),
     getItem() {
-      console.log('프로덕트아이디!!!');
-      console.log(this.productId);
       this.FETCH_DETAIL_PRODUCT(this.productId);
-      //프로덕트 아이디 보내서  -> 하나의 프로덕트정보 가지고옴
     },
 
     // ----------------------- 아래 face app---------------------------------
@@ -121,7 +119,7 @@ export default {
       console.log(this);
       console.log(this.$children[0]);
       console.log(this.$children[0].$children[0]);
-      const image = this.$children[0].$children[0].webcam.webcamElement;
+      const image = this.$children[5].$children[0].webcam.webcamElement;
       this.faceCreatedAt = new Date();
       this.polling = setInterval(async () => {
         const userExpression = await faceapi
@@ -195,10 +193,6 @@ export default {
       this.timer = 9999;
     },
   },
-  // -----------------위 내용 face app---------------------------------
-  //
-  //
-  //
   created() {
     this.productId = this.$route.params.productid; // 시작하면서 라우터에서 아이디 뽑아오고
     this.getItem();
