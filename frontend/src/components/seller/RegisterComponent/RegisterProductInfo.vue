@@ -11,7 +11,7 @@
           판매자<span style="color: red;"> * </span>
           </span>
           <v-text-field 
-            value="권세진"
+            value="심재혁"
             disabled
             outlined 
             style="display: inline-block; width: 50%;" 
