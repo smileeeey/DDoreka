@@ -72,7 +72,7 @@ public interface OrderRepositoty extends JpaRepository<OrderEntity,String> {
      * get all list of product id by day of month(Top 10) sorted by sum(quantity)
      * @return
      */
-    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 month) group by product_id order by sum(quantity) DESC limit 0,10",nativeQuery = true)
+    @Query(value= "select product_id as id from orders where datetime > DATE_ADD(now(),INTERVAL -1 month) and datetime < DATE_ADD(now(),INTERVAL -7 day) group by product_id order by sum(quantity) DESC limit 0,10",nativeQuery = true)
     List<Integer> findSteadySeller();
 
     /**
