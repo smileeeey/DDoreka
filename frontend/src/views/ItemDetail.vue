@@ -8,6 +8,11 @@
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous"
       />
+      <balloon :title="mood" position="bottom-right" :zooming="true">
+        <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
+        <template slot="header">Custom Header</template>
+        <RwvCamera @pictureTaken="setImage($event)" />
+      </balloon>
     </div>
     <!-- 위 face app -->
 
@@ -17,37 +22,31 @@
     <ProductDetail />
     <Guidance />
     <Reviews v-if="Object.keys(item).length" :item="item" />
-
-    <balloon :title="mood" position="bottom-right" :zooming="true">
-      <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
-      <template slot="header">Custom Header</template>
-      <RwvCamera @pictureTaken="setImage($event)" />
-    </balloon>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 // import { mapActions } from 'vuex'
-import axios from 'axios';
-import TopInfo from '@/components/itemdetail/TopInfo.vue';
-import OtherItems from '@/components/itemdetail/OtherItems.vue';
-import ProductDetail from '@/components/itemdetail/ProductDetail.vue';
-import Reviews from '@/components/itemdetail/Reviews.vue';
+import axios from "axios";
+import TopInfo from "@/components/itemdetail/TopInfo.vue";
+import OtherItems from "@/components/itemdetail/OtherItems.vue";
+import ProductDetail from "@/components/itemdetail/ProductDetail.vue";
+import Reviews from "@/components/itemdetail/Reviews.vue";
 // import ProductInquiry from '@/components/itemdetail/ProductInquiry.vue'
 //
 // --------- 아래 face app ---------------------------
-import Guidance from '@/components/itemdetail/Guidance.vue';
-import RwvCamera from '@/components/TheCamera.vue';
-import { Balloon } from 'vue-balloon';
-import * as tf from '@tensorflow/tfjs';
-import * as faceapi from 'face-api.js';
+import Guidance from "@/components/itemdetail/Guidance.vue";
+import RwvCamera from "@/components/TheCamera.vue";
+import { Balloon } from "vue-balloon";
+import * as tf from "@tensorflow/tfjs";
+import * as faceapi from "face-api.js";
 const params = {
   minConfidence: 0.5,
 };
 // --------- 위 face app ---------------------------
 export default {
-  name: 'ItemDetail',
+  name: "ItemDetail",
   components: {
     TopInfo,
     OtherItems,
@@ -59,15 +58,15 @@ export default {
     Balloon,
   },
   data: () => ({
-    productId: '',
+    productId: "",
     item: {},
     sFileIds: [],
     mFileIds: [],
     sFiles: [],
     mFiles: [],
-    storeId: '',
+    storeId: "",
     // ----------- 아래 face app ----------------------
-    mood: '로딩중...',
+    mood: "로딩중...",
     class: null,
     neutral: 0.0,
     happy: 0.0,
@@ -81,7 +80,7 @@ export default {
     image: null,
     show: false,
     timer: 0,
-    faceCreatedAt: '',
+    faceCreatedAt: "",
   }),
   mounted() {
     this.init(this.getEmotion);
@@ -95,7 +94,7 @@ export default {
   //
   //
   methods: {
-    ...mapActions('mainStore', ['FETCH_DETAIL_PRODUCT']),
+    ...mapActions("mainStore", ["FETCH_DETAIL_PRODUCT"]),
     getItem() {
       this.FETCH_DETAIL_PRODUCT(this.productId);
     },
@@ -104,10 +103,12 @@ export default {
     async init(callback) {
       var self = this;
       // load the face detection api & emotion detection model
-      await faceapi.loadSsdMobilenetv1Model('/models/features/');
-      await faceapi.loadFaceLandmarkModel('/models/features');
-      await faceapi.loadFaceExpressionModel('/models/features');
-      this.emotionModel = await tf.loadLayersModel('/models/emotion/model.json');
+      await faceapi.loadSsdMobilenetv1Model("/models/features/");
+      await faceapi.loadFaceLandmarkModel("/models/features");
+      await faceapi.loadFaceExpressionModel("/models/features");
+      this.emotionModel = await tf.loadLayersModel(
+        "/models/emotion/model.json"
+      );
       callback();
     },
     setLoading() {
@@ -115,7 +116,7 @@ export default {
     },
     async getEmotion() {
       var self = this;
-      console.log('칠드런');
+      console.log("칠드런");
       console.log(this);
       console.log(this.$children[0]);
       console.log(this.$children[0].$children[0]);
@@ -126,34 +127,37 @@ export default {
           .detectSingleFace(image)
           .withFaceLandmarks()
           .withFaceExpressions();
-
-        console.log(userExpression);
-        if (typeof userExpression === 'undefined') {
+        if (typeof userExpression === "undefined") {
           this.show = false;
         } else {
           this.show = false;
-          var expression = Object.keys(userExpression.expressions).reduce(function(a, b) {
-            return userExpression.expressions[a] > userExpression.expressions[b] ? a : b;
-          });
+          var expression = Object.keys(userExpression.expressions).reduce(
+            function (a, b) {
+              return userExpression.expressions[a] >
+                userExpression.expressions[b]
+                ? a
+                : b;
+            }
+          );
         }
 
-        if (expression == 'neutral') expression = '😃 중립';
-        else if (expression == 'happy') expression = '😁 행복';
-        else if (expression == 'sad') expression = '😭 슬픔';
-        else if (expression == 'angry') expression = '😡 분노';
-        else if (expression == 'fearful') expression = '😱 두려움';
-        else if (expression == 'disgusted') expression = '😵 역겨움';
-        else expression = '😲 놀람';
+        if (expression == "neutral") expression = "😃 중립";
+        else if (expression == "happy") expression = "😁 행복";
+        else if (expression == "sad") expression = "😭 슬픔";
+        else if (expression == "angry") expression = "😡 분노";
+        else if (expression == "fearful") expression = "😱 두려움";
+        else if (expression == "disgusted") expression = "😵 역겨움";
+        else expression = "😲 놀람";
 
         this.setMood(expression);
         this.timer += 0.1;
-        this.neutral += userExpression.expressions['neutral'];
-        this.happy += userExpression.expressions['happy'];
-        this.sad += userExpression.expressions['sad'];
-        this.angry += userExpression.expressions['angry'];
-        this.fearful += userExpression.expressions['fearful'];
-        this.disgusted += userExpression.expressions['disgusted'];
-        this.surprised += userExpression.expressions['surprised'];
+        this.neutral += userExpression.expressions["neutral"];
+        this.happy += userExpression.expressions["happy"];
+        this.sad += userExpression.expressions["sad"];
+        this.angry += userExpression.expressions["angry"];
+        this.fearful += userExpression.expressions["fearful"];
+        this.disgusted += userExpression.expressions["disgusted"];
+        this.surprised += userExpression.expressions["surprised"];
         if (this.timer >= 60) this.stopAnalysis();
       }, 100);
     },
@@ -162,13 +166,13 @@ export default {
       this.mood = mood;
     },
     setImage(image) {
-      console.log('picture taken');
+      console.log("picture taken");
       var self = this;
       this.image = image;
     },
-    sendData: function() {
+    sendData: function () {
       axios
-        .post('http://k4d104.p.ssafy.io:8088/face/add', {
+        .post("http://k4d104.p.ssafy.io:8088/face/add", {
           product: this.productId,
           user: this.userData.userId,
           happy: this.happy.toFixed(2),
@@ -185,13 +189,13 @@ export default {
           console.log(response);
         })
         .catch((ex) => {
-          console.warn('ERROR!!!!!!!!!!! : ', ex);
+          console.warn("ERROR!!!!!!!!!!! : ", ex);
         });
     },
     stopAnalysis() {
       clearInterval(this.polling);
       this.sendData();
-      this.mood = '감정분석 종료';
+      this.mood = "감정분석 종료";
       this.timer = 9999;
     },
   },
@@ -201,7 +205,7 @@ export default {
     this.getItem();
   },
   computed: {
-    ...mapState('accountStore', ['isLogin', 'userData']),
+    ...mapState("accountStore", ["isLogin", "userData"]),
   },
   beforeDestroy() {
     if (this.timer >= 5 && this.timer <= 60) this.stopAnalysis();
