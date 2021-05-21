@@ -119,13 +119,15 @@ export default {
       console.log(this);
       console.log(this.$children[0]);
       console.log(this.$children[0].$children[0]);
-      const image = this.$children[5].$children[0].webcam.webcamElement;
+      const image = this.$children[0].$children[0].webcam.webcamElement;
       this.faceCreatedAt = new Date();
       this.polling = setInterval(async () => {
         const userExpression = await faceapi
           .detectSingleFace(image)
           .withFaceLandmarks()
           .withFaceExpressions();
+
+        console.log(userExpression);
         if (typeof userExpression === 'undefined') {
           this.show = false;
         } else {
