@@ -57,7 +57,7 @@
                   <br>
                   <br>
                   STEP 2 :
-                  <strong>http://i4d106.p.ssafy.io/</strong> 를 enabled 해 주세요!
+                  <strong>http://i4d104.p.ssafy.io:8080/</strong> 를 enabled 해 주세요!
                 </v-card-text>
 
                 <v-divider></v-divider>
