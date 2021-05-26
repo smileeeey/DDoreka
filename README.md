@@ -1,11 +1,26 @@
 #  또레카
 
+## Our Team
+### Backend
+* 팀장 이수민([@sumin416](https://https://github.com/sumin416 "github link"))
+
+* 팀원 심재혁([@JaeHyukSim](https://github.com/JaeHyukSim "github link"))
+
+### Frontend
+* 팀원 강구원([@KangGooWeon](https://github.com/KangGooWeon "github link"))
+
+* 팀원 정준영([@dkwjdi](https://github.com/dkwjdi "github link"))
+ <br><br>
+
 어떤 상품이 마음에 드는지 헷갈리는 사용자들을 위한
 
 ***'감정분석 + 상품추천 쇼핑몰 : Eureka'*** **리펙토링 프로젝트** 
 
  [Eureka ](https://github.com/sumin416/Eureka)
  <br>
+ 
+### 🛠개발기간 
+### 2021.04.12~2021.05.21
 
 ## update date
 2021.02.05
