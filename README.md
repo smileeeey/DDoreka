@@ -5,6 +5,44 @@
 2021.02.05
 2021.02.09
 
+## 기술 스택
+
+  
+
+ WEB 
+
+  
+
+**DevOps**
+||기술 스택|
+|--|--|
+|SCM|GitLab,Jira|
+|Cloud Service|AWS EC2|
+
+<br>
+
+**Front-end**
+||기술 스택|
+|--|--|
+|Language|HTML CSS JavaScript|
+|Framework|Vue.js|
+|Library|Ajax VuetifyAxios|
+
+<br>
+
+**Back-end**
+||기술 스택|
+|--|--|
+|Server Architecture|MSA|
+|Language|Java8|
+|Framework|SpringBoot SpringCloud SpringSecurity SpringDataJPA|
+|BuildTool|Gradle,Maven|
+|DBMS|MySQL|
+|Testing | JUnit Locust|
+
+<br>
+
+
 ## Backend 어플리케이션 인스톨 가이드
 
 MSA 구조에 따라서 각 서비스들을 독립적으로 실행해야 합니다.
