@@ -3,8 +3,6 @@
 
 ## 폴더 구성도
 ### Backend
-![BE폴더구성도](/img/be_folder.png)
-
 각 폴더는 모두 SpringBoot 프로젝트이다.
 
 #### 1. Auth Server
