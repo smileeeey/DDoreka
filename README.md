@@ -43,5 +43,7 @@
 <br>
 
 
-## Backend 리드미 정준영이 빼라해서 빼준다 ^
-[Backend 리드미ㅣ이이ㅣㅇ이ㅣ이](/backend/README.md)
+## Frontend 실행방법 및 파일구조
+[Frontend](/frontend/README.md)
+## Backend 실행방법 및 파일구조
+[Backend](/backend/README.md)
