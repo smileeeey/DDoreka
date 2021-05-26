@@ -6,27 +6,27 @@
 각 폴더는 모두 SpringBoot 프로젝트이다.
 
 #### 1. Auth Server
-[Auth Server 설명이 여기 쑉쇽](/Auth/README.md)
+[Auth Server 설명이 여기 쑉쇽](Auth/README.md)
 #### 2. Face Server
-[Face Server 설명이 여기 쑉쇽](/Face/README.md)
+[Face Server 설명이 여기 쑉쇽](Face/README.md)
 #### 3. File Server
-[File Server 설명이 여기 쑉쇽](/File/README.md)
+[File Server 설명이 여기 쑉쇽](File/README.md)
 #### 4. Order Server
-[Order Server 설명이 여기 쑉쇽](/Order/README.md)
+[Order Server 설명이 여기 쑉쇽](Order/README.md)
 #### 5. Product Server
-[Product Server 설명이 여기 쑉쇽](/Product/README.md)
+[Product Server 설명이 여기 쑉쇽](Product/README.md)
 #### 6. Review Server
-[Review Server 설명이 여기 쑉쇽](/Review/README.md)
+[Review Server 설명이 여기 쑉쇽](Review/README.md)
 #### 7. Seller Server
-[Seller Server 설명이 여기 쑉쇽](/Seller/README.md)
+[Seller Server 설명이 여기 쑉쇽](Seller/README.md)
 #### 8. User Server
-[User Server 설명이 여기 쑉쇽](/User/README.md)
+[User Server 설명이 여기 쑉쇽](User/README.md)
 #### 9. Chat Server
-[Chat Server 설명이 여기 쑉쇽](/Chat/README.md)
+[Chat Server 설명이 여기 쑉쇽](Chat/README.md)
 #### 10. cloud-gateway
-[cloud-gateway Server 설명이 여기 쑉쇽](/cloud-gateway/README.md)
+[cloud-gateway Server 설명이 여기 쑉쇽](cloud-gateway/README.md)
 #### 11. service-registry
-[service-registry Server 설명이 여기 쑉쇽](/service-registry/README.md)
+[service-registry Server 설명이 여기 쑉쇽](service-registry/README.md)
 
 
 <br>
