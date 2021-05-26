@@ -16,53 +16,33 @@
         </v-simple-table>
       </v-card>
     </div>
-    <v-img
-      v-for="(imageUrl,idx) in imageUrls"
-      :key="idx"
-      :src="imageUrl"
-    ></v-img>
+    <v-img v-for="(detailMainImage, idx) in detailMainImages" :key="idx" :src="detailMainImage"></v-img>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: 'ProductDetail',
-  props: {
-    item: Object,
-    mFiles: Array,
+  computed: {
+    ...mapState('mainStore', ['detailMainImages', 'detailProductInfo']),
   },
   data: () => ({
     detailInfo: '',
     detailInfoList: [],
     detailInfoLength: 0,
-    imageUrls: [],
   }),
   methods: {
     getDetailInfo: function() {
-      // console.log(this.item.detailInfo)
-      this.detailInfo = this.item.detailInfo
-      this.detailInfoList = this.item.detailInfo.split('&^%')
-      this.detailInfoLength = this.detailInfoList.length / 2
-      // this.detailInfo = JSON.parse(this.item.detailInfo)
-      // this.detailInfoList = Object.entries(this.detailInfo)
-    },
-    getImageUrl() {
-      this.mFiles.forEach(mFile => {
-        // console.log('getImageUrl')
-        let imageUrl = 'data:image/jpeg;base64,' + mFile.imageBytes
-        // console.log(imageUrl)
-        this.imageUrls.push(imageUrl)
-      })
+      this.detailInfo = this.detailProductInfo.detailInfo;
+      this.detailInfoList = this.detailProductInfo.detailInfo.split('&^%');
+      this.detailInfoLength = this.detailInfoList.length / 2;
     },
   },
   created: function() {
-    // console.log(this.mFiles)
-    this.getDetailInfo()
-    this.getImageUrl()
+    this.getDetailInfo();
   },
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

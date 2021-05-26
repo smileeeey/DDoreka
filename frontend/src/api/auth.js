@@ -19,5 +19,6 @@ export const auth = {
 };
 
 export const setAuthInHeader = (token) => {
-  axios.defaults.headers.common["eureka-authorization"] = token ? `Bearer ${token}` : null;
+  console.log('token 초기화', token);
+  axios.defaults.headers.common['eureka-authorization'] = token ? `${token}` : null;
 };

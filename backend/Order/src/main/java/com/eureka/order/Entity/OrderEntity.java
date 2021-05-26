@@ -2,7 +2,7 @@ package com.eureka.order.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,8 +15,11 @@ import java.util.Date;
  * @since 1.0
  */
 @Entity
-@Data
+@Getter
 @Table(name = "orders")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

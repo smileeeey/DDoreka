@@ -114,6 +114,8 @@ public class UserController {
 
 
 
+
+
     @ApiOperation(value="구매자 정보 수정", notes = "구매자 정보 수정", httpMethod = "PUT")
     @PutMapping(value = "/update")
     public Response updateUser(@ApiParam(value="회원 데이터") @RequestBody UserEntity user){

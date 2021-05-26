@@ -19,5 +19,5 @@ public interface CartService {
 
     void deleteCart(String cartId);
 
-    void deleteCarts(List<Integer> cartIds);
+    void deleteCarts(String cartIdsParam);
 }

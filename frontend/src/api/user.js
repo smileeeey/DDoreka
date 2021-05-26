@@ -21,6 +21,9 @@ export const user = {
   },
 
   // 구매자 핸드폰번호 수정
+  phoneUpdate(email, phone) {
+    return request(userDomain, "put", `/update/phone`, { email, phone });
+  },
 };
 
 export const address = {

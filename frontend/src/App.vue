@@ -3,23 +3,21 @@
 </template>
 
 <script>
-import "@/assets/css/common.css"
-export default {
-  name: 'App',
+import "@/assets/css/common.css";
 
-  components: {
-    
-  },
+export default {
+  name: "App",
+
+  components: {},
 
   data: () => ({
     //
   }),
-  created: function () {
-    // const token = localStorage.getItem('seller-eureka-authorization')
-  },
+  methods: {},
+  created() {},
   beforeDestroy() {
-    localStorage.removeItem("seller-eureka-authorization");
-    localStorage.removeItem("eureka-authorization");
+    sessionStorage.removeItem("seller-eureka-authorization");
+    sessionStorage.removeItem("eureka-authorization");
   },
 };
 </script>

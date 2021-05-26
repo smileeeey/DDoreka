@@ -7,8 +7,9 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ImageDTO {
     private int fileId;
     private char imageType;
-    private byte[] imageBytes;
+    private String imageBytes;
 }

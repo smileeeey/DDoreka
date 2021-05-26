@@ -49,6 +49,7 @@ public class StoreController {
     @ApiOperation(value = "셀러 아이디로 스토어 조회", notes = "특정 셀러의 아이디를 입력받아 해당 스토어의 정보를 리턴한다", httpMethod = "GET")
     @GetMapping("/getBySellerId/{sellerId}")
     public Store findStoreBySellerId(@PathVariable int sellerId) {
+
         return service.getStoreBySellerId(sellerId);
     }
 

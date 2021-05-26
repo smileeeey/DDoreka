@@ -1,13 +1,13 @@
 package com.eureka.product.controller;
 
-import com.eureka.product.dto.ProductAndOptionAndImage;
-import com.eureka.product.dto.ProductSimpleDTO;
+import com.eureka.product.dto.*;
 import com.eureka.product.entity.Category;
 import com.eureka.product.entity.Product;
-import com.eureka.product.dto.Response;
 import com.eureka.product.service.CategoryService;
 import com.eureka.product.service.ProductService;
 import com.eureka.product.service.SearchlogService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,6 +18,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -199,6 +200,8 @@ public class ProductController {
 
     /////////////////// 판매자 페이지  ///////////////////
 
+
+
     // 상품 정보 입력
     @ApiOperation(value="상품 등록", notes = "상품 정보 등록", httpMethod = "POST")
     @PostMapping(value = "/add", produces = "application/json;charset=utf8")
@@ -210,6 +213,19 @@ public class ProductController {
         } catch (Exception e) {
             return new Response("error", "상품 정보 저장 오류", e.getMessage());
         }
+    }
+
+    // 관리자별 상품 리스트 가져오기
+    @GetMapping(value = "/seller/all/{storeId}")
+    public Response findByStoreIdPrev(@PathVariable int storeId) {
+        Response response;
+        try {
+            response = new Response("success", "카테고리별 상품 조회 성공", service.getProductsByStorePrew(storeId));
+        } catch (Exception e) {
+            response = new Response("error", "카테고리별 상품 조회 실패", e.getMessage());
+        }
+
+        return response;
     }
 
     // 판매자별 상품 리스트 가져오기
@@ -241,5 +257,47 @@ public class ProductController {
 
 
         return response;
+    }
+
+    @ApiOperation(value="option-id, price를 제공", notes = "option-id로 price를 제공", httpMethod = "GET")
+    @GetMapping(value="/prices")
+    public List<OptionPriceDTO> getPrices(@ApiParam(value="옵션 고유값 리스트") @RequestHeader(value="option-ids") String param) {
+        System.out.println("hihi");
+        try {
+            return service.getPriceFromOptionId(param);
+        } catch (Exception e ) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @ApiOperation(value="product id, option id로 주문 내역 정보 제공 (이름과 가격 제공)", notes = "이름과 가격 제공", httpMethod = "GET")
+    @GetMapping(value="/name")
+    //@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="") String param
+    public List<ProductOptionInfoDTO> getProductInfo(@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="product-ids") List<Integer> productIds, @RequestHeader(value="option-ids") List<Integer> optionIds) {
+        System.out.println("!1");
+        try {
+            return service.getPriceOptionInfo(productIds, optionIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @ApiOperation(value="product id, option id로 주문 내역 정보 제공 (이름과 가격 제공)", notes = "이름과 가격 제공", httpMethod = "GET")
+    @GetMapping(value="/name/info")
+    //@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="") String param
+    public List<ProductOptionInfoDTO> getProductInfoForFront(@ApiParam(value="프로덕트 id와 옵션 id") @RequestHeader(value="productIds") String productIds, @RequestHeader(value="optionIds") String optionIds) {
+
+        Gson gson = new Gson();
+        List<Integer> productIdList = gson.fromJson(productIds, new TypeToken<List<Integer>>(){}.getType());
+        List<Integer> optionIdList = gson.fromJson(optionIds, new TypeToken<List<Integer>>(){}.getType());
+        System.out.println("!1");
+        try {
+            return service.getPriceOptionInfo(productIdList, optionIdList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -28,7 +28,9 @@ public class StoreServiceImpl implements StoreService {
         return repository.findById(id).orElse(null);
     }
     public Store getStoreBySellerId(int sellerId) {
-        return repository.findAllBySellerIdOrderByIdDesc(sellerId).get(0);
+        List<Store> stores = repository.findAllBySellerIdOrderByIdDesc(sellerId);
+        if(stores == null || stores.size() == 0)    return null;
+        return stores.get(0);
     }
 
     public Store getStoreByName(String name) {

@@ -1,7 +1,7 @@
-import { request } from './index.js';
+import { request } from "./index.js";
 
-const productDomin = 'http://k4d104.p.ssafy.io:8081/product';
-const categoryDomin = 'http://k4d104.p.ssafy.io:8081/category';
+const productDomin = "http://k4d104.p.ssafy.io:8081/product";
+const categoryDomin = "http://k4d104.p.ssafy.io:8081/category";
 
 export const product = {
   // crud
@@ -13,45 +13,62 @@ export const product = {
             category5Id: "201", detailInfo: "'dfdf&^%sdfs'", name: "'asdf'", storeId: 3}
     
     */
+  fetchDetailSellerOtherProduct(storeId) {
+    return request(productDomin, 'get', `/seller/latest10/${storeId}`);
+  },
+
+  fetchDetailProduct(productId) {
+    return request(productDomin, 'get', `/detailAll/${productId}`);
+  },
+
+  fetchMainInfo() {
+    //메인페이지
+    return request(productDomin, 'get', '/mainPage');
+  },
 
   create(product, option, image) {
-    return request(productDomin, 'post', '/add', { product, option, image });
+    return request(productDomin, "post", "/add", { product, option, image });
   },
 
   //전체 상품조회
   fetch() {
-    return request(productDomin, 'get', '/all');
+    return request(productDomin, "get", "/all");
   },
   //상품 상세조회
   find(productId) {
-    return request(productDomin, 'get', `/detail/${productId}`);
+    return request(productDomin, "get", `/detail/${productId}`);
   },
   //카테고리별 상품 조회
   fetchFindByCategory(categoryId, depth, page, size) {
-    return request(productDomin, 'get', `/findByCategory/${categoryId}/${depth}/${page}/${size}`);
+    return request(productDomin, "get", `/findByCategory/${categoryId}/${depth}/${page}/${size}`);
   },
   //최근 등록된 상품 조회
   fetchRecommendLatestproduct() {
-    console.log('fetchRecommendLatestproduct@@@@@@@@@@@@@@@#@#@#@#@#@@@@@@@@@@@@@@@@@@@');
-    return request(productDomin, 'get', `/recommend/latestproduct`);
+    return request(productDomin, "get", `/recommend/latestproduct`);
   },
   //추천 상품 조회
   fetchRecommendProductids() {
-    return request(productDomin, 'get', `/recommend/productids`);
+    return request(productDomin, "get", `/recommend/productids`);
   },
   //실시간 검색어 조회
   fetchRecommendRealtimesearchword() {
-    return request(productDomin, 'get', `/recommend/realtimesearchword`);
+    return request(productDomin, "get", `/recommend/realtimesearchword`);
   },
   //검색 상품 조회
   fetchSearch(category1Id, keyword, page, size) {
-    return request(productDomin, 'get', `/search/,${category1Id}/${keyword}/${page}/${size}`);
+    return request(productDomin, "get", `/search/,${category1Id}/${keyword}/${page}/${size}`);
   },
   //판매자 상품 조회
   fetchSellerAll(storeId) {
-    return request(productDomin, 'get', `/seller/all${storeId}`);
+    return request(productDomin, "get", `/seller/all${storeId}`);
   },
   // update() { 판매자 상품수정 넣어야 됨
+
+  // 새로 만들어진거!!!!!!!!!!
+  // 카트 조회 불러오기
+  fetchCart(productIds, optionIds) {
+    return request(productDomin, "get", `/name/info`, {}, { productIds: JSON.stringify(productIds), optionIds: JSON.stringify(optionIds) });
+  },
 
   // }
 };
@@ -59,14 +76,14 @@ export const product = {
 export const category = {
   //카테고리 등록
   create(product, option, image) {
-    return request(categoryDomin, 'post', '/add', { product, option, image });
+    return request(categoryDomin, "post", "/add", { product, option, image });
   },
   //메인 카테고리 조회
   fetchMainCategory() {
-    return request(categoryDomin, 'get', `/mainCategory`);
+    return request(categoryDomin, "get", `/mainCategory`);
   },
   //하위 카테고리 조회
   fetchSubCategory(categoryId) {
-    return request(categoryDomin, 'get', `/subCategory${categoryId}`);
+    return request(categoryDomin, "get", `/subCategory${categoryId}`);
   },
 };

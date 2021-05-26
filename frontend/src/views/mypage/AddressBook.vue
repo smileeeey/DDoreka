@@ -34,10 +34,6 @@ export default {
     };
   },
   methods: {
-    addAddress: function() {
-      // var win = window.open("", "PopupWin", "width=500, height=600");
-      // win.document.write("<p>새창에 표시될 내용 입니다.</p>");
-    },
     deleteAddress: function(addressId) {
       // this.addresses.splice(idx, 1)
       axios.delete(`http://k4d104.p.ssafy.io:8085/user/address/${this.userData.email}/${addressId}`).then((res) => {

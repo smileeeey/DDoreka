@@ -14,7 +14,7 @@ export default {
   components: { SellerAppBar, SellerDrawer, SellerView },
   name: 'DashboardIndex',
   created: function () {
-    const token = localStorage.getItem('seller-eureka-authorization')
+    const token = sessionStorage.getItem('seller-eureka-authorization')
     if (!token) {
       this.$router.push({ name: 'SellerLogin' })
     }

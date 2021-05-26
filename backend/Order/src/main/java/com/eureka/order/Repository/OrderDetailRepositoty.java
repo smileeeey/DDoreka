@@ -29,4 +29,6 @@ public interface OrderDetailRepositoty extends JpaRepository<OrderDetailEntity,S
          * @return List<OrderDetailEntity>
          */
         List<OrderDetailEntity> findAllByOrderStatus(OrderStatus status);
+
+//    List<OrderDetailEntity> findAllByCheckDatetimeAndSellerId(String isnull, String sellerId);
 }

@@ -27,11 +27,58 @@
             전화번호 : 000-0000-0000
           </div>
         </v-col>
-        <v-col cols="2">
-          <div style="word-break: break-all; font-size: 15px;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        <v-col cols="1">
+          <div class="text-center mt-5">
+            <v-dialog
+              v-model="dialog"
+              width="1000"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="blue lighten-1"
+                  x-large
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  EUREKA사용법
+                </v-btn>
+              </template>
+
+              <v-card>
+                <v-card-title class="headline grey lighten-2">
+                  환경설정
+                </v-card-title>
+
+                <v-card-text style="font-size: 1.25rem;">
+                  <br>
+                  STEP 1 : 
+                  <strong>chrome://flags/#unsafely-treat-insecure-origin-as-secure</strong> 를 주소창에 복사/붙여넣기
+                  <br>
+                  <br>
+                  STEP 2 :
+                  <strong>http://i4d104.p.ssafy.io:8080/</strong> 를 enabled 해 주세요!
+                </v-card-text>
+
+                <v-divider></v-divider>
+                <v-img src="@/assets/notice.png"></v-img>
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="dialog = false"
+                  >
+                    알겠습니다!
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </v-col>
+
       </v-row>
 
       <v-col class="text-center" cols="12">
@@ -47,6 +94,7 @@
 export default {
   name: 'Footer',
   data: () => ({
+    dialog : false,
     links: [
       {
         to: '#',

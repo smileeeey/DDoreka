@@ -2,8 +2,7 @@ package com.eureka.order.Controller;
 
 import com.eureka.order.Entity.OrderDetailEntity;
 import com.eureka.order.Entity.OrderEntity;
-import com.eureka.order.dto.Order;
-import com.eureka.order.dto.Response;
+import com.eureka.order.dto.*;
 import com.eureka.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +14,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,10 +75,26 @@ public class OrderFromUserController {
         try {
             response= new Response("success", "조회성공", orderService.getOrdersByUserId(userId)) ;
         } catch (Exception e) {
+            e.printStackTrace();
             response= new Response("error", e.getMessage(), null) ;
         }
         return response;
 
+    }
+
+    @ApiOperation(value="해당 구매자의 모든 주문 정보를 상품, 사진과 함께 반환(rest)", notes = "구매자 id의 모든 주문 찾기", httpMethod = "GET")
+    @GetMapping(value ="userid/orders/{userId}")
+    public Response getOrdersByUser(@ApiParam(value="구매자 id") @PathVariable("userId") String userId){
+
+        System.out.println("getorders : "+userId);
+        Response response;
+        try {
+            response= new Response("success", "조회성공", orderService.getAllOrdersByUserId(userId)) ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response= new Response("error", e.getMessage(), null) ;
+        }
+        return response;
     }
 
     /**
@@ -119,6 +135,27 @@ public class OrderFromUserController {
         return response;
     }
 
+    // 주문 정보 입력
+    @ApiOperation(value="주문 정보 저장(rest)", notes = "넘겨받은 배송정보와 각 장바구니별 데이터로 주문 저장하고, 장바구니 데이터 갱신까지 한번에!", httpMethod = "POST")
+    @PostMapping(value = "/saveorder", produces = "application/json;charset=utf8")
+    //OrderDTO orders,@ApiParam(value="옵션정보들") @RequestBody List<ShoppingDTO> shoppings
+    public Response saveOrderAll(@ApiParam(value="배송 정보") @RequestBody Map<String,Object> param) {
+//    public Response saveOrderAll(@ApiParam(value="옵션정보들") @RequestBody List<ShoppingDTO> shoppings) {
+        System.out.println("여기는 왔음!");
+        try {
+            List<ShoppingDTO> shoppings = makeShoppings((List<Map<String,Object>>)param.get("shoppings"));
+
+            OrderDTO orders = makeOrders((Map<String,Object>)param.get("orders"));
+            orderService.saveOrderAll(orders,shoppings);
+//            orderService.saveOrderAll(shoppings);
+            return new Response("success", "상품 정보 저장 완료", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response("error", "상품 정보 저장 오류", e.getMessage());
+        }
+    }
+
+
     /**
      * put user's order information
      * @param userId
@@ -134,7 +171,7 @@ public class OrderFromUserController {
             orderService.updateOrder(orderDetailEntity);
             response= new Response("success", "변경성공", orderService.getOrdersByUserId(userId)) ;
         } catch (Exception e) {
-            response= new Response("error", e.getMessage(), null) ;
+            response= new  Response("error", e.getMessage(), null) ;
         }
         return response;
     }
@@ -210,5 +247,62 @@ public class OrderFromUserController {
             e.printStackTrace();
             return new ResponseEntity(header, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping(value="/hihi")
+    public void hihi(){
+        try{
+            System.out.println("hihi안녕");
+
+            OrderDTO orderDTO = OrderDTO.builder()
+                                        .userId("1")
+                                        .addressMain("1")
+                                        .addressSub("1")
+                                        .recipientName("1")
+                                        .zipcode("1")
+                                        .deliveryMsg("1")
+                                        .recipientPhone("1")
+                                        .paymentMethod("1")
+                                    .build();
+            List<ShoppingDTO> shoppings = new ArrayList<>();
+            System.out.println(orderDTO.toString());
+            shoppings.add(ShoppingDTO.builder().cartId(17).optionId("2").productId("1").quantity("2").sellerId("1").build());
+            System.out.println("잘만들어짐!");
+            orderService.saveOrderAll(orderDTO,shoppings);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("에러발생에러발생!");
+            return;
+        }
+    }
+
+    private List<ShoppingDTO> makeShoppings(List<Map<String,Object>> param) {
+        List<ShoppingDTO> list = new ArrayList<>();
+        int len = param.size();
+
+        for(int i = 0; i < len; ++i) {
+            ShoppingDTO dto = ShoppingDTO.builder()
+                    .cartId(Integer.parseInt((String)param.get(i).get("cartId")))
+                    .optionId((String)param.get(i).get("optionId"))
+                    .productId((String)param.get(i).get("productId"))
+                    .quantity((String)param.get(i).get("quantity"))
+                    .sellerId((String)param.get(i).get("sellerId"))
+                    .build();
+            list.add(dto);
+        }
+        return list;
+    }
+    private OrderDTO makeOrders(Map<String, Object> param) {
+        OrderDTO orders = OrderDTO.builder()
+                .addressMain((String)param.get("addressMain"))
+                .addressSub((String)param.get("addressSub"))
+                .deliveryMsg((String)param.get("deliveryMsg"))
+                .paymentMethod((String)param.get("paymentMethod"))
+                .recipientName((String)param.get("recipientName"))
+                .recipientPhone((String)param.get("recipientPhone"))
+                .userId((String)param.get("userId"))
+                .zipcode((String)param.get("zipcode"))
+                .build();
+        return orders;
     }
 }

@@ -157,7 +157,7 @@ export default {
       return result;
     },
   },
-  created: function() {
+  created() {
     let tmpdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let tmpthismonthdata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let i = 1; i < 13; i++) {

@@ -6,7 +6,7 @@ plugins {
 def springBootVersion = '2.3.6.RELEASE'
 
 group = 'com.eureka'
-version = 'v0.0.26'
+version = 'v0.1.0'
 sourceCompatibility = '1.8'
 
 // for Eureka client

@@ -5,11 +5,11 @@
         <tbody>
           <tr>
             <th scope="row">이름</th>
-            <td>{{name}}</td>
+            <td>{{userData.name}}</td>
           </tr>
           <tr>
             <th scope="row">이메일</th>
-            <td>{{email}}</td>
+            <td>{{userData.email}}</td>
           </tr>
           <tr>
             <th scope="row">휴대폰 번호</th>
@@ -21,35 +21,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'BuyerInfo',
   data: () => ({
     phonenumber: null,
   }),
   computed: {
-    ...mapState([
-      'name',
-      'email',
-      'phone',
-    ])
+    ...mapState("accountStore", ["userData"]),
   },
   created () {
-    this.phonenumber = this.phone
+    this.phonenumber = this.userData.phone;
   },
   methods: {
-    changePhone: function () {
-      axios.put('http://k4d104.p.ssafy.io:8085/user/update/phone', {
-        email: this.email,
-        phone: this.phonenumber
-      })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
-          alert('휴대폰 번호가 변경되었습니다.')
-          this.$store.dispatch('CHANGEPHONE', this.phonenumber)
-        })
+    ...mapActions("accountStore", ["UPDATE_PHONE"]),
+    changePhone(){
+      this.UPDATE_PHONE({email : this.userData.email, phone: this.phonenumber});
     }
   }
 }

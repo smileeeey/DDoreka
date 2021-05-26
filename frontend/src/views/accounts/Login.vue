@@ -128,7 +128,9 @@ export default {
     login: function () {
       this.LOGIN({email: this.form.email, password: this.form.pw,})
         .then((res) => {
-          console.log(res);
+          console.log("로그인 완료",res);
+          if(res === false) return; 
+
           if (this.$route.query.next) {
             this.$router.push({ name: this.$route.query.next });
           } else {

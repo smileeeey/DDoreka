@@ -12,11 +12,8 @@ import com.eureka.product.repository.OptionRepository;
 
 import com.google.gson.Gson;
 
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -38,8 +35,8 @@ public class ProductService {
     private ProductRepository productRepository;
     private OptionRepository optionRepository;
     private ImageRepository imageRepository;
-    private RestTemplateService<JsonArray> restTemplateFile;
-    private RestTemplateService<JsonArray> restTemplateReview;
+    private RestTemplateService<?> restTemplateFile;
+    private RestTemplateService<?> restTemplateReview;
     private CategoryService categoryService;
     private SearchlogService searchlogService;
 
@@ -128,6 +125,7 @@ public class ProductService {
 //        return answer;
 //    }
 
+
     public Map<String,Object> getProductAllById(int productId) {
 
         Product product = productRepository.findById(productId).orElse(null);
@@ -155,9 +153,9 @@ public class ProductService {
         ReviewHttpHeaders.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         ReviewHttpHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseEntity<JsonArray> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
+        ResponseEntity<?> responseEntityFile = restTemplateFile.get(getFilesURL, FileHttpHeaders);
 
-        ResponseEntity<JsonArray> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
+        ResponseEntity<?> responseEntityReview = restTemplateFile.get(getReviewsURL, ReviewHttpHeaders);
 
 
 
@@ -277,12 +275,18 @@ public class ProductService {
         return findProductSimpleByProduct(products);
     }
 
+    //판매자의 모든 상품 가져오기
+    public List<Product> getProductsByStorePrew(int storeId) {
+        return productRepository.findByStoreId(storeId);
+    }
 
-    public Map<String,List<Product>> getLatestProduct(List<Category> category1) {
-        Map<String,List<Product>> map = new HashMap<>();
+
+    public Map<String,List<ProductSimpleDTO>> getLatestProduct(List<Category> category1) {
+        Map<String,List<ProductSimpleDTO>> map = new HashMap<>();
 
         for (Category category : category1) {
-            map.put(category.getId(),productRepository.findTop23ByCategory1IdOrderByRegisterDateDesc(category.getId()));
+
+            map.put(category.getId(),findProductSimpleByProduct(productRepository.findTop23ByCategory1IdOrderByRegisterDateDesc(category.getId())));
         }
 
         return map;
@@ -407,7 +411,6 @@ public class ProductService {
 
         List<Category> category1 = categoryService.getCategories1();
 
-
         result.put("day-hot",dayHots);
         result.put("week-hot",weekHots);
         result.put("month-hot",monthHots);
@@ -415,5 +418,98 @@ public class ProductService {
         result.put("category-recommend",getLatestProduct(category1));
 
         return result;
+    }
+
+    public List<OptionPriceDTO> getPriceFromOptionId(String param) {
+
+        Gson gson = new Gson();
+
+        Type listType = new TypeToken<ArrayList<String>>(){}.getType();
+        List<String> optionIds = gson.fromJson(param, listType);
+
+        List<OptionPriceDTO> res = new ArrayList<>();
+        int len = optionIds.size();
+
+        List<Productoption> productoptions = new ArrayList<>();
+
+        List<Integer> optionIdsInt = new ArrayList<>();
+        for (int i = 0 ; i < optionIds.size() ; ++i){
+            optionIdsInt.add(Integer.parseInt(optionIds.get(i)));
+        }
+
+        productoptions = optionRepository.findAllByOptionIdIn(optionIdsInt);
+
+        for (int i = 0 ; i < productoptions.size() ; ++i){
+            OptionPriceDTO optionPriceDTO = OptionPriceDTO.builder()
+                                            .optionId(String.valueOf(productoptions.get(i).getOptionId()))
+                                            .price(productoptions.get(i).getPrice())
+                                            .build();
+            res.add(optionPriceDTO);
+        }
+
+        //        for(int i = 0; i < len; ++i) {
+//
+//            Productoption productoption = new Productoption();
+//
+//            int optionId = Integer.parseInt(optionIds.get(i));
+//            productoption = optionRepository.findAllByOptionId(optionId);
+//            System.out.println(optionIds.get(i));
+//
+//            productoptions.add(productoption);
+//            //String price = optionRepository.findDiscountPriceByOptionId(optionId);
+////            Integer price = optionRepository.findDiscountPriceByOptionId(2);
+////            System.out.println("price : " + price);
+////            OptionPriceDTO optionPriceDTO = OptionPriceDTO.builder()
+////                                            .optionId(optionIds.get(i))
+////                                            .price(price)
+////                                            .build();
+////            System.out.println("price :" + optionPriceDTO.getPrice());
+////            res.add(optionPriceDTO);
+//        }
+//        System.out.println(productoptions.size());
+
+        return res;
+    }
+
+    public List<ProductOptionInfoDTO> getPriceOptionInfo(List<Integer> productIds, List<Integer> optionIds) {
+
+        List<ProductOptionInfoDTO> poInfo = new ArrayList<>();
+        int len = productIds.size();
+
+        List<ProductSimpleDTO> productSimpleDTOS = findProductSimple(productIds);
+
+        Map<Integer,ProductSimpleDTO> productSimpleDTOMap = new HashMap<>();
+
+        for (int i = 0; i < productSimpleDTOS.size(); i++) {
+            productSimpleDTOMap.put(productSimpleDTOS.get(i).getProductId(), productSimpleDTOS.get(i));
+        }
+
+        for(int i = 0; i < len; ++i) {
+
+            ProductSimpleDTO productSimpleDTO = productSimpleDTOMap.get(productIds.get(i));
+            Productoption productoption = optionRepository.findTop1ByOptionId(optionIds.get(i));
+
+            String productName = productSimpleDTO.getName();
+            String thumbnail = productSimpleDTO.getThumbnail();
+            String optionName = productoption.getName();
+            int price = productoption.getDiscountPrice();
+            int productId = productIds.get(i);
+            int optionId = optionIds.get(i);
+            Product product = productRepository.findTop1ById(productId);
+            int sellerId = product.getStoreId();
+
+            ProductOptionInfoDTO dto = ProductOptionInfoDTO.builder()
+                                    .productId(productId)
+                                    .thumbnail(thumbnail)
+                                    .optionId(optionId)
+                                    .productName(productName)
+                                    .optionName(optionName)
+                                    .price(price)
+                                    .storeId(sellerId)
+                                    .build();
+            poInfo.add(dto);
+        }
+
+        return poInfo;
     }
 }

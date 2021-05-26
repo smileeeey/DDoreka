@@ -1,26 +1,31 @@
 package com.eureka.auth.account;
 
+import com.netflix.ribbon.proxy.annotation.Http;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Api(tags = {"1. Account"})
 @RestController
 @RequestMapping("/login")
 @CrossOrigin
+@AllArgsConstructor
 public class AccountController {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public AccountController(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
-        System.out.println("Account 생성자 호출");
-        this.accountRepository = accountRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final AccountService accountService;
 
     @ApiOperation(value="회원가입", notes = "회원가입 정보 입력받고, 저장한 값 반환", httpMethod = "POST")
     @PostMapping("/add")
@@ -29,6 +34,22 @@ public class AccountController {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         System.out.println("/login/add "+account.toString());
         return accountRepository.save(account);
+    }
+
+    @ApiOperation(value="이메일 중복체크", notes = "이미 가입된 이메일인지 체크하고 반환", httpMethod = "POST")
+    @PostMapping("/email-check")
+    public ResponseEntity<?> createAccount (@ApiParam(value="이메일 주소") @RequestBody Map<String,String> param){
+        Map<String,Object> result = new HashMap<>();
+        try {
+            System.out.println(param.get("email"));
+            result.put("isAvail",accountService.checkEmail(param.get("email")));
+//            result.put("isAvail",accountService.checkEmail("goo@goo.com"));
+
+            return new ResponseEntity(result,null, HttpStatus.OK);
+        } catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(result,null,HttpStatus.BAD_REQUEST); //이거맞나?
+        }
     }
 
 
