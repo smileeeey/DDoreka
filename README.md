@@ -139,4 +139,30 @@ Backend에서의 Database통신은 저렴하지만, 프론트에서 백으로의
 ![해결](https://user-images.githubusercontent.com/57394523/119694658-62f53980-be88-11eb-941b-4d6928cfe70a.png)
 
 
+## Backend Refactoring
 
+#### 1.서버에 가해지는 디도스 공격 해결 (for문을 통한 Axios호출) 
+<br><br>
+RestTemplete입니다 이 기술을 이용해 프론트에서 삼중 및 사중 axios 문제를 해결할 수 있었습니다. 실제로 기존 코드는 잘못된 백엔드의 API 제공으로 인해 지나치게 많은 API를 호출하는 문제가 있습니다. Rest Templete를 활용해 클라이언트와 서버간 API를 줄이고, 데이터는 서버 내에서 집약하는 과정을 거쳐 문제를 해결할 수 있습니다.
+![image](https://user-images.githubusercontent.com/55395239/119699335-047e8a00-be8d-11eb-8c9e-50613da43f0e.png)
+<br><br>
+비즈니스 로직별로 API를 재구축했습니다. 메서드와 리소스를 명확히 구분해서 기존의 뒤죽박죽인 API 호출 문제를 해결했습니다. 
+![image](https://user-images.githubusercontent.com/55395239/119699650-59220500-be8d-11eb-81b5-dd9d13e8298b.png)
+
+
+<br><br>
+서버간 통신을 하기 위한 RestTemplate 적용시 모든 HTTPMethod는 exchange 함수로 처리가 가능했습니다. 그래서 get/post 등 httpMethod의 공통로직을 만들어 모듈화했습니다.
+또한, 만든 클래스를 다양한 경우에서 사용하기 위해 자바 제네릭을 사용했습니다.
+![image](https://user-images.githubusercontent.com/55395239/119699713-66d78a80-be8d-11eb-929b-2da82f91aa78.png)
+
+
+
+
+#### 2.JUnit5
+<br><br>
+JUnit5를 활용하기도 했습니다. 웹 개발하면서 db샘플을 만들어 전 과정을 테스트하는 것이 불편했습니다. 이를 해결하기 위해 Mockito를 활용해, 의존관계가 있는 모듈을 독립적으로 테스트하였습니다. 
+![image](https://user-images.githubusercontent.com/55395239/119699848-8a9ad080-be8d-11eb-8e41-051d59de504a.png)
+
+#### 3. Swagger & Java Doc
+Java Docs와 스웨거를 활용해 문서화를 수행했습니다. 유레카를 유지보수하면서 제대로 문서화되어 있지 않아 코드를 해석하는 것이 너무 힘들었습니다. 다른 유지보수를 하는 팀이 같은 과정을 겪지 않도록 하기 위해 메서드 단위로 하나하나 문서화하고 스웨거로 API를 문서화 하였습니다.
+![image](https://user-images.githubusercontent.com/55395239/119699950-a69e7200-be8d-11eb-8eaa-88f111da1773.png)
