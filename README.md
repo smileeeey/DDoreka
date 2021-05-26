@@ -48,7 +48,7 @@
 |--|--|
 |Language|HTML CSS JavaScript|
 |Framework|Vue.js|
-|Library|Ajax VuetifyAxios|
+|Library|Vuetify Axios chart.js|
 
 <br>
 
