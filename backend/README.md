@@ -35,7 +35,9 @@
 ## Backend 어플리케이션 인스톨 가이드
 
 ### 잠깐! 먼저 database를 다운받아야 합니다
-MySQL 5.4.27.Final 버전을 다운로드합니다
+MySQL 5.4.27.Final 버전을 다운로드합니다.
+
+
 계정은 sumin / sumin
 ```
 CREATE USER 'sumin'@localhost identified by 'sumin';
@@ -53,7 +55,23 @@ CREATE DATABASE user;
 ```
 
 User 스키마의 테이블을 만들어줍니다.
+
 [create문](User/src/main/resources/user_create.sql)
+
+
+java 설치 jdk 11
+```
+sudo apt-get install openjdk-11-jdk
+```
+maven 설치
+```
+sudo apt install maven
+```
+gradle 설치
+```
+sudo apt install gradle
+```
+
 
 
 
