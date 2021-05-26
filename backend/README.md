@@ -52,6 +52,11 @@ CREATE DATABASE seller;
 CREATE DATABASE user;
 ```
 
+User 스키마의 테이블을 만들어줍니다.
+[create문](User/src/main/resources/user_create.sql)
+
+
+
 MSA 구조에 따라서 각 서비스들을 독립적으로 실행해야 합니다.
 
 먼저 프로젝트를 로컬에 다운로드 받습니다.
