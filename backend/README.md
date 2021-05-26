@@ -54,6 +54,11 @@ CREATE DATABASE seller;
 CREATE DATABASE user;
 ```
 
+User 스키마의 테이블을 만들어줍니다.
+
+[create문](User/src/main/resources/user_create.sql)
+
+
 java 설치 jdk 11
 ```
 sudo apt-get install openjdk-11-jdk
@@ -66,6 +71,9 @@ gradle 설치
 ```
 sudo apt install gradle
 ```
+
+
+
 
 MSA 구조에 따라서 각 서비스들을 독립적으로 실행해야 합니다.
 
