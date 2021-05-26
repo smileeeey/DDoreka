@@ -34,6 +34,24 @@
 
 ## Backend 어플리케이션 인스톨 가이드
 
+### 잠깐! 먼저 database를 다운받아야 합니다
+MySQL 5.4.27.Final 버전을 다운로드합니다
+계정은 sumin / sumin
+```
+CREATE USER 'sumin'@localhost identified by 'sumin';
+```
+스키마들을 만듭니다.
+```
+CREATE DATABASE auth;
+CREATE DATABASE face;
+CREATE DATABASE file;
+CREATE DATABASE `order`;
+CREATE DATABASE product;
+CREATE DATABASE review;
+CREATE DATABASE seller;
+CREATE DATABASE user;
+```
+
 MSA 구조에 따라서 각 서비스들을 독립적으로 실행해야 합니다.
 
 먼저 프로젝트를 로컬에 다운로드 받습니다.
@@ -45,18 +63,18 @@ git clone https://lab.ssafy.com/s04-final/s04p31d104.git
 다음과 같은 순서로 서버를 동작시킵니다.
 
 1. service registry 실행
-폴더 경로 : C: ... /s04p31d104/backend/service-registry
-이곳에서 git bash를 열고 다음 명령어를 수행합니다.
+	폴더 경로 : C: ... /s04p31d104/backend/service-registry
+	이곳에서 git bash를 열고 다음 명령어를 수행합니다.
 ```
 ./execute.sh
 ```
-4. cloud gateway 실행
-폴더 경로 : C: ... /s04p31d104/backend/cloud-gateway
-이곳에서 git bash를 열고 다음 명령어를 수행합니다.
+2. cloud gateway 실행
+    폴더 경로 : C: ... /s04p31d104/backend/cloud-gateway
+    이곳에서 git bash를 열고 다음 명령어를 수행합니다.
 ```
 ./execute.sh
 ```
-3. 나머지 서버도 다 실행
+3. 나머지 서버도 다 실행시킵니다.
 ```
 ./execute.sh
 ```
