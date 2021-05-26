@@ -35,7 +35,9 @@
 ## Backend 어플리케이션 인스톨 가이드
 
 ### 잠깐! 먼저 database를 다운받아야 합니다
-MySQL 5.4.27.Final 버전을 다운로드합니다
+MySQL 5.4.27.Final 버전을 다운로드합니다.
+
+
 계정은 sumin / sumin
 ```
 CREATE USER 'sumin'@localhost identified by 'sumin';
