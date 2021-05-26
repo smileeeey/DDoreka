@@ -6,7 +6,8 @@ yarn add
 yarn build
 ```
 
-
+## 코딩컨벤션
+[프론트엔드 코딩컨벤션](https://www.notion.so/6d09b300b41d4a4aa509a6717e9e2563)
 
 
 ## views 폴더 구조
