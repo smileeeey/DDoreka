@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.eureka'
-version = '0.0.2-SNAPSHOT'
+version = 'v0.1.0'
 sourceCompatibility = '1.8'
 
 // for Eureka client
